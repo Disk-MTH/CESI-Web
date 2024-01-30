@@ -19,7 +19,7 @@ services:
     image: php:apache
     labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.apache.rule=Host(`cesi-web.fr`)"
+        - "traefik.http.routers.apache.rule=Host(`stagify.fr`)"
     volumes:
       - ./src:/var/www/html
 
@@ -28,7 +28,7 @@ services:
     image: phpmyadmin/phpmyadmin
     labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.phpmyadmin.rule=Host(`admin.cesi-web.fr`)"
+        - "traefik.http.routers.phpmyadmin.rule=Host(`admin.stagify.fr`)"
     depends_on:
       - mysql
     environment:
@@ -44,6 +44,3 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-
-networks:
-    default:
