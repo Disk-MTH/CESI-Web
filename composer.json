@@ -1,0 +1,16 @@
+{
+  "name": "projet/temp",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Mathieu"
+    },
+    {
+      "name": "Julien"
+    }
+  ],
+  "require": {
+  }
+}
