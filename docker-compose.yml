@@ -1,8 +1,9 @@
 version: '3.8'
+name: stagify
 
 services:
   traefik:
-    container_name: traefik
+    container_name: stagify-traefik
     image: traefik:latest
     command:
       - "--api.insecure=true"
@@ -15,7 +16,7 @@ services:
         - /var/run/docker.sock:/var/run/docker.sock
 
   apache:
-    container_name: apache
+    container_name: stagify-apache
     image: php:apache
     labels:
         - "traefik.enable=true"
@@ -24,7 +25,7 @@ services:
       - ./src:/var/www/html
 
   phpmyadmin:
-    container_name: phpmyadmin
+    container_name: stagify-phpmyadmin
     image: phpmyadmin/phpmyadmin
     labels:
         - "traefik.enable=true"
@@ -37,7 +38,7 @@ services:
       PMA_PASSWORD: ${MYSQL_PASSWORD}
 
   mysql:
-    container_name: mysql
+    container_name: stagify-mysql
     image: mysql:latest
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
