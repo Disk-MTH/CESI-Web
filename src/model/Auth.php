@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping\Table;
 #[Entity, Table(name: "auth")]
 class Auth
 {
-    #[Id, Column(name: "auth_id", type: "integer"), GeneratedValue(strategy: "AUTO")]
+    #[Id, Column(type: "integer"), GeneratedValue(strategy: "AUTO")]
     private int $id;
 
     #[Column(name: "login", type: "string", nullable: false)]
