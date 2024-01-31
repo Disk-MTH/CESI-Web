@@ -29,7 +29,7 @@ do
   elif [ "$MODE" = "b" ]; then
       backupFile="backup_$(date '+%Y%m%d_%H%M%S').bak"
       echo "Backup container \"$DOCKER_CONTAINER\" to \"./backups/$backupFile\""
-      docker exec $DOCKER_CONTAINER sh -c "mysqldump -u root -p $MYSQL_ROOT_PASSWORD $MYSQL_DATABASE > /tmp/$backupFile"
+      docker exec $DOCKER_CONTAINER sh -c "mysqldump -u root -p\"$MYSQL_ROOT_PASSWORD\" \"$MYSQL_DATABASE\" > /tmp/$backupFile"
       docker cp "$DOCKER_CONTAINER:/tmp/$backupFile" "./backups/$backupFile"
   elif [ "$MODE" = "r" ]; then
       backupFile=""
@@ -43,7 +43,7 @@ do
       else
         echo "Restore container \"$DOCKER_CONTAINER\" from \"./backups/$backupFile\""
         docker cp "./backups/$backupFile" "$DOCKER_CONTAINER:/tmp/$backupFile"
-        docker exec $DOCKER_CONTAINER sh -c "mysql -u root -p $MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < /tmp/$backupFile"
+        docker exec $DOCKER_CONTAINER sh -c "mysql -u root -p\"$MYSQL_ROOT_PASSWORD\" \"$MYSQL_DATABASE\" < /tmp/$backupFile"
       fi
   elif [ "$MODE" = "e" ]; then
       echo "Exit"
