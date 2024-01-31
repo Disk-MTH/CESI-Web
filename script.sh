@@ -48,7 +48,7 @@ do
       fi
   elif [ "$MODE" = "g" ]; then
     echo "Generate database from PHP entities"
-    vendor/bin/doctrine orm:schema-tool:create
+    "${PWD}"/vendor/bin/doctrine orm:schema-tool:create
   elif [ "$MODE" = "e" ]; then
       echo "Exit"
       exit 0
