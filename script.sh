@@ -15,6 +15,7 @@ do
   echo "    - s[top]"
   echo "    - b[ackup]"
   echo "    - r[estore]"
+  echo "    - g[enerate]"
   echo "    - e[xit]"
   echo ""
   MODE=""
@@ -45,6 +46,9 @@ do
         docker cp "./backups/$backupFile" "$DOCKER_CONTAINER:/tmp/$backupFile"
         docker exec $DOCKER_CONTAINER sh -c "mysql -u root -p\"$MYSQL_ROOT_PASSWORD\" \"$MYSQL_DATABASE\" < /tmp/$backupFile"
       fi
+  elif [ "$MODE" = "g" ]; then
+    echo "Generate database from PHP entities"
+    vendor/bin/doctrine orm:schema-tool:create
   elif [ "$MODE" = "e" ]; then
       echo "Exit"
       exit 0

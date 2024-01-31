@@ -14,6 +14,8 @@ services:
       - "80:80"
     volumes:
         - /var/run/docker.sock:/var/run/docker.sock
+#    networks:
+#        - web
 
   apache:
     container_name: stagify-apache
@@ -23,6 +25,9 @@ services:
         - "traefik.http.routers.apache.rule=Host(`stagify.fr`)"
     volumes:
       - ./src:/var/www/html
+#    networks:
+#        - app
+#        - web
 
   phpmyadmin:
     container_name: stagify-phpmyadmin
@@ -36,6 +41,9 @@ services:
       PMA_HOST: mysql
       PMA_USER: ${MYSQL_USER}
       PMA_PASSWORD: ${MYSQL_PASSWORD}
+#    networks:
+#        - app
+#        - web
 
   mysql:
     container_name: stagify-mysql
@@ -47,3 +55,11 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+#    networks:
+#        - app
+
+networks:
+  web:
+    driver: custom-driver-1
+  app:
+    driver: custom-driver-2

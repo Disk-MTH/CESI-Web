@@ -16,22 +16,13 @@ function getEntityManager(): EntityManager
     );
 
     $params = array(
-        'driver' => 'pdo_mysql',
-        'host' => 'localhost',
-        'dbname' => 'stagify',
-        'user' => 'root',
-        'password' => '8jHe3Ru3N3q6jX',
+        "driver" => "pdo_mysql",
+        "host" => "localhost",
+        "dbname" => "stagify",
+        "user" => "admin",
+        "password" => "5Wp6A3wgdYgW54",
     );
 
     $connection = DriverManager::getConnection($params, $config);
     return new EntityManager($connection, $config);
 }
-
-/*try {
-    $connection = DriverManager::getConnection($params, $config);
-    $entityManager = new EntityManager($connection, $config);
-
-
-} catch (Exception|MissingMappingDriverImplementation $e) {
-    echo $e->getMessage();
-}*/
