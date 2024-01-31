@@ -1,16 +1,26 @@
 {
-  "name": "projet/temp",
-  "description": "description",
+  "name": "stagify/stagify",
+  "description": "Stagify website",
+  "type": "project",
   "minimum-stability": "stable",
-  "license": "proprietary",
+  "license": "MIT",
   "authors": [
     {
-      "name": "Mathieu"
+      "name": "Disk_MTH"
     },
     {
-      "name": "Julien"
+        "name": "OddOrigin"
     }
   ],
   "require": {
+    "doctrine/orm": "^2.11.0",
+    "doctrine/dbal": "^3.2",
+    "symfony/yaml": "^5.4",
+    "symfony/cache": "^5.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "stagify\\": "src"
+    }
   }
 }
