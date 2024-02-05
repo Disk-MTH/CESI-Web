@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
 
 return function (App $app) {
-    $app->get("/", function (Request $request, Response $response) {
+    $app->get("/y", function (Request $request, Response $response) {
         $response->getBody()->write("Hello world!");
         return $response;
     });
