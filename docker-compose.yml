@@ -13,37 +13,40 @@ services:
     ports:
       - "80:80"
     volumes:
-        - /var/run/docker.sock:/var/run/docker.sock
-#    networks:
-#        - web
+      - /var/run/docker.sock:/var/run/docker.sock
+  #    networks:
+  #        - web
 
   apache:
     container_name: stagify-apache
     image: php:apache
     labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.apache.rule=Host(`stagify.fr`)"
+      - "traefik.enable=true"
+      - "traefik.http.routers.apache.rule=Host(`stagify.fr`)"
     volumes:
-      - ./src:/var/www/html
-#    networks:
-#        - app
-#        - web
+      - ./public:/var/www/html
+      - ./app:/var/www/app
+      - ./src:/var/www/src
+      - ./vendor:/var/www/vendor
+  #    networks:
+  #        - app
+  #        - web
 
   phpmyadmin:
     container_name: stagify-phpmyadmin
     image: phpmyadmin/phpmyadmin
     labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.phpmyadmin.rule=Host(`admin.stagify.fr`)"
+      - "traefik.enable=true"
+      - "traefik.http.routers.phpmyadmin.rule=Host(`admin.stagify.fr`)"
     depends_on:
       - mysql
     environment:
       PMA_HOST: mysql
       PMA_USER: ${MYSQL_USER}
       PMA_PASSWORD: ${MYSQL_PASSWORD}
-#    networks:
-#        - app
-#        - web
+  #    networks:
+  #        - app
+  #        - web
 
   mysql:
     container_name: stagify-mysql

@@ -9,18 +9,20 @@
       "name": "Disk_MTH"
     },
     {
-        "name": "OddOrigin"
+      "name": "OddOrigin"
     }
   ],
   "require": {
-    "doctrine/orm": "^2.11.0",
-    "doctrine/dbal": "^3.2",
-    "symfony/yaml": "^5.4",
-    "symfony/cache": "^5.4"
+    "php": "^8.2.12",
+    "slim/slim": "^4.12.0",
+    "slim/psr7": "^1.6.1",
+
+    "doctrine/orm": "^2.17.4",
+    "symfony/cache": "^v7.0.3"
   },
   "autoload": {
     "psr-4": {
-      "stagify\\": "src"
+      "stagify\\": "src/"
     }
   }
 }
