@@ -12,7 +12,7 @@ class TestMiddleware implements Middleware
     public function process(Request $request, RequestHandler $handler): Response
     {
         $response = $handler->handle($request);
-        $response->getBody()->write('AFTER');
+        $response->getBody()->write(" AFTER");
         return $response;
     }
 }
