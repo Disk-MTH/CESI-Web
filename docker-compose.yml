@@ -14,12 +14,11 @@ services:
       - "80:80"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-  #    networks:
-  #        - web
 
   apache:
     container_name: stagify-apache
     image: php:apache
+    command: ["sh", "-c", "a2enmod rewrite && mkdir -p /var/www/logs && chmod 777 /var/www/logs && apache2-foreground"]
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.apache.rule=Host(`stagify.fr`)"
@@ -28,9 +27,6 @@ services:
       - ./src:/var/www/src
       - ./vendor:/var/www/vendor
       - ./.env:/var/www/.env
-  #    networks:
-  #        - app
-  #        - web
 
   phpmyadmin:
     container_name: stagify-phpmyadmin
@@ -44,9 +40,6 @@ services:
       PMA_HOST: mysql
       PMA_USER: ${MYSQL_USER}
       PMA_PASSWORD: ${MYSQL_PASSWORD}
-  #    networks:
-  #        - app
-  #        - web
 
   mysql:
     container_name: stagify-mysql
@@ -58,11 +51,3 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-#    networks:
-#        - app
-
-networks:
-  web:
-    driver: custom-driver-1
-  app:
-    driver: custom-driver-2

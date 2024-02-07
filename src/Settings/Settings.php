@@ -3,17 +3,17 @@
 namespace stagify\Settings;
 
 use Bramus\Monolog\Formatter\ColoredLineFormatter;
-use Bramus\Monolog\Formatter\ColorSchemes\DefaultScheme;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Level;
 
-class Settings
+class Settings implements SettingsInterface
 {
     private array $settings;
 
     public function __construct(array $env)
     {
         $this->settings = [
+            "debug" => $env["APP_DEBUG"],
             "displayErrorDetails" => $env["APP_DISPLAY_ERRORS_DETAILS"],
             "logErrors" => $env["APP_LOG_ERRORS"],
             "logErrorDetails" => $env["APP_LOG_ERROR_DETAILS"],
@@ -21,14 +21,14 @@ class Settings
             "logger" => [
                 "name" => $env["APP_NAME"],
                 "level" => Level::fromName($env["APP_LOG_LEVEL"]),
-                "filePath" => __DIR__ . "/../app.log",
-                "fileFormatter" => new LineFormatter(null, "H:i:s:u", true, true),
-                "consoleFormatter" => new ColoredLineFormatter(new ColorScheme(), null, "H:i:s:u", true, true),
+                "filePath" => __DIR__ . "/../../logs/" . ($env["APP_LOG_PER_EXECUTION"] === "true" ? uniqid() : date("d-m-Y")) . ".log",
+                "fileFormatter" => new LineFormatter(null, "d-m-Y - H:i:s:u", true, true),
+                "consoleFormatter" => new ColoredLineFormatter(new ColorScheme(), null, "d-m-Y - H:i:s:u", true, true),
             ],
 
             "doctrine" => [
-                "paths" => array(__DIR__ . "/../src/Model/Entities"),
-                "dev_mode" => $env["DB_DEV_MODE"],
+                "paths" => array(__DIR__ . "/../Model/Entities"),
+                "dev_mode" => $env["APP_DEBUG"],
                 "connection" => [
                     "driver" => $env["DB_DRIVER"],
                     "host" => $env["DB_HOST"],

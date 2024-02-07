@@ -3,4 +3,4 @@ composer.phar
 composer.lock
 .idea
 MCD.lo1
-src/app.log
+logs/

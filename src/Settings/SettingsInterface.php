@@ -4,5 +4,5 @@ namespace stagify\Settings;
 
 interface SettingsInterface
 {
-    public function get(string $key = "");
+    public function get(string $key = "") : mixed;
 }

@@ -1,20 +1,12 @@
 <?php
 
-namespace stagify\app;
+namespace stagify;
 
-use Doctrine\ORM\EntityManager;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Psr\Log\LoggerInterface;
 use Slim\App;
-use stagify\Model\Entities\User;
-use stagify\Model\Repositories\UserRepo;
-use stagify\Settings\Settings;
 
 return function (App $app) {
-    $settings = $app->getContainer()->get(Settings::class);
-    $logger = $app->getContainer()->get(LoggerInterface::class);
-
     $app->get("/", function (Request $request, Response $response) {
         global $logger;
         $logger->info("Get /");
@@ -24,8 +16,7 @@ return function (App $app) {
     });
 
     $app->get("/hello/{name}", function (Request $request, Response $response, array $args) {
-        $name = $args["name"];
-        $response->getBody()->write("Hello, $name");
+        $response->getBody()->write("Hello: " . $args["name"]);
         return $response;
     });
 };

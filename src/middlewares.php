@@ -1,6 +1,6 @@
 <?php
 
-namespace stagify\app;
+namespace stagify;
 
 use Slim\App;
 use stagify\Middlewares\TestMiddleware;

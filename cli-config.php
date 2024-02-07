@@ -12,27 +12,7 @@ use Exception;
 
 require __DIR__ . "/vendor/autoload.php";
 
-$containerBuilder = new ContainerBuilder();
+$container = require __DIR__ . "/src/dependencies.php";
+$container = $container();
 
-//if (false) { // Should be set to true in production
-//    $containerBuilder->enableCompilation(__DIR__ . "/var/cache");
-//}
-
-$settings = require __DIR__ . "/app/settings.php";
-$settings($containerBuilder);
-
-$dependencies = require __DIR__ . "/app/dependencies.php";
-$dependencies($containerBuilder);
-
-$container = null;
-try {
-    $container = $containerBuilder->build();
-} catch (Exception $e) {
-    //TODO: error
-}
-
-try {
-    ConsoleRunner::run(new SingleManagerProvider($container->get(EntityManager::class)));
-} catch (DependencyException|NotFoundException $e) {
-    //TODO: error
-}
+ConsoleRunner::run(new SingleManagerProvider($container->get(EntityManager::class)));
