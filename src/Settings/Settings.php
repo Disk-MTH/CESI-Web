@@ -20,8 +20,10 @@ class Settings
 
             "logger" => [
                 "name" => $env["APP_NAME"],
-                "path" => $env["APP_DEBUG_CONSOLE"] ? "php://stdout" : __DIR__ . "/app.log",
-                "formatter" => new ColoredLineFormatter(new ColorScheme(), null, "H:i:s:u", true, true),
+                "level" => Level::fromName($env["APP_LOG_LEVEL"]),
+                "filePath" => __DIR__ . "/../app.log",
+                "fileFormatter" => new LineFormatter(null, "H:i:s:u", true, true),
+                "consoleFormatter" => new ColoredLineFormatter(new ColorScheme(), null, "H:i:s:u", true, true),
             ],
 
             "doctrine" => [

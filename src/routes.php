@@ -9,18 +9,17 @@ use Psr\Log\LoggerInterface;
 use Slim\App;
 use stagify\Model\Entities\User;
 use stagify\Model\Repositories\UserRepo;
+use stagify\Settings\Settings;
 
 return function (App $app) {
+    $settings = $app->getContainer()->get(Settings::class);
+    $logger = $app->getContainer()->get(LoggerInterface::class);
+
     $app->get("/", function (Request $request, Response $response) {
+        global $logger;
+        $logger->info("Get /");
+
         $response->getBody()->write("Hello world!");
-
-        //TODO: use app logger to log content of user table with doctrine
-
-        $userRepo = require __DIR__ . "/../src/Model/Repositories/UserRepo.php";
-        $userRepo->usersAsArray();
-        //$users = $userRepo->usersAsArray();
-        //$response->getBody()->write(json_encode($users));
-
         return $response;
     });
 

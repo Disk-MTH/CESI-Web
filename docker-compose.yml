@@ -25,7 +25,6 @@ services:
       - "traefik.http.routers.apache.rule=Host(`stagify.fr`)"
     volumes:
       - ./public:/var/www/html
-      - ./app:/var/www/app
       - ./src:/var/www/src
       - ./vendor:/var/www/vendor
       - ./.env:/var/www/.env
