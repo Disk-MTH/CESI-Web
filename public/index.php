@@ -5,6 +5,7 @@ namespace stagify;
 use Doctrine\ORM\EntityManager;
 use Psr\Log\LoggerInterface;
 use Slim\Factory\AppFactory;
+use Slim\Views\Twig;
 use stagify\Settings\SettingsInterface;
 
 require __DIR__ . "/../vendor/autoload.php";
@@ -17,6 +18,9 @@ $logger->debug("Logger has been initialized");
 
 $settings = $container->get(SettingsInterface::class);
 $logger->debug("Settings has been initialized");
+
+$twig = $container->get(Twig::class);
+$logger->debug("Twig has been initialized");
 
 $entityManager = $container->get(EntityManager::class);
 $logger->debug("EntityManager has been initialized");
@@ -32,10 +36,5 @@ $logger->debug("Routes have been initialized");
 $middlewares = require __DIR__ . "/../src/middlewares.php";
 $middlewares($app);
 $logger->debug("Middlewares have been initialized");
-
-$app->addRoutingMiddleware();
-$app->addBodyParsingMiddleware();
-$app->addErrorMiddleware($settings->get("displayErrorDetails"), $settings->get("logErrors"), $settings->get("logErrorDetails"), $logger);
-$logger->debug("Natives middlewares has been initialized");
 
 $app->run();

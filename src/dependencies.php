@@ -12,6 +12,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
+use Slim\Views\Twig;
 use stagify\Settings\Settings;
 use stagify\Settings\SettingsInterface;
 
@@ -38,6 +39,11 @@ return function () : Container {
             $logger->info("Log file path: " . $loggerSettings["filePath"]);
 
             return $logger;
+        },
+
+        Twig::class => function (ContainerInterface $container) {
+            $twigSettings = $container->get(SettingsInterface::class)->get("twig");
+            return Twig::create($twigSettings["path"], $twigSettings["options"]);
         },
 
         EntityManager::class => function (ContainerInterface $container) {

@@ -25,6 +25,7 @@ services:
     volumes:
       - ./public:/var/www/html
       - ./src:/var/www/src
+      - ./views:/var/www/views
       - ./vendor:/var/www/vendor
       - ./.env:/var/www/.env
 

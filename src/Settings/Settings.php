@@ -26,6 +26,14 @@ class Settings implements SettingsInterface
                 "consoleFormatter" => new ColoredLineFormatter(new ColorScheme(), null, "d-m-Y - H:i:s:u", true, true),
             ],
 
+            "twig" => [
+                "path" => __DIR__ . "/../../views/",
+                "options" => [
+                    "cache" => false,
+                    //TODO: Add more options
+                ],
+            ],
+
             "doctrine" => [
                 "paths" => array(__DIR__ . "/../Model/Entities"),
                 "dev_mode" => $env["APP_DEBUG"],
