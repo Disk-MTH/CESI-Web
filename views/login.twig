@@ -1,43 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
     <title>Modern Business - Start Bootstrap Template</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Bootstrap icons-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="../assets/styles.css" rel="stylesheet" />
+    <link rel="icon" href="/assets/img/logo.ico"/>
+    <link href="/assets/styles.css" rel="stylesheet"/>
 </head>
-<body class="d-flex flex-column h-100">
 
+<body class="d-flex flex-column h-100" style="background-color: whitesmoke">
 
-
-
-<div class="container-fluid">
-    <img src ="https://cdn.discordapp.com/attachments/1201821843032379392/1201908002421215315/Capture_d_ecran_2024-01-30_161239-removebg-preview.png" style="width: 200px" alt="logo">
-    <div class="row">
-        <div class="col-sm-4">
-            <h1>Connectez vous sur Stagify, La plateforme de recherche de stages étudiants</h1>
-            <label>
-                <textarea class="rounded-lg" style="width: 400px">Nom d'utilisateur</textarea>
-            </label><br>
-            <label>
-                <textarea class="rounded-lg" style="width: 400px">Mot de passe</textarea>
-            </label><br>
-            <button class="btn btn-primary rounded-pill" style="background-color: blue; color: white">S'identifier</button>
+<main class="flex-shrink-0">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: whitesmoke">
+        <div class="container px-5">
+            <img src="/assets/img/logo.png"
+                 style="width: 200px" alt="logo" width="">
         </div>
-        <div class="col-sm-4">
-            <img src="https://cdn.discordapp.com/attachments/1201821843032379392/1205434252808953866/image.png" alt="illustration-login" style="width: 400px">
-        </div>
-    </div>
+    </nav>
+
+</main>
+
+
+<div class="py-3">
+    <div class="container px-4 my-5">
+        <div class="row gx-4 justify-content-center">
+                    <div class="col-sm-4">
+                        <h1>Connectez vous sur Stagify, LA plateforme de recherche de stages étudiants</h1>
+                        <label>
+                            <textarea class="rounded-lg" style="width: 400px">Nom d'utilisateur</textarea>
+                        </label><br>
+                        <label>
+                            <textarea class="rounded-lg" style="width: 400px">Mot de passe</textarea>
+                        </label><br>
+                        <a class="nav-link" href="{{ url_for('home') }}">Mot de passe oublié?</a>
+                        <a href="{{ url_for('home') }}">
+                            <button class="btn btn-primary rounded-pill" style="background-color: blue; color: white">S'identifier</button>
+                        </a>
+                    </div>
+                    <div class="col-sm-4">
+                        <img src="/assets/img/login_page_art.png"
+                             alt="illustration-login" style="width: 400px">
+                    </div>
+                </div>
+            </div>
 </div>
 
 
 
+<footer class="bg-dark py-5 mt-auto">
+    <div class="container px-5">
+        <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+            <div class="col-auto"><div class="small m-0 text-white">Copyright &copy; Your Website 2023</div></div>
+            <div class="col-auto">
+                <a class="link-light small" href="#!">Privacy</a>
+                <span class="text-white mx-1">&middot;</span>
+                <a class="link-light small" href="#!">Terms</a>
+                <span class="text-white mx-1">&middot;</span>
+                <a class="link-light small" href="#!">Contact</a>
+            </div>
+        </div>
+    </div>
+</footer>
 </body>
 </html>

@@ -16,7 +16,7 @@ use Slim\Views\Twig;
 use stagify\Settings\Settings;
 use stagify\Settings\SettingsInterface;
 
-return function () : Container {
+return function (): Container {
     Dotenv::createImmutable(__DIR__ . "/../")->load();
     $containerBuilder = new ContainerBuilder();
 

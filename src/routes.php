@@ -9,12 +9,10 @@ use Slim\Views\Twig;
 
 return function (App $app) {
     $app->get("/", function (Request $request, Response $response) {
-        $view = Twig::fromRequest($request);
-        return $view->render($response, "index.twig");
-    });
+        return Twig::fromRequest($request)->render($response, "index.twig");
+    })->setName("home");
 
-    $app->get("/login", function (Request $request, Response $response, array $args) {
-        $view = Twig::fromRequest($request);
-        return $view->render($response, "login.twig");
-    });
+    $app->get("/login", function (Request $request, Response $response) {
+        return Twig::fromRequest($request)->render($response, "login.twig");
+    })->setName("login");
 };
