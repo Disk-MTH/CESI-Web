@@ -5,7 +5,7 @@ namespace stagify;
 use Doctrine\ORM\EntityManager;
 use Psr\Log\LoggerInterface;
 use Slim\Factory\AppFactory;
-use Slim\Views\Twig;
+use Slim\Views\Twig; 
 use stagify\Settings\SettingsInterface;
 
 require __DIR__ . "/../vendor/autoload.php";

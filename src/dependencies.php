@@ -59,9 +59,9 @@ return function () : Container {
         },
     ]);
 
-    /*if ($_ENV["APP_DEBUG"] === "false") {
+    if ($_ENV["APP_DEBUG"] === "false") {
         $containerBuilder->enableCompilation(__DIR__ . "/../cache");
-    }*/
+    }
 
     return $containerBuilder->build();
 };

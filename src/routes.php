@@ -9,17 +9,12 @@ use Slim\Views\Twig;
 
 return function (App $app) {
     $app->get("/", function (Request $request, Response $response) {
-        global $logger;
-        $logger->info("Get /");
-
-        $response->getBody()->write("Hello world!");
-        return $response;
+        $view = Twig::fromRequest($request);
+        return $view->render($response, "index.twig");
     });
 
-    $app->get("/hello/{name}", function (Request $request, Response $response, array $args) {
+    $app->get("/login", function (Request $request, Response $response, array $args) {
         $view = Twig::fromRequest($request);
-        return $view->render($response, "hello.twig", [
-            "name" => $args["name"]
-        ]);
+        return $view->render($response, "login.twig");
     });
 };
