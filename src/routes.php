@@ -12,6 +12,10 @@ return function (App $app) {
         return Twig::fromRequest($request)->render($response, "index.twig");
     })->setName("home");
 
+    $app->get("/test", function (Request $request, Response $response) {
+        return Twig::fromRequest($request)->render($response, "templates/base.twig");
+    })->setName("test");
+
     $app->get("/login", function (Request $request, Response $response) {
         return Twig::fromRequest($request)->render($response, "login.twig");
     })->setName("login");

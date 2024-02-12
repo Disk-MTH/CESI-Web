@@ -5,61 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>Modern Business - Start Bootstrap Template</title>
+    <title>Connexion - Stagify</title>
     <link rel="icon" href="/assets/img/logo.ico"/>
-    <link href="/assets/styles.css" rel="stylesheet"/>
+    <link href="/assets/bootstrap.css" rel="stylesheet"/>
 </head>
 
-<body class="d-flex flex-column h-100" style="background-color: whitesmoke">
+<body>
+<header class="container">
+    <div class="w-25">
+        <img class="img-fluid" style="margin-top: 15px" src="/assets/img/logo.png" alt="logo"/>
+    </div>
+</header>
 
-<main class="flex-shrink-0">
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: whitesmoke">
-        <div class="container px-5">
-            <img src="/assets/img/logo.png"
-                 style="width: 200px" alt="logo" width="">
-        </div>
-    </nav>
-
-</main>
-
-
-<div class="py-3">
-    <div class="container px-4 my-5">
-        <div class="row gx-4 justify-content-center">
-                    <div class="col-sm-4">
-                        <h1>Connectez vous sur Stagify, LA plateforme de recherche de stages étudiants</h1>
-                        <label>
-                            <textarea class="rounded-lg" style="width: 400px">Nom d'utilisateur</textarea>
-                        </label><br>
-                        <label>
-                            <textarea class="rounded-lg" style="width: 400px">Mot de passe</textarea>
-                        </label><br>
-                        <a class="nav-link" href="{{ url_for('home') }}">Mot de passe oublié?</a>
-                        <a href="{{ url_for('home') }}">
-                            <button class="btn btn-primary rounded-pill" style="background-color: blue; color: white">S'identifier</button>
-                        </a>
-                    </div>
-                    <div class="col-sm-4">
-                        <img src="/assets/img/login_page_art.png"
-                             alt="illustration-login" style="width: 400px">
-                    </div>
-                </div>
+<section>
+    <hr class="hr" style="border:none; height: 3px"/>
+</section>
+<section class="container">
+    <div class="row border">
+        <div class="col-lg-6 border">
+            <div class="text-start">
+                <h1 class="display-5 fw-bolder text-black mb-2"
+                    style="font-size: 40px; font-family: 'Roboto',sans-serif">Connectez vous sur Stagify,<br>LA
+                    plateforme de recherche de stages étudiants
+                </h1>
+                <br>
+                <input class="form-control" type="text" placeholder="Nom d'utilisateur" aria-label="Nom d'utilisateur" aria-describedby="label_user"/>
+                <div class="m-2"></div>
+                <input class="form-control " type="text" placeholder="Mot de passe" aria-label="Mot de passe" aria-describedby="label_password"/>
             </div>
-</div>
+            <a class="nav-link" href={{ url_for('home') }}>Mot de passe oublié?</a>
+            <br>
+            <a href={{ url_for('home') }}>
+                <div class="btn btn-primary shadow-lg mb-5" style="width: 200px">
+                    S'identifier
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-2 d-none d-lg-block border"></div>
+        <div class="col-lg-4 d-none d-lg-block align-self-center border">
+            <img class="img-fluid rounded-4" src="/assets/img/login_page_art.png" alt="..."/>
+        </div>
+    </div>
+</section>
 
-
-
-<footer class="bg-dark py-5 mt-auto">
-    <div class="container px-5">
-        <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-            <div class="col-auto"><div class="small m-0 text-white">Copyright &copy; Your Website 2023</div></div>
-            <div class="col-auto">
-                <a class="link-light small" href="#!">Privacy</a>
-                <span class="text-white mx-1">&middot;</span>
-                <a class="link-light small" href="#!">Terms</a>
-                <span class="text-white mx-1">&middot;</span>
-                <a class="link-light small" href="#!">Contact</a>
+{#{{ include("components/footer.twig") }}#}
+<footer class="bg-dark fixed-bottom">
+    <div class="container py-5">
+        <div class="row {#align-items-center justify-content-between flex-column flex-lg-row#}">
+            <div class="col-auto text-center">
+                <div class="small m-0 text-white text-center">Stagify &copy; 2024, All rights reserved</div>
+            </div>
+            <div class="col-auto text-center">
+                <a class="link-light small d-block d-lg-inline" href="#!">Nous contacter</a>
+                <span class="text-white mx-1 d-none d-lg-inline">&middot;</span>
+                <a class="link-light small d-block d-lg-inline" href="#!">Politique de confidentialité</a>
+                <span class="text-white mx-1 d-none d-lg-inline">&middot;</span>
+                <a class="link-light small d-block d-lg-inline" href="#!">Conditions générales d'utilisation</a>
             </div>
         </div>
     </div>
