@@ -9,11 +9,9 @@
     <link href="/assets/bootstrap.css" rel="stylesheet"/>
 </head>
 
-<body class="d-flex flex-column" style="min-height: 100vh">
+<body class="d-flex flex-column" style="height: 100vh">
 <header class="container">
-    <div class="w-25">
-        <img class="img-fluid" style="margin-top: 15px" src="/assets/img/logo.png" alt="logo"/>
-    </div>
+    <img class="img-fluid col-2 mt-3" src="/assets/img/logo.png" alt="logo"/>
 </header>
 
 <section>
@@ -23,59 +21,29 @@
 <section class="container flex-fill">
     <div class="row">
         <div class="col-lg-6">
-            <div class="text-start">
-                <h1 class="display-5 fw-bolder text-black mb-2"
-                    style="font-size: 40px; font-family: 'Roboto',sans-serif">
-                    Connectez vous sur Stagify,
-                    <br>LA plateforme de recherche de stages étudiants
-                </h1>
-                <br>
-                <input class="form-control mb-2" type="text" placeholder="Nom d'utilisateur"
-                       aria-label="Nom d'utilisateur" aria-describedby="label_user"/>
-                <input class="form-control mb-2" type="text" placeholder="Mot de passe" aria-label="Mot de passe"
-                       aria-describedby="label_password"/>
-            </div>
-            <a class="nav-link ms-1" href={{ url_for('home') }}>Mot de passe oublié?</a>
-            <br>
+            <h1>
+                Connectez vous sur Stagify,<br>LA plateforme de recherche de stages étudiants
+            </h1>
+            <div class="m-4"></div>
+            <input class="form-control mb-2" type="text" placeholder="Nom d'utilisateur"
+                   aria-label="Nom d'utilisateur" aria-describedby="label_user"/>
+            <input class="form-control mb-2" type="text" placeholder="Mot de passe" aria-label="Mot de passe"
+                   aria-describedby="label_password"/>
+            <a class="link-dark ms-1" href={{ url_for('home') }}>Mot de passe oublié?</a>
+            <div class="m-3"></div>
             <a class="btn btn-primary w-50 ms-1" href={{ url_for('home') }}>
                 S'identifier
             </a>
         </div>
         <div class="col-lg-2 d-none d-lg-block"></div>
         <div class="col-lg-4 d-none d-lg-block align-self-center">
-            <img class="img-fluid rounded-4" src="/assets/img/login_page_art.png" alt="..."/>
+            <img class="img-fluid rounded-5" src="/assets/img/login_page_art.png" alt="..."/>
         </div>
     </div>
 </section>
 
 <section class="m-3"></section>
 
-<footer class="align-bottom bg-dark py-5">
-    <div class="container">
-        <div class="row flex-column flex-md-row align-items-center justify-content-between">
-            <div class="col-auto text-center">
-                <div class="text-white small">
-                    Stagify &copy; 2024, All rights reserved
-                </div>
-            </div>
-            <div class="col-auto text-center">
-                <a class="link-light small" href={{ url_for('home') }}>
-                    Nous contacter
-                </a>
-                <span class="text-white mx-1">&middot;</span>
-                <a class="link-light small" href={{ url_for('home') }}>
-                    Politique de confidentialité
-                </a>
-                <span class="text-white mx-1">&middot;</span>
-                <a class="link-light small" href={{ url_for('home') }}>
-                    Conditions générales d'utilisation
-                </a>
-            </div>
-        </div>
-    </div>
-</footer>
-
-{# {{ include("components/footer.twig") }} #}
-
+{{ include("components/footer.twig") }}
 </body>
 </html>
