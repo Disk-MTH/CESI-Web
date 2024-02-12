@@ -2,15 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="description" content=""/>
-    <meta name="author" content=""/>
     <title>Connexion - Stagify</title>
     <link rel="icon" href="/assets/img/logo.ico"/>
     <link href="/assets/bootstrap.css" rel="stylesheet"/>
 </head>
 
-<body>
+<body class="d-flex flex-column" style="min-height: 100vh">
 <header class="container">
     <div class="w-25">
         <img class="img-fluid" style="margin-top: 15px" src="/assets/img/logo.png" alt="logo"/>
@@ -18,52 +17,65 @@
 </header>
 
 <section>
-    <hr class="hr" style="border:none; height: 3px"/>
+    <hr class="hr mb-5 bg-dark" style="border:none; height: 3px"/>
 </section>
-<section class="container">
-    <div class="row border">
-        <div class="col-lg-6 border">
+
+<section class="container flex-fill">
+    <div class="row">
+        <div class="col-lg-6">
             <div class="text-start">
                 <h1 class="display-5 fw-bolder text-black mb-2"
-                    style="font-size: 40px; font-family: 'Roboto',sans-serif">Connectez vous sur Stagify,<br>LA
-                    plateforme de recherche de stages étudiants
+                    style="font-size: 40px; font-family: 'Roboto',sans-serif">
+                    Connectez vous sur Stagify,
+                    <br>LA plateforme de recherche de stages étudiants
                 </h1>
                 <br>
-                <input class="form-control" type="text" placeholder="Nom d'utilisateur" aria-label="Nom d'utilisateur" aria-describedby="label_user"/>
-                <div class="m-2"></div>
-                <input class="form-control " type="text" placeholder="Mot de passe" aria-label="Mot de passe" aria-describedby="label_password"/>
+                <input class="form-control mb-2" type="text" placeholder="Nom d'utilisateur"
+                       aria-label="Nom d'utilisateur" aria-describedby="label_user"/>
+                <input class="form-control mb-2" type="text" placeholder="Mot de passe" aria-label="Mot de passe"
+                       aria-describedby="label_password"/>
             </div>
-            <a class="nav-link" href={{ url_for('home') }}>Mot de passe oublié?</a>
+            <a class="nav-link ms-1" href={{ url_for('home') }}>Mot de passe oublié?</a>
             <br>
-            <a href={{ url_for('home') }}>
-                <div class="btn btn-primary shadow-lg mb-5" style="width: 200px">
-                    S'identifier
-                </div>
+            <a class="btn btn-primary w-50 ms-1" href={{ url_for('home') }}>
+                S'identifier
             </a>
         </div>
-        <div class="col-lg-2 d-none d-lg-block border"></div>
-        <div class="col-lg-4 d-none d-lg-block align-self-center border">
+        <div class="col-lg-2 d-none d-lg-block"></div>
+        <div class="col-lg-4 d-none d-lg-block align-self-center">
             <img class="img-fluid rounded-4" src="/assets/img/login_page_art.png" alt="..."/>
         </div>
     </div>
 </section>
 
-{#{{ include("components/footer.twig") }}#}
-<footer class="bg-dark fixed-bottom">
-    <div class="container py-5">
-        <div class="row {#align-items-center justify-content-between flex-column flex-lg-row#}">
+<section class="m-3"></section>
+
+<footer class="align-bottom bg-dark py-5">
+    <div class="container">
+        <div class="row flex-column flex-md-row align-items-center justify-content-between">
             <div class="col-auto text-center">
-                <div class="small m-0 text-white text-center">Stagify &copy; 2024, All rights reserved</div>
+                <div class="text-white small">
+                    Stagify &copy; 2024, All rights reserved
+                </div>
             </div>
             <div class="col-auto text-center">
-                <a class="link-light small d-block d-lg-inline" href="#!">Nous contacter</a>
-                <span class="text-white mx-1 d-none d-lg-inline">&middot;</span>
-                <a class="link-light small d-block d-lg-inline" href="#!">Politique de confidentialité</a>
-                <span class="text-white mx-1 d-none d-lg-inline">&middot;</span>
-                <a class="link-light small d-block d-lg-inline" href="#!">Conditions générales d'utilisation</a>
+                <a class="link-light small" href={{ url_for('home') }}>
+                    Nous contacter
+                </a>
+                <span class="text-white mx-1">&middot;</span>
+                <a class="link-light small" href={{ url_for('home') }}>
+                    Politique de confidentialité
+                </a>
+                <span class="text-white mx-1">&middot;</span>
+                <a class="link-light small" href={{ url_for('home') }}>
+                    Conditions générales d'utilisation
+                </a>
             </div>
         </div>
     </div>
 </footer>
+
+{# {{ include("components/footer.twig") }} #}
+
 </body>
 </html>
