@@ -6,16 +6,18 @@
     <meta name="description" content=""/>
     <title>Connexion - Stagify</title>
     <link rel="icon" href="/assets/img/logo.ico"/>
-    <link href="/assets/bootstrap.css" rel="stylesheet"/>
+    <link href="/assets/css/bootstrap.css" rel="stylesheet"/>
 </head>
 
 <body class="d-flex flex-column" style="height: 100vh">
 <header class="container">
-    <img class="img-fluid col-2 mt-3" src="/assets/img/logo.png" alt="logo"/>
+    <div class="m-3"></div>
+    <img class="img-fluid col-2" src="/assets/img/logo.png" alt="logo"/>
 </header>
 
 <section>
-    <hr class="hr mb-5 bg-dark" style="border:none; height: 3px"/>
+    <hr class="hr bg-dark" style="border:none; height: 3px"/>
+    <div class="m-5"></div>
 </section>
 
 <section class="container flex-fill">
@@ -25,13 +27,15 @@
                 Connectez vous sur Stagify,<br>LA plateforme de recherche de stages étudiants
             </h1>
             <div class="m-4"></div>
-            <input class="form-control mb-2" type="text" placeholder="Nom d'utilisateur"
+            <input class="form-control" type="text" placeholder="Nom d'utilisateur"
                    aria-label="Nom d'utilisateur" aria-describedby="label_user"/>
-            <input class="form-control mb-2" type="text" placeholder="Mot de passe" aria-label="Mot de passe"
+            <div class="m-2"></div>
+            <input class="form-control" type="text" placeholder="Mot de passe" aria-label="Mot de passe"
                    aria-describedby="label_password"/>
-            <a class="link-dark ms-1" href={{ url_for('home') }}>Mot de passe oublié?</a>
+            <div class="m-2"></div>
+            <a class="link-dark ms-1" href={{ url_for("home") }}>Mot de passe oublié?</a>
             <div class="m-3"></div>
-            <a class="btn btn-primary w-50 ms-1" href={{ url_for('home') }}>
+            <a class="btn btn-primary w-50 ms-1" href={{ url_for("home") }}>
                 S'identifier
             </a>
         </div>

@@ -16,6 +16,7 @@ do
   echo "    - b[ackup]"
   echo "    - r[estore]"
   echo "    - g[enerate]"
+  echo "    - c[ompile]"
   echo "    - e[xit]"
   echo ""
   MODE=""
@@ -49,6 +50,10 @@ do
   elif [ "$MODE" = "g" ]; then
     echo "Generate database from PHP entities"
     "${PWD}"/vendor/bin/doctrine orm:schema-tool:create
+  elif [ "$MODE" = "c" ]; then
+    echo "Recompile bootstrap"
+    cd assets/css || exit 1
+    sass bootstrap.scss bootstrap.css
   elif [ "$MODE" = "e" ]; then
       echo "Exit"
       exit 0

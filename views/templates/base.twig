@@ -4,36 +4,123 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
-    <meta name="author" content=""/>
     <title>Modern Business - Start Bootstrap Template</title>
     <link rel="icon" href="/assets/img/logo.ico"/>
-    <link href="/assets/styles.css" rel="stylesheet"/>
+    <link href="/assets/css/bootstrap.css" rel="stylesheet"/>
 </head>
-<body class="d-flex flex-column h-100">
-<header class="bg-dark py-5">
-    <div class="container px-5">
-        <div class="row align-items-center justify-content-between">
-            <div class="col-auto">
-                <a class="link-light" href="#!">Home</a>
-                <a class="link-light
-                " href="#!">About</a>
+
+<body class="d-flex flex-column" style="height: 100vh">
+
+<nav class="bg-dark bg-opacity-10 py-4">
+    <div class="container">
+        <div class="row flex-nowrap align-items-center">
+            <div class="col flex-wrap">
+                <div>
+                    <a class="link-dark">Accueil</a>
+                    <span class="mx-1 d-none d-md-inline">&middot;</span>
+                    <a class="link-dark">Stages</a>
+                    <span class="mx-1 d-none d-md-inline">&middot;</span>
+                    <a class="link-dark">Entreprises</a>
+                    <span class="mx-1 d-none d-md-inline">&middot;</span>
+                    <a class="link-dark">Statistiques</a>
+                    <span class="mx-1 d-none d-md-inline">&middot;</span>
+                    <a class="link-dark">Profil</a>
+                </div>
             </div>
-            <div class="col-auto">
-                <a class="link-light
-                " href="#!">Login</a>
-                <a class="link-light
-                " href="#!">Register</a>
+            <div class="col-7 col-md-3 text-end">
+                <a class="link-dark">Langue</a>
             </div>
+        </div>
+    </div>
+</nav>
+
+<header class="container">
+    <div class="row border">
+        <div class="col border">
+            <img class="img-fluid col-2" src="/assets/img/logo.png" alt="logo"/>
+        </div>
+        <div class="col border">
+            <div class="container rounded-3 shadow-lg">
+                <label></label><img class="img-fluid col-2" src="/assets/svg/search.svg" alt="logo"/>Stages,
+                entreprises,utilisateurs, mots clés...</label>
+            </div>
+        </div>
+        <div class="col border text-end">
+            <div class="btn btn-close-white text-primary btn-outline-info shadow"> Se déconnecter</div>
+        </div>
+        <div class="col border text-end">
+            <div class="btn bg-primary text-white shadow"> Espace entreprise</div>
         </div>
     </div>
 </header>
-{% block content %}
-    <div class="container px-5">
-        <div class="row align-items-center justify-content-center">
-            Test
-        </div>
-    </div>
-{% endblock %}
+
+<section class="container flex-fill">
+    {% block content %}
+        <h1>
+            Content here
+        </h1>
+    {% endblock %}
+</section>
+
 {{ include("components/footer.twig") }}
 </body>
 </html>
+
+
+{#
+<div class="row row-cols-1 row-cols-md-2 border">
+    <div class="col">
+        <div class="row row-cols-2 row-cols-md-5 border">
+            <div class="col">
+                <a class="link-dark">Accueil</a>
+                <span class="text-dark mx-1 d-none d-lg-block">&middot;</span>
+            </div>
+            <div class="col">
+                <a class="link-dark">Stages</a>
+                <span class="text-dark mx-1 d-none d-lg-block">&middot;</span>
+            </div>
+            <div class="col">
+                <a class="link-dark">Entreprises</a>
+                <span class="text-dark mx-1 d-none d-lg-block">&middot;</span>
+            </div>
+            <div class="col">
+                <a class="link-dark">Statistiques</a>
+                <span class="text-dark mx-1 d-none d-lg-block">&middot;</span>
+            </div>
+            <div class="col">
+                <a class="link-dark">Profil</a>
+            </div>
+        </div>
+
+    </div>
+    <div class="col align-self-center">
+        <a class="link-dark">Langue</a>
+    </div>
+</div>#}
+
+            {#<div class="row#}{# row-cols-1 row-cols-md-2 row-cols-lg-5#}{#">
+                <a class="link-dark">Accueil</a>
+                <a class="link-dark">Stages</a>
+                <a class="link-dark">Entreprises</a>
+                <a class="link-dark">Statistiques</a>
+                <a class="link-dark">Profil</a>
+#}{#<div class="col border">
+                    <a class="link-dark">Accueil</a>
+#}{##}{#<span class="text-dark mx-1 d-none d-lg-block">&middot;</span>#}{##}{#
+</div>
+<div class="col border">
+    <a class="link-dark">Stages</a>
+#}{##}{#<span class="text-dark mx-1 d-none d-lg-block">&middot;</span>#}{##}{#
+</div>
+<div class="col border">
+    <a class="link-dark">Entreprises</a>
+#}{##}{#<span class="text-dark mx-1 d-none d-lg-block">&middot;</span>#}{##}{#
+</div>
+<div class="col border">
+    <a class="link-dark">Statistiques</a>
+#}{##}{#<span class="text-dark mx-1 d-none d-lg-block">&middot;</span>#}{##}{#
+</div>
+<div class="col border">
+    <a class="link-dark">Profil</a>
+</div>#}{#
+</div>#}
