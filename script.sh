@@ -16,6 +16,7 @@ do
   echo "    - b[ackup]"
   echo "    - r[estore]"
   echo "    - g[enerate]"
+  echo "    - i[nstall]"
   echo "    - c[ompile]"
   echo "    - e[xit]"
   echo ""
@@ -50,6 +51,9 @@ do
   elif [ "$MODE" = "g" ]; then
     echo "Generate database from PHP entities"
     "${PWD}"/vendor/bin/doctrine orm:schema-tool:create
+  elif [ "$MODE" = "i" ]; then
+      echo "Installing bootstrap"
+      npm install "${PWD}"/bootstrap
   elif [ "$MODE" = "c" ]; then
     echo "Recompile bootstrap"
     sass "${PWD}"/bootstrap/bootstrap.scss "${PWD}"/assets/bootstrap.css
