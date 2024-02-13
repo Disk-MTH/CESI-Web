@@ -1,6 +1,9 @@
+bootstrap/node_modules
 vendor/
+logs/
+.idea
+bootstrap/package-lock.json
+bootstrap/bootstrap.css.map
 composer.phar
 composer.lock
-.idea
 MCD.lo1
-logs/

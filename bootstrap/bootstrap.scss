@@ -1,0 +1,13 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+
+$custom-colors: (
+  "deapSeaBlue": #1E3F5A,
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+//$btn-border-radius: 1rem;
+$border-radius: 1rem;
+
+@import "node_modules/bootstrap/scss/bootstrap";

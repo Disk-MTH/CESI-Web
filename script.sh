@@ -52,8 +52,7 @@ do
     "${PWD}"/vendor/bin/doctrine orm:schema-tool:create
   elif [ "$MODE" = "c" ]; then
     echo "Recompile bootstrap"
-    cd assets/css || exit 1
-    sass bootstrap.scss bootstrap.css
+    sass "${PWD}"/bootstrap/bootstrap.scss "${PWD}"/assets/bootstrap.css
   elif [ "$MODE" = "e" ]; then
       echo "Exit"
       exit 0
