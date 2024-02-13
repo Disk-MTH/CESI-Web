@@ -1,0 +1,40 @@
+{% extends "templates/base.twig" %}
+
+{% block content %}
+    <section class="container flex-fill bg-deepWarmGrey">
+        <div class="row align-items-center">
+            <div class="col-lg-6 border ">
+                <h1>
+                    Trouves un stage qui mets en valeur tes compétences
+                </h1>
+                <p>
+                    Navigues parmis des milliers d'entreprises, des dizaines de domaines, parcours les centaines d'avis
+                    et
+                    trouves TON stage
+                </p>
+            </div>
+            <div class="col-lg-2 d-none d-lg-block"></div>
+            <div class="col-lg-4 d-none d-lg-block align-self-center">
+                <img class="img-fluid rounded-5" src="/assets/illustrations/home_page.svg" alt="illustration-homepage"/>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-auto border">
+                <div class="card bg-white" style="width: 18rem">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <img src="/assets/svg/brief_case.svg" alt="briefcase" class="img-fluid">
+                            </div>
+                            <div class="col">
+                                <h4 class="card-title">6273</h4>
+                                <p class="card-body">stages</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -2,12 +2,38 @@
 @import "node_modules/bootstrap/scss/variables";
 
 $custom-colors: (
-  "deapSeaBlue": #1E3F5A,
+        "deepSeaBlue": #0a65cc,
+        "coldRed": #e05151,
+        "deepGreen": #0ba02c,
+        "goldenBrow": #ffaa00,
+        "jade": #164e5d,
+        "pastelRed": #ffeded,
+        "pastelBlue": #e7f0fa,
+        "pastelGreen": #e7f6ea,
+        "offWhite": #f0efef,
+        "richWarmGrey": #edeff5,
+        "deepWarmGrey": #f1f2f4,
+        "lightGrey": #9199a3,
+        "heavyBlack": #171616,
 );
 
 $theme-colors: map-merge($theme-colors, $custom-colors);
 
-//$btn-border-radius: 1rem;
-$border-radius: 1rem;
+$btn-border-radius: 1rem;
+$btn-border-radius-sm: 1rem;
+$btn-border-radius-lg: 1rem;
+
+$input-border-radius: 1rem;
+$input-border-radius-sm: 1rem;
+$input-border-radius-lg: 1rem;
+
+
+
+/*$border-radius: 1rem;
+$border-radius-sm: $border-radius;
+$border-radius-md: $border-radius;
+$border-radius-lg: $border-radius;
+$border-radius-xl: $border-radius;
+$border-radius-2xl: $border-radius;*/
 
 @import "node_modules/bootstrap/scss/bootstrap";

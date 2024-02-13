@@ -7,120 +7,73 @@
     <title>Modern Business - Start Bootstrap Template</title>
     <link rel="icon" href="/assets/img/logo.ico"/>
     <link href="/assets/bootstrap.css" rel="stylesheet"/>
+    <script src="/assets/bootstrap.min.js"></script>
 </head>
 
-<body class="d-flex flex-column" style="height: 100vh">
+<body class="d-flex flex-column" style="min-height: 100vh">
 
-<nav class="bg-dark bg-opacity-10 py-4">
-    <div class="container">
-        <div class="row flex-nowrap align-items-center">
-            <div class="col flex-wrap">
-                <div>
-                    <a class="link-dark">Accueil</a>
-                    <span class="mx-1 d-none d-md-inline">&middot;</span>
-                    <a class="link-dark">Stages</a>
-                    <span class="mx-1 d-none d-md-inline">&middot;</span>
-                    <a class="link-dark">Entreprises</a>
-                    <span class="mx-1 d-none d-md-inline">&middot;</span>
-                    <a class="link-dark">Statistiques</a>
-                    <span class="mx-1 d-none d-md-inline">&middot;</span>
-                    <a class="link-dark">Profil</a>
-                </div>
-            </div>
-            <div class="col-7 col-md-3 text-end">
-                <a class="link-dark">Langue</a>
-            </div>
+<nav class="navbar navbar-expand-lg bg-deepWarmGrey">
+    <div class="container py-1">
+        <a class="h3 text-heavyBlack" href={{ url_for("home") }}>Stagify</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                    class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link text-heavyBlack" href={{ url_for("home") }}>Accueil</a></li>
+                <li class="nav-item"><a class="nav-link text-heavyBlack" href={{ url_for("home") }}>Stages</a></li>
+                <li class="nav-item"><a class="nav-link text-heavyBlack" href={{ url_for("home") }}>Entreprises</a></li>
+                <li class="nav-item"><a class="nav-link text-heavyBlack" href={{ url_for("home") }}>Statistiques</a>
+                </li>
+                <li class="nav-item"><a class="nav-link text-heavyBlack" href={{ url_for("home") }}>Profil</a></li>
+                <li class="nav-item dropdown ms-lg-3">
+                    <div class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Langue</div>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item text-heavyBlack" href="{{ url_for("home") }}">Français</a></li>
+                        <li><a class="dropdown-item text-heavyBlack" href="{{ url_for("home") }}">English</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
 
+<div class="mb-3"></div>
+
 <header class="container">
-    <div class="row border">
-        <div class="col border">
+    <div class="row align-items-center">
+        <div class="col-3 border flex-wrap">
             <img class="img-fluid col-2" src="/assets/img/logo.png" alt="logo"/>
         </div>
-        <div class="col border">
-            <div class="container rounded-3 shadow-lg">
-                <label></label><img class="img-fluid col-2" src="/assets/svg/search.svg" alt="logo"/>Stages,
-                entreprises,utilisateurs, mots clés...</label>
+        <div class="col">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text rounded-end-0">
+                        <img class="img-fluid" src=/assets/svg/search.svg alt="search">
+                    </span>
+                </div>
+                <input type="text" class="form-control" placeholder="temp" aria-label="temp" Placeholder text
+                       aria-describedby="home_input_search">
+                <div class="input-group-append">
+                    <button class="btn btn-primary rounded-start-0" type="button">Rechercher</button>
+                </div>
             </div>
         </div>
-        <div class="col border text-end">
-            <div class="btn btn-close-white text-primary btn-outline-info shadow"> Se déconnecter</div>
+        <div class="col-2 border text-end">
+            <div class="btn btn-close-white text-primary btn-outline-pastelBlue shadow"> Se déconnecter</div>
         </div>
-        <div class="col border text-end">
+        <div class="col-2 border text-end">
             <div class="btn bg-primary text-white shadow"> Espace entreprise</div>
         </div>
     </div>
 </header>
 
-<section class="container flex-fill">
-    {% block content %}
-        <h1>
-            Content here
-        </h1>
-    {% endblock %}
-</section>
+<div class="mb-3"></div>
+
+<section class="flex-fill">{% block content %} Content here {% endblock %}</section>
+
+<div class="mb-3"></div>
 
 {{ include("components/footer.twig") }}
 </body>
 </html>
-
-
-{#
-<div class="row row-cols-1 row-cols-md-2 border">
-    <div class="col">
-        <div class="row row-cols-2 row-cols-md-5 border">
-            <div class="col">
-                <a class="link-dark">Accueil</a>
-                <span class="text-dark mx-1 d-none d-lg-block">&middot;</span>
-            </div>
-            <div class="col">
-                <a class="link-dark">Stages</a>
-                <span class="text-dark mx-1 d-none d-lg-block">&middot;</span>
-            </div>
-            <div class="col">
-                <a class="link-dark">Entreprises</a>
-                <span class="text-dark mx-1 d-none d-lg-block">&middot;</span>
-            </div>
-            <div class="col">
-                <a class="link-dark">Statistiques</a>
-                <span class="text-dark mx-1 d-none d-lg-block">&middot;</span>
-            </div>
-            <div class="col">
-                <a class="link-dark">Profil</a>
-            </div>
-        </div>
-
-    </div>
-    <div class="col align-self-center">
-        <a class="link-dark">Langue</a>
-    </div>
-</div>#}
-
-            {#<div class="row#}{# row-cols-1 row-cols-md-2 row-cols-lg-5#}{#">
-                <a class="link-dark">Accueil</a>
-                <a class="link-dark">Stages</a>
-                <a class="link-dark">Entreprises</a>
-                <a class="link-dark">Statistiques</a>
-                <a class="link-dark">Profil</a>
-#}{#<div class="col border">
-                    <a class="link-dark">Accueil</a>
-#}{##}{#<span class="text-dark mx-1 d-none d-lg-block">&middot;</span>#}{##}{#
-</div>
-<div class="col border">
-    <a class="link-dark">Stages</a>
-#}{##}{#<span class="text-dark mx-1 d-none d-lg-block">&middot;</span>#}{##}{#
-</div>
-<div class="col border">
-    <a class="link-dark">Entreprises</a>
-#}{##}{#<span class="text-dark mx-1 d-none d-lg-block">&middot;</span>#}{##}{#
-</div>
-<div class="col border">
-    <a class="link-dark">Statistiques</a>
-#}{##}{#<span class="text-dark mx-1 d-none d-lg-block">&middot;</span>#}{##}{#
-</div>
-<div class="col border">
-    <a class="link-dark">Profil</a>
-</div>#}{#
-</div>#}
