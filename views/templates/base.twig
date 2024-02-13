@@ -15,22 +15,50 @@
 <nav class="navbar navbar-expand-lg bg-deepWarmGrey">
     <div class="container py-1">
         <a class="h3 text-heavyBlack" href={{ url_for("home") }}>Stagify</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
-                    class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link text-heavyBlack" href={{ url_for("home") }}>Accueil</a></li>
-                <li class="nav-item"><a class="nav-link text-heavyBlack" href={{ url_for("home") }}>Stages</a></li>
-                <li class="nav-item"><a class="nav-link text-heavyBlack" href={{ url_for("home") }}>Entreprises</a></li>
-                <li class="nav-item"><a class="nav-link text-heavyBlack" href={{ url_for("home") }}>Statistiques</a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navBarContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navBarContent">
+            <ul class="navbar-nav ms-auto align-items-center"> {# Decide for align center it impact burger menu #}
+                <li class="nav-item">
+                    <a class="nav-link text-heavyBlack" href={{ url_for("home") }}>Accueil</a>
                 </li>
-                <li class="nav-item"><a class="nav-link text-heavyBlack" href={{ url_for("home") }}>Profil</a></li>
-                <li class="nav-item dropdown ms-lg-3">
+                <div class="text-heavyBlack d-none d-lg-block">&middot;</div>
+                <li class="nav-item">
+                    <a class="nav-link text-heavyBlack" href={{ url_for("home") }}>Stages</a>
+                </li>
+                <div class="text-heavyBlack d-none d-lg-block">&middot;</div>
+                <li class="nav-item">
+                    <a class="nav-link text-heavyBlack" href={{ url_for("home") }}>Entreprises</a>
+                </li>
+                <div class="text-heavyBlack d-none d-lg-block">&middot;</div>
+                <li class="nav-item">
+                    <a class="nav-link text-heavyBlack" href={{ url_for("home") }}>Statistiques</a>
+                </li>
+                <div class="text-heavyBlack d-none d-lg-block">&middot;</div>
+                <li class="nav-item">
+                    <a class="nav-link text-heavyBlack" href={{ url_for("home") }}>Profil</a>
+                </li>
+                <div class="ms-lg-3"></div>
+                <li class="nav-item dropdown">
                     <div class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Langue</div>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item text-heavyBlack" href="{{ url_for("home") }}">Français</a></li>
-                        <li><a class="dropdown-item text-heavyBlack" href="{{ url_for("home") }}">English</a></li>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="{{ url_for("home") }}">
+                                <div class="row row-cols-2 align-items-center">
+                                    <span class="text-heavyBlack">Français</span>
+                                    <img class="img-fluid" src="/assets/img/french_flag.png" alt="francais"/>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ url_for("home") }}">
+                                <div class="row row-cols-2 align-items-center">
+                                    <span class="text-heavyBlack">English</span>
+                                    <img class="img-fluid" src="/assets/img/us_flag.png" alt="english_us"/>
+                                </div>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
