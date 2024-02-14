@@ -1,23 +1,25 @@
 @import "node_modules/bootstrap/scss/functions";
+
+/* ------------------------- Variables ------------------------- */
+
 @import "node_modules/bootstrap/scss/variables";
 
-$custom-colors: (
-        "deepSeaBlue": #0a65cc,
-        "coldRed": #e05151,
-        "deepGreen": #0ba02c,
-        "goldenBrow": #ffaa00,
-        "jade": #164e5d,
-        "pastelRed": #ffeded,
-        "pastelBlue": #e7f0fa,
-        "pastelGreen": #e7f6ea,
-        "offWhite": #f0efef,
-        "richWarmGrey": #edeff5,
-        "deepWarmGrey": #f1f2f4,
-        "lightGrey": #9199a3,
-        "heavyBlack": #171616,
-);
-
-$theme-colors: map-merge($theme-colors, $custom-colors);
+$theme-colors: map-merge($theme-colors,
+        (
+                "deepSeaBlue": #0a65cc,
+                "coldRed": #e05151,
+                "deepGreen": #0ba02c,
+                "goldenBrow": #ffaa00,
+                "jade": #164e5d,
+                "pastelRed": #ffeded,
+                "pastelBlue": #e7f0fa,
+                "pastelGreen": #e7f6ea,
+                "offWhite": #f0efef,
+                "richWarmGrey": #edeff5,
+                "deepWarmGrey": #f1f2f4,
+                "lightGrey": #9199a3,
+                "heavyBlack": #171616,
+        ));
 
 $btn-border-radius: 1rem;
 $btn-border-radius-sm: 1rem;
@@ -28,3 +30,24 @@ $input-border-radius-sm: 1rem;
 $input-border-radius-lg: 1rem;
 
 @import "node_modules/bootstrap/scss/bootstrap";
+
+/* ------------------------- Utilities ------------------------- */
+
+@import "node_modules/bootstrap/scss/utilities";
+
+$utilities: map-merge(
+                $utilities,
+                (
+                        "width": map-merge(
+                                        map-get($utilities, "width"),
+                                        (
+                                                values: map-merge(
+                                                                map-get(map-get($utilities, "width"), "values"),
+                                                                (10: 10%),
+                                                ),
+                                        ),
+                        ),
+                )
+);
+
+@import "node_modules/bootstrap/scss/utilities/api";

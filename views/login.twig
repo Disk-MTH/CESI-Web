@@ -10,14 +10,20 @@
 </head>
 
 <body class="d-flex flex-column" style="height: 100vh">
-<header class="container">
-    <div class="m-3"></div>
-    <img class="img-fluid col-2" src="/assets/img/logo.png" alt="logo"/>
+
+<header class="bg-deepWarmGrey">
+    <div class="container my-2">
+        <div class="row">
+            <a class="col-4 col-md-2" href={{ url_for("home") }}>
+                <img class="img-fluid" src="/assets/img/logo.png" alt="logo"/>
+            </a>
+        </div>
+    </div>
 </header>
 
 <section>
-    <hr class="hr bg-dark" style="border:none; height: 3px"/>
-    <div class="m-5"></div>
+    <hr class="hr bg-heavyBlack m-0" style="height: 3px"/>
+    <div class="m-3"></div>
 </section>
 
 <section class="container flex-fill">
@@ -27,15 +33,15 @@
                 Connectez vous sur Stagify,<br>LA plateforme de recherche de stages étudiants
             </h1>
             <div class="m-4"></div>
-            <input class="form-control" type="text" placeholder="Nom d'utilisateur"
+            <input class="form-control shadow" type="text" placeholder="Nom d'utilisateur"
                    aria-label="Nom d'utilisateur" aria-describedby="login_input_user"/>
             <div class="m-2"></div>
-            <input class="form-control" type="text" placeholder="Mot de passe" aria-label="Mot de passe"
+            <input class="form-control shadow" type="text" placeholder="Mot de passe" aria-label="Mot de passe"
                    aria-describedby="login_input_password"/>
             <div class="m-2"></div>
             <a class="link-dark ms-1" href={{ url_for("home") }}>Mot de passe oublié?</a>
             <div class="m-3"></div>
-            <a class="btn btn-deepSeaBlue w-50 ms-1" href={{ url_for("home") }}>
+            <a class="btn btn-deepSeaBlue text-nowrap shadow w-50" href={{ url_for("home") }}>
                 S'identifier
             </a>
         </div>
