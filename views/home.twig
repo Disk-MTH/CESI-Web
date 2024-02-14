@@ -1,48 +1,80 @@
 {% extends "templates/base.twig" %}
 
-{% block content %}
-    <section class="container flex-fill text-bg-deepWarmGrey">
-        <div class="row align-items-center">
-            <div class="col-lg-6 ">
-                <h1>
-                    Trouves un stage qui mets en valeur tes compétences
-                </h1>
-                <p>
-                    Navigues parmis des milliers d"entreprises, des dizaines de domaines, parcours les centaines d"avis
-                    et
-                    trouves TON stage
-                </p>
+{% block header %}
+    <section class="bg-deepWarmGrey pb-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 ">
+                    <h1>
+                        Trouves un stage qui mets en valeur tes compétences
+                    </h1>
+                    <p>
+                        Navigues parmis des milliers d"entreprises, des dizaines de domaines, parcours les centaines
+                        d"avis
+                        et
+                        trouves TON stage
+                    </p>
+                </div>
+                <div class="col-lg-2 d-none d-lg-block"></div>
+                <div class="col-lg-4 d-none d-lg-block align-self-center">
+                    <img class="img-fluid rounded-5" src="/assets/illustrations/home_page.svg"
+                         alt="illustration-homepage"/>
+                </div>
             </div>
-            <div class="col-lg-2 d-none d-lg-block"></div>
-            <div class="col-lg-4 d-none d-lg-block align-self-center">
-                <img class="img-fluid rounded-5" src="/assets/illustrations/home_page.svg" alt="illustration-homepage"/>
-            </div>
-        </div>
-        <div class="row row-cols-md-2 row-cols-lg-4 align-content-center">
-            <div class="mb-3 mb-lg-0">
-                {% set illustration = "/assets/svg/brief_case.svg"%}
-                {% set number_variable = "9242" %}
-                {% set type_variable = "Stages" %}
-                {{ include("components/home_info_card.twig") }}
-            </div>
-            <div class="mb-3 mb-lg-0">
-                {% set illustration = "/assets/svg/companies.svg"%}
-                {% set number_variable = "5251" %}
-                {% set type_variable = "Entreprises" %}
-                {{ include("components/home_info_card.twig") }}
-            </div>
-            <div class="mb-3 mb-lg-0">
-                {% set illustration = "/assets/svg/colaborators.svg"%}
-                {% set number_variable = "38213" %}
-                {% set type_variable = "Etudiants" %}
-                {{ include("components/home_info_card.twig") }}
-            </div>
-            <div class="mb-3 mb-lg-0">
-                {% set illustration = "/assets/svg/teachers.svg"%}
-                {% set number_variable = "3102" %}
-                {% set type_variable = "Pilotes" %}
-                {{ include("components/home_info_card.twig") }}
+            <div class="row row-cols-md-2 row-cols-lg-4 align-content-center">
+                <div class="mb-3 mb-lg-0">
+                    {% set illustration = "/assets/svg/brief_case.svg" %}
+                    {% set number_variable = "9242" %}
+                    {% set type_variable = "Stages" %}
+                    {{ include("components/home_info_card.twig") }}
+                </div>
+                <div class="mb-3 mb-lg-0">
+                    {% set illustration = "/assets/svg/companies.svg" %}
+                    {% set number_variable = "5251" %}
+                    {% set type_variable = "Entreprises" %}
+                    {{ include("components/home_info_card.twig") }}
+                </div>
+                <div class="mb-3 mb-lg-0">
+                    {% set illustration = "/assets/svg/colaborators.svg" %}
+                    {% set number_variable = "38213" %}
+                    {% set type_variable = "Etudiants" %}
+                    {{ include("components/home_info_card.twig") }}
+                </div>
+                <div class="mb-3 mb-lg-0">
+                    {% set illustration = "/assets/svg/teachers.svg" %}
+                    {% set number_variable = "3102" %}
+                    {% set type_variable = "Pilotes" %}
+                    {{ include("components/home_info_card.twig") }}
+                </div>
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block content %}
+   <section class="my-5">
+       <div class = "container ">
+           <div class ="row align-content-center">
+               <div class ="col-md-10 col-8 border">
+                    <h1>Recommendations de stages</h1>
+               </div>
+               <div class ="col-md-2 col-4 border">
+                   <div class="btn btn-close-white text-primary text-nowrap shadow"> Voir tout -></div>
+               </div>
+           </div>
+           <div class ="row align-content-center">
+                <div class="row align-content-center">
+                    <div class ="col-12 col-md-6 col-lg-4 border">
+                        {{ include("components/job_tile_card.twig") }}
+                    </div>
+                    <div class ="col-6 col-lg-4 d-none d-md-block border">
+                        COL2
+                    </div>
+                    <div class ="col-4 d-none d-lg-block border">
+                        COL3
+                    </div>
+                </div>
+           </div>
+       </div>
+   </section>
 {% endblock %}

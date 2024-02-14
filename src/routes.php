@@ -19,4 +19,13 @@ return function (App $app) {
     $app->get("/login", function (Request $request, Response $response) {
         return Twig::fromRequest($request)->render($response, "login.twig");
     })->setName("login");
+
+    $app->get("/user", function (Request $request, Response $response) {
+        return Twig::fromRequest($request)->render($response, "user.twig");
+    })->setName("user");
+
+    $app->get("/tos", function (Request $request, Response $response) {
+        return Twig::fromRequest($request)->render($response, "tos.twig");
+    })->setName("tos");
+
 };

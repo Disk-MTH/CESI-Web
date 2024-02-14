@@ -13079,6 +13079,65 @@ textarea.form-control-lg {
   }
 }
 /* ------------------------- Utilities ------------------------- */
+/*.col-half {
+  flex: 0 0 auto;
+  width: 6.25%;
+}
+
+.col-sm-half {
+  flex: 0 0 auto;
+  width: 6.25%;
+}
+
+.col-md-half {
+  flex: 0 0 auto;
+  width: 6.25%;
+}
+
+.col-lg-half {
+  flex: 0 0 auto;
+  width: 6.25%;
+}
+
+.col-xl-half {
+  flex: 0 0 auto;
+  width: 6.25%;
+}
+
+.col-xxl-half {
+  flex: 0 0 auto;
+  width: 6.25%;
+}
+
+.col-1-half {
+  flex: 0 0 auto;
+  width: 12.5%;
+}
+
+.col-sm-1-half {
+  flex: 0 0 auto;
+  width: 12.5%;
+}
+
+.col-md-1-half {
+  flex: 0 0 auto;
+  width: 12.5%;
+}
+
+.col-lg-1-half {
+  flex: 0 0 auto;
+  width: 12.5%;
+}
+
+.col-xl-1-half {
+  flex: 0 0 auto;
+  width: 12.5%;
+}
+
+.col-xxl-1-half {
+  flex: 0 0 auto;
+  width: 12.5%;
+}*/
 .align-baseline {
   vertical-align: baseline !important;
 }
