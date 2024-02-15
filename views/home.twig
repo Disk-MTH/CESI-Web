@@ -9,10 +9,8 @@
                         Trouves un stage qui mets en valeur tes compétences
                     </h1>
                     <p>
-                        Navigues parmis des milliers d"entreprises, des dizaines de domaines, parcours les centaines
-                        d"avis
-                        et
-                        trouves TON stage
+                        Navigues parmis des milliers d'entreprises, des dizaines de domaines, parcours les centaines
+                        d'avis et trouves TON stage
                     </p>
                 </div>
                 <div class="col-lg-2 d-none d-lg-block"></div>
@@ -35,7 +33,7 @@
                     {{ include("components/home_info_card.twig") }}
                 </div>
                 <div class="mb-3 mb-lg-0">
-                    {% set illustration = "/assets/svg/colaborators.svg" %}
+                    {% set illustration = "/assets/svg/collaborators.svg" %}
                     {% set number_variable = "38213" %}
                     {% set type_variable = "Etudiants" %}
                     {{ include("components/home_info_card.twig") }}
@@ -52,29 +50,122 @@
 {% endblock %}
 
 {% block content %}
-   <section class="my-5">
-       <div class = "container ">
-           <div class ="row align-content-center">
-               <div class ="col-md-10 col-8 border">
+    <section class="my-5">
+        <div class="container">
+            <div class="row mb-3">
+                <div class="col-lg-10 col-md-9 col-7">
                     <h1>Recommendations de stages</h1>
-               </div>
-               <div class ="col-md-2 col-4 border">
-                   <div class="btn btn-close-white text-primary text-nowrap shadow"> Voir tout -></div>
-               </div>
-           </div>
-           <div class ="row align-content-center">
-                <div class="row align-content-center">
-                    <div class ="col-12 col-md-6 col-lg-4 border">
-                        {{ include("components/job_tile_card.twig") }}
-                    </div>
-                    <div class ="col-6 col-lg-4 d-none d-md-block border">
-                        COL2
-                    </div>
-                    <div class ="col-4 d-none d-lg-block border">
-                        COL3
+                </div>
+                <div class="col-lg-2 col-md-3 col-5 align-items-end d-flex justify-content-end">
+                    <div class="btn btn-outline-custom-blue text-nowrap shadow">
+                        Voir tout
+                        <img class="img-fluid" src="/assets/svg/arrow_pointing_right.svg" alt="arrow"/>
                     </div>
                 </div>
-           </div>
-       </div>
-   </section>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4">
+                    {% set job_title = "Ingenieur logiciel" %}
+                    {% set pay = "700" %}
+                    {% set wish_mark = "/assets/svg/wish_mark.svg" %}
+                    {% set company_logo = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {{ include("components/job_tile_card.twig") }}
+
+                    {% set job_title = "Ingenieur logiciel" %}
+                    {% set pay = "700" %}
+                    {% set wish_mark = "/assets/svg/wish_mark.svg" %}
+                    {% set company_logo = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {{ include("components/job_tile_card.twig") }}
+
+                    {% set job_title = "Ingenieur logiciel" %}
+                    {% set pay = "700" %}
+                    {% set wish_mark = "/assets/svg/wish_mark.svg" %}
+                    {% set company_logo = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {{ include("components/job_tile_card.twig") }}
+
+                    {% set job_title = "Ingenieur logiciel" %}
+                    {% set pay = "700" %}
+                    {% set wish_mark = "/assets/svg/wish_mark.svg" %}
+                    {% set company_logo = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {{ include("components/job_tile_card.twig") }}
+                </div>
+                <div class="col-6 col-lg-4 d-none d-md-block">
+                    {% set job_title = "Ingenieur logiciel" %}
+                    {% set pay = "700" %}
+                    {% set wish_mark = "/assets/svg/wish_mark.svg" %}
+                    {% set company_logo = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {{ include("components/job_tile_card.twig") }}
+
+                    {% set job_title = "Ingenieur logiciel" %}
+                    {% set pay = "700" %}
+                    {% set wish_mark = "/assets/svg/wish_mark.svg" %}
+                    {% set company_logo = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {{ include("components/job_tile_card.twig") }}
+
+                    {% set job_title = "Ingenieur logiciel" %}
+                    {% set pay = "700" %}
+                    {% set wish_mark = "/assets/svg/wish_mark.svg" %}
+                    {% set company_logo = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {{ include("components/job_tile_card.twig") }}
+
+                    {% set job_title = "Ingenieur logiciel" %}
+                    {% set pay = "700" %}
+                    {% set wish_mark = "/assets/svg/wish_mark.svg" %}
+                    {% set company_logo = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {{ include("components/job_tile_card.twig") }}
+                </div>
+                <div class="col-4 d-none d-lg-block">
+                    {% set job_title = "Ingenieur logiciel" %}
+                    {% set pay = "700" %}
+                    {% set wish_mark = "/assets/svg/wish_mark.svg" %}
+                    {% set company_logo = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {{ include("components/job_tile_card.twig") }}
+
+                    {% set job_title = "Ingenieur logiciel" %}
+                    {% set pay = "700" %}
+                    {% set wish_mark = "/assets/svg/wish_mark.svg" %}
+                    {% set company_illustration = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {{ include("components/job_tile_card.twig") }}
+
+                    {% set job_title = "Ingenieur logiciel" %}
+                    {% set pay = "700" %}
+                    {% set wish_mark = "/assets/svg/wish_mark.svg" %}
+                    {% set company_logo = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {{ include("components/job_tile_card.twig") }}
+
+                    {% set job_title = "Ingenieur logiciel" %}
+                    {% set pay = "700" %}
+                    {% set wish_mark = "/assets/svg/wish_mark.svg" %}
+                    {% set company_logo = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {{ include("components/job_tile_card.twig") }}
+                </div>
+            </div>
+
+        </div>
+    </section>
 {% endblock %}
+

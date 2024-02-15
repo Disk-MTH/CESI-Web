@@ -18,6 +18,7 @@ $theme-colors: map-merge($theme-colors,
                 "richWarmGrey": #edeff5,
                 "deepWarmGrey": #f1f2f4,
                 "lightGrey": #9199a3,
+                "darkGrey": #7a7b7c,
                 "heavyBlack": #171616,
         ));
 
@@ -50,64 +51,19 @@ $utilities: map-merge(
                 )
 );
 
-/*.col-half {
-  flex: 0 0 auto;
-  width: 6.25%;
+.btn-outline-custom-blue {
+  @include button-variant(
+          $background: $white,
+          $border: map-get($theme-colors, "pastelBlue"),
+          $color: map-get($theme-colors, "deepSeaBlue"),
+          $hover-color: map-get($theme-colors, "deepSeaBlue"),
+          $active-background: map-get($theme-colors, "pastelBlue"),
+          $active-color: map-get($theme-colors, "deepSeaBlue"),
+  );
 }
 
-.col-sm-half {
-  flex: 0 0 auto;
-  width: 6.25%;
+.bg-gradient-card {
+  background: linear-gradient(to right, map-get($theme-colors, "pastelBlue") 0%, white 75%);
 }
-
-.col-md-half {
-  flex: 0 0 auto;
-  width: 6.25%;
-}
-
-.col-lg-half {
-  flex: 0 0 auto;
-  width: 6.25%;
-}
-
-.col-xl-half {
-  flex: 0 0 auto;
-  width: 6.25%;
-}
-
-.col-xxl-half {
-  flex: 0 0 auto;
-  width: 6.25%;
-}
-
-.col-1-half {
-  flex: 0 0 auto;
-  width: 12.5%;
-}
-
-.col-sm-1-half {
-  flex: 0 0 auto;
-  width: 12.5%;
-}
-
-.col-md-1-half {
-  flex: 0 0 auto;
-  width: 12.5%;
-}
-
-.col-lg-1-half {
-  flex: 0 0 auto;
-  width: 12.5%;
-}
-
-.col-xl-1-half {
-  flex: 0 0 auto;
-  width: 12.5%;
-}
-
-.col-xxl-1-half {
-  flex: 0 0 auto;
-  width: 12.5%;
-}*/
 
 @import "node_modules/bootstrap/scss/utilities/api";

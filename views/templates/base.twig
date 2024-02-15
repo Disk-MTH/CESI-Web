@@ -65,11 +65,17 @@
 
     <div class="container">
         <div class="row align-items-center">
-            <div class="my-2 d-lg-none"></div> {# md- only #}
-            <div class="col-lg-2 d-none d-lg-block"> {# lg+ only #}
-                <div class="btn btn-primary text-nowrap shadow"> Espace entreprise</div>
+            <div class="my-2 d-lg-none"></div>
+            <div class="col-lg-2 d-none d-lg-block">
+                <div class="btn btn-deepSeaBlue text-nowrap shadow" data-bs-toggle="offcanvas"
+                     data-bs-target="#sideMenuL">
+                    Espace entreprise
+                </div>
+                <div class="offcanvas offcanvas-start rounded-end-5" id="sideMenuL">
+                    {{ include("components/side_menu.twig") }}
+                </div>
             </div>
-            <div class="col-lg-1 d-none d-lg-block"></div> {# lg+ only #}
+            <div class="col-lg-1 d-none d-lg-block"></div>
             <div class="col-12 col-lg-6">
                 <div class="input-group rounded-5 shadow">
                     <div class="input-group-prepend">
@@ -81,21 +87,27 @@
                            aria-label="Stages, entreprises, mots clés...."
                            aria-describedby="home_input_search">
                     <div class="input-group-append">
-                        <button class="btn btn-primary rounded-start-0" type="button">Rechercher</button>
+                        <button class="btn btn-deepSeaBlue rounded-start-0" type="button">Rechercher</button>
                     </div>
                 </div>
             </div>
-            <div class="m-2 d-lg-none"></div> {# md- only #}
-            <div class="col-lg-1 d-none d-lg-block"> {# lg+ only #}
+            <div class="m-2 d-lg-none"></div>
+            <div class="col-lg-1 d-none d-lg-block">
                 <img class="img-fluid my-3 w-75" src="/assets/illustrations/profil.svg" alt="photo">
             </div>
             <div class="col-6 col-lg-2">
-                <div class="btn btn-outline-pastelBlue text-primary text-nowrap shadow">Se déconnecter</div>
+                <div class="btn btn-outline-custom-blue text-nowrap shadow">Se déconnecter</div>
             </div>
-            <div class="col-6 text-end d-lg-none"> {# md- only #}
-                <div class="btn btn-primary text-nowrap shadow">Espace entreprise</div>
+            <div class="col-6 text-end d-lg-none">
+                <div class="btn btn-deepSeaBlue text-nowrap shadow" data-bs-toggle="offcanvas"
+                     data-bs-target="#sideMenuR">
+                    Espace entreprise
+                </div>
+                <div class="offcanvas offcanvas-end rounded-start-5" id="sideMenuR">
+                    {{ include("components/side_menu.twig") }}
+                </div>
             </div>
-            <div class="my-2 d-lg-none"></div> {# md- only #}
+            <div class="my-2 d-lg-none"></div>
         </div>
     </div>
 </nav>
