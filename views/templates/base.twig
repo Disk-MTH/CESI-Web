@@ -68,11 +68,8 @@
             <div class="my-2 d-lg-none"></div>
             <div class="col-lg-2 d-none d-lg-block">
                 <div class="btn btn-deepSeaBlue text-nowrap shadow" data-bs-toggle="offcanvas"
-                     data-bs-target="#sideMenuL">
+                     data-bs-target="#sideMenu">
                     Espace entreprise
-                </div>
-                <div class="offcanvas offcanvas-start rounded-end-5" id="sideMenuL">
-                    {{ include("components/side_menu.twig") }}
                 </div>
             </div>
             <div class="col-lg-1 d-none d-lg-block"></div>
@@ -95,19 +92,17 @@
             <div class="col-lg-1 d-none d-lg-block">
                 <img class="img-fluid my-3 w-75" src="/assets/illustrations/profil.svg" alt="photo">
             </div>
-            <div class="col-6 col-lg-2">
-                <div class="btn btn-outline-custom-blue text-nowrap shadow">Se déconnecter</div>
-            </div>
-            <div class="col-6 text-end d-lg-none">
+            <div class="col-6 d-lg-none">
                 <div class="btn btn-deepSeaBlue text-nowrap shadow" data-bs-toggle="offcanvas"
-                     data-bs-target="#sideMenuR">
+                     data-bs-target="#sideMenu">
                     Espace entreprise
                 </div>
-                <div class="offcanvas offcanvas-end rounded-start-5" id="sideMenuR">
-                    {{ include("components/side_menu.twig") }}
-                </div>
+            </div>
+            <div class="col-6 col-lg-2 text-end">
+                <div class="btn btn-outline-custom-blue text-nowrap shadow">Se déconnecter</div>
             </div>
             <div class="my-2 d-lg-none"></div>
+            {{ include("components/side_menu.twig") }}
         </div>
     </div>
 </nav>
