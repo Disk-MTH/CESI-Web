@@ -27,4 +27,8 @@ return function (App $app) {
     $app->get("/tos", function (Request $request, Response $response) {
         return Twig::fromRequest($request)->render($response, "tos.twig");
     })->setName("tos");
+
+    $app->get("/company", function (Request $request, Response $response) {
+        return Twig::fromRequest($request)->render($response, "company.twig");
+    })->setName("company");
 };
