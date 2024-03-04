@@ -1,0 +1,48 @@
+{% extends "components/base.twig" %}
+
+{% block header %}
+
+    <nav class="bg-deepWarmGrey">
+        <div class="navbar navbar-expand-lg">
+            <div class="container py-3">
+                <div class="row">
+                    <div class="col">
+                        <div>Recherche d'entreprises</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+    <section>
+        <div class="container">
+            <div class="col-12 col-lg-6">
+                <div class="input-group rounded-5 shadow">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text bg-white rounded-end-0">
+                        <img class="img-fluid" src=/assets/svg/search.svg alt="search">
+                    </span>
+                    </div>
+                    <input class="form-control" placeholder="Rechercer par : Secteur d'activité, nom, mot clé..."
+                           aria-label="Rechercer par : Secteur d'activité, nom, mot clé..."
+                           aria-describedby="home_input_search">
+                    <div class="input-group append">
+                        <input class="form-control" placeholder="Ville, code postal, addrese..."
+                               aria-label="Ville, code postal, addrese..."
+                               aria-describedby="home_input_search">
+                    </div>
+                    <div class="input-group-append">
+                        <button class="btn btn-deepSeaBlue rounded-start-0" type="button">Rechercher</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{%  endblock %}

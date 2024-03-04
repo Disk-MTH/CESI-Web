@@ -2,10 +2,12 @@
 
 namespace stagify\Model\Entities;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
 
@@ -15,24 +17,37 @@ class User
     #[Id, Column(type: "integer"), GeneratedValue(strategy: "AUTO")]
     private int $id;
 
-    #[Column(name: "first_name", type: "string", nullable: false)]
+    #[Column(type: "string", nullable: false)]
     private string $firstName;
 
-    #[Column(name: "last_name", type: "string", nullable: false)]
+    #[Column(type: "string", nullable: false)]
     private string $lastName;
 
-    #[ManyToOne(targetEntity: Auth::class)]
-    private Auth $auth;
+    #[Column(type: "string", nullable: false)]
+    private string $profilePicturePath;
 
-    #[ManyToOne(targetEntity: Campus::class)]
-    private Campus $campus;
+    #[Column(type: "string", nullable: false)]
+    private string $login;
 
-    public function __construct(string $firstName, string $lastName, string $login, string $passwordHash, Campus $campus)
+    #[Column(type: "string", nullable: false)]
+    private string $passwordHash;
+
+    #[Column(type: "boolean", nullable: false)]
+    private bool $deleted;
+
+    #[ManyToOne(targetEntity: Promo::class)]
+    #[JoinColumn(name: "promo_id", referencedColumnName: "id")]
+    private ?Promo $promo;
+
+    public function __construct()
     {
-        $this->firstName = $firstName;
-        $this->lastName = $lastName;
-        $this->auth = new Auth($login, $passwordHash);
-        $this->campus = $campus;
+    }
+
+    /*-------------------------------------------------- Getters --------------------------------------------------*/
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     public function getFirstName(): string
@@ -45,13 +60,72 @@ class User
         return $this->lastName;
     }
 
-    public function getAuth(): Auth
+    public function getProfilePicturePath(): string
     {
-        return $this->auth;
+        return $this->profilePicturePath;
     }
 
-    public function getCampus(): Campus
+    public function getLogin(): string
     {
-        return $this->campus;
+        return $this->login;
+    }
+
+    public function getPasswordHash(): string
+    {
+        return $this->passwordHash;
+    }
+
+    public function getDeleted(): bool
+    {
+        return $this->deleted;
+    }
+
+    public function getPromo(): Promo
+    {
+        return $this->promo;
+    }
+
+    /*-------------------------------------------------- Setters --------------------------------------------------*/
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+        return $this;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+        return $this;
+    }
+
+    public function setProfilePicturePath(string $profilePicturePath): self
+    {
+        $this->profilePicturePath = $profilePicturePath;
+        return $this;
+    }
+
+    public function setLogin(string $login): self
+    {
+        $this->login = $login;
+        return $this;
+    }
+
+    public function setPasswordHash(string $passwordHash): self
+    {
+        $this->passwordHash = $passwordHash;
+        return $this;
+    }
+
+    public function setDeleted(bool $deleted): self
+    {
+        $this->deleted = $deleted;
+        return $this;
+    }
+
+    public function setPromo(?Promo $promo): self
+    {
+        $this->promo = $promo;
+        return $this;
     }
 }

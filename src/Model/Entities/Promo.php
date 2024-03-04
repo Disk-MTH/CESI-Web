@@ -12,8 +12,8 @@ use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
 
-#[Entity, Table(name: "campus")]
-class Campus
+#[Entity, Table(name: "promo")]
+class Promo
 {
     #[Id, Column(type: "integer"), GeneratedValue(strategy: "AUTO")]
     private int $id;
@@ -21,15 +21,15 @@ class Campus
     #[Column(type: "string", nullable: false)]
     private string $name;
 
-    #[ManyToOne(inversedBy: "campuses")]
-    private ?Localisation $localisation;
+    #[ManyToOne(inversedBy: "promos")]
+    private ?Campus $campus;
 
-    #[OneToMany(mappedBy: "campus", targetEntity: Promo::class)]
-    private Collection $promos;
+    #[OneToMany(mappedBy: "promo", targetEntity: User::class)]
+    private Collection $users;
 
     public function __construct()
     {
-        $this->promos = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     /*-------------------------------------------------- Getters --------------------------------------------------*/
@@ -44,14 +44,14 @@ class Campus
         return $this->name;
     }
 
-    public function getLocalisation(): Localisation
+    public function getCampus(): Campus
     {
-        return $this->localisation;
+        return $this->campus;
     }
 
-    public function getPromos(): Collection
+    public function getUsers(): Collection
     {
-        return $this->promos;
+        return $this->users;
     }
 
     /*-------------------------------------------------- Setters --------------------------------------------------*/
@@ -62,25 +62,26 @@ class Campus
         return $this;
     }
 
-    public function setLocalisation(?Localisation $localisation): self
+    public function setCampus(?Campus $campus): self
     {
-        $this->localisation = $localisation;
+        $this->campus = $campus;
         return $this;
     }
 
-    public function addPromo(Promo $promo): self
+    public function addUser(User $user): self
     {
-        if (!$this->promos->contains($promo)) {
-            $this->promos[] = $promo;
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setPromo($this);
         }
         return $this;
     }
 
-    public function removePromo(Promo $promo): self
+    public function removeUser(User $user): self
     {
-        if ($this->promos->removeElement($promo)) {
-            if ($promo->getCampus() === $this) {
-                $promo->setCampus(null);
+        if ($this->users->removeElement($user)) {
+            if ($user->getPromo() === $this) {
+                $user->setPromo(null);
             }
         }
         return $this;

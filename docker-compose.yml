@@ -1,6 +1,10 @@
 version: '3.8'
 name: stagify
 
+networks:
+  stagify-network:
+    driver: bridge
+
 services:
   traefik:
     container_name: stagify-traefik
@@ -14,11 +18,13 @@ services:
       - "80:80"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - stagify-network
 
   apache:
     container_name: stagify-apache
-    image: php:apache
-    command: ["sh", "-c", "a2enmod rewrite && mkdir -p /var/www/logs && chmod 777 /var/www/logs && apache2-foreground"]
+    build:
+      dockerfile: Dockerfile
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.apache.rule=Host(`stagify.fr`)"
@@ -29,6 +35,8 @@ services:
       - ./views:/var/www/views
       - ./vendor:/var/www/vendor
       - ./.env:/var/www/.env
+    networks:
+      - stagify-network
 
   phpmyadmin:
     container_name: stagify-phpmyadmin
@@ -42,14 +50,18 @@ services:
       PMA_HOST: mysql
       PMA_USER: ${DB_USER}
       PMA_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - stagify-network
 
   mysql:
     container_name: stagify-mysql
     image: mysql:latest
-    ports:
+    ports: #Expose the port for local development
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - stagify-network

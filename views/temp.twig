@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <title>Connexion - Stagify</title>
+    <link rel="icon" href="/assets/img/logo.ico"/>
+    <link href="/assets/bootstrap.css" rel="stylesheet"/>
+</head>
+
+<body class="d-flex flex-column" style="height: 100vh">
+
+<header class="bg-deepWarmGrey">
+    <div class="container my-2">
+        <div class="row">
+            <a class="col-4 col-md-2" href={{ url_for("home") }}>
+                <img class="img-fluid" src="/assets/img/logo.png" alt="logo"/>
+            </a>
+        </div>
+    </div>
+</header>
+
+<section>
+    <hr class="hr bg-heavyBlack m-0" style="border:none; height: 3px"/>
+</section>
+
+<section>
+    <div class="container bg-deepWarmGrey rounded-5 my-5 py-5">
+        <form action="/submit" method="post">
+            <div class="mb-3">
+                <label for="firstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="firstName" name="firstName" required>
+            </div>
+            <div class="mb-3">
+                <label for="lastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="lastName" name="lastName" required>
+            </div>
+            <div class="mb-3">
+                <label for="profilePicturePath" class="form-label">Profile Picture Path</label>
+                <input type="text" class="form-control" id="profilePicturePath" name="profilePicturePath" required>
+            </div>
+            <div class="mb-3">
+                <label for="login" class="form-label">Login</label>
+                <input type="text" class="form-control" id="login" name="login" required>
+            </div>
+            <div class="mb-3">
+                <label for="passwordHash" class="form-label">Password</label>
+                <input type="password" class="form-control" id="passwordHash" name="passwordHash" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</section>
+
+{{ include("components/footer.twig") }}
+
+</body>
+</html>
