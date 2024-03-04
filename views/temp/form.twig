@@ -27,7 +27,7 @@
 
 <section>
     <div class="container bg-deepWarmGrey rounded-5 my-5 py-5">
-        <form action="/submit" method="post">
+        <form action="{{ url_for("form") }}" method="post">
             <div class="mb-3">
                 <label for="firstName" class="form-label">First Name</label>
                 <input type="text" class="form-control" id="firstName" name="firstName" required>
@@ -48,12 +48,9 @@
                 <label for="passwordHash" class="form-label">Password</label>
                 <input type="password" class="form-control" id="passwordHash" name="passwordHash" required>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button class="btn btn-primary">Submit</button>
         </form>
     </div>
 </section>
-
-{{ include("components/footer.twig") }}
-
 </body>
 </html>

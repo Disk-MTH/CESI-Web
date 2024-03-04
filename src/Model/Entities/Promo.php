@@ -44,7 +44,7 @@ class Promo
         return $this->name;
     }
 
-    public function getCampus(): Campus
+    public function getCampus(): ?Campus
     {
         return $this->campus;
     }

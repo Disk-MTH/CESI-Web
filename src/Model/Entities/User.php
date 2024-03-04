@@ -80,7 +80,7 @@ class User
         return $this->deleted;
     }
 
-    public function getPromo(): Promo
+    public function getPromo(): ?Promo
     {
         return $this->promo;
     }

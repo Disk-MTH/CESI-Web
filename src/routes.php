@@ -2,34 +2,46 @@
 
 namespace stagify;
 
-use Doctrine\ORM\EntityManager;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
 use Slim\Views\Twig;
 use stagify\Model\Entities\User;
 
+function redirect(Response $response, string $name) : Response
+{
+    global $app;
+    return $response->withStatus(302)->withHeader("Location", $app->getRouteCollector()->getRouteParser()->urlFor($name));
+}
+
 return function (App $app) {
+    $app->get("/list", function (Request $request, Response $response) {
+        global $entityManager;
+        $users = $entityManager->getRepository(User::class)->findAll();
+        return Twig::fromRequest($request)->render($response, "temp/list.twig", ["users" => $users]);
+    })->setName("list");
 
+    $app->get("/form", function (Request $request, Response $response) {
+        return Twig::fromRequest($request)->render($response, "temp/form.twig");
+    })->setName("form");
 
-    $app->get("/temp", function (Request $request, Response $response) {
+    $app->post("/form", function (Request $request, Response $response) {
         global $entityManager;
 
-        //get the user objet with doctrine and pass it to the view
+        $data = $request->getParsedBody();
+        $user = (new User())
+            ->setFirstName($data["firstName"])
+            ->setLastName($data["lastName"])
+            ->setProfilePicturePath($data["profilePicturePath"])
+            ->setLogin($data["login"])
+            ->setPasswordHash($data["passwordHash"])
+            ->setDeleted(false);
 
-        $user = $entityManager->getRepository(User::class)->findAll();
+        $entityManager->persist($user);
+        $entityManager->flush();
 
-
-        for ($i = 0; $i < count($user); $i++) {
-            $response->getBody()->write($user[$i]);
-        }
-    })->setName("temp");
-
-    /*$app->post("/temp", function (Request $request, Response $response) {
-        var_dump($request->getQueryParams());
-        return Twig::fromRequest($request)->render($response, "temp.twig");
-    });*/
-
+        return redirect($response, "list");
+    });
 
     $app->get("/", function (Request $request, Response $response) {
         return Twig::fromRequest($request)->render($response, "home.twig");
@@ -58,4 +70,8 @@ return function (App $app) {
     $app->get("/user/wishlist", function (Request $request, Response $response) {
         return Twig::fromRequest($request)->render($response, "wishlist.twig");
     })->setName("wishlist");
+
+    $app->get("/home/companies", function (Request $request, Response $response) {
+        return Twig::fromRequest($request)->render($response, "companies.twig");
+    })->setName("companies");
 };

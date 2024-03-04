@@ -44,7 +44,7 @@ class Campus
         return $this->name;
     }
 
-    public function getLocalisation(): Localisation
+    public function getLocalisation(): ?Localisation
     {
         return $this->localisation;
     }
