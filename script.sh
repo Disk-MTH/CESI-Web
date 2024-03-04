@@ -53,7 +53,8 @@ do
     "${PWD}"/vendor/bin/doctrine orm:schema-tool:create
   elif [ "$MODE" = "i" ]; then
       echo "Installing bootstrap"
-      npm install "${PWD}"/bootstrap
+      npm install -g sass
+      npm install "${PWD}"/bootstrap --prefix "${PWD}"/bootstrap
   elif [ "$MODE" = "c" ]; then
     echo "Recompile bootstrap"
     sass "${PWD}"/bootstrap/bootstrap.scss "${PWD}"/assets/bootstrap.css

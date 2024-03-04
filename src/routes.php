@@ -31,4 +31,8 @@ return function (App $app) {
     $app->get("/company", function (Request $request, Response $response) {
         return Twig::fromRequest($request)->render($response, "company.twig");
     })->setName("company");
+
+    $app->get("/user/wishlist", function (Request $request, Response $response) {
+        return Twig::fromRequest($request)->render($response, "wishlist.twig");
+    })->setName("wishlist");
 };
