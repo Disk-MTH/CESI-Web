@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Log\LoggerInterface as Logger;
+use Respect\Validation\Validator;
 use Slim\App;
 use stagify\Flash\Flash;
 use stagify\Flash\FlashStatus;
@@ -31,6 +32,11 @@ function render(Response $response, string $template, array $data = []): Respons
     return $twig->render($response, $template, $data);
 }
 
+function flash(string $message, FlashStatus $status = FlashStatus::success): void
+{
+    $_SESSION["flash"] = new Flash($message, $status);
+}
+
 return function (App $app, Logger $logger, EntityManager $entityManager) {
     $app->get("/list", function (Request $request, Response $response) use ($entityManager) {
         $users = $entityManager->getRepository(User::class)->findAll();
@@ -42,7 +48,19 @@ return function (App $app, Logger $logger, EntityManager $entityManager) {
     })->setName("form");
 
     $app->post("/form", function (Request $request, Response $response) use ($entityManager) {
-        $_SESSION["flash"] = new Flash("User has been created", FlashStatus::success);
+        flash("User has been created");
+
+        $data = $request->getParsedBody();
+        $errors = [];
+
+        Validator::notEmpty()->validate($data["firstName"]) || $errors["firstName"] = "Le prénom ne peut pas etre vide";
+        Validator::notEmpty()->validate($data["lastName"]) || $errors["lastName"] = "Le nom ne peut pas etre vide";
+        Validator::email()->validate($data["login"]) || $errors["login"] = "L'email n'est pas valide";
+
+
+
+
+        return redirect($response, "form");
 
         /*$data = $request->getParsedBody();
         $user = (new User())
@@ -57,7 +75,7 @@ return function (App $app, Logger $logger, EntityManager $entityManager) {
         $entityManager->flush();*/
 
 //        return redirect($response, "list");
-        return redirect($response, "form");
+
     });
 
     $app->get("/", function (Request $request, Response $response) {

@@ -19,28 +19,23 @@
         <div class="container bg-deepWarmGrey rounded-5 my-5 py-5">
             {{ include("components/flash_banners.twig") }}
             <form action="{{ url_for("form") }}" method="post">
-                <div class="mb-3">
-                    <label for="firstName" class="form-label">First Name</label>
-                    <input type="text" class="form-control" id="firstName" name="firstName" value="John" required>
-                </div>
-                <div class="mb-3">
-                    <label for="lastName" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" id="lastName" name="lastName" value="Doe" required>
-                </div>
-                <div class="mb-3">
-                    <label for="profilePicturePath" class="form-label">Profile Picture Path</label>
-                    <input type="text" class="form-control" id="profilePicturePath" name="profilePicturePath"
-                           value="example.png" required>
-                </div>
-                <div class="mb-3">
-                    <label for="login" class="form-label">Login</label>
-                    <input type="text" class="form-control" id="login" name="login" value="root" required>
-                </div>
-                <div class="mb-3">
-                    <label for="passwordHash" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="passwordHash" name="passwordHash" value="*password"
-                           required>
-                </div>
+                <label for="firstName" class="form-label">First Name</label>
+                <input class="form-control" id="firstName" name="firstName" value={{ old["firstName"] }}>
+                <div class="my-3"></div>
+                <label for="lastName" class="form-label">Last Name</label>
+                <input class="form-control" id="lastName" name="lastName" value={{ old["lastName"] }}>
+                <div class="my-3"></div>
+                <label for="profilePicturePath" class="form-label">Profile Picture Path</label>
+                <input class="form-control" id="profilePicturePath" name="profilePicturePath"
+                       value={{ old["profilePicturePath"] }}>
+                <div class="my-3"></div>
+                <label for="login" class="form-label">Login</label>
+                <input class="form-control" id="login" name="login" value={{ old["login"] }}>
+                <div class="my-3"></div>
+                <label for="passwordHash" class="form-label">Password</label>
+                <input type="password" class="form-control" id="passwordHash" name="passwordHash"
+                       value={{ old["passwordHash"] }}>
+                <div class="my-3"></div>
                 <button class="btn btn-primary">Submit</button>
             </form>
         </div>
