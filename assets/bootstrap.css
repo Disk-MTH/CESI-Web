@@ -41,7 +41,7 @@
   --bs-deepSeaBlue: #0a65cc;
   --bs-coldRed: #e05151;
   --bs-deepGreen: #0ba02c;
-  --bs-goldenBrow: #ffaa00;
+  --bs-goldenBrown: #ffaa00;
   --bs-jade: #164e5d;
   --bs-pastelRed: #ffeded;
   --bs-pastelBlue: #e7f0fa;
@@ -63,7 +63,7 @@
   --bs-deepSeaBlue-rgb: 10, 101, 204;
   --bs-coldRed-rgb: 224, 81, 81;
   --bs-deepGreen-rgb: 11, 160, 44;
-  --bs-goldenBrow-rgb: 255, 170, 0;
+  --bs-goldenBrown-rgb: 255, 170, 0;
   --bs-jade-rgb: 22, 78, 93;
   --bs-pastelRed-rgb: 255, 237, 237;
   --bs-pastelBlue-rgb: 231, 240, 250;
@@ -3182,7 +3182,7 @@ textarea.form-control-lg {
   --bs-btn-disabled-border-color: #0ba02c;
 }
 
-.btn-goldenBrow {
+.btn-goldenBrown {
   --bs-btn-color: #000;
   --bs-btn-bg: #ffaa00;
   --bs-btn-border-color: #ffaa00;
@@ -3556,7 +3556,7 @@ textarea.form-control-lg {
   --bs-gradient: none;
 }
 
-.btn-outline-goldenBrow {
+.btn-outline-goldenBrown {
   --bs-btn-color: #ffaa00;
   --bs-btn-border-color: #ffaa00;
   --bs-btn-hover-color: #000;
@@ -5389,11 +5389,11 @@ textarea.form-control-lg {
   --bs-alert-link-color: var(--bs-deepGreen-text-emphasis);
 }
 
-.alert-goldenBrow {
-  --bs-alert-color: var(--bs-goldenBrow-text-emphasis);
-  --bs-alert-bg: var(--bs-goldenBrow-bg-subtle);
-  --bs-alert-border-color: var(--bs-goldenBrow-border-subtle);
-  --bs-alert-link-color: var(--bs-goldenBrow-text-emphasis);
+.alert-goldenBrown {
+  --bs-alert-color: var(--bs-goldenBrown-text-emphasis);
+  --bs-alert-bg: var(--bs-goldenBrown-bg-subtle);
+  --bs-alert-border-color: var(--bs-goldenBrown-border-subtle);
+  --bs-alert-link-color: var(--bs-goldenBrown-text-emphasis);
 }
 
 .alert-jade {
@@ -5910,17 +5910,17 @@ textarea.form-control-lg {
   --bs-list-group-active-border-color: var(--bs-deepGreen-text-emphasis);
 }
 
-.list-group-item-goldenBrow {
-  --bs-list-group-color: var(--bs-goldenBrow-text-emphasis);
-  --bs-list-group-bg: var(--bs-goldenBrow-bg-subtle);
-  --bs-list-group-border-color: var(--bs-goldenBrow-border-subtle);
+.list-group-item-goldenBrown {
+  --bs-list-group-color: var(--bs-goldenBrown-text-emphasis);
+  --bs-list-group-bg: var(--bs-goldenBrown-bg-subtle);
+  --bs-list-group-border-color: var(--bs-goldenBrown-border-subtle);
   --bs-list-group-action-hover-color: var(--bs-emphasis-color);
-  --bs-list-group-action-hover-bg: var(--bs-goldenBrow-border-subtle);
+  --bs-list-group-action-hover-bg: var(--bs-goldenBrown-border-subtle);
   --bs-list-group-action-active-color: var(--bs-emphasis-color);
-  --bs-list-group-action-active-bg: var(--bs-goldenBrow-border-subtle);
-  --bs-list-group-active-color: var(--bs-goldenBrow-bg-subtle);
-  --bs-list-group-active-bg: var(--bs-goldenBrow-text-emphasis);
-  --bs-list-group-active-border-color: var(--bs-goldenBrow-text-emphasis);
+  --bs-list-group-action-active-bg: var(--bs-goldenBrown-border-subtle);
+  --bs-list-group-active-color: var(--bs-goldenBrown-bg-subtle);
+  --bs-list-group-active-bg: var(--bs-goldenBrown-text-emphasis);
+  --bs-list-group-active-border-color: var(--bs-goldenBrown-text-emphasis);
 }
 
 .list-group-item-jade {
@@ -7586,9 +7586,9 @@ textarea.form-control-lg {
   background-color: RGBA(var(--bs-deepGreen-rgb), var(--bs-bg-opacity, 1)) !important;
 }
 
-.text-bg-goldenBrow {
+.text-bg-goldenBrown {
   color: #000 !important;
-  background-color: RGBA(var(--bs-goldenBrow-rgb), var(--bs-bg-opacity, 1)) !important;
+  background-color: RGBA(var(--bs-goldenBrown-rgb), var(--bs-bg-opacity, 1)) !important;
 }
 
 .text-bg-jade {
@@ -7740,11 +7740,11 @@ textarea.form-control-lg {
   text-decoration-color: RGBA(60, 179, 86, var(--bs-link-underline-opacity, 1)) !important;
 }
 
-.link-goldenBrow {
-  color: RGBA(var(--bs-goldenBrow-rgb), var(--bs-link-opacity, 1)) !important;
-  text-decoration-color: RGBA(var(--bs-goldenBrow-rgb), var(--bs-link-underline-opacity, 1)) !important;
+.link-goldenBrown {
+  color: RGBA(var(--bs-goldenBrown-rgb), var(--bs-link-opacity, 1)) !important;
+  text-decoration-color: RGBA(var(--bs-goldenBrown-rgb), var(--bs-link-underline-opacity, 1)) !important;
 }
-.link-goldenBrow:hover, .link-goldenBrow:focus {
+.link-goldenBrown:hover, .link-goldenBrown:focus {
   color: RGBA(255, 187, 51, var(--bs-link-opacity, 1)) !important;
   text-decoration-color: RGBA(255, 187, 51, var(--bs-link-underline-opacity, 1)) !important;
 }
@@ -8282,8 +8282,8 @@ textarea.form-control-lg {
   --bs-focus-ring-color: rgba(var(--bs-deepGreen-rgb), var(--bs-focus-ring-opacity));
 }
 
-.focus-ring-goldenBrow {
-  --bs-focus-ring-color: rgba(var(--bs-goldenBrow-rgb), var(--bs-focus-ring-opacity));
+.focus-ring-goldenBrown {
+  --bs-focus-ring-color: rgba(var(--bs-goldenBrown-rgb), var(--bs-focus-ring-opacity));
 }
 
 .focus-ring-jade {
@@ -8501,9 +8501,9 @@ textarea.form-control-lg {
   border-color: rgba(var(--bs-deepGreen-rgb), var(--bs-border-opacity)) !important;
 }
 
-.border-goldenBrow {
+.border-goldenBrown {
   --bs-border-opacity: 1;
-  border-color: rgba(var(--bs-goldenBrow-rgb), var(--bs-border-opacity)) !important;
+  border-color: rgba(var(--bs-goldenBrown-rgb), var(--bs-border-opacity)) !important;
 }
 
 .border-jade {
@@ -9522,9 +9522,9 @@ textarea.form-control-lg {
   color: rgba(var(--bs-deepGreen-rgb), var(--bs-text-opacity)) !important;
 }
 
-.text-goldenBrow {
+.text-goldenBrown {
   --bs-text-opacity: 1;
-  color: rgba(var(--bs-goldenBrow-rgb), var(--bs-text-opacity)) !important;
+  color: rgba(var(--bs-goldenBrown-rgb), var(--bs-text-opacity)) !important;
 }
 
 .text-jade {
@@ -9794,9 +9794,9 @@ textarea.form-control-lg {
   text-decoration-color: rgba(var(--bs-deepGreen-rgb), var(--bs-link-underline-opacity)) !important;
 }
 
-.link-underline-goldenBrow {
+.link-underline-goldenBrown {
   --bs-link-underline-opacity: 1;
-  text-decoration-color: rgba(var(--bs-goldenBrow-rgb), var(--bs-link-underline-opacity)) !important;
+  text-decoration-color: rgba(var(--bs-goldenBrown-rgb), var(--bs-link-underline-opacity)) !important;
 }
 
 .link-underline-jade {
@@ -9957,9 +9957,9 @@ textarea.form-control-lg {
   background-color: rgba(var(--bs-deepGreen-rgb), var(--bs-bg-opacity)) !important;
 }
 
-.bg-goldenBrow {
+.bg-goldenBrown {
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-goldenBrow-rgb), var(--bs-bg-opacity)) !important;
+  background-color: rgba(var(--bs-goldenBrown-rgb), var(--bs-bg-opacity)) !important;
 }
 
 .bg-jade {
@@ -13411,8 +13411,8 @@ textarea.form-control-lg {
   --bs-focus-ring-color: rgba(var(--bs-deepGreen-rgb), var(--bs-focus-ring-opacity));
 }
 
-.focus-ring-goldenBrow {
-  --bs-focus-ring-color: rgba(var(--bs-goldenBrow-rgb), var(--bs-focus-ring-opacity));
+.focus-ring-goldenBrown {
+  --bs-focus-ring-color: rgba(var(--bs-goldenBrown-rgb), var(--bs-focus-ring-opacity));
 }
 
 .focus-ring-jade {
@@ -13630,9 +13630,9 @@ textarea.form-control-lg {
   border-color: rgba(var(--bs-deepGreen-rgb), var(--bs-border-opacity)) !important;
 }
 
-.border-goldenBrow {
+.border-goldenBrown {
   --bs-border-opacity: 1;
-  border-color: rgba(var(--bs-goldenBrow-rgb), var(--bs-border-opacity)) !important;
+  border-color: rgba(var(--bs-goldenBrown-rgb), var(--bs-border-opacity)) !important;
 }
 
 .border-jade {
@@ -14655,9 +14655,9 @@ textarea.form-control-lg {
   color: rgba(var(--bs-deepGreen-rgb), var(--bs-text-opacity)) !important;
 }
 
-.text-goldenBrow {
+.text-goldenBrown {
   --bs-text-opacity: 1;
-  color: rgba(var(--bs-goldenBrow-rgb), var(--bs-text-opacity)) !important;
+  color: rgba(var(--bs-goldenBrown-rgb), var(--bs-text-opacity)) !important;
 }
 
 .text-jade {
@@ -14927,9 +14927,9 @@ textarea.form-control-lg {
   text-decoration-color: rgba(var(--bs-deepGreen-rgb), var(--bs-link-underline-opacity)) !important;
 }
 
-.link-underline-goldenBrow {
+.link-underline-goldenBrown {
   --bs-link-underline-opacity: 1;
-  text-decoration-color: rgba(var(--bs-goldenBrow-rgb), var(--bs-link-underline-opacity)) !important;
+  text-decoration-color: rgba(var(--bs-goldenBrown-rgb), var(--bs-link-underline-opacity)) !important;
 }
 
 .link-underline-jade {
@@ -15090,9 +15090,9 @@ textarea.form-control-lg {
   background-color: rgba(var(--bs-deepGreen-rgb), var(--bs-bg-opacity)) !important;
 }
 
-.bg-goldenBrow {
+.bg-goldenBrown {
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-goldenBrow-rgb), var(--bs-bg-opacity)) !important;
+  background-color: rgba(var(--bs-goldenBrown-rgb), var(--bs-bg-opacity)) !important;
 }
 
 .bg-jade {
