@@ -1,53 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="description" content=""/>
-    <title>Connexion - Stagify</title>
-    <link rel="icon" href="/assets/img/logo.ico"/>
-    <link href="/assets/bootstrap.css" rel="stylesheet"/>
-</head>
-<body class="d-flex flex-column" style="height: 100vh">
+{% set title = "Stagify - Authentification" %}
+{% extends "components/base.twig" %}
 
-<header class="bg-deepWarmGrey">
-    <div class="container my-2">
+{% block body %}
+    <header class="bg-deepWarmGrey">
+        <div class="container my-2">
+            <div class="row">
+                <a class="col-4 col-md-2" href={{ url_for("home") }}>
+                    <img class="img-fluid" src="/assets/img/logo.png" alt="logo"/>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section>
+        <hr class="hr bg-heavyBlack m-0" style="border:none; height: 3px"/>
+    </section>
+
+    <section class="container d-flex flex-fill align-items-center">
         <div class="row">
-            <a class="col-4 col-md-2" href={{ url_for("home") }}>
-                <img class="img-fluid" src="/assets/img/logo.png" alt="logo"/>
-            </a>
+            <div class="col-lg-6">
+                <h1>Connectez vous sur Stagify,<br>LA plateforme de recherche de stages étudiants</h1>
+                <div class="m-4"></div>
+                <input class="form-control shadow" type="text" placeholder="Nom d'utilisateur"
+                       aria-label="Nom d'utilisateur" aria-describedby="login_input_user"/>
+                <div class="m-2"></div>
+                <input class="form-control shadow" type="text" placeholder="Mot de passe" aria-label="Mot de passe"
+                       aria-describedby="login_input_password"/>
+                <div class="m-2"></div>
+                <a class="link-dark ms-1" href={{ url_for("home") }}>Mot de passe oublié?</a>
+                <div class="m-3"></div>
+                <a class="btn btn-deepSeaBlue text-nowrap shadow w-50" href={{ url_for("home") }}>
+                    S'identifier
+                </a>
+            </div>
+            <div class="col-lg-2 d-none d-lg-block"></div>
+            <div class="col-lg-4 d-none d-lg-block align-self-center">
+                <img class="img-fluid rounded-5" src="/assets/illustrations/login_page.png" alt="..."/>
+            </div>
         </div>
-    </div>
-</header>
+    </section>
 
-<section>
-    <hr class="hr bg-heavyBlack m-0" style="border:none; height: 3px"/>
-</section>
-
-<section class="container d-flex flex-fill align-items-center">
-    <div class="row">
-        <div class="col-lg-6">
-            <h1>Connectez vous sur Stagify,<br>LA plateforme de recherche de stages étudiants</h1>
-            <div class="m-4"></div>
-            <input class="form-control shadow" type="text" placeholder="Nom d'utilisateur"
-                   aria-label="Nom d'utilisateur" aria-describedby="login_input_user"/>
-            <div class="m-2"></div>
-            <input class="form-control shadow" type="text" placeholder="Mot de passe" aria-label="Mot de passe"
-                   aria-describedby="login_input_password"/>
-            <div class="m-2"></div>
-            <a class="link-dark ms-1" href={{ url_for("home") }}>Mot de passe oublié?</a>
-            <div class="m-3"></div>
-            <a class="btn btn-deepSeaBlue text-nowrap shadow w-50" href={{ url_for("home") }}>
-                S'identifier
-            </a>
-        </div>
-        <div class="col-lg-2 d-none d-lg-block"></div>
-        <div class="col-lg-4 d-none d-lg-block align-self-center">
-            <img class="img-fluid rounded-5" src="/assets/illustrations/login_page.png" alt="..."/>
-        </div>
-    </div>
-</section>
-
-{{ include("components/footer.twig") }}
-</body>
-</html>
+    {{ include("components/footer.twig") }}
+{% endblock %}

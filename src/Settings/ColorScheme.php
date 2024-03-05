@@ -5,6 +5,7 @@ namespace stagify\Settings;
 use Bramus\Ansi\ControlSequences\EscapeSequences\Enums\SGR;
 use Bramus\Monolog\Formatter\ColorSchemes\ColorSchemeInterface;
 use Bramus\Monolog\Formatter\ColorSchemes\ColorSchemeTrait;
+use Exception;
 use Monolog\Level;
 
 class ColorScheme implements ColorSchemeInterface
@@ -13,6 +14,9 @@ class ColorScheme implements ColorSchemeInterface
         ColorSchemeTrait::__construct as private __constructTrait;
     }
 
+    /**
+     * @throws Exception
+     */
     public function __construct()
     {
         $this->__constructTrait();

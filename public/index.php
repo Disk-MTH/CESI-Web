@@ -10,6 +10,8 @@ use stagify\Settings\SettingsInterface;
 
 require __DIR__ . "/../vendor/autoload.php";
 
+session_start();
+
 $container = require __DIR__ . "/../src/dependencies.php";
 $container = $container();
 
@@ -34,7 +36,7 @@ $app = AppFactory::create();
 $logger->debug("App has been initialized");
 
 $routes = require __DIR__ . "/../src/routes.php";
-$routes($app);
+$routes($app, $logger, $entityManager);
 $logger->debug("Routes have been initialized");
 
 $middlewares = require __DIR__ . "/../src/middlewares.php";

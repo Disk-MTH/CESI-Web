@@ -2,33 +2,49 @@
 
 namespace stagify;
 
+use Doctrine\ORM\EntityManager;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Log\LoggerInterface as Logger;
 use Slim\App;
-use Slim\Views\Twig;
+use stagify\Flash\Flash;
+use stagify\Flash\FlashStatus;
+use stagify\Flash\FlashType;
 use stagify\Model\Entities\User;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
-function redirect(Response $response, string $name, array $args = []) : Response
+function redirect(Response $response, string $url): Response
 {
-    global $app;
-    return $response->withStatus(302)->withHeader("Location", $app->getRouteCollector()->getRouteParser()->urlFor($name, $args));
+    return $response->withStatus(302)->withHeader("Location", $url);
 }
 
-return function (App $app) {
-    $app->get("/list", function (Request $request, Response $response) {
-        global $entityManager;
+/**
+ * @throws SyntaxError
+ * @throws RuntimeError
+ * @throws LoaderError
+ */
+function render(Response $response, string $template, array $data = []): Response
+{
+    global $twig;
+    return $twig->render($response, $template, $data);
+}
+
+return function (App $app, Logger $logger, EntityManager $entityManager) {
+    $app->get("/list", function (Request $request, Response $response) use ($entityManager) {
         $users = $entityManager->getRepository(User::class)->findAll();
-        return Twig::fromRequest($request)->render($response, "temp/list.twig", ["users" => $users]);
+        return render($response, "temp/list.twig", ["users" => $users]);
     })->setName("list");
 
-    $app->get("/form", function (Request $request, Response $response) {
-        return Twig::fromRequest($request)->render($response, "temp/form.twig");
+    $app->get("/form", function (Request $request, Response $response) use ($logger) {
+        return render($response, "temp/form.twig");
     })->setName("form");
 
-    $app->post("/form", function (Request $request, Response $response) {
-        global $entityManager;
+    $app->post("/form", function (Request $request, Response $response) use ($entityManager) {
+        $_SESSION["flash"] = new Flash("User has been created", FlashStatus::success);
 
-        $data = $request->getParsedBody();
+        /*$data = $request->getParsedBody();
         $user = (new User())
             ->setFirstName($data["firstName"])
             ->setLastName($data["lastName"])
@@ -38,40 +54,41 @@ return function (App $app) {
             ->setDeleted(false);
 
         $entityManager->persist($user);
-        $entityManager->flush();
+        $entityManager->flush();*/
 
-        return redirect($response, "list");
+//        return redirect($response, "list");
+        return redirect($response, "form");
     });
 
     $app->get("/", function (Request $request, Response $response) {
-        return Twig::fromRequest($request)->render($response, "home.twig");
+        return render($response, "home.twig");
     })->setName("home");
 
     $app->get("/base", function (Request $request, Response $response) {
-        return Twig::fromRequest($request)->render($response, "templates/base.twig");
+        return render($response, "base.twig");
     })->setName("base");
 
     $app->get("/login", function (Request $request, Response $response) {
-        return Twig::fromRequest($request)->render($response, "login.twig");
+        return render($response, "login.twig");
     })->setName("login");
 
     $app->get("/user", function (Request $request, Response $response) {
-        return Twig::fromRequest($request)->render($response, "user.twig");
+        return render($response, "user.twig");
     })->setName("user");
 
     $app->get("/user/wishlist", function (Request $request, Response $response) {
-        return Twig::fromRequest($request)->render($response, "wishlist.twig");
+        return render($response, "wishlist.twig");
     })->setName("wishlist");
 
     $app->get("/tos", function (Request $request, Response $response) {
-        return Twig::fromRequest($request)->render($response, "tos.twig");
+        return render($response, "tos.twig");
     })->setName("tos");
 
     $app->get("/company", function (Request $request, Response $response) {
-        return Twig::fromRequest($request)->render($response, "company.twig");
+        return render($response, "company.twig");
     })->setName("company");
 
     $app->get("/companies", function (Request $request, Response $response) {
-        return Twig::fromRequest($request)->render($response, "companies.twig");
+        return render($response, "companies.twig");
     })->setName("companies");
 };

@@ -1,49 +1,22 @@
-{% set title = "Stagify - Accueil" %}
+{% set title = "Stagify - Stages" %}
+{% set alternative_search_bar = true %}
 {% extends "components/layout.twig" %}
 
 {% block header %}
-    <section class="bg-deepWarmGrey rounded-bottom-5 pb-5">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 ">
-                    <h1>
-                        Trouves un stage qui mets en valeur tes compétences
-                    </h1>
-                    <p>
-                        Navigues parmis des milliers d'entreprises, des dizaines de domaines, parcours les centaines
-                        d'avis et trouves TON stage
-                    </p>
+    <section class="bg-deepWarmGrey ">
+        <div class="container py-3">
+            <div class="row ">
+                <div class="col-8">
+                    <div class="pt-2">Recherche de stages</div>
                 </div>
-                <div class="col-lg-2 d-none d-lg-block"></div>
-                <div class="col-lg-4 d-none d-lg-block align-self-center">
-                    <img class="img-fluid rounded-5" src="/assets/illustrations/home_page.svg"
-                         alt="illustration-homepage"/>
-                </div>
-            </div>
-            <div class="row row-cols-md-2 row-cols-lg-4 align-content-center">
-                <div class="mb-3 mb-lg-0">
-                    {% set illustration = "/assets/svg/home/brief_case.svg" %}
-                    {% set number_variable = "9242" %}
-                    {% set type_variable = "Stages" %}
-                    {{ include("components/home_info_card.twig") }}
-                </div>
-                <div class="mb-3 mb-lg-0">
-                    {% set illustration = "/assets/svg/home/companies.svg" %}
-                    {% set number_variable = "5251" %}
-                    {% set type_variable = "Entreprises" %}
-                    {{ include("components/home_info_card.twig") }}
-                </div>
-                <div class="mb-3 mb-lg-0">
-                    {% set illustration = "/assets/svg/home/collaborators.svg" %}
-                    {% set number_variable = "38213" %}
-                    {% set type_variable = "Etudiants" %}
-                    {{ include("components/home_info_card.twig") }}
-                </div>
-                <div class="mb-3 mb-lg-0">
-                    {% set illustration = "/assets/svg/home/teachers.svg" %}
-                    {% set number_variable = "3102" %}
-                    {% set type_variable = "Pilotes" %}
-                    {{ include("components/home_info_card.twig") }}
+                <div class="col-4 text-end">
+                    <div class="dropdown dropdown-menu-end">
+                        <div class="btn btn-deepWarmGrey shadow" data-bs-toggle="dropdown"
+                             data-bs-target="#dropdownMenuButtonJob">
+                            <img src="/assets/svg/sliders.svg" alt="slider"> Filtres
+                        </div>
+                        {{ include("components/jobs_filter_dropdown.twig") }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -51,19 +24,8 @@
 {% endblock %}
 
 {% block content %}
-    <section class="my-5">
-        <div class="container">
-            <div class="row mb-3">
-                <div class="col-lg-10 col-md-9 col-7">
-                    <h1>Recommendations de stages</h1>
-                </div>
-                <div class="col-lg-2 col-md-3 col-5 align-items-end d-flex justify-content-end">
-                    <div class="btn btn-outline-custom-blue text-nowrap shadow">
-                        Voir tout
-                        <img class="img-fluid" src="/assets/svg/arrow_pointing_right.svg" alt="arrow"/>
-                    </div>
-                </div>
-            </div>
+    <section>
+        <div class="container pt-4">
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-4">
                     {% set job_title = "Ingenieur logiciel" %}
@@ -97,7 +59,9 @@
                     {% set company_name = "Google" %}
                     {% set location = "51100 Reims" %}
                     {{ include("components/job_tile_card.twig") }}
+
                 </div>
+
                 <div class="col-6 col-lg-4 d-none d-md-block">
                     {% set job_title = "Ingenieur logiciel" %}
                     {% set pay = "700" %}
@@ -130,7 +94,9 @@
                     {% set company_name = "Google" %}
                     {% set location = "51100 Reims" %}
                     {{ include("components/job_tile_card.twig") }}
+
                 </div>
+
                 <div class="col-4 d-none d-lg-block">
                     {% set job_title = "Ingenieur logiciel" %}
                     {% set pay = "700" %}
@@ -143,14 +109,6 @@
                     {% set job_title = "Ingenieur logiciel" %}
                     {% set pay = "700" %}
                     {% set wish_mark = "/assets/svg/wish_mark.svg" %}
-                    {% set company_illustration = "/assets/illustrations/company_logo.svg" %}
-                    {% set company_name = "Google" %}
-                    {% set location = "51100 Reims" %}
-                    {{ include("components/job_tile_card.twig") }}
-
-                    {% set job_title = "Ingenieur logiciel" %}
-                    {% set pay = "700" %}
-                    {% set wish_mark = "/assets/svg/wish_mark.svg" %}
                     {% set company_logo = "/assets/illustrations/company_logo.svg" %}
                     {% set company_name = "Google" %}
                     {% set location = "51100 Reims" %}
@@ -163,10 +121,33 @@
                     {% set company_name = "Google" %}
                     {% set location = "51100 Reims" %}
                     {{ include("components/job_tile_card.twig") }}
+
+                    {% set job_title = "Ingenieur logiciel" %}
+                    {% set pay = "700" %}
+                    {% set wish_mark = "/assets/svg/wish_mark.svg" %}
+                    {% set company_logo = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {{ include("components/job_tile_card.twig") }}
+
                 </div>
             </div>
-
         </div>
     </section>
-{% endblock %}
 
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center pt-2 ">
+            <li class="page-item disabled">
+                <a class="page-link border-0" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item active "><a class="page-link border-0" href="#">1</a></li>
+            <li class="page-item "><a class="page-link border-0" href="#">2</a></li>
+            <li class="page-item "><a class="page-link border-0" href="#">3</a></li>
+            <li class="page-item "><a class="page-link border-0" href="#">4</a></li>
+            <li class="page-item "><a class="page-link border-0" href="#">5</a></li>
+            <li class="page-item">
+                <a class="page-link border-0" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}
