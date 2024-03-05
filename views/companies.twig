@@ -2,44 +2,52 @@
 {% extends "components/base.twig" %}
 
 {% block header %}
-
-    <nav class="bg-deepWarmGrey">
-        <div class="navbar navbar-expand-lg">
-            <div class="container py-3">
-                <div class="row">
-                    <div class="col">
-                        <div>Recherche d'entreprises</div>
+    <section class="bg-deepWarmGrey">
+        <div class="container py-3">
+            <div class="row ">
+                <div class="col-lg-10 col-md-9  col-8">
+                    <div class="pt-2">Recherche d'entreprises</div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-4 text-end">
+                    <div class="btn btn-deepWarmGrey shadow-lg rounded-2">
+                        <img src="/assets/svg/sliders.svg" alt="Filter">
+                        Filtres
                     </div>
                 </div>
             </div>
         </div>
-    </nav>
-
+    </section>
 {% endblock %}
 
 {% block content %}
     <section>
-        <div class="container">
-            <div class="col-12 col-lg-6">
-                <div class="input-group rounded-5 shadow">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text bg-white rounded-end-0">
-                        <img class="img-fluid" src=/assets/svg/search.svg alt="search">
-                    </span>
-                    </div>
-                    <input class="form-control" placeholder="Rechercer par : Secteur d'activité, nom, mot clé..."
-                           aria-label="Rechercer par : Secteur d'activité, nom, mot clé..."
-                           aria-describedby="home_input_search">
-                    <div class="input-group append">
-                        <input class="form-control" placeholder="Ville, code postal, addrese..."
-                               aria-label="Ville, code postal, addrese..."
-                               aria-describedby="home_input_search">
-                    </div>
-                    <div class="input-group-append">
-                        <button class="btn btn-deepSeaBlue rounded-start-0" type="button">Rechercher</button>
-                    </div>
+        <div class="container pt-4">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4">
+                    {% set company_logo = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {% set rating_number = "526" %}
+                    {{ include("components/company_tile_card.twig") }}
+                </div>
+
+                <div class="col-6 col-lg-4 d-none d-md-block">
+                    {% set company_logo = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {% set rating_number = "526" %}
+                    {{ include("components/company_tile_card.twig") }}
+                </div>
+
+                <div class="col-4 d-none d-lg-block">
+                    {% set company_logo = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {% set rating_number = "526" %}
+                    {{ include("components/company_tile_card.twig") }}
                 </div>
             </div>
+
         </div>
     </section>
 {% endblock %}
