@@ -32,7 +32,7 @@
                     </li>
                     <div class="text-heavyBlack d-none d-lg-block align-self-center">&middot;</div>
                     <li class="nav-item">
-                        <a class="nav-link text-heavyBlack" href={{ url_for("home") }}>Entreprises</a>
+                        <a class="nav-link text-heavyBlack" href={{ url_for("companies") }}>Entreprises</a>
                     </li>
                     <div class="text-heavyBlack d-none d-lg-block align-self-center">&middot;</div>
                     <li class="nav-item">
@@ -74,19 +74,11 @@
             </div>
             <div class="col-lg-1 d-none d-lg-block"></div>
             <div class="col-12 col-lg-6">
-                <div class="input-group rounded-5 shadow">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text bg-white rounded-end-0">
-                        <img class="img-fluid" src=/assets/svg/search.svg alt="search">
-                    </span>
-                    </div>
-                    <input class="form-control" placeholder="Stages, entreprises, mots clés...."
-                           aria-label="Stages, entreprises, mots clés...."
-                           aria-describedby="home_input_search">
-                    <div class="input-group-append">
-                        <button class="btn btn-deepSeaBlue rounded-start-0" type="button">Rechercher</button>
-                    </div>
-                </div>
+                {% if alternative_search_bar %}
+                    {{ include ("components/alternative_search_bar.twig") }}
+                {% else %}
+                    {{ include ("components/search_bar.twig") }}
+                {% endif %}
             </div>
             <div class="m-2 d-lg-none"></div>
             <div class="col-6 d-lg-none">

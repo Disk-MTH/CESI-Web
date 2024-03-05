@@ -8,10 +8,10 @@ use Slim\App;
 use Slim\Views\Twig;
 use stagify\Model\Entities\User;
 
-function redirect(Response $response, string $name) : Response
+function redirect(Response $response, string $name, array $args = []) : Response
 {
     global $app;
-    return $response->withStatus(302)->withHeader("Location", $app->getRouteCollector()->getRouteParser()->urlFor($name));
+    return $response->withStatus(302)->withHeader("Location", $app->getRouteCollector()->getRouteParser()->urlFor($name, $args));
 }
 
 return function (App $app) {
@@ -59,6 +59,10 @@ return function (App $app) {
         return Twig::fromRequest($request)->render($response, "user.twig");
     })->setName("user");
 
+    $app->get("/user/wishlist", function (Request $request, Response $response) {
+        return Twig::fromRequest($request)->render($response, "wishlist.twig");
+    })->setName("wishlist");
+
     $app->get("/tos", function (Request $request, Response $response) {
         return Twig::fromRequest($request)->render($response, "tos.twig");
     })->setName("tos");
@@ -67,11 +71,7 @@ return function (App $app) {
         return Twig::fromRequest($request)->render($response, "company.twig");
     })->setName("company");
 
-    $app->get("/user/wishlist", function (Request $request, Response $response) {
-        return Twig::fromRequest($request)->render($response, "wishlist.twig");
-    })->setName("wishlist");
-
-    $app->get("/home/companies", function (Request $request, Response $response) {
+    $app->get("/companies", function (Request $request, Response $response) {
         return Twig::fromRequest($request)->render($response, "companies.twig");
     })->setName("companies");
 };
