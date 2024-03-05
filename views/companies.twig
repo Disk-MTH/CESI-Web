@@ -2,16 +2,19 @@
 {% extends "components/layout.twig" %}
 
 {% block header %}
-    <section class="bg-deepWarmGrey">
+    <section class="bg-deepWarmGrey ">
         <div class="container py-3">
             <div class="row ">
-                <div class="col-lg-10 col-md-9  col-8">
+                <div class="col-8">
                     <div class="pt-2">Recherche d'entreprises</div>
                 </div>
-                <div class="col-lg-2 col-md-3 col-4 text-end">
-                    <div class="btn btn-deepWarmGrey shadow-lg rounded-2">
-                        <img src="/assets/svg/sliders.svg" alt="Filter">
-                        Filtres
+                <div class="col-4 text-end">
+                    <div class="dropdown dropdown-menu-end">
+                        <div class="btn btn-deepWarmGrey shadow" data-bs-toggle="dropdown"
+                             data-bs-target="#dropdownMenuButton">
+                            <img src="/assets/svg/sliders.svg" alt="slider"> Filtres
+                        </div>
+                        {{ include("components/company_filter_dropdown.twig") }}
                     </div>
                 </div>
             </div>
@@ -29,9 +32,45 @@
                     {% set location = "51100 Reims" %}
                     {% set rating_number = "526" %}
                     {{ include("components/company_tile_card.twig") }}
+
+                    {% set company_logo = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {% set rating_number = "526" %}
+                    {{ include("components/company_tile_card.twig") }}
+
+                    {% set company_logo = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {% set rating_number = "526" %}
+                    {{ include("components/company_tile_card.twig") }}
+
+                    {% set company_logo = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {% set rating_number = "526" %}
+                    {{ include("components/company_tile_card.twig") }}
                 </div>
 
                 <div class="col-6 col-lg-4 d-none d-md-block">
+                    {% set company_logo = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {% set rating_number = "526" %}
+                    {{ include("components/company_tile_card.twig") }}
+
+                    {% set company_logo = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {% set rating_number = "526" %}
+                    {{ include("components/company_tile_card.twig") }}
+
+                    {% set company_logo = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {% set rating_number = "526" %}
+                    {{ include("components/company_tile_card.twig") }}
+
                     {% set company_logo = "/assets/illustrations/company_logo.svg" %}
                     {% set company_name = "Google" %}
                     {% set location = "51100 Reims" %}
@@ -45,9 +84,42 @@
                     {% set location = "51100 Reims" %}
                     {% set rating_number = "526" %}
                     {{ include("components/company_tile_card.twig") }}
+
+                    {% set company_logo = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {% set rating_number = "526" %}
+                    {{ include("components/company_tile_card.twig") }}
+
+                    {% set company_logo = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {% set rating_number = "526" %}
+                    {{ include("components/company_tile_card.twig") }}
+
+                    {% set company_logo = "/assets/illustrations/company_logo.svg" %}
+                    {% set company_name = "Google" %}
+                    {% set location = "51100 Reims" %}
+                    {% set rating_number = "526" %}
+                    {{ include("components/company_tile_card.twig") }}
                 </div>
             </div>
-
         </div>
     </section>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center pt-2 ">
+            <li class="page-item disabled">
+                <a class="page-link border-0" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item active "><a class="page-link border-0" href="#">1</a></li>
+            <li class="page-item "><a class="page-link border-0" href="#">2</a></li>
+            <li class="page-item "><a class="page-link border-0" href="#">3</a></li>
+            <li class="page-item "><a class="page-link border-0" href="#">4</a></li>
+            <li class="page-item "><a class="page-link border-0" href="#">5</a></li>
+            <li class="page-item">
+                <a class="page-link border-0" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
 {% endblock %}

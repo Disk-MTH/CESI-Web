@@ -91,4 +91,12 @@ return function (App $app, Logger $logger, EntityManager $entityManager) {
     $app->get("/companies", function (Request $request, Response $response) {
         return render($response, "companies.twig");
     })->setName("companies");
+
+    $app->get("/jobs", function (Request $request, Response $response) {
+        return render($response, "jobs.twig");
+    })->setName("internships");
+
+    $app->get("/users", function (Request $request, Response $response) {
+        return render($response, "users.twig");
+    })->setName("users");
 };
