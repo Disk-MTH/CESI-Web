@@ -4,10 +4,17 @@ namespace stagify\Flash;
 
 class Flash
 {
-    public FlashStatus $status;
-    public string $message;
+    public FlashStatus $status = FlashStatus::success;
+    public string $message = "";
+    public array $errors = [];
 
-    public function __construct(string $message, FlashStatus $status = FlashStatus::success)
+    public function setStatus(FlashStatus $status): Flash
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    public function setMessage(string $message): Flash
     {
         $this->message = $message;
         return $this;

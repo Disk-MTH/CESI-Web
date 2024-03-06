@@ -131,4 +131,20 @@ return function (App $app, Logger $logger, EntityManager $entityManager) {
     $app->get("/users", function (Request $request, Response $response) {
         return render($response, "pages/users.twig");
     })->setName("users");
+
+    $app->get("/job", function (Request $request, Response $response) {
+        return render($response, "pages/job.twig");
+    })->setName("job");
+
+    $app->get("/apply", function (Request $request, Response $response) {
+        return render($response, "pages/apply_job.twig");
+    })->setName("apply_job");
+
+    $app->get("/company/rating", function (Request $request, Response $response) {
+        return render($response, "pages/company_rating.twig");
+    })->setName("company_rating");
+
+    $app->get("/job/rating", function (Request $request, Response $response) {
+        return render($response, "pages/job_rating.twig");
+    })->setName("job_rating");
 };
