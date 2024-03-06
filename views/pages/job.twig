@@ -1,0 +1,87 @@
+{% set title = "Stagify - Offre de stage" %}
+{% set alternative_search_bar = true %}
+{% extends "components/layouts/layout.twig" %}
+
+{% block header %}
+    <section class="bg-deepWarmGrey rounded-bottom-5 pb-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-2 col-md-3 col-4">
+                    <img class="img-fluid my-3" src="/assets/illustrations/company_logo_bis.svg" alt="photo">
+                </div>
+
+                <div class="col-md-5 col-8">
+                    {% set job_name = "Ingénieur logiciel" %}
+                    {% set company_name = "Facebook" %}
+                    {{ include ("components/profiles/job_profile.twig") }}
+                </div>
+
+                <div class="col-4 d-none d-md-block">
+                    {% set rating_number = "18" %}
+                    {{ include ("components/tiles/job_rating_tile.twig") }}
+                </div>
+            </div>
+            <div class="row d-md-none">
+                <div class="col-2"></div>
+                <div class="col-8 text-center">
+                    {% set rating_number = "18" %}
+                    {{ include ("components/tiles/job_rating_tile.twig") }}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+
+{% block content %}
+    <section class="pt-3">
+        <div class="container">
+            <div class="row d-md-none">
+                <div class="col">
+                    {% set low_salary="900" %}
+                    {% set high_salary="1100" %}
+                    {% set zip_code="51100" %}
+                    {% set city="Reims" %}
+                    {% set address="18 rue Jean Jaures" %}
+
+                    {% set start_date="8 avril" %}
+                    {% set end_date="26 juillet" %}
+                    {% set place_count="4" %}
+                    {% set duration="12 semaines" %}
+                    {% set promo_year="A2" %}
+                    {% set website_link="facebook.com" %}
+
+                    {{ include("components/tiles/job_info_tiles.twig")}}
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-xl-8 col-lg-7 col-md-6 col-12">
+                    <div class="card shadow bg-deepWarmGrey my-3 py-3 px-3">
+                        <h3>Description du stage</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer molestie est nec mollis imperdiet. Aliquam tortor felis, euismod vel lacus in, elementum finibus turpis. Phasellus quis dolor velit. Sed id odio sagittis, gravida lorem vel, condimentum ipsum. Quisque porta neque quis viverra consequat. Vivamus feugiat faucibus est, imperdiet lacinia eros malesuada at. Vestibulum venenatis eu mi eget gravida. In vehicula euismod elit, eget sagittis elit pretium vitae. Suspendisse sit amet sodales erat, consequat feugiat elit. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+                        <h4>Prérequis</h4>
+                        <p>Mauris blandit, erat at lobortis tempor, ipsum augue ornare lacus, non varius metus urna ut ex. Proin consectetur ligula augue. Nulla faucibus suscipit mauris, nec auctor mi feugiat vitae. Suspendisse consectetur justo justo, id sodales nisl auctor non. Nullam condimentum in risus vitae facilisis. Suspendisse rhoncus purus at urna porta auctor. Etiam venenatis, arcu vitae interdum luctus, nisl nisl placerat est, in facilisis diam ante in enim. Maecenas porttitor congue mauris, et condimentum nunc auctor a. Aenean imperdiet, arcu a viverra venenatis, dui velit egestas metus, nec ornare nulla velit id odio. Curabitur in nisi dui. Donec aliquam faucibus tellus, vel dictum eros ullamcorper eget.</p>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-5 col-md-6  d-none d-md-block">
+                    {% set low_salary="900" %}
+                    {% set high_salary="1100" %}
+                    {% set zip_code="51100" %}
+                    {% set city="Reims" %}
+                    {% set address="18 rue Jean Jaures" %}
+
+                    {% set start_date="8 avril" %}
+                    {% set end_date="26 juillet" %}
+                    {% set place_count="4" %}
+                    {% set duration="12 semaines" %}
+                    {% set promo_year="A2" %}
+                    {% set website_link="facebook.com" %}
+
+                    {{ include("components/tiles/job_info_tiles.twig") }}
+                </div>
+            </div>
+
+        </div>
+    </section>
+{% endblock %}

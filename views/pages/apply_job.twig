@@ -1,0 +1,82 @@
+{% set title = "Stagify - Demande de stage" %}
+{% set alternative_search_bar = true %}
+{% extends "components/layouts/layout.twig" %}
+
+{% block header %}
+<section class="bg-deepWarmGrey rounded-bottom-5 pb-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-2 col-md-3 col-4">
+                <img class="img-fluid my-3" src="/assets/illustrations/company_logo_bis.svg" alt="photo">
+            </div>
+
+            <div class="col-md-5 col-8">
+                {% set job_name = "Ingénieur logiciel" %}
+                {% set company_name = "Facebook" %}
+                {{ include ("components/profiles/job_profile.twig") }}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<section class="pt-3">
+    <div class="container">
+        <div class="row d-md-none">
+            <div class="col">
+                {% set low_salary="900" %}
+                {% set high_salary="1100" %}
+                {% set zip_code="51100" %}
+                {% set city="Reims" %}
+                {% set address="18 rue Jean Jaures" %}
+
+                {% set start_date="8 avril" %}
+                {% set end_date="26 juillet" %}
+                {% set place_count="4" %}
+                {% set duration="12 semaines" %}
+                {% set promo_year="A2" %}
+                {% set website_link="facebook.com" %}
+
+                {{ include("components/tiles/job_info_tiles.twig")}}
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-xl-8 col-lg-7 col-md-6 col-12">
+                <div class="card shadow bg-deepWarmGrey my-3 py-3 px-3">
+                    <div class="text-heavyBlack pb-2">CV</div>
+                    <input class="form-control pb-2 mb-3" type="file" id="formFile">
+                    <div class="text-heavyBlack pb-2">Lettre de motivation</div>
+                    <textarea class="form-control pb-5 mb-3" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <div class="row pb-3">
+                        <div class="col-6 text-center">
+                            <div class="btn btn-outline-custom-blue">Annuler</div>
+                        </div>
+                        <div class="col-6 ">
+                            <div class="btn btn-deepSeaBlue">Envoyer la demande</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-5 col-md-6  d-none d-md-block">
+                {% set low_salary="900" %}
+                {% set high_salary="1100" %}
+                {% set zip_code="51100" %}
+                {% set city="Reims" %}
+                {% set address="18 rue Jean Jaures" %}
+
+                {% set start_date="8 avril" %}
+                {% set end_date="26 juillet" %}
+                {% set place_count="4" %}
+                {% set duration="12 semaines" %}
+                {% set promo_year="A2" %}
+                {% set website_link="facebook.com" %}
+
+                {{ include("components/tiles/job_info_tiles.twig") }}
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock  %}

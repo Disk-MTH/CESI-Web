@@ -1,0 +1,23 @@
+<label class="form-label ms-1" for="{{ id }}">
+    {{ label }}
+</label>
+<div class="input-group rounded-5 shadow">
+    <input
+            {% if hide %}
+                type="password"
+            {% else %}
+                type="text"
+            {% endif %}
+            class="form-control" id="{{ id }}" name="{{ id }}" value="{{ old[id] }}">
+    {% if hide %}
+        <div class="input-group-text bg-deepWarmGrey" onclick="toggleText({{ id }})">
+            <img class="img-fluid" src=/assets/svg/misc/visibility_on.svg alt="search"
+                 style="max-width: 24px; max-height: 24px" id="icon">
+        </div>
+    {% endif %}
+</div>
+{% if flash.errors[id] %}
+    <div class="text-coldRed ms-1">
+        {{ flash.errors[id] }}
+    </div>
+{% endif %}

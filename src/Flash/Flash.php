@@ -10,6 +10,12 @@ class Flash
     public function __construct(string $message, FlashStatus $status = FlashStatus::success)
     {
         $this->message = $message;
-        $this->status = $status;
+        return $this;
+    }
+
+    public function setErrors(array $errors): Flash
+    {
+        $this->errors = $errors;
+        return $this;
     }
 }
