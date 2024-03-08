@@ -147,4 +147,20 @@ return function (App $app, Logger $logger, EntityManager $entityManager) {
     $app->get("/job/rating", function (Request $request, Response $response) {
         return render($response, "pages/job_rating.twig");
     })->setName("job_rating");
+
+    $app->get("/wishlist", function (Request $request, Response $response) {
+        return render($response, "pages/wishlist.twig");
+    })->setName("wishlist");
+
+    $app->get("/createjob", function (Request $request, Response $response) {
+        return render($response, "pages/create_job.twig");
+    })->setName("create_job");
+
+    $app->get("/createuser/student", function (Request $request, Response $response) {
+        return render($response, "pages/create_student.twig");
+    })->setName("create_student");
+
+    $app->get("/createuser/pilot", function (Request $request, Response $response) {
+        return render($response, "pages/create_pilot.twig");
+    })->setName("create_pilot");
 };

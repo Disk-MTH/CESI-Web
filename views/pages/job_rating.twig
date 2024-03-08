@@ -1,27 +1,97 @@
 {% set title = "Stagify - Avis du stage" %}
-{% set alternative_search_bar = true %}
 {% extends "components/layouts/layout.twig" %}
 
 {% block header %}
-<section class="bg-deepWarmGrey rounded-bottom-5 pb-5">
-    <div class="container">
-        <div class="row text-center ">
-            <div class="text-heavyBlack pt-3"><h4>Avis du poste ingénieur logiciel chez Facebook</h4></div>
+    <section class="container bg-deepWarmGrey rounded-bottom-5">
+        <div class="row text-center">
+            <div class="text-heavyBlack py-3"><h4>Avis du poste ingénieur logiciel chez Facebook</h4></div>
         </div>
-    </div>
-</section>
+    </section>
 {% endblock %}
 
 {% block content %}
-<section>
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-6 col-lg-8 col-12">
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-6 col-lg-8 col-12">
 
-                <div class="card shadow my-3 bg-deepWarmGrey rounded-4 pb-2 d-lg-none">
-                    <div class="card-body">
-                        <div class="text-heavyBlack">Filtres</div>
-                        <hr>
+                    <div class="card shadow my-3 bg-deepWarmGrey rounded-4 pb-2 d-lg-none">
+                        <div class="card-body">
+                            <div class="text-heavyBlack">Filtres</div>
+                            <hr>
+
+                            <div class="form-check py-1">
+                                <input class="form-check-input py-1" type="checkbox" value="" id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Les plus récents
+                                </label>
+                            </div>
+
+                        <div class="form-check py-1">
+                            <input class="form-check-input py-1" type="checkbox" value="" id="defaultCheck2">
+                            <label class="form-check-label" for="defaultCheck2">
+                                Avis (décroissants)
+                            </label>
+                        </div>
+
+                        <div class="form-check py-1">
+                            <input class="form-check-input py-1" type="checkbox" value="" id="defaultCheck3">
+                            <label class="form-check-label" for="defaultCheck3">
+                                Avis (croissants)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                    <div class="card shadow my-3 bg-deepWarmGrey rounded-4 ">
+                        <div class="card-body overflow-y-scroll" style="height: 600px">
+                            <div class="row">
+                                <div class="col-lg-11 col-12">
+                                    {% set first_name = "Julien" %}
+                                    {% set last_name = "Turcot" %}
+                                    {% set formation = "CESI" %}
+                                    {% set profile_picture = "/assets/illustrations/profil.svg" %}
+                                    {% set message = "“Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.”" %}
+                                    {{ include("components/tiles/rating_tile.twig") }}
+
+                                    {% set first_name = "Julien" %}
+                                    {% set last_name = "Turcot" %}
+                                    {% set formation = "CESI" %}
+                                    {% set profile_picture = "/assets/illustrations/profil.svg" %}
+                                    {% set message = "“Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.”" %}
+                                    {{ include("components/tiles/rating_tile.twig") }}
+
+                                    {% set first_name = "Julien" %}
+                                    {% set last_name = "Turcot" %}
+                                    {% set formation = "CESI" %}
+                                    {% set profile_picture = "/assets/illustrations/profil.svg" %}
+                                    {% set message = "“Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.”" %}
+                                    {{ include("components/tiles/rating_tile.twig") }}
+
+                                    {% set first_name = "Julien" %}
+                                    {% set last_name = "Turcot" %}
+                                    {% set formation = "CESI" %}
+                                    {% set profile_picture = "/assets/illustrations/profil.svg" %}
+                                    {% set message = "“Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.”" %}
+                                    {{ include("components/tiles/rating_tile.twig") }}
+
+                                    {% set first_name = "Julien" %}
+                                    {% set last_name = "Turcot" %}
+                                    {% set formation = "CESI" %}
+                                    {% set profile_picture = "/assets/illustrations/profil.svg" %}
+                                    {% set message = "“Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.”" %}
+                                    {{ include("components/tiles/rating_tile.twig") }}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-4 col-12">
+                    <div class="card shadow my-3 bg-deepWarmGrey rounded-4 pb-2 mb-5 d-none d-lg-block">
+                        <div class="card-body">
+                            <div class="text-heavyBlack">Filtres</div>
+                            <hr>
 
                         <div class="form-check py-1">
                             <input class="form-check-input py-1" type="checkbox" value="" id="defaultCheck1">
@@ -46,99 +116,27 @@
                     </div>
                 </div>
 
-                <div class="card shadow my-3 bg-deepWarmGrey rounded-4 ">
-                    <div class="card-body overflow-y-scroll" style="height: 600px">
-                        <div class="row">
-                            <div class="col-lg-11 col-12">
-                                {% set first_name = "Julien" %}
-                                {% set last_name = "Turcot" %}
-                                {% set formation = "CESI" %}
-                                {% set profile_picture = "/assets/illustrations/profil.svg" %}
-                                {% set message = "“Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.”" %}
-                                {{ include("components/tiles/rating_tile.twig") }}
-
-                                {% set first_name = "Julien" %}
-                                {% set last_name = "Turcot" %}
-                                {% set formation = "CESI" %}
-                                {% set profile_picture = "/assets/illustrations/profil.svg" %}
-                                {% set message = "“Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.”" %}
-                                {{ include("components/tiles/rating_tile.twig") }}
-
-                                {% set first_name = "Julien" %}
-                                {% set last_name = "Turcot" %}
-                                {% set formation = "CESI" %}
-                                {% set profile_picture = "/assets/illustrations/profil.svg" %}
-                                {% set message = "“Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.”" %}
-                                {{ include("components/tiles/rating_tile.twig") }}
-
-                                {% set first_name = "Julien" %}
-                                {% set last_name = "Turcot" %}
-                                {% set formation = "CESI" %}
-                                {% set profile_picture = "/assets/illustrations/profil.svg" %}
-                                {% set message = "“Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.”" %}
-                                {{ include("components/tiles/rating_tile.twig") }}
-
-                                {% set first_name = "Julien" %}
-                                {% set last_name = "Turcot" %}
-                                {% set formation = "CESI" %}
-                                {% set profile_picture = "/assets/illustrations/profil.svg" %}
-                                {% set message = "“Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.”" %}
-                                {{ include("components/tiles/rating_tile.twig") }}
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-lg-4 col-12">
-                <div class="card shadow my-3 bg-deepWarmGrey rounded-4 pb-2 mb-5 d-none d-lg-block">
-                    <div class="card-body">
-                        <div class="text-heavyBlack">Filtres</div>
-                        <hr>
-
-                        <div class="form-check py-1">
-                            <input class="form-check-input py-1" type="checkbox" value="" id="defaultCheck1">
-                            <label class="form-check-label" for="defaultCheck1">
-                                Les plus récents
-                            </label>
-                        </div>
-
-                        <div class="form-check py-1">
-                            <input class="form-check-input py-1" type="checkbox" value="" id="defaultCheck2">
-                            <label class="form-check-label" for="defaultCheck2">
-                                Avis (décroissants)
-                            </label>
-                        </div>
-
-                        <div class="form-check py-1">
-                            <input class="form-check-input py-1" type="checkbox" value="" id="defaultCheck3">
-                            <label class="form-check-label" for="defaultCheck3">
-                                Avis (croissants)
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card shadow my-3 bg-deepWarmGrey rounded-4 ">
-                    <div class="card-body">
-                        <div class="text-heavyBlack pb-2">Rédiger un avis</div>
-                        <textarea class="form-control pb-5 mb-3" id="exampleFormControlTextarea1" rows="3"></textarea>
-                        <div class="row">
-                            <div class="col-7">
-                                <img class="fluid" src="/assets/svg/tile/start_empty.svg" alt="star_empty">
-                                <img class="fluid" src="/assets/svg/tile/start_empty.svg" alt="star_empty">
-                                <img class="fluid" src="/assets/svg/tile/start_empty.svg" alt="star_empty">
-                                <img class="fluid" src="/assets/svg/tile/start_empty.svg" alt="star_empty">
-                                <img class="fluid" src="/assets/svg/tile/start_empty.svg" alt="star_empty">
-                            </div>
-                            <div class="col-5">
-                                <div class="btn btn-deepSeaBlue">Envoyer l'avis</div>
+                    <div class="card shadow my-3 bg-deepWarmGrey rounded-4 ">
+                        <div class="card-body">
+                            <div class="text-heavyBlack pb-2">Rédiger un avis</div>
+                            <textarea class="form-control pb-5 mb-3" id="exampleFormControlTextarea1"
+                                      rows="3"></textarea>
+                            <div class="row">
+                                <div class="col-7">
+                                    <img class="fluid" src="/assets/svg/tile/start_empty.svg" alt="star_empty">
+                                    <img class="fluid" src="/assets/svg/tile/start_empty.svg" alt="star_empty">
+                                    <img class="fluid" src="/assets/svg/tile/start_empty.svg" alt="star_empty">
+                                    <img class="fluid" src="/assets/svg/tile/start_empty.svg" alt="star_empty">
+                                    <img class="fluid" src="/assets/svg/tile/start_empty.svg" alt="star_empty">
+                                </div>
+                                <div class="col-5">
+                                    <div class="btn btn-deepSeaBlue">Envoyer l'avis</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 {% endblock %}

@@ -1,0 +1,116 @@
+{% set title = "Stagify - Création stage" %}
+{% extends "components/layouts/layout.twig" %}
+
+{% block header %}
+    <section class="bg-deepWarmGrey rounded-bottom-5">
+        <div class="container">
+            <div class="row text-center">
+                <div class="text-heavyBlack py-3"><h4>Création d'utilisateur</h4></div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block content %}
+
+    <section>
+        <div class="container">
+            <div class="card bg-deepWarmGrey py-3 px-3 my-5 shadow">
+                <div class="row mb-2">
+                    <div class="col-6 text-center border-end border-heavyBlack " >
+                        <h4>Etudiant</h4>
+                    </div>
+                    <div class="col-6 text-center text-deepSeaBlue">
+                        <h4>Pilote</h4>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-6">
+
+                        <h5>Nom</h5>
+                        {% set id = "firstName" %}
+                        {{ include("/components/layouts/form_field.twig") }}
+
+                        <h5 class="mt-2">Prenom</h5>
+                        {% set id = "firstName" %}
+                        {{ include("/components/layouts/form_field.twig") }}
+
+                        <h5 class="mt-2">Code postal</h5>
+                        {% set id = "firstName" %}
+                        {{ include("/components/layouts/form_field.twig") }}
+
+                        <h5 class="mt-2">Ville</h5>
+                        {% set id = "firstName" %}
+                        {{ include("/components/layouts/form_field.twig") }}
+
+                        <h5 class="mt-2">Centre de formation</h5>
+                        {% set id = "firstName" %}
+                        {{ include("/components/layouts/form_field.twig") }}
+
+                        <h5 class="mt-2">Promotions assignées (formation - promo)</h5>
+                        <div class="input-group shadow rounded-5">
+                            {% set id = "firstName" %}
+                            {% set noShadow = true %}
+                            {{ include("/components/layouts/form_field.twig") }}
+
+                            {% set id = "firstName" %}
+                            {% set noShadow = true %}
+                            {{ include("/components/layouts/form_field.twig") }}
+                            <div class="input-group-append">
+                                <button class="btn btn-deepSeaBlue rounded-start-0" type="button">Ajouter</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-6 align-self-center">
+                        <div class="card bg-pastelBlue bg-opacity-50 overflow-y-scroll shadow rounded-5" style="height: 500px">
+                            <div class="card-body">
+                                <h6>Promotions</h6>
+                                <div class="row">
+                                    <div class="col-11">
+                                        {% set skill="A2 Ingénieur - CESI Reims" %}
+                                        {{ include ("/components/tiles/skill_tile.twig") }}
+
+                                        {% set skill="A2 Ingénieur - CESI Reims" %}
+                                        {{ include ("/components/tiles/skill_tile.twig") }}
+
+                                        {% set skill="A2 Ingénieur - CESI Reims" %}
+                                        {{ include ("/components/tiles/skill_tile.twig") }}
+
+                                        {% set skill="A2 Ingénieur - CESI Reims" %}
+                                        {{ include ("/components/tiles/skill_tile.twig") }}
+
+                                        {% set skill="A2 Ingénieur - CESI Reims" %}
+                                        {{ include ("/components/tiles/skill_tile.twig") }}
+
+                                        {% set skill="A2 Ingénieur - CESI Reims" %}
+                                        {{ include ("/components/tiles/skill_tile.twig") }}
+
+                                        {% set skill="A2 Ingénieur - CESI Reims" %}
+                                        {{ include ("/components/tiles/skill_tile.twig") }}
+
+                                        {% set skill="A2 Ingénieur - CESI Reims" %}
+                                        {{ include ("/components/tiles/skill_tile.twig") }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row pb-3 mt-4">
+                    <div class="col-6 text-start">
+                        <div class="btn btn-outline-custom-blue">Annuler</div>
+                    </div>
+                    <div class="col-6 text-end">
+                        <div class="btn btn-deepSeaBlue">Créer l'utilisateur</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

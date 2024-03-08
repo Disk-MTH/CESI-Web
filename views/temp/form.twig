@@ -1,4 +1,4 @@
-{% extends "components/base.twig" %}
+{% extends "components/layouts/base.twig" %}
 
 {% block body %}
     <header class="bg-deepWarmGrey">
@@ -20,25 +20,24 @@
             {{ include("components/layouts/flash_banners.twig") }}
             <form action="{{ url_for("form") }}" method="post">
                 {% set id = "firstName" %}
-                {% set label = "Prénom" %}
-                {{ include("components/layout/form_field.twig") }}
+                {{ include("components/layouts/form_field.twig") }}
                 <div class="my-3"></div>
                 {% set id = "lastName" %}
-                {% set label = "Nom" %}
-                {{ include("components/layout/form_field.twig") }}
+                {{ include("components/layouts/form_field.twig") }}
                 <div class="my-3"></div>
                 {% set id = "profilPicture" %}
-                {% set label = "Photo de profil (optionnel)" %}
-                {{ include("components/layout/form_field.twig") }}
+                {{ include("components/layouts/form_field.twig") }}
                 <div class="my-3"></div>
+                {% set area = true %}
+                {% set rows = 5 %}
                 {% set id = "login" %}
-                {% set label = "Identifiant" %}
-                {{ include("components/layout/form_field.twig") }}
+                {{ include("components/layouts/form_field.twig") }}
+                {% set area = false %}
                 <div class="my-3"></div>
                 {% set hide = true %}
                 {% set id = "password" %}
-                {% set label = "Mot de passe" %}
-                {{ include("components/layout/form_field.twig") }}
+                {{ include("components/layouts/form_field.twig") }}
+                {% set hide = false %}
                 <div class="my-3"></div>
                 <button class="btn btn-primary">Submit</button>
             </form>
