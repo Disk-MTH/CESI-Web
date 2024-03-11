@@ -1,24 +1,27 @@
-<div class ="card shadow mb-3 bg-gradient-card">
+<div class="card shadow mb-3 bg-gradient-card cursor-pointer user-select-none"
+     onclick="navigateTo(event, '{{ url_for("job") }}')">
     <div class="card-body">
         <div class="row align-items-center text-nowrap">
-            <div class ="col ">
+            <div class="col">
                 <h6 class="card-title">{{ job_title }}</h6>
                 <p class="text-lightGrey ms-3">&middot Rémunération {{ pay }} $/mois</p>
             </div>
-            <div class="col text-end">
-                <img class="img-fluid " src="{{ wish_mark }}" alt="wish_mark">
+            <div class="col text-end" onclick="toggleWishMark(event, 'wish')">
+                <img class="img-fluid" src="{{ wish_mark }}" alt="wish_mark" id="wish">
             </div>
         </div>
-
-        <div class ="mb-3"></div>
-
+        <div class="mb-3"></div>
         <div class="row row-cols-2">
             <div class="col-3 col-lg-4 col-xl-2 w-auto">
-                <img class="img-fluid bg-deepSeaBlue bg-opacity-25 py-3 px-3 rounded-3" src="{{ company_logo }}" alt="company_logo">
+                <img class="img-fluid bg-deepSeaBlue bg-opacity-25 py-3 px-3 rounded-3" src="{{ company_logo }}"
+                     alt="company_logo">
             </div>
-            <div class ="col">
+            <div class="col">
                 <h6 class="card-title">{{ company_name }}</h6>
-                <p class="text-lightGrey"> <img class="img-fluid" src="/assets/svg/tile/map_pin.svg" alt="mapPin"> {{ location }}</p>
+                <p class="text-lightGrey">
+                    <img class="img-fluid" src="/assets/svg/tile/map_pin.svg" alt="mapPin">
+                    {{ location }}
+                </p>
             </div>
         </div>
     </div>

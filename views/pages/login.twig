@@ -1,5 +1,5 @@
 {% set title = "Stagify - Authentification" %}
-{% extends "components/base.twig" %}
+{% extends "components/layouts/base.twig" %}
 
 {% block body %}
     <header class="bg-deepWarmGrey">
@@ -21,12 +21,15 @@
             <div class="col-lg-6">
                 <h1>Connectez vous sur Stagify,<br>LA plateforme de recherche de stages étudiants</h1>
                 <div class="m-4"></div>
-                <input class="form-control shadow" type="text" placeholder="Nom d'utilisateur"
-                       aria-label="Nom d'utilisateur" aria-describedby="login_input_user"/>
-                <div class="m-2"></div>
-                <input class="form-control shadow" type="text" placeholder="Mot de passe" aria-label="Mot de passe"
-                       aria-describedby="login_input_password"/>
-                <div class="m-2"></div>
+                <h5>Identifiant</h5>
+                {% set id = "login" %}
+                {{ include("components/layouts/form_field.twig") }}
+                <div class="my-3"></div>
+                <h5>Mot de passe</h5>
+                {% set hide = true %}
+                {% set id = "password" %}
+                {{ include("components/layouts/form_field.twig") }}
+                <div class="m-3"></div>
                 <a class="link-dark ms-1" href={{ url_for("home") }}>Mot de passe oublié?</a>
                 <div class="m-3"></div>
                 <a class="btn btn-deepSeaBlue text-nowrap shadow w-50" href={{ url_for("home") }}>
@@ -40,5 +43,5 @@
         </div>
     </section>
 
-    {{ include("components/footer.twig") }}
+    {{ include("components/layouts/footer.twig") }}
 {% endblock %}

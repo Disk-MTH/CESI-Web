@@ -1,14 +1,20 @@
- <div class ="card shadow mb-3 bg-gradient-card">
+<div class="card shadow mb-3 bg-gradient-card cursor-pointer user-select-none"
+     onclick="navigateTo(event, '{{ url_for("company") }}')">
     <div class="card-body">
         <div class="row row-cols-2">
             <div class="col-3 col-lg-4 col-xl-2 w-auto">
-                <img class="img-fluid bg-deepSeaBlue bg-opacity-25 py-3 px-3 rounded-3" src="{{ company_logo }}" alt="company_logo">
+                <img class="img-fluid bg-deepSeaBlue bg-opacity-25 py-3 px-3 rounded-3" src="{{ company_logo }}"
+                     alt="company_logo">
             </div>
-            <div class ="col">
-                <h6 class="card-title">{{ company_name }}</h6>
-                <p class="text-lightGrey"> <img class="img-fluid" src="/assets/svg/tile/map_pin.svg" alt="mapPin"> {{ location }}</p>
+            <div class="col">
+                <h6 class="card-title text-heavyBlack">{{ company_name }}</h6>
+                <p class="text-lightGrey"><img class="img-fluid" src="/assets/svg/tile/map_pin.svg"
+                                               alt="mapPin"> {{ location }}</p>
             </div>
         </div>
-        <div class="btn w-100 btn-pastelBlue shadow rounded-2 text-heavyBlack">Voir les {{ rating_number }} avis</div>
+        <div class="btn w-100 btn-pastelBlue shadow rounded-2 text-heavyBlack"
+             onclick="navigateTo(event, '{{ url_for("company_rating") }}')">
+            Voir les {{ rating_number }} avis
+        </div>
     </div>
 </div>

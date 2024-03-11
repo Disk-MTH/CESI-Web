@@ -8,9 +8,9 @@
                 {% endif %}
                 class="form-control" id="{{ id }}" name="{{ id }}" value="{{ old[id] }}" aria-label="">
         {% if hide %}
-            <div class="input-group-text bg-deepWarmGrey" onclick="toggleText({{ id }})">
+            <div class="input-group-text bg-deepWarmGrey" onclick="toggleText('{{ id }}')">
                 <img class="img-fluid" src=/assets/svg/misc/visibility_on.svg alt="search"
-                     style="max-width: 24px; max-height: 24px" id="icon">
+                     style="max-width: 24px; max-height: 24px" id="{{ id }}-icon">
             </div>
         {% endif %}
     </div>
