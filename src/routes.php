@@ -126,7 +126,7 @@ return function (App $app, Logger $logger, EntityManager $entityManager) {
 
     $app->get("/jobs", function (Request $request, Response $response) {
         return render($response, "pages/jobs.twig");
-    })->setName("internships");
+    })->setName("jobs");
 
     $app->get("/users", function (Request $request, Response $response) {
         return render($response, "pages/users.twig");

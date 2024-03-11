@@ -53,11 +53,18 @@
             <div class="row align-items-center">
                 <div class="my-2 d-lg-none"></div>
                 <div class="col-lg-2 d-none d-lg-block">
-                    <div class="btn btn-deepSeaBlue text-nowrap shadow" data-bs-toggle="offcanvas"
+
+                        <div class="btn btn-deepSeaBlue text-nowrap shadow" data-bs-toggle="dropdown"
                          data-bs-target="#sideMenu">
                         Espace entreprise
-                    </div>
+                        </div>
+                    {{ include ("components/layouts/side_menu.twig") }}
+
                 </div>
+
+
+
+
                 <div class="col-lg-1 d-none d-lg-block"></div>
                 <div class="col-12 col-lg-6">
                     {% if alternative_search_bar %}
@@ -66,13 +73,23 @@
                         {{ include ("components/layouts/search_bar.twig") }}
                     {% endif %}
                 </div>
+
+
                 <div class="m-2 d-lg-none"></div>
+
+
                 <div class="col-6 d-lg-none">
-                    <div class="btn btn-deepSeaBlue text-nowrap shadow" data-bs-toggle="offcanvas"
-                         data-bs-target="#sideMenu">
-                        Espace entreprise
-                    </div>
+
+
+                        <div class="btn btn-deepSeaBlue text-nowrap shadow" data-bs-toggle="offcanvas"
+                             data-bs-target="#sideMenu">
+                            Espace entreprise
+                        </div>
+
+
                 </div>
+
+
                 <div class="col-lg-1 d-none d-lg-block text-end">
                     <a href={{ url_for("user") }}>
                         <img class="img-fluid my-3 w-75" src="/assets/illustrations/profil.svg" alt="profile_picture">
