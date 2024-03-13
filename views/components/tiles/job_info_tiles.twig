@@ -1,47 +1,46 @@
-<div class ="card shadow my-3 bg-pastelBlue rounded-4">
-    <div class="card-body">
-        <div class="row align-items-center ">
-            <div class="col-6 text-center border-end border-heavyBlack">
-                <div class="">Salaire mensuel</div>
-                <div>{{ low_salary }}$ - {{ high_salary }}$</div>
-            </div>
-            <div class="col-6 text-center">
-                <img src="/assets/svg/jobs/folded_map.svg" alt="map">
-                <div>{{ zip_code }} {{ city }}</div>
-                <div>{{ address }}</div>
+{% macro content(low_salary, high_salary, city, zip_code, address, start_date, end_date, place_count, duration, promo_year) %}
+    <div class="card shadow my-3 bg-pastelBlue rounded-4">
+        <div class="card-body">
+            <div class="row align-items-center ">
+                <div class="col-6 text-center border-end border-heavyBlack">
+                    <div class="">Salaire mensuel</div>
+                    <div>{{ low_salary }}$ - {{ high_salary }}$</div>
+                </div>
+                <div class="col-6 text-center">
+                    <img src="/assets/svg/jobs/folded_map.svg" alt="map">
+                    <div>{{ zip_code }} {{ city }}</div>
+                    <div>{{ address }}</div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="card shadow my-3 pt-3 bg-pastelBlue rounded-4">
-    <div class="card-body">
-        <div class="pb-2"><h4>Informations</h4></div>
-        <div class="row row-cols-2">
-            <div class="col-4">
-                <img src="/assets/svg/jobs/calendar.svg" alt="calendar">
-                <div class="text-darkGrey">OFFRE DISPONIBLE</div>
-                <div class="mb-2">Du {{ start_date }} au {{ end_date }}</div>
+    <div class="card shadow my-3 pt-3 bg-pastelBlue rounded-4">
+        <div class="card-body">
+            <div class="pb-2"><h4>Informations</h4></div>
+            <div class="row row-cols-2">
+                <div class="col-4">
+                    <img src="/assets/svg/jobs/calendar.svg" alt="calendar">
+                    <div class="text-darkGrey">OFFRE DISPONIBLE</div>
+                    <div class="mb-2">Du {{ start_date }} au {{ end_date }}</div>
 
-                <img src="/assets/svg/jobs/timer.svg" alt="timer">
-                <div class="text-darkGrey">NOMBRE DE PLACES</div>
-                <div class="mb-2">{{ place_count }} stagiaires recherchés</div>
-            </div>
+                    <img src="/assets/svg/jobs/timer.svg" alt="timer">
+                    <div class="text-darkGrey">NOMBRE DE PLACES</div>
+                    <div class="mb-2">{{ place_count }} stagiaires recherchés</div>
+                </div>
 
-            <div class="col-4">
-                <img src="/assets/svg/jobs/stack.svg" alt="stack">
-                <div class="text-darkGrey">DUREE DU STAGE</div>
-                <div class="mb-2">{{ duration }}</div>
-            </div>
+                <div class="col-4">
+                    <img src="/assets/svg/jobs/stack.svg" alt="stack">
+                    <div class="text-darkGrey">DUREE DU STAGE</div>
+                    <div class="mb-2">{{ duration }}</div>
+                </div>
 
-            <div class="col-4">
-                <img src="/assets/svg/jobs/brief_case.svg" alt="briefcase">
-                <div class="text-darkGrey">NIVEAU REQUIS</div>
-                <div class="mb-2">{{ promo_year }}</div>
+                <div class="col-4">
+                    <img src="/assets/svg/jobs/brief_case.svg" alt="briefcase">
+                    <div class="text-darkGrey">NIVEAU REQUIS</div>
+                    <div class="mb-2">{{ promo_year }}</div>
+                </div>
             </div>
         </div>
-        <hr>
-        <h4>Contacts de l'entreprise</h4>
-        <li href="{{ website_link }}">Site de l'entreprise</li>
     </div>
-</div>
+{% endmacro %}

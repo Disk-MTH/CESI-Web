@@ -1,4 +1,5 @@
 {% extends "components/layouts/base.twig" %}
+{% import "components/layouts/form_field.twig" as form_field %}
 
 {% block body %}
     <header class="bg-deepWarmGrey">
@@ -19,30 +20,17 @@
         <div class="container bg-deepWarmGrey rounded-5 my-5 py-5">
             {{ include("components/layouts/flash_banners.twig") }}
             <form action="{{ url_for("form") }}" method="post">
-                {% set id = "firstName" %}
-                {{ include("components/layouts/form_field.twig") }}
+                {{ form_field.content("firstName") }}
                 <div class="my-3"></div>
-                {% set id = "lastName" %}
-                {{ include("components/layouts/form_field.twig") }}
+                {{ form_field.content("lastName") }}
                 <div class="my-3"></div>
-                {% set id = "profilPicture" %}
-                {{ include("components/layouts/form_field.twig") }}
+                {{ form_field.content("profilPicture", false, 0, false, true) }}
                 <div class="my-3"></div>
-                {% set area = true %}
-                {% set rows = 5 %}
-                {% set id = "login" %}
-                {{ include("components/layouts/form_field.twig") }}
-                {% set area = false %}
+                {{ form_field.content("login", true, 10) }}
                 <div class="my-3"></div>
-                {% set hide = true %}
-                {% set id = "password" %}
-                {{ include("components/layouts/form_field.twig") }}
-                {% set hide = false %}
+                {{ form_field.content("password", false, 0, true) }}
                 <div class="my-3"></div>
-                {% set hide = true %}
-                {% set id = "confirm" %}
-                {{ include("components/layouts/form_field.twig") }}
-                {% set hide = false %}
+                {{ form_field.content("password_confirm", false, 0, true, false, false) }}
                 <div class="my-3"></div>
                 <button class="btn btn-primary">Submit</button>
             </form>

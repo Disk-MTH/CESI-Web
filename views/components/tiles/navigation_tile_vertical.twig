@@ -1,40 +1,42 @@
-<div class="col-lg-4 col-12 d-none d-lg-block align-self-center">
-    <div class="card shadow my-3 bg-deepWarmGrey align-items-center rounded-4">
-        <div class="card-body text-center my-4">
-            <a class="h3 text-decoration-none
+{% macro content(index) %}
+    <div class="col-lg-4 col-12 d-none d-lg-block align-self-center">
+        <div class="card shadow my-3 bg-deepWarmGrey align-items-center rounded-4">
+            <div class="card-body text-center my-4">
+                <a class="h3 text-decoration-none
             {% if index == 1 %}
                 text-deepSeaBlue
             {% else %}
                 text-heavyBlack
             {% endif %}
             " href="{{ url_for("home") }}">Profil</a>
-            <div class="bg-heavyBlack my-4" style="border:none; height: 1px"></div>
+                <div class="bg-heavyBlack my-4" style="border:none; height: 1px"></div>
 
-            <a class="h3 text-decoration-none
+                <a class="h3 text-decoration-none
             {% if index == 2 %}
                text-deepSeaBlue
             {% else %}
                text-heavyBlack
             {% endif %}
             " href="{{ url_for("home") }}">Informations</a>
-            <div class="bg-heavyBlack my-4" style="border:none; height: 1px"></div>
+                <div class="bg-heavyBlack my-4" style="border:none; height: 1px"></div>
 
-            <a class="h3 text-decoration-none
+                <a class="h3 text-decoration-none
             {% if index == 3 %}
                text-deepSeaBlue
             {% else %}
                text-heavyBlack
             {% endif %}
             " href="{{ url_for("wishlist") }}">Souhaits</a>
-            <div class="bg-heavyBlack my-4" style="border:none; height: 1px"></div>
+                <div class="bg-heavyBlack my-4" style="border:none; height: 1px"></div>
 
-            <a class="h3 text-decoration-none
+                <a class="h3 text-decoration-none
             {% if index == 4 %}
                text-deepSeaBlue
             {% else %}
                text-heavyBlack
             {% endif %}
             " href="{{ url_for("home") }}">Historique</a>
+            </div>
         </div>
     </div>
-</div>
+{% endmacro %}

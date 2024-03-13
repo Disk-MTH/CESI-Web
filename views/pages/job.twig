@@ -1,6 +1,9 @@
 {% set title = "Stagify - Offre de stage" %}
 {% set alternative_search_bar = true %}
 {% extends "components/layouts/layout.twig" %}
+{% import "components/tiles/job_info_tiles.twig" as job_info_tiles %}
+{% import "components/tiles/job_rating_tile.twig" as job_rating_tile %}
+{% import "components/profiles/job_profile.twig" as job_profile %}
 
 {% block header %}
     <section class="bg-deepWarmGrey rounded-bottom-5 pb-5">
@@ -38,20 +41,7 @@
         <div class="container">
             <div class="row d-md-none">
                 <div class="col">
-                    {% set low_salary="900" %}
-                    {% set high_salary="1100" %}
-                    {% set zip_code="51100" %}
-                    {% set city="Reims" %}
-                    {% set address="18 rue Jean Jaures" %}
-
-                    {% set start_date="8 avril" %}
-                    {% set end_date="26 juillet" %}
-                    {% set place_count="4" %}
-                    {% set duration="12 semaines" %}
-                    {% set promo_year="A2" %}
-                    {% set website_link="facebook.com" %}
-
-                    {{ include("components/tiles/job_info_tiles.twig")}}
+                    {{ job_info_tiles.content(900, 1100, "Reims", 51100, "18 rue Jean Jaures", "8 avril", "26 juillet", 4, "12 semaines", "A2") }}
                 </div>
 
             </div>
@@ -65,20 +55,7 @@
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-5 col-md-6  d-none d-md-block">
-                    {% set low_salary="900" %}
-                    {% set high_salary="1100" %}
-                    {% set zip_code="51100" %}
-                    {% set city="Reims" %}
-                    {% set address="18 rue Jean Jaures" %}
-
-                    {% set start_date="8 avril" %}
-                    {% set end_date="26 juillet" %}
-                    {% set place_count="4" %}
-                    {% set duration="12 semaines" %}
-                    {% set promo_year="A2" %}
-                    {% set website_link="facebook.com" %}
-
-                    {{ include("components/tiles/job_info_tiles.twig") }}
+                    {{ job_info_tiles.content(900, 1100, "Reims", 51100, "18 rue Jean Jaures", "8 avril", "26 juillet", 4, "12 semaines", "A2") }}
                 </div>
             </div>
 

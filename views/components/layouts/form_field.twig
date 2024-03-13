@@ -1,33 +1,35 @@
-{% if hide %}
-    <div class="input-group rounded-5 shadow">
-        <input
-                {% if hide %}
-                    type="password"
-                {% else %}
-                    type="text"
-                {% endif %}
-                class="form-control" id="{{ id }}" name="{{ id }}" value="{{ old[id] }}" aria-label="">
-        {% if hide %}
-            <div class="input-group-text bg-deepWarmGrey" onclick="toggleText('{{ id }}')">
-                <img class="img-fluid" src=/assets/svg/misc/visibility_on.svg alt="search"
-                     style="max-width: 24px; max-height: 24px" id="{{ id }}-icon">
-            </div>
-        {% endif %}
-    </div>
-{% elseif area %}
-    <textarea class="form-control {% if noShadow == false %}shadow{% endif %}" id="{{ id }}" name="{{ id }}"
-              rows="{{ rows }}" style="resize: none;" aria-label="" >
+{% macro content(id, area = false, rows = 3, password = false, file = false, shadow = true) %}
+    {% if area %}
+        <textarea class="form-control {% if shadow %}shadow{% endif %}" id="{{ id }}" name="{{ id }}"
+                  rows="{{ rows }}" style="resize: none;" aria-label="">
         {{ old[id] }}
-    </textarea>
-{% elseif file %}
-    <input type="file" class="form-control rounded-5 shadow" id="{{ id }}">
-{% else %}
-    <input class="form-control {% if noShadow == false %}shadow{% endif %}" id="{{ id }}" name="{{ id }}"
-           value="{{ old[id] }}" aria-label="">
-{% endif %}
+        </textarea>
+    {% elseif password %}
+        <div class="input-group rounded-5 {% if shadow %}shadow{% endif %}">
+            <input
+                    {% if password %}
+                        type="password"
+                    {% else %}
+                        type="text"
+                    {% endif %}
+                    class="form-control" id="{{ id }}" name="{{ id }}" value="{{ old[id] }}" aria-label="">
+            {% if password %}
+                <div class="input-group-text bg-deepWarmGrey" onclick="toggleText('{{ id }}')">
+                    <img class="img-fluid" src=/assets/svg/misc/visibility_on.svg alt="search"
+                         style="max-width: 24px; max-height: 24px" id="{{ id }}-icon">
+                </div>
+            {% endif %}
+        </div>
+    {% elseif file %}
+        <input type="file" class="form-control rounded-5 {% if shadow %}shadow{% endif %}" id="{{ id }}">
+    {% else %}
+        <input class="form-control {% if shadow %}shadow{% endif %}" id="{{ id }}" name="{{ id }}"
+               value="{{ old[id] }}" aria-label="">
+    {% endif %}
 
-{% if flash.errors[id] %}
-    <div class="text-coldRed ms-1">
-        {{ flash.errors[id] }}
-    </div>
-{% endif %}
+    {% if flash.errors[id] %}
+        <div class="text-coldRed ms-1">
+            {{ flash.errors[id] }}
+        </div>
+    {% endif %}
+{% endmacro %}

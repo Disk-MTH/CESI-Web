@@ -62,9 +62,6 @@
 
                 </div>
 
-
-
-
                 <div class="col-lg-1 d-none d-lg-block"></div>
                 <div class="col-12 col-lg-6">
                     {% if alternative_search_bar %}
@@ -74,33 +71,29 @@
                     {% endif %}
                 </div>
 
-
                 <div class="m-2 d-lg-none"></div>
 
-
                 <div class="col-6 d-lg-none">
-
-
-                        <div class="btn btn-deepSeaBlue text-nowrap shadow" data-bs-toggle="offcanvas"
-                             data-bs-target="#sideMenu">
-                            Espace entreprise
-                        </div>
-
-
+                    <div class="btn btn-deepSeaBlue text-nowrap shadow" data-bs-toggle="offcanvas"
+                         data-bs-target="#sideMenu">
+                        Espace entreprise
+                    </div>
                 </div>
-
 
                 <div class="col-lg-1 d-none d-lg-block text-end">
                     <a href={{ url_for("user") }}>
                         <img class="img-fluid my-3 w-75" src="/assets/illustrations/profil.svg" alt="profile_picture">
                     </a>
                 </div>
+
                 <div class="col-6 col-lg-2 text-end">
                     <a class="btn btn-outline-custom-blue text-nowrap shadow" href={{ url_for("login") }}>
                         Se déconnecter
                     </a>
                 </div>
+
                 <div class="my-2 d-lg-none"></div>
+
                 {{ include("components/layouts/side_menu.twig") }}
             </div>
         </div>
