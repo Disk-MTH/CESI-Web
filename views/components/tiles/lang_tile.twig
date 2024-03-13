@@ -1,6 +1,8 @@
-<a class="dropdown-item" href="{{ url_for("home") }}">
-    <div class="row row-cols-2 align-items-center">
-        <span class="text-heavyBlack">{{ language_name }}</span>
-        <img class="img-fluid" src="{{ illustration }}" alt="drapeau"/>
-    </div>
-</a>
+{% macro content(language_name, illustration) %}
+    <a class="dropdown-item" href="{{ url_for("home") }}">
+        <div class="row row-cols-2 align-items-center">
+            <span class="text-heavyBlack">{{ language_name }}</span>
+            <img class="img-fluid" src="{{ illustration }}" alt="drapeau"/>
+        </div>
+    </a>
+{% endmacro %}

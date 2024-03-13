@@ -1,13 +1,15 @@
-<div class="container">
-    <div class="row align-items-center ">
-        <h2 class="mt-3">{{ job_name }}</h2>
-        <h4 class ="mb-3 text-darkGrey">{{ company_name }}</h4>
-        <div class="col-1">
-            <img src="/assets/svg/misc/wish_full.svg" alt="checkmark">
-        </div>
-        <div class="col ">
-            <div class="btn btn-deepSeaBlue rounded-2">Faire une demande
+{% macro content (job_name, company_name) %}
+    <div class="container">
+        <div class="row align-items-center ">
+            <h2 class="mt-3">{{ job_name }}</h2>
+            <h4 class ="mb-3 text-darkGrey">{{ company_name }}</h4>
+            <div class="col-1">
+                <img src="/assets/svg/misc/wish_full.svg" alt="checkmark">
+            </div>
+            <div class="col ">
+                <div class="btn btn-deepSeaBlue rounded-2">Faire une demande
+                </div>
             </div>
         </div>
     </div>
-</div>
+{% endmacro %}

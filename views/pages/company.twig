@@ -1,5 +1,7 @@
 {% set title = "Stagify - Entreprise" %}
 {% extends "components/layouts/layout.twig" %}
+{% import "components/tiles/company_rating_tile.twig" as company_rating_tile %}
+{% import "components/profiles/company_profile.twig" as company_profile %}
 
 {% block header %}
     <section class="bg-gradient-card">
@@ -19,25 +21,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-4 col-md-4 col-8">
-                    {% set company_name= "Facebook" %}
-                    {% set activity_sector = "Developpement de logiciels" %}
-                    {% set location = "Reims, Grand-Est, France" %}
-                    {% set employee_count = "Plus de 10k" %}
-                    {% set intern_count = "284" %}
-                    {% set company_site = "https://www.linkedin.com/company/facebook/" %}
-                    {{ include ("components/profiles/company_profile.twig") }}
+                    {{ company_profile.content("Facebook", "Developpement de logiciels", "Reims, Grand-Est, France", "Plus de 10k", "284", "https://www.linkedin.com/company/facebook/" ) }}
 
                     <div class="col d-md-none">
-                        {% set rating_count = "250" %}
-                        {{ include ("components/tiles/company_rating_tile.twig") }}
+                        {{ company_rating_tile.content("Facebook","250") }}
                     </div>
                 </div>
-                <div class="col-xl-6 col-lg-5 col-md-4 d-none d-md-block">
+                <div class="col-xl-5 col-lg-4 col-md-3 d-none d-md-block">
 
                 </div>
-                <div class="col-xl-2 col-lg-3 col-md-4 d-none d-md-block">
-                    {% set rating_count = "250" %}
-                    {{ include ("components/tiles/company_rating_tile.twig") }}
+                <div class="col-xl-3 col-lg-4 col-md-5 d-none d-md-block">
+                    {{ company_rating_tile.content("Facebook","250") }}
                 </div>
             </div>
         </div>

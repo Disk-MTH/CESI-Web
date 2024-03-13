@@ -1,24 +1,22 @@
+{% import "components/layouts/flash_banner.twig" as flash_banner %}
+
 {% if flash != null %}
     {% if flash.status.name == "success" %}
         {% set display = true %}
-        {% set class = "bg-pastelGreen" %}
-        {% set pictogram = "/assets/svg/flash_banner/check_circle_fill.svg" %}
-        {% set type="Succès : " %}
+        {{ flash_banner.content("bg-pastelGreen", "check_circle_fill", "Succès : ") }}
+
     {% elseif flash.status.name == "info" %}
         {% set display = true %}
-        {% set class = "bg-pastelBlue" %}
-        {% set pictogram = "/assets/svg/flash_banner/info_circle_fill.svg" %}
-        {% set type="Information : " %}
+        {{ flash_banner.content("bg-pastelBlue", "info_circle_fill","Information : ") }}
+
     {% elseif flash.status.name == "warning" %}
         {% set display = true %}
-        {% set class = "bg-goldenBrown bg-opacity-25" %}
-        {% set pictogram = "/assets/svg/flash_banner/exclamation_triangle_fill.svg" %}
-        {% set type="Avertissement : " %}
+        {{ flash_banner.content("bg-goldenBrown bg-opacity-25", "exclamation_triangle_fill", "Avertissement : ") }}
+
     {% elseif flash.status.name == "error" %}
         {% set display = true %}
-        {% set class = "bg-pastelRed" %}
-        {% set pictogram = "/assets/svg/flash_banner/exclamation_circle_fill.svg" %}
-        {% set type="Erreur : " %}
+        {{ flash_banner.content("bg-pastelRed", "exclamation_circle_fill", "Erreur : ") }}
+
     {% else %}
         <div class="alert alert-danger h4 text-center">
             The flash status "{{ flash.status.name }}" is not supported yet

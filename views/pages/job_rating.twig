@@ -1,5 +1,6 @@
 {% set title = "Stagify - Avis du stage" %}
 {% extends "components/layouts/layout.twig" %}
+{% import "components/tiles/rating_tile.twig" as rating_tile %}
 
 {% block header %}
     <section class="container bg-deepWarmGrey rounded-bottom-5">
@@ -40,40 +41,11 @@
                         <div class="card-body overflow-y-scroll" style="height: 600px">
                             <div class="row">
                                 <div class="col-lg-11 col-12">
-                                    {% set first_name = "Julien" %}
-                                    {% set last_name = "Turcot" %}
-                                    {% set formation = "CESI" %}
-                                    {% set profile_picture = "/assets/illustrations/profil.svg" %}
-                                    {% set message = "“Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.”" %}
-                                    {{ include("components/tiles/rating_tile.twig") }}
-
-                                    {% set first_name = "Julien" %}
-                                    {% set last_name = "Turcot" %}
-                                    {% set formation = "CESI" %}
-                                    {% set profile_picture = "/assets/illustrations/profil.svg" %}
-                                    {% set message = "“Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.”" %}
-                                    {{ include("components/tiles/rating_tile.twig") }}
-
-                                    {% set first_name = "Julien" %}
-                                    {% set last_name = "Turcot" %}
-                                    {% set formation = "CESI" %}
-                                    {% set profile_picture = "/assets/illustrations/profil.svg" %}
-                                    {% set message = "“Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.”" %}
-                                    {{ include("components/tiles/rating_tile.twig") }}
-
-                                    {% set first_name = "Julien" %}
-                                    {% set last_name = "Turcot" %}
-                                    {% set formation = "CESI" %}
-                                    {% set profile_picture = "/assets/illustrations/profil.svg" %}
-                                    {% set message = "“Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.”" %}
-                                    {{ include("components/tiles/rating_tile.twig") }}
-
-                                    {% set first_name = "Julien" %}
-                                    {% set last_name = "Turcot" %}
-                                    {% set formation = "CESI" %}
-                                    {% set profile_picture = "/assets/illustrations/profil.svg" %}
-                                    {% set message = "“Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.”" %}
-                                    {{ include("components/tiles/rating_tile.twig") }}
+                                    {{ rating_tile.content("Julien", "Turcot","CESI", "/assets/illustrations/profil.svg", "Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.") }}
+                                    {{ rating_tile.content("Julien", "Turcot","CESI", "/assets/illustrations/profil.svg", "Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.") }}
+                                    {{ rating_tile.content("Julien", "Turcot","CESI", "/assets/illustrations/profil.svg", "Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.") }}
+                                    {{ rating_tile.content("Julien", "Turcot","CESI", "/assets/illustrations/profil.svg", "Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.") }}
+                                    {{ rating_tile.content("Julien", "Turcot","CESI", "/assets/illustrations/profil.svg", "Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.") }}
                                 </div>
                             </div>
 

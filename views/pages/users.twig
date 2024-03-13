@@ -1,6 +1,7 @@
 {% set title = "Stagify - Utilisateurs" %}
 {% set alternative_search_bar = true %}
 {% extends "components/layouts/layout.twig" %}
+{% import "components/tiles/user_tile.twig" as user_tile %}
 
 {% block header %}
     <section class="bg-deepWarmGrey ">
@@ -28,116 +29,30 @@
         <div class="container pt-4">
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-4">
-                    {% set profile_picture ="/assets/illustrations/profil.svg" %}
-                    {% set first_name = "Julien" %}
-                    {% set last_name = "Turcot" %}
-                    {% set location = "51100 Reims" %}
-                    {% set formation = "CESI" %}
-                    {{ include("components/tiles/user_tile.twig") }}
+                    {{ user_tile.content("/assets/illustrations/profil.svg", "Julien", "Julien", "51100 Reims", "CESI") }}
+                    {{ user_tile.content("/assets/illustrations/profil.svg", "Julien", "Julien", "51100 Reims", "CESI") }}
+                    {{ user_tile.content("/assets/illustrations/profil.svg", "Julien", "Julien", "51100 Reims", "CESI") }}
+                    {{ user_tile.content("/assets/illustrations/profil.svg", "Julien", "Julien", "51100 Reims", "CESI") }}
+                    {{ user_tile.content("/assets/illustrations/profil.svg", "Julien", "Julien", "51100 Reims", "CESI") }}
 
-                    {% set profile_picture ="/assets/illustrations/profil.svg" %}
-                    {% set first_name = "Julien" %}
-                    {% set last_name = "Turcot" %}
-                    {% set location = "51100 Reims" %}
-                    {% set formation = "CESI" %}
-                    {{ include("components/tiles/user_tile.twig") }}
 
-                    {% set profile_picture ="/assets/illustrations/profil.svg" %}
-                    {% set first_name = "Julien" %}
-                    {% set last_name = "Turcot" %}
-                    {% set location = "51100 Reims" %}
-                    {% set formation = "CESI" %}
-                    {{ include("components/tiles/user_tile.twig") }}
-
-                    {% set profile_picture ="/assets/illustrations/profil.svg" %}
-                    {% set first_name = "Julien" %}
-                    {% set last_name = "Turcot" %}
-                    {% set location = "51100 Reims" %}
-                    {% set formation = "CESI" %}
-                    {{ include("components/tiles/user_tile.twig") }}
-
-                    {% set profile_picture ="/assets/illustrations/profil.svg" %}
-                    {% set first_name = "Julien" %}
-                    {% set last_name = "Turcot" %}
-                    {% set location = "51100 Reims" %}
-                    {% set formation = "CESI" %}
-                    {{ include("components/tiles/user_tile.twig") }}
                 </div>
 
                 <div class="col-6 col-lg-4 d-none d-md-block">
-                    {% set profile_picture ="/assets/illustrations/profil.svg" %}
-                    {% set first_name = "Julien" %}
-                    {% set last_name = "Turcot" %}
-                    {% set location = "51100 Reims" %}
-                    {% set formation = "CESI" %}
-                    {{ include("components/tiles/user_tile.twig") }}
-
-                    {% set profile_picture ="/assets/illustrations/profil.svg" %}
-                    {% set first_name = "Julien" %}
-                    {% set last_name = "Turcot" %}
-                    {% set location = "51100 Reims" %}
-                    {% set formation = "CESI" %}
-                    {{ include("components/tiles/user_tile.twig") }}
-
-                    {% set profile_picture ="/assets/illustrations/profil.svg" %}
-                    {% set first_name = "Julien" %}
-                    {% set last_name = "Turcot" %}
-                    {% set location = "51100 Reims" %}
-                    {% set formation = "CESI" %}
-                    {{ include("components/tiles/user_tile.twig") }}
-
-                    {% set profile_picture ="/assets/illustrations/profil.svg" %}
-                    {% set first_name = "Julien" %}
-                    {% set last_name = "Turcot" %}
-                    {% set location = "51100 Reims" %}
-                    {% set formation = "CESI" %}
-                    {{ include("components/tiles/user_tile.twig") }}
-
-                    {% set profile_picture ="/assets/illustrations/profil.svg" %}
-                    {% set first_name = "Julien" %}
-                    {% set last_name = "Turcot" %}
-                    {% set location = "51100 Reims" %}
-                    {% set formation = "CESI" %}
-                    {{ include("components/tiles/user_tile.twig") }}
+                    {{ user_tile.content("/assets/illustrations/profil.svg", "Julien", "Julien", "51100 Reims", "CESI") }}
+                    {{ user_tile.content("/assets/illustrations/profil.svg", "Julien", "Julien", "51100 Reims", "CESI") }}
+                    {{ user_tile.content("/assets/illustrations/profil.svg", "Julien", "Julien", "51100 Reims", "CESI") }}
+                    {{ user_tile.content("/assets/illustrations/profil.svg", "Julien", "Julien", "51100 Reims", "CESI") }}
+                    {{ user_tile.content("/assets/illustrations/profil.svg", "Julien", "Julien", "51100 Reims", "CESI") }}
 
                 </div>
 
                 <div class="col-4 d-none d-lg-block">
-                    {% set profile_picture ="/assets/illustrations/profil.svg" %}
-                    {% set first_name = "Julien" %}
-                    {% set last_name = "Turcot" %}
-                    {% set location = "51100 Reims" %}
-                    {% set formation = "CESI" %}
-                    {{ include("components/tiles/user_tile.twig") }}
-
-                    {% set profile_picture ="/assets/illustrations/profil.svg" %}
-                    {% set first_name = "Julien" %}
-                    {% set last_name = "Turcot" %}
-                    {% set location = "51100 Reims" %}
-                    {% set formation = "CESI" %}
-                    {{ include("components/tiles/user_tile.twig") }}
-
-                    {% set profile_picture ="/assets/illustrations/profil.svg" %}
-                    {% set first_name = "Julien" %}
-                    {% set last_name = "Turcot" %}
-                    {% set location = "51100 Reims" %}
-                    {% set formation = "CESI" %}
-                    {{ include("components/tiles/user_tile.twig") }}
-
-                    {% set profile_picture ="/assets/illustrations/profil.svg" %}
-                    {% set first_name = "Julien" %}
-                    {% set last_name = "Turcot" %}
-                    {% set location = "51100 Reims" %}
-                    {% set formation = "CESI" %}
-                    {{ include("components/tiles/user_tile.twig") }}
-
-                    {% set profile_picture ="/assets/illustrations/profil.svg" %}
-                    {% set first_name = "Julien" %}
-                    {% set last_name = "Turcot" %}
-                    {% set location = "51100 Reims" %}
-                    {% set formation = "CESI" %}
-                    {{ include("components/tiles/user_tile.twig") }}
-
+                    {{ user_tile.content("/assets/illustrations/profil.svg", "Julien", "Julien", "51100 Reims", "CESI") }}
+                    {{ user_tile.content("/assets/illustrations/profil.svg", "Julien", "Julien", "51100 Reims", "CESI") }}
+                    {{ user_tile.content("/assets/illustrations/profil.svg", "Julien", "Julien", "51100 Reims", "CESI") }}
+                    {{ user_tile.content("/assets/illustrations/profil.svg", "Julien", "Julien", "51100 Reims", "CESI") }}
+                    {{ user_tile.content("/assets/illustrations/profil.svg", "Julien", "Julien", "51100 Reims", "CESI") }}
 
                 </div>
             </div>

@@ -1,5 +1,7 @@
 {% set title = "Stagify - Création d'étudiant" %}
 {% extends "components/layouts/layout.twig" %}
+{% import "components/layouts/form_field.twig" as form_field %}
+{% import "components/tiles/removable_tile.twig" as removable_tile %}
 
 {% block header %}
     <section class="bg-deepWarmGrey rounded-bottom-5">
@@ -17,10 +19,14 @@
             <div class="card bg-deepWarmGrey py-3 px-3 my-5 shadow">
                 <div class="row mb-2">
                     <div class="col-6 text-center border-end border-heavyBlack text-deepSeaBlue" >
-                        <h4>Etudiant</h4>
+                        <a class="disabled text-decoration-none" href={{ url_for("create_student") }}>
+                            <h4>Etudiant</h4>
+                        </a>
                     </div>
                     <div class="col-6 text-center">
-                        <h4>Pilote</h4>
+                        <a class="text-decoration-none text-heavyBlack" href={{ url_for("create_pilot") }}>
+                            <h4>Pilote</h4>
+                        </a>
                     </div>
                 </div>
                 <hr>
