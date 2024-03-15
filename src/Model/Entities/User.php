@@ -2,13 +2,17 @@
 
 namespace stagify\Model\Entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\InverseJoinColumn;
 use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
 
 #[Entity, Table(name: "user")]
@@ -16,6 +20,9 @@ class User
 {
     #[Id, Column(type: "integer"), GeneratedValue(strategy: "AUTO")]
     private int $id;
+
+    #[Column(type: "integer", nullable: false)]
+    private int $role;
 
     #[Column(type: "string", nullable: false)]
     private string $firstName;
@@ -27,20 +34,47 @@ class User
     private string $profilePicturePath;
 
     #[Column(type: "string", nullable: false)]
+    private string $description;
+
+    #[Column(type: "string", nullable: false)]
     private string $login;
 
     #[Column(type: "string", nullable: false)]
     private string $passwordHash;
 
-    #[Column(type: "boolean", nullable: false)]
+    #[Column(type: "boolean", nullable: false, options: ["default" => false])]
     private bool $deleted;
 
-    #[ManyToOne(targetEntity: Promo::class)]
-    #[JoinColumn(name: "promo_id", referencedColumnName: "id")]
-    private ?Promo $promo;
+    #[JoinTable]
+    #[JoinColumn(referencedColumnName: "id")]
+    #[InverseJoinColumn(referencedColumnName: "id")]
+    #[ManyToMany(targetEntity: Promo::class)]
+    private Collection $promos;
+
+    #[JoinTable]
+    #[JoinColumn(referencedColumnName: "id")]
+    #[InverseJoinColumn(referencedColumnName: "id")]
+    #[ManyToMany(targetEntity: Skill::class)]
+    private Collection $skills;
+
+    #[JoinTable]
+    #[JoinColumn(referencedColumnName: "id")]
+    #[InverseJoinColumn(referencedColumnName: "id")]
+    #[ManyToMany(targetEntity: Rate::class)]
+    private Collection $rates;
+
+    #[JoinTable]
+    #[JoinColumn(referencedColumnName: "id")]
+    #[InverseJoinColumn(referencedColumnName: "id")]
+    #[ManyToMany(targetEntity: InternshipOffer::class)]
+    private Collection $wishes;
 
     public function __construct()
     {
+        $this->promos = new ArrayCollection();
+        $this->skills = new ArrayCollection();
+        $this->rates = new ArrayCollection();
+        $this->wishes = new ArrayCollection();
     }
 
     /*-------------------------------------------------- Getters --------------------------------------------------*/
@@ -48,6 +82,11 @@ class User
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getRole(): int
+    {
+        return $this->role;
     }
 
     public function getFirstName(): string
@@ -65,6 +104,11 @@ class User
         return $this->profilePicturePath;
     }
 
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
     public function getLogin(): string
     {
         return $this->login;
@@ -80,12 +124,33 @@ class User
         return $this->deleted;
     }
 
-    public function getPromo(): ?Promo
+    public function getPromos(): Collection
     {
-        return $this->promo;
+        return $this->promos;
+    }
+
+    public function getSkills(): Collection
+    {
+        return $this->skills;
+    }
+
+    public function getRates(): Collection
+    {
+        return $this->rates;
+    }
+
+    public function getWishes(): Collection
+    {
+        return $this->wishes;
     }
 
     /*-------------------------------------------------- Setters --------------------------------------------------*/
+
+    public function setRole(int $role): self
+    {
+        $this->role = $role;
+        return $this;
+    }
 
     public function setFirstName(string $firstName): self
     {
@@ -102,6 +167,12 @@ class User
     public function setProfilePicturePath(string $profilePicturePath): self
     {
         $this->profilePicturePath = $profilePicturePath;
+        return $this;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
         return $this;
     }
 
@@ -123,9 +194,51 @@ class User
         return $this;
     }
 
-    public function setPromo(?Promo $promo): self
+    public function addPromo(Promo $promo): self
     {
-        $this->promo = $promo;
+        $this->promos->add($promo);
+        return $this;
+    }
+
+    public function removePromo(Promo $promo): self
+    {
+        $this->promos->removeElement($promo);
+        return $this;
+    }
+
+    public function addSkill(Skill $skill): self
+    {
+        $this->skills->add($skill);
+        return $this;
+    }
+
+    public function removeSkill(Skill $skill): self
+    {
+        $this->skills->removeElement($skill);
+        return $this;
+    }
+
+    public function addRate(Rate $rate): self
+    {
+        $this->rates->add($rate);
+        return $this;
+    }
+
+    public function removeRate(Rate $rate): self
+    {
+        $this->rates->removeElement($rate);
+        return $this;
+    }
+
+    public function addWish(InternshipOffer $wish): self
+    {
+        $this->wishes->add($wish);
+        return $this;
+    }
+
+    public function removeWish(InternshipOffer $wish): self
+    {
+        $this->wishes->removeElement($wish);
         return $this;
     }
 }

@@ -8,7 +8,10 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
-use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\InverseJoinColumn;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
 
@@ -18,18 +21,28 @@ class Promo
     #[Id, Column(type: "integer"), GeneratedValue(strategy: "AUTO")]
     private int $id;
 
+    #[Column(type: "integer", nullable: false)]
+    private int $year;
+
     #[Column(type: "string", nullable: false)]
-    private string $name;
+    private string $type;
 
-    #[ManyToOne(inversedBy: "promos")]
-    private ?Campus $campus;
+    #[Column(type: "string", nullable: false)]
+    private string $school;
 
-    #[OneToMany(mappedBy: "promo", targetEntity: User::class)]
-    private Collection $users;
+    #[Column(type: "boolean", nullable: false, options: ["default" => false])]
+    private bool $deleted;
+
+    #[JoinTable]
+    #[JoinColumn(referencedColumnName: "id")]
+    #[InverseJoinColumn(referencedColumnName: "id")]
+    #[ManyToMany(targetEntity: Location::class)]
+    private Collection $locations;
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        $this->deleted = false;
+        $this->locations = new ArrayCollection();
     }
 
     /*-------------------------------------------------- Getters --------------------------------------------------*/
@@ -39,51 +52,66 @@ class Promo
         return $this->id;
     }
 
-    public function getName(): string
+    public function getYear(): int
     {
-        return $this->name;
+        return $this->year;
     }
 
-    public function getCampus(): ?Campus
+    public function getType(): string
     {
-        return $this->campus;
+        return $this->type;
     }
 
-    public function getUsers(): Collection
+    public function getSchool(): string
     {
-        return $this->users;
+        return $this->school;
+    }
+
+    public function getDeleted(): bool
+    {
+        return $this->deleted;
+    }
+
+    public function getLocations(): Collection
+    {
+        return $this->locations;
     }
 
     /*-------------------------------------------------- Setters --------------------------------------------------*/
 
-    public function setName(string $name): self
+    public function setYear(int $year): self
     {
-        $this->name = $name;
+        $this->year = $year;
         return $this;
     }
 
-    public function setCampus(?Campus $campus): self
+    public function setType(string $type): self
     {
-        $this->campus = $campus;
+        $this->type = $type;
         return $this;
     }
 
-    public function addUser(User $user): self
+    public function setSchool(string $school): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->setPromo($this);
-        }
+        $this->school = $school;
         return $this;
     }
 
-    public function removeUser(User $user): self
+    public function setDeleted(bool $deleted): self
     {
-        if ($this->users->removeElement($user)) {
-            if ($user->getPromo() === $this) {
-                $user->setPromo(null);
-            }
-        }
+        $this->deleted = $deleted;
+        return $this;
+    }
+
+    public function addLocation(Location $location): self
+    {
+        $this->locations->add($location);
+        return $this;
+    }
+
+    public function removeLocation(Location $location): self
+    {
+        $this->locations->removeElement($location);
         return $this;
     }
 }

@@ -52,6 +52,7 @@ do
     echo "Generate database from PHP entities"
     ORIGINAL_DB_HOST=$(grep -oP '^DB_HOST=\K.*' .env)
     sed -i 's/^DB_HOST=.*/DB_HOST=localhost/g' .env
+    "${PWD}"/vendor/bin/doctrine orm:schema-tool:drop --force
     "${PWD}"/vendor/bin/doctrine orm:schema-tool:create
     sed -i "s/^DB_HOST=.*/DB_HOST=$ORIGINAL_DB_HOST/g" .env
   elif [ "$MODE" = "i" ]; then

@@ -3,13 +3,17 @@
 namespace stagify;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\PersistentCollection;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Log\LoggerInterface;
 use Psr\Log\LoggerInterface as Logger;
 use Respect\Validation\Validator;
 use Slim\App;
 use stagify\Flash\Flash;
 use stagify\Flash\FlashStatus;
+use stagify\Model\Entities\ActivitySector;
+use stagify\Model\Entities\Company;
 use stagify\Model\Entities\User;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -92,7 +96,25 @@ return function (App $app, Logger $logger, EntityManager $entityManager) {
         }
     });
 
-    $app->get("/", function (Request $request, Response $response) {
+    $app->get("/", function (Request $request, Response $response) use ($entityManager, $logger) {
+        /*$activitySector = (new ActivitySector())
+            ->setName("Informatique");
+
+        $company = (new Company())->setName("Google")
+            ->setWebsite("https://www.google.com")
+            ->setEmployeeCount(100000)
+            ->setLogoPath("https://www.google.com")
+            ->addActivitySector($activitySector);
+
+        $entityManager->persist($activitySector);
+        $entityManager->persist($company);
+        $entityManager->flush();*/
+
+        $activitySectorRepo = $entityManager->getRepository(ActivitySector::class);
+        $activitySectors = $activitySectorRepo->findAll();
+
+        $logger->info($activitySectors[0]->getName());
+
         return render($response, "pages/home.twig");
     })->setName("home");
 

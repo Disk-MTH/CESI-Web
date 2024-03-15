@@ -8,18 +8,14 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Table;
 
-#[Entity, Table(name: "promo_type")]
-class PromoType
+#[Entity, Table(name: "skill")]
+class Skill
 {
     #[Id, Column(type: "integer"), GeneratedValue(strategy: "AUTO")]
     private int $id;
 
     #[Column(type: "string", nullable: false)]
     private string $name;
-
-    public function __construct()
-    {
-    }
 
     /*-------------------------------------------------- Getters --------------------------------------------------*/
 
@@ -35,9 +31,8 @@ class PromoType
 
     /*-------------------------------------------------- Setters --------------------------------------------------*/
 
-    public function setName(string $name): self
+    public function setName(string $name): void
     {
         $this->name = $name;
-        return $this;
     }
 }
