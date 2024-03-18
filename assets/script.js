@@ -1,3 +1,13 @@
+window.addEventListener("load", function () {
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/service-worker.js").then(function (registration) {
+            console.log("Service Worker registered with scope:", registration.scope);
+        }).catch(function (error) {
+            console.log("Service Worker registration failed:", error);
+        });
+    }
+});
+
 function navigateTo(event, url) {
     window.location.assign(url);
     event.stopPropagation();
@@ -73,3 +83,22 @@ function clickStar(event, id) {
     }
     event.stopPropagation();
 }
+
+/*
+  phpmyadmin:
+    container_name: stagify-phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.apache-secure.rule=Host(`stagify.fr`)"
+      - "traefik.http.routers.apache-secure.entrypoints=websecure"
+      - "traefik.http.routers.apache-secure.tls.certresolver=myresolver"
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: ${DB_USER}
+      PMA_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - stagify-network
+ */
