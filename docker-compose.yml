@@ -16,12 +16,12 @@ services:
       - "--entrypoints.websecure.address=:443"
       - "--certificatesresolvers.stagify.acme.tlschallenge=true"
       - "--certificatesresolvers.stagify.acme.email=contact@stagify.fr"
-      - "--certificatesresolvers.stagify.acme.storage=/certs/acme.json"
+      - "--certificatesresolvers.stagify.acme.storage=/cert.json"
     ports:
       - "443:443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./certs:/certs
+      - ./cert.json:/cert.json
     networks:
       - stagify-network
 
@@ -40,7 +40,6 @@ services:
       - ./src:/var/www/src
       - ./views:/var/www/views
       - ./vendor:/var/www/vendor
-      - ./certs:/var/www/certs
       - ./.env:/var/www/.env
     networks:
       - stagify-network
