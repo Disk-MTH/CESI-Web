@@ -51,13 +51,6 @@ class Company
     #[ManyToMany(targetEntity: InternshipOffer::class)]
     private Collection $internshipOffers;
 
-
-    /*    #[JoinTable]
-        #[JoinColumn(referencedColumnName: "id")]
-        #[InverseJoinColumn(referencedColumnName: "id", unique: true)]
-        #[ManyToMany(targetEntity: ActivitySector::class)]
-        private Collection $activitySectors;*/
-
     public function __construct()
     {
         $this->deleted = false;

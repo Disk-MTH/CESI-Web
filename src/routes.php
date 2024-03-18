@@ -110,10 +110,10 @@ return function (App $app, Logger $logger, EntityManager $entityManager) {
         $entityManager->persist($company);
         $entityManager->flush();*/
 
-        $activitySectorRepo = $entityManager->getRepository(ActivitySector::class);
+/*        $activitySectorRepo = $entityManager->getRepository(ActivitySector::class);
         $activitySectors = $activitySectorRepo->findAll();
 
-        $logger->info($activitySectors[0]->getName());
+        $logger->info($activitySectors[0]->getName());*/
 
         return render($response, "pages/home.twig");
     })->setName("home");

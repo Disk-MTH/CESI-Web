@@ -71,6 +71,7 @@ class User
 
     public function __construct()
     {
+        $this->deleted = false;
         $this->promos = new ArrayCollection();
         $this->skills = new ArrayCollection();
         $this->rates = new ArrayCollection();

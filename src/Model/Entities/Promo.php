@@ -30,9 +30,6 @@ class Promo
     #[Column(type: "string", nullable: false)]
     private string $school;
 
-    #[Column(type: "boolean", nullable: false, options: ["default" => false])]
-    private bool $deleted;
-
     #[JoinTable]
     #[JoinColumn(referencedColumnName: "id")]
     #[InverseJoinColumn(referencedColumnName: "id")]
@@ -41,7 +38,6 @@ class Promo
 
     public function __construct()
     {
-        $this->deleted = false;
         $this->locations = new ArrayCollection();
     }
 
@@ -67,11 +63,6 @@ class Promo
         return $this->school;
     }
 
-    public function getDeleted(): bool
-    {
-        return $this->deleted;
-    }
-
     public function getLocations(): Collection
     {
         return $this->locations;
@@ -94,12 +85,6 @@ class Promo
     public function setSchool(string $school): self
     {
         $this->school = $school;
-        return $this;
-    }
-
-    public function setDeleted(bool $deleted): self
-    {
-        $this->deleted = $deleted;
         return $this;
     }
 
