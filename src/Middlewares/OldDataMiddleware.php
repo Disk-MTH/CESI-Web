@@ -27,4 +27,14 @@ class OldDataMiddleware implements MiddlewareInterface
 
         return $response;
     }
+
+    public static function validate(array $data) : array {
+        $errors = [];
+        foreach ($data as $key => $value) {
+            if (!preg_match("/^[A-Za-z0-9!@#$%^&*()_.]*$/", $value)) {
+                $errors[$key] = "Le champs contient des caractères non autorisés";
+            }
+        }
+        return $errors;
+    }
 }

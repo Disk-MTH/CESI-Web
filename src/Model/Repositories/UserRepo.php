@@ -2,30 +2,9 @@
 
 namespace stagify\Model\Repositories;
 
-use DI\Container;
-use Doctrine\ORM\EntityManager;
-use stagify\Model\Entities\temp\User;
+use Doctrine\ORM\EntityRepository;
 
-$container[UserRepo::class] = function (Container $container) {
-    return new UserRepo($container[EntityManager::class]);
-};
-
-final class UserRepo
+final class UserRepo extends EntityRepository
 {
-    private EntityManager $entityManager;
 
-    public function __construct(EntityManager $orm)
-    {
-        $this->entityManager = $orm;
-    }
-
-    public function usersAsArray(): array
-    {
-        $users = $this->entityManager->getRepository(User::class)->findAll();
-        $usersArray = [];
-        foreach ($users as $user) {
-            $usersArray[] = $user->toArray();
-        }
-        return $usersArray;
-    }
 }

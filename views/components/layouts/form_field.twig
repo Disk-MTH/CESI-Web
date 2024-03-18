@@ -1,4 +1,4 @@
-{% macro content(id, area = false, rows = 3, password = false, file = false, shadow = true) %}
+{% macro content(errors, old, id, area = false, rows = 3, password = false, file = false, shadow = true) %}
     {% if area %}
         <textarea class="form-control {% if shadow %}shadow{% endif %}" id="{{ id }}" name="{{ id }}"
                   rows="{{ rows }}" style="resize: none;" aria-label="">
@@ -21,15 +21,15 @@
             {% endif %}
         </div>
     {% elseif file %}
-        <input type="file" class="form-control rounded-5 {% if shadow %}shadow{% endif %}" id="{{ id }}">
+        <input type="file" class="form-control rounded-5 {% if shadow %}shadow{% endif %}" id="{{ id }}" value="{{ old[id] }}">
     {% else %}
         <input class="form-control {% if shadow %}shadow{% endif %}" id="{{ id }}" name="{{ id }}"
                value="{{ old[id] }}" aria-label="">
     {% endif %}
 
-    {% if flash.errors[id] %}
+    {% if errors[id] %}
         <div class="text-coldRed ms-1">
-            {{ flash.errors[id] }}
+            {{ errors[id] }}
         </div>
     {% endif %}
 {% endmacro %}

@@ -81,11 +81,9 @@
                     </a>
                 </div>
 
-                <div class="col-6 col-lg-2 text-end">
-                    <a class="btn btn-outline-custom-blue text-nowrap shadow" href={{ url_for("login") }}>
-                        Se déconnecter
-                    </a>
-                </div>
+                <form class="col-6 col-lg-2 text-end" action="{{ url_for("logout") }}" method="post">
+                    <button class="btn btn-outline-custom-blue text-nowrap shadow">Se déconnecter</button>
+                </form>
 
                 <div class="my-2 d-lg-none"></div>
 

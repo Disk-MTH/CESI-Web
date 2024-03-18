@@ -1,25 +1,21 @@
 {% import "components/layouts/flash_banner.twig" as flash_banner %}
 
 {% if flash != null %}
-    {% if flash.status.name == "success" %}
+    {% if flash["status"] == "success" %}
         {% set display = true %}
-        {{ flash_banner.content("bg-pastelGreen", "check_circle_fill", "Succès : ") }}
-
-    {% elseif flash.status.name == "info" %}
+        {{ flash_banner.content("bg-pastelGreen", "check_circle_fill", "Succès : ", flash["message"]) }}
+    {% elseif flash["status"] == "info" %}
         {% set display = true %}
-        {{ flash_banner.content("bg-pastelBlue", "info_circle_fill","Information : ") }}
-
-    {% elseif flash.status.name == "warning" %}
+        {{ flash_banner.content("bg-pastelBlue", "info_circle_fill","Information : ", flash["message"]) }}
+    {% elseif flash["status"] == "warning" %}
         {% set display = true %}
-        {{ flash_banner.content("bg-goldenBrown bg-opacity-25", "exclamation_triangle_fill", "Avertissement : ") }}
-
-    {% elseif flash.status.name == "error" %}
+        {{ flash_banner.content("bg-goldenBrown bg-opacity-25", "exclamation_triangle_fill", "Avertissement : ", flash["message"]) }}
+    {% elseif flash["status"] == "error" %}
         {% set display = true %}
-        {{ flash_banner.content("bg-pastelRed", "exclamation_circle_fill", "Erreur : ") }}
-
+        {{ flash_banner.content("bg-pastelRed", "exclamation_circle_fill", "Erreur : ", flash["message"]) }}
     {% else %}
         <div class="alert alert-danger h4 text-center">
-            The flash status "{{ flash.status.name }}" is not supported yet
+            The flash status "{{ flash["status"] }}" is not supported yet
         </div>
     {% endif %}
 {% endif %}
