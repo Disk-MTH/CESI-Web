@@ -10,18 +10,13 @@ services:
     container_name: stagify-traefik
     image: traefik:latest
     command:
-      - "--api.insecure=true"
       - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.websecure.address=:443"
-      - "--certificatesresolvers.stagify.acme.tlschallenge=true"
-      - "--certificatesresolvers.stagify.acme.email=contact@stagify.fr"
-      - "--certificatesresolvers.stagify.acme.storage=/cert.json"
+      - "--entrypoints.web.address=:80"
     ports:
-      - "443:443"
+      - "80:80"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./cert.json:/cert.json
+      - ./cert:/cert
     networks:
       - stagify-network
 
@@ -30,10 +25,7 @@ services:
     build:
       dockerfile: Dockerfile
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.apache.rule=Host(`stagify.fr`)"
-      - "traefik.http.routers.apache.entrypoints=websecure"
-      - "traefik.http.routers.apache.tls.certresolver=stagify"
+      - "traefik.http.routers.apache.rule=Host(`localhost`, `stagify.fr`)"
     volumes:
       - ./public:/var/www/html
       - ./assets:/var/www/html/assets
@@ -48,10 +40,7 @@ services:
     container_name: stagify-phpmyadmin
     image: phpmyadmin/phpmyadmin
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.phpmyadmin.rule=Host(`admin.stagify.fr`)"
-      - "traefik.http.routers.phpmyadmin.entrypoints=websecure"
-      - "traefik.http.routers.phpmyadmin.tls.certresolver=stagify"
+      - "traefik.http.routers.phpmyadmin.rule=Host(`admin.localhost`, `admin.stadigy.fr`)"
     depends_on:
       - mysql
     environment:
