@@ -21,19 +21,10 @@
                 <div class="row">
                     <div class="col-md-6 col-lg">
                         <h5>Nom de l'entreprise</h5>
-                        {{ form_field.content("firstName") }}
+                        {{ form_field.content("company") }}
 
                         <h5 class="mt-2">Titre du poste</h5>
                         {{ form_field.content("title") }}
-
-                        <h5 class="mt-2">Ville</h5>
-                        {{ form_field.content("city") }}
-
-                        <h5 class="mt-2">Code postal</h5>
-                        {{ form_field.content("zipCode") }}
-
-                        <h5 class="mt-2">Adresse</h5>
-                        {{ form_field.content("address") }}
 
                         <h5 class="mt-2">Rémunération (basse-haute)</h5>
                         <div class="input-group shadow rounded-5">
@@ -47,15 +38,45 @@
                                 <button class="btn btn-deepSeaBlue rounded-start-0" type="button">Ajouter</button>
                             </div>
                         </div>
+
+                        <h5 class="mt-2">Promotions concernées (formation - promo)</h5>
+                        <div class="input-group shadow rounded-5">
+                            {{ form_field.content("promoType", false, 0, false, false, false) }}
+                            {{ form_field.content("promo", false, 0, false, false, false) }}
+                            <div class="input-group-append">
+                                <button class="btn btn-deepSeaBlue rounded-start-0" type="button">Ajouter</button>
+                            </div>
+                        </div>
+
+                        <div class="my-2 d-md-none"></div>
+                        <h5>Description du poste</h5>
+                            {{ form_field.content("description", true, 7) }}
+                        <div class="my-4"></div>
+
                     </div>
 
                     <div class="col-md-6 col-lg">
-                        <div class="my-2 d-md-none"></div>
 
-                        <h5>Description du poste</h5>
-                        {{ form_field.content("description", true, 7) }}
 
-                        <div class="my-4"></div>
+                        <div class="card bg-pastelBlue bg-opacity-50 overflow-y-scroll shadow rounded-5 mb-3"
+                             style="height: 300px">
+                            <div class="card-body">
+                                <h6>Compétences</h6>
+                                <div class="row">
+                                    <div class="col">
+                                        {{ removable_tile.content("A2 Ingénieur - CESI Reims") }}
+                                        {{ removable_tile.content("A2 Ingénieur - CESI Reims") }}
+                                        {{ removable_tile.content("A2 Ingénieur - CESI Reims") }}
+                                        {{ removable_tile.content("A2 Ingénieur - CESI Reims") }}
+                                        {{ removable_tile.content("A2 Ingénieur - CESI Reims") }}
+                                        {{ removable_tile.content("A2 Ingénieur - CESI Reims") }}
+                                        {{ removable_tile.content("A2 Ingénieur - CESI Reims") }}
+                                        {{ removable_tile.content("A2 Ingénieur - CESI Reims") }}
+                                        {{ removable_tile.content("A2 Ingénieur - CESI Reims") }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="card bg-pastelBlue bg-opacity-50 overflow-y-scroll shadow rounded-5"
                              style="height: 300px">

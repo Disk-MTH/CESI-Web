@@ -189,4 +189,8 @@ return function (App $app, Logger $logger, EntityManager $entityManager) {
     $app->get("/createcompany", function (Request $request, Response $response) {
         return render($response, "pages/create_company.twig");
     })->setName("create_company");
+
+    $app->get("/pilots", function (Request $request, Response $response) {
+        return render($response, "pages/pilots.twig");
+    })->setName("pilots");
 };
