@@ -56,7 +56,6 @@ function render(Response $response, string $template, array $data = []): Respons
     } else if ($session != null && $template === "pages/login.twig") {
         return redirect($response, "/");
     }
-
     return $twig->render($response, $template, $data);
 }
 
