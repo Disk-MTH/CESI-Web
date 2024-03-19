@@ -50,5 +50,8 @@ self.addEventListener("fetch", function (event) {
     } else if (CACHED_FILES.some((url) => event.request.url.includes(url))) {
         console.log("Returning cached file for:", event.request.url);
         event.respondWith(caches.match(event.request));
+        event.waitUntil((async () => {
+            await (await caches.open(VERSION)).put(event.request, (await fetch(event.request)).clone());
+        })());
     }
 });
