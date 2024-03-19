@@ -33,6 +33,13 @@ function render(Response $response, string $template, array $data = []): Respons
     $session = $sessionRepo->findOneBy(["token" => $_COOKIE["session"] ?? ""]);
 
     if ($session != null) {
+        if ($template !== "pages/login.twig") {
+            $data["user"] = $entityManager->getRepository(User::class)->findOneBy(["id" => $_SESSION["user"]]);
+
+//            global $logger;
+//            $logger->warning(($data["user"])->getPromos()[0]->getName());
+        }
+
         if ($session->getLastActivity() < new DateTime("-" . Session::$duration)) {
             $session = null;
             Session::logOut();
@@ -44,18 +51,12 @@ function render(Response $response, string $template, array $data = []): Respons
         }
     }
 
-    if ($session != null && $template !== "pages/login.twig") {
-        $data["user"] = $entityManager->getRepository(User::class)->findOneBy(["id" => $_SESSION["user"]]);
-
-        global $logger;
-        $logger->warning(($data["user"])->getPromos()[0]->getYear());
-    }
-
     if ($session == null && $template !== "pages/login.twig") {
         return redirect($response, "login");
     } else if ($session != null && $template === "pages/login.twig") {
         return redirect($response, "/");
     }
+
     return $twig->render($response, $template, $data);
 }
 

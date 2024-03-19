@@ -41,6 +41,9 @@ class InternshipOffer
     private int $placeCount;
 
     #[Column(type: "string", nullable: false)]
+    private string $title;
+
+    #[Column(type: "string", nullable: false)]
     private string $description;
 
     #[Column(type: "boolean", nullable: false)]
@@ -105,6 +108,11 @@ class InternshipOffer
         return $this->placeCount;
     }
 
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
     public function getDescription(): string
     {
         return $this->description;
@@ -165,6 +173,12 @@ class InternshipOffer
     public function setPlaceCount(int $placeCount): self
     {
         $this->placeCount = $placeCount;
+        return $this;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
         return $this;
     }
 
