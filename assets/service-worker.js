@@ -1,4 +1,5 @@
-const VERSION = "V2";
+const VERBOSE = false;
+const VERSION = "V3";
 const CACHED_FILES = [
     "/assets/img/logo.ico",
     "/assets/bootstrap.css",
@@ -7,20 +8,19 @@ const CACHED_FILES = [
 
 self.addEventListener("install", function (event) {
     self.skipWaiting().then(() => {
-        console.log("Service Worker installed: ", VERSION);
+        if (VERBOSE) console.log("Service Worker installed: ", VERSION);
     }).catch((err) => {
         console.error("Service Worker installation failed with : ", err);
     });
     event.waitUntil((async () => {
         const cache = await caches.open(VERSION);
         await cache.addAll(CACHED_FILES);
-        console.log("Service Worker cached files");
     })());
 });
 
 self.addEventListener("activate", function (event) {
     self.clients.claim().then(() => {
-        console.log("Service Worker activated: ", VERSION);
+        if (VERBOSE) console.log("Service Worker activated: ", VERSION);
     }).catch((err) => {
         console.error("Service Worker activation failed with : ", err);
     });
@@ -29,13 +29,12 @@ self.addEventListener("activate", function (event) {
         await Promise.all(keys.map((key) => {
             if (key !== VERSION) return caches.delete(key);
         }));
-        console.log("Service Worker cleared old caches");
+        if (VERBOSE) console.log("Service Worker cleaned up: ", keys);
     })());
 });
 
 self.addEventListener("fetch", function (event) {
-    console.log(VERSION, "Fetch request for:", event.request.url);
-
+    if (VERBOSE) console.log("Service Worker fetching: ", event.request.url, " - ", event.request.mode);
     if (event.request.mode === "navigate") {
         event.respondWith((async () => {
             try {
@@ -48,10 +47,10 @@ self.addEventListener("fetch", function (event) {
             }
         })());
     } else if (CACHED_FILES.some((url) => event.request.url.includes(url))) {
-        console.log("Returning cached file for:", event.request.url);
         event.respondWith(caches.match(event.request));
         event.waitUntil((async () => {
             await (await caches.open(VERSION)).put(event.request, (await fetch(event.request)).clone());
         })());
+        if (VERBOSE) console.log("Service Worker cached: ", event.request.url);
     }
 });

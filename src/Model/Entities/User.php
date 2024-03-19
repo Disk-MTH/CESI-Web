@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping\InverseJoinColumn;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
 use stagify\Model\Repositories\UserRepo;
@@ -45,6 +46,9 @@ class User
 
     #[Column(type: "boolean", nullable: false, options: ["default" => false])]
     private bool $deleted;
+
+    #[ManyToOne(targetEntity: Location::class)]
+    private Location $location;
 
     #[JoinTable]
     #[JoinColumn(referencedColumnName: "id")]
@@ -126,6 +130,11 @@ class User
         return $this->deleted;
     }
 
+    public function getLocation(): Location
+    {
+        return $this->location;
+    }
+
     public function getPromos(): Collection
     {
         return $this->promos;
@@ -193,6 +202,12 @@ class User
     public function setDeleted(bool $deleted): self
     {
         $this->deleted = $deleted;
+        return $this;
+    }
+
+    public function setLocation(Location $location): self
+    {
+        $this->location = $location;
         return $this;
     }
 

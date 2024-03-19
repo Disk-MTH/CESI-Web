@@ -35,12 +35,20 @@ function render(Response $response, string $template, array $data = []): Respons
     if ($session != null) {
         if ($session->getLastActivity() < new DateTime("-" . Session::$duration)) {
             $session = null;
-            setcookie("session", "", strtotime("-1 year"));
+            Session::logOut();
             FlashMiddleware::flash("warning", "Session expirée, veuillez vous reconnecter");
         } else {
             $session->setLastActivity(new DateTime());
             $entityManager->flush();
+            Session::logIn($session);
         }
+    }
+
+    if ($session != null && $template !== "pages/login.twig") {
+        $data["user"] = $entityManager->getRepository(User::class)->findOneBy(["id" => $_SESSION["user"]]);
+
+        global $logger;
+        $logger->warning(($data["user"])->getPromos()[0]->getYear());
     }
 
     if ($session == null && $template !== "pages/login.twig") {
@@ -53,7 +61,7 @@ function render(Response $response, string $template, array $data = []): Respons
 }
 
 return function (App $app, Logger $logger, EntityManager $entityManager) {
-    $app->get("/", function (Request $request, Response $response) {
+    $app->get("/", function (Request $request, Response $response) use ($entityManager, $logger) {
         return render($response, "pages/home.twig");
     })->setName("home");
 
@@ -81,7 +89,7 @@ return function (App $app, Logger $logger, EntityManager $entityManager) {
                 $entityManager->persist($session);
                 $entityManager->flush();
 
-                setcookie("session", $session->getToken(), strtotime("+10 year"));
+                Session::logIn($session);
                 FlashMiddleware::flash("success", "Connexion réussie");
             } else {
                 $fail = true;
@@ -99,7 +107,7 @@ return function (App $app, Logger $logger, EntityManager $entityManager) {
     })->setName("login");
 
     $app->post("/logout", function (Request $request, Response $response) use ($entityManager) {
-        setcookie("session", "", strtotime("-1 year"));
+        Session::logOut();
         FlashMiddleware::flash("success", "Déconnexion réussie");
         return redirect($response, "login");
     })->setName("logout");

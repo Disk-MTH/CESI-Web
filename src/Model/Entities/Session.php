@@ -13,8 +13,6 @@ use Doctrine\ORM\Mapping\Table;
 #[Entity, Table(name: "session")]
 class Session
 {
-    public static string $duration = "1 day";
-
     #[Id, Column(type: "integer"), GeneratedValue(strategy: "AUTO")]
     private int $id;
 
@@ -67,5 +65,19 @@ class Session
     {
         $this->user = $user;
         return $this;
+    }
+
+    /*-------------------------------------------------- Static --------------------------------------------------*/
+
+    public static string $duration = "1 day";
+
+    public static function logIn(Session $session) : void {
+        $_SESSION["user"] = $session->getUser()->getId();
+        setcookie("session", $session->getToken(), strtotime("+5 year"));
+    }
+
+    public static function logOut() : void {
+        unset($_SESSION["user"]);
+        setcookie("session", "", strtotime("-1 year"));
     }
 }

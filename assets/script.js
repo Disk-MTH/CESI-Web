@@ -1,11 +1,8 @@
 window.addEventListener("load", function () {
     if ("serviceWorker" in navigator) {
-        console.log("Service Worker is supported");
         navigator.serviceWorker.register("/assets/service-worker.js", {scope: "/"}).catch(function (error) {
             console.error("Service Worker registration failed with " + error);
         });
-    } else {
-        console.error("Service Worker is not supported");
     }
 });
 
