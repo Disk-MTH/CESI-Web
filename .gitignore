@@ -3,7 +3,6 @@ vendor/
 logs/
 .idea
 dependencies/package-lock.json
-assets/bootstrap.css.map
 composer.phar
 composer.lock
 MCD.lo1
