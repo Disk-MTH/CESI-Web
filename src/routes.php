@@ -4,7 +4,6 @@ namespace stagify;
 
 use DateTime;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
 use Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -14,10 +13,8 @@ use Slim\App;
 use stagify\Middlewares\ErrorsMiddleware;
 use stagify\Middlewares\FlashMiddleware;
 use stagify\Middlewares\OldDataMiddleware;
-use stagify\Model\Entities\InternshipOffer;
 use stagify\Model\Entities\Session;
 use stagify\Model\Entities\User;
-use stagify\Model\Repositories\InternshipOfferRepo;
 
 function redirect(Response $response, string $url): Response
 {
@@ -38,6 +35,9 @@ function render(Response $response, string $template, array $data = []): Respons
     if ($session != null) {
         if ($template !== "pages/login.twig") {
             $data["user"] = $entityManager->getRepository(User::class)->findOneBy(["id" => $_SESSION["user"]]);
+
+//            global $logger;
+//            $logger->warning(($data["user"])->getPromos()[0]->getName());
         }
 
         if ($session->getLastActivity() < new DateTime("-" . Session::$duration)) {
@@ -222,4 +222,8 @@ return function (App $app, Logger $logger, EntityManager $entityManager) {
     $app->get("/pilots", function (Request $request, Response $response) {
         return render($response, "pages/pilots.twig");
     })->setName("pilots");
+
+    $app->get("/offline", function (Request $request, Response $response) use ($twig) {
+        return $twig->render($response, "pages/offline.twig");
+    });
 };

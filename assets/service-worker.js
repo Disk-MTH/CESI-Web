@@ -1,9 +1,11 @@
-const VERBOSE = false;
-const VERSION = "V3";
+const VERBOSE = true;
+const VERSION = "V4";
 const CACHED_FILES = [
     "/assets/img/logo.ico",
-    "/assets/dependencies.css",
-    "/offline.html",
+    "/assets/bootstrap.css",
+    "/assets/img/logo.png",
+    "/assets/illustrations/offline_page.png",
+    "/offline",
 ];
 
 self.addEventListener("install", function (event) {
@@ -15,6 +17,7 @@ self.addEventListener("install", function (event) {
     event.waitUntil((async () => {
         const cache = await caches.open(VERSION);
         await cache.addAll(CACHED_FILES);
+        if (VERBOSE) console.log("Service Worker cached: ", CACHED_FILES);
     })());
 });
 
@@ -43,7 +46,7 @@ self.addEventListener("fetch", function (event) {
                 return await fetch(event.request);
             } catch (error) {
                 const cache = await caches.open(VERSION);
-                return await cache.match("/offline.html");
+                return await cache.match("/offline");
             }
         })());
     } else if (CACHED_FILES.some((url) => event.request.url.includes(url))) {
@@ -54,3 +57,5 @@ self.addEventListener("fetch", function (event) {
         if (VERBOSE) console.log("Service Worker cached: ", event.request.url);
     }
 });
+
+
