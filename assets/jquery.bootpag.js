@@ -33,10 +33,10 @@
                     wrapClass: 'pagination',
                     activeClass: 'active',
                     disabledClass: 'disabled',
-                    nextClass: 'next',
-                    prevClass: 'prev',
-                    lastClass: 'last',
-                    firstClass: 'first'
+                    nextClass: 'page-item',
+                    prevClass: 'page-item',
+                    lastClass: 'page-item',
+                    firstClass: 'page-item'
                 },
                 $owner.data('settings') || {},
                 options || {});
@@ -134,24 +134,24 @@
 
             if(settings.firstLastUse){
                 p = p.concat(['<li data-lp="1" class="', settings.firstClass,
-                    '"><a href="', href(1), '">', settings.first, '</a></li>']);
+                    '"><a class="page-link" href="', href(1), '">', settings.first, '</a></li>']);
             }
             if(settings.prev){
                 p = p.concat(['<li data-lp="1" class="', settings.prevClass,
-                    '"><a href="', href(1), '">', settings.prev, '</a></li>']);
+                    '"><a class="page-link" href="', href(1), '">', settings.prev, '</a></li>']);
             }
             for(var c = 1; c <= Math.min(settings.total, settings.maxVisible); c++){
-                p = p.concat(['<li data-lp="', c, '"><a href="', href(c), '">', c, '</a></li>']);
+                p = p.concat(['<li data-lp="', c, '"><a class="page-link" href="', href(c), '">', c, '</a></li>']);
             }
             if(settings.next){
                 lp = settings.leaps && settings.total > settings.maxVisible
                     ? Math.min(settings.maxVisible + 1, settings.total) : 2;
                 p = p.concat(['<li data-lp="', lp, '" class="',
-                    settings.nextClass, '"><a href="', href(lp),
+                    settings.nextClass, '"><a class="page-link" href="', href(lp),
                     '">', settings.next, '</a></li>']);
             }
             if(settings.firstLastUse){
-                p = p.concat(['<li data-lp="', settings.total, '" class="last"><a href="',
+                p = p.concat(['<li data-lp="', settings.total, '" class="last"><a class="page-link" href="',
                     href(settings.total),'">', settings.last, '</a></li>']);
             }
             p.push('</ul>');

@@ -3,6 +3,7 @@
     <script src="/assets/jquery.min.js"></script>
     <script src="/assets/jquery.bootpag.js"></script>
     <script src="/assets/bootstrap.min.js"></script>
+    <script src="/assets/pagination.js"></script>
 <!--    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="/assets/bootstrap.css">
     <title>Test</title>
@@ -31,6 +32,22 @@
         $("#dynamic_content").html("Page " + num); // or some ajax content loading...
     });
 </script>
+
+<div id="content">Pagination goes here</div>
+<nav id="paginator"></nav>
+<script>
+    $(document).ready(function() {
+        $('#paginator').pagination({
+            count: 23,
+            maxVisible: 5,
+            href: 'javascript:void(0);',
+            hrefVariable: '{{number}}',
+            prevIcon: 'Previous',
+            nextIcon: 'Next',
+        });
+    });
+</script>
+
 </body>
 </html>
 <!--
