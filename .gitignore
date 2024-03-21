@@ -1,8 +1,8 @@
-bootstrap/node_modules
+dependencies/node_modules
 vendor/
 logs/
 .idea
-bootstrap/package-lock.json
+dependencies/package-lock.json
 assets/bootstrap.css.map
 composer.phar
 composer.lock

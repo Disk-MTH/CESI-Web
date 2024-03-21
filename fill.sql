@@ -1,5 +1,29 @@
 USE stagify;
 
+SET FOREIGN_KEY_CHECKS = 0;
+
+TRUNCATE TABLE location;
+TRUNCATE TABLE user;
+TRUNCATE TABLE promo;
+TRUNCATE TABLE user_promo;
+TRUNCATE TABLE activity_sector;
+TRUNCATE TABLE company;
+TRUNCATE TABLE company_location;
+TRUNCATE TABLE internship_offer;
+TRUNCATE TABLE company_internshipoffer;
+TRUNCATE TABLE internship_candidate;
+TRUNCATE TABLE promo_location;
+TRUNCATE TABLE rate;
+TRUNCATE TABLE session;
+TRUNCATE TABLE skill;
+TRUNCATE TABLE user_internshipoffer;
+TRUNCATE TABLE user_rate;
+TRUNCATE TABLE user_skill;
+TRUNCATE TABLE internshipoffer_rate;
+TRUNCATE TABLE internshipoffer_skill;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
 INSERT INTO location (id, zipCode, city) VALUES (1, 1000, 'Bruxelles');
 INSERT INTO location (id, zipCode, city) VALUES (2, 51100, 'Reims');
 INSERT INTO location (id, zipCode, city) VALUES (3, 75000, 'Paris');
@@ -15,7 +39,7 @@ INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath
 
 INSERT INTO promo (id, year, type, school) VALUES (1, 2, 'Ingénieur', 'CESI');
 INSERT INTO promo (id, year, type, school) VALUES (2, 3, 'Medecin', 'CESI');
-INSERT INTO promo (id, year, type, school) VALUES (3, 1, 'Macon', 'CESI');
+INSERT INTO promo (id, year, type, school) VALUES (3, 1, 'Maçon', 'CESI');
 INSERT INTO promo (id, year, type, school) VALUES (4, 2, 'Boulanger', 'CESI');
 INSERT INTO promo (id, year, type, school) VALUES (5, 3, 'Dev', 'CESI');
 

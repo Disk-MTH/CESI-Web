@@ -25,7 +25,7 @@ do
 
   if [ "$MODE" = "u" ]; then
       echo "Starting containers"
-      docker-compose up -d
+      docker-compose up -d --build
   elif [ "$MODE" = "s" ]; then
       echo "Stopping containers"
       docker-compose stop
@@ -58,10 +58,10 @@ do
   elif [ "$MODE" = "i" ]; then
       echo "Installing bootstrap"
       npm install -g sass
-      npm install "${PWD}"/bootstrap --prefix "${PWD}"/bootstrap
+      npm install "${PWD}/dependencies" --prefix "${PWD}/dependencies" # patch bug
   elif [ "$MODE" = "c" ]; then
     echo "Recompile bootstrap"
-    sass "${PWD}"/bootstrap/bootstrap.scss "${PWD}"/assets/bootstrap.css
+    sass "${PWD}"/dependencies/bootstrap.scss "${PWD}"/assets/bootstrap.css
   elif [ "$MODE" = "e" ]; then
       echo "Exit"
       exit 0

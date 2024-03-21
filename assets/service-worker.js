@@ -2,7 +2,7 @@ const VERBOSE = false;
 const VERSION = "V3";
 const CACHED_FILES = [
     "/assets/img/logo.ico",
-    "/assets/bootstrap.css",
+    "/assets/dependencies.css",
     "/offline.html",
 ];
 

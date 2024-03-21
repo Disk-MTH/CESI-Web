@@ -4,6 +4,7 @@ namespace stagify;
 
 use DateTime;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 use Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -13,8 +14,10 @@ use Slim\App;
 use stagify\Middlewares\ErrorsMiddleware;
 use stagify\Middlewares\FlashMiddleware;
 use stagify\Middlewares\OldDataMiddleware;
+use stagify\Model\Entities\InternshipOffer;
 use stagify\Model\Entities\Session;
 use stagify\Model\Entities\User;
+use stagify\Model\Repositories\InternshipOfferRepo;
 
 function redirect(Response $response, string $url): Response
 {
@@ -35,9 +38,6 @@ function render(Response $response, string $template, array $data = []): Respons
     if ($session != null) {
         if ($template !== "pages/login.twig") {
             $data["user"] = $entityManager->getRepository(User::class)->findOneBy(["id" => $_SESSION["user"]]);
-
-//            global $logger;
-//            $logger->warning(($data["user"])->getPromos()[0]->getName());
         }
 
         if ($session->getLastActivity() < new DateTime("-" . Session::$duration)) {
@@ -112,6 +112,52 @@ return function (App $app, Logger $logger, EntityManager $entityManager) {
         return redirect($response, "login");
     })->setName("logout");
 
+    $app->get("/jobs", function (Request $request, Response $response) use ($entityManager) {
+        return render($response, "pages/jobs.twig");
+    })->setName("jobs");
+
+    /*-------------------------------------------------- Endpoints --------------------------------------------------*/
+
+    $app->get("/jobs/{page}", function (Request $request, Response $response, array $args) use ($entityManager, $logger) {
+        $page = $args["page"];
+        $count = $request->getQueryParams()["count"] ?? 4;
+        $tile = $request->getQueryParams()["tile"] ?? 0;
+
+        if ($page < 0) {
+            $response->withStatus(404)->getBody()->write("Page index out of range");
+            return $response;
+        }
+
+        if ($tile < 0 || $tile >= $count) {
+            $response->withStatus(404)->getBody()->write("Tile index out of range");
+            return $response;
+        }
+
+        $logger->info("Fetching job tile" . $page . " " . $count . " " . $tile);
+
+        /** @var InternshipOfferRepo $internshipRepo */
+        $internshipRepo = $entityManager->getRepository(InternshipOffer::class);
+        $internship = $internshipRepo->getInternshipOffer($args["page"], $count, $tile);
+
+        global $twig;
+        $logger->info("Rendering job tile");
+        return $twig->render($response, "components/tiles/job_tile.twig");
+    });
+
+    // $internshipRepo = $entityManager->getRepository(InternshipOffer::class);
+    // $internships = $internshipRepo->findAll();
+
+
+    /*
+     *
+     *
+     *
+     *
+     *
+     *
+     */
+
+
     $app->get("/user", function (Request $request, Response $response) {
         return render($response, "pages/user.twig");
     })->setName("user");
@@ -132,9 +178,6 @@ return function (App $app, Logger $logger, EntityManager $entityManager) {
         return render($response, "pages/companies.twig");
     })->setName("companies");
 
-    $app->get("/jobs", function (Request $request, Response $response) {
-        return render($response, "pages/jobs.twig");
-    })->setName("jobs");
 
     $app->get("/users", function (Request $request, Response $response) {
         return render($response, "pages/users.twig");

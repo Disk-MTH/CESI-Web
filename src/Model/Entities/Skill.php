@@ -17,6 +17,14 @@ class Skill
     #[Column(type: "string", nullable: false)]
     private string $name;
 
+    public function toArray() : array
+    {
+        return [
+            "id" => $this->id,
+            "name" => $this->name
+        ];
+    }
+
     /*-------------------------------------------------- Getters --------------------------------------------------*/
 
     public function getId(): int

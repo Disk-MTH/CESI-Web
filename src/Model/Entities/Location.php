@@ -23,6 +23,15 @@ class Location
     #[Column(type: "string", nullable: false)]
     private string $city;
 
+    public function toArray() : array
+    {
+        return [
+            "id" => $this->id,
+            "zipCode" => $this->zipCode,
+            "city" => $this->city
+        ];
+    }
+
     /*-------------------------------------------------- Getters --------------------------------------------------*/
 
     public function getId(): int

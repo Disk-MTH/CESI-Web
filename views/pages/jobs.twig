@@ -27,26 +27,46 @@
 {% block content %}
     <section>
         <div class="container pt-4">
-            <div class="row">
-                <div class="col-12 col-md-6 col-lg-4">
+            <div class="row" id="content">
+
+                <script>
+                    $('.demo1').paginator({
+                        total: 5
+                    }).on("page", function(event, num){
+                        $(".content").html("Page " + num); // or some ajax content loading...
+
+                        // ... after content load -> change total to 10
+                        $(this).paginator({total: 10, maxVisible: 10});
+
+                    });
+                </script>
+
+                {#<div class="col-12 col-md-6 col-lg-4" id="desktop"></div>
+                <div class="col-6 col-lg-4 d-none d-md-block" id="tablet"></div>
+                <div class="col-4 d-none d-lg-block" id="mobile"></div>#}
+
+                {# <div class="col-12 col-md-6 col-lg-4" id="desktop">
+                #}{# {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
                     {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
                     {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
-                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
-                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
+                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }} #}{#
                 </div>
-                <div class="col-6 col-lg-4 d-none d-md-block">
+                <div class="col-6 col-lg-4 d-none d-md-block" id="tablet">
+                #}{#                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
                     {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
                     {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
-                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
-                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
+                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }} #}{#
                 </div>
-                <div class="col-4 d-none d-lg-block">
+                <div class="col-4 d-none d-lg-block" id="mobile">
+                #}{# {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
                     {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
                     {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
-                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
-                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
-                </div>
+                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }} #}{#
+                </div> #}
             </div>
+ {#           <script>
+                retrieve(1);
+            </script>#}
         </div>
     </section>
 

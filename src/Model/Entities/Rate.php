@@ -20,6 +20,15 @@ class Rate
     #[Column(type: "string", nullable: false)]
     private string $description;
 
+    public function toArray(): array
+    {
+        return [
+            "id" => $this->id,
+            "grade" => $this->grade,
+            "description" => $this->description
+        ];
+    }
+
     /*-------------------------------------------------- Getters --------------------------------------------------*/
 
     public function getId(): int
