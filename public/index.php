@@ -36,7 +36,7 @@ $app = AppFactory::create();
 $logger->debug("App has been initialized");
 
 $routes = require __DIR__ . "/../src/routes.php";
-$routes($app, $logger, $entityManager);
+$routes($app, $logger, $twig, $entityManager);
 $logger->debug("Routes have been initialized");
 
 $middlewares = require __DIR__ . "/../src/middlewares.php";

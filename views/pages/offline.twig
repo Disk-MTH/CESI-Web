@@ -1,0 +1,33 @@
+{% set title = "Stagify - Pas de connexion" %}
+{% extends "components/layouts/base.twig" %}
+
+{% block body %}
+    <header class="bg-deepWarmGrey shadow">
+        <div class="container my-2">
+            <div class="row">
+                <a class="col-4 col-md-2">
+                    <img class="img-fluid" src="/assets/img/logo.png" alt="logo"/>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section>
+        <div class="container pt-3">
+            <div class="row">
+                <div class="col text-center">
+                    <h1 class="text-heavyBlack">Oups!</h1>
+                    <h2 class="text-heavyBlack">Vous n'êtes pas connecté à internet</h2>
+                    <h4 class="text-heavyBlack">Veuillez vérifier votre connexion</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <div class=" mt-auto">
+        <img src="../../assets/illustrations/offline_page.png" class="img-fluid" alt="illustration">
+    </div>
+{% endblock %}
+
