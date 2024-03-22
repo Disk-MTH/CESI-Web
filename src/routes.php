@@ -10,11 +10,14 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Log\LoggerInterface as Logger;
 use Respect\Validation\Validator;
 use Slim\App;
+use Slim\Views\Twig;
 use stagify\Middlewares\ErrorsMiddleware;
 use stagify\Middlewares\FlashMiddleware;
 use stagify\Middlewares\OldDataMiddleware;
+use stagify\Model\Entities\InternshipOffer;
 use stagify\Model\Entities\Session;
 use stagify\Model\Entities\User;
+use stagify\Model\Repositories\InternshipOfferRepo;
 
 function redirect(Response $response, string $url): Response
 {
@@ -60,7 +63,7 @@ function render(Response $response, string $template, array $data = []): Respons
     return $twig->render($response, $template, $data);
 }
 
-return function (App $app, Logger $logger, EntityManager $entityManager) {
+return function (App $app, Logger $logger, Twig $twig, EntityManager $entityManager) {
     $app->get("/", function (Request $request, Response $response) use ($entityManager, $logger) {
         return render($response, "pages/home.twig");
     })->setName("home");

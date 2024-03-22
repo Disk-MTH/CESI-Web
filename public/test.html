@@ -7,7 +7,7 @@
     <title>Test</title>
 </head>
 <body>
-<div id="content">Page dddd</div>
+<div id="content"></div>
 <nav id="paginator"></nav>
 <script>
     $('#paginator').pagination({
@@ -15,28 +15,8 @@
         maxVisible: 5,
     }).on("changePage", function (event, num) {
         $("#content").html("Page " + num);
-    });
+    }).trigger("changePage", 1);
 </script>
 
 </body>
 </html>
-<!--
-
-<script src="../assets/jquery.min.js"></script>
-<script src="../assets/bootstrap.min.js"></script>
-<script type="text/javascript" src="http://botmonster.com/jquery-bootpag/jquery.bootpag.js"></script>
-<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-
-<div id="dynamic_content">Pagination goes here</div>
-<div id="show_paginator"></div>
-
-<script>
-    $('#show_paginator').bootpag({
-        total: 23,
-        page: 3,
-        maxVisible: 10
-    }).on('page', function(event, num)
-    {
-        $("#dynamic_content").html("Page " + num); // or some ajax content loading...
-    });
-</script>-->
