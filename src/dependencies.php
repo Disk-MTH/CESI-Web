@@ -57,6 +57,8 @@ return function (): Container {
 
             return new EntityManager($connection, $config);
         },
+
+        "fileDirectory" => __DIR__ . "/../public/files",
     ]);
 
     if ($_ENV["APP_DEBUG"] === "false") {

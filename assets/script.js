@@ -95,6 +95,8 @@ function retrieve(element, endpoint, page, yCount, columns) {
 
     columns = columns.map((column) => jQuery(column));
 
+    const internshipTile = $("#internship_tile").html();
+
     fetch(`${endpoint}${page}?count=${columns.length * yCount}`, {method: "GET"}).then((response) => {
         if (response.status === 200) {
             response.json().then((data) => {
@@ -105,40 +107,12 @@ function retrieve(element, endpoint, page, yCount, columns) {
                     }
 
                     columns[row].append(
-                        `<div class="card shadow mb-3 bg-gradient-card cursor-pointer user-select-none"
-                             onclick="navigateTo(event, '/')">
-                            <div class="card-body">
-                                <div class="row align-items-center text-nowrap">
-                                    <div class="col">
-                                        <h6 class="card-title">${item["title"]}</h6>
-                                        <p class="text-lightGrey ms-3">&middot ${item["salary"]} $/mois</p>
-                                    </div>
-                                    <div class="col text-end">
-                                        <img class="img-fluid" src="/assets/svg/misc/wish_empty.svg" alt="wish_mark" id="wish" onclick="toggleWishMark(event, 'wish')">
-                                    </div>
-                                </div>
-                                <div class="mb-3"></div>
-                                <div class="row row-cols-2">
-                                    <div class="col-3 col-lg-4 col-xl-2 w-auto">
-                                        <img class="img-fluid bg-deepSeaBlue bg-opacity-25 py-3 px-3 rounded-3" src="${item["company_logo"]}"
-                                             alt="company_logo">
-                                    </div>
-                                    <div class="col">
-                                        <h6 class="card-title">${item["company_name"]}</h6>
-                                        <p class="text-lightGrey">
-                                            <img class="img-fluid" src="/assets/svg/tile/map_pin.svg" alt="mapPin">
-                                            ${item["location"]}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>`
+                        internshipTile
                     );
                     row++;
                 });
             });
 
-            //set content of element to columns
             element.empty();
             columns.forEach((column) => element.append(column));
         } else {

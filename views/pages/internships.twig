@@ -2,7 +2,7 @@
 {% set alternative_search_bar = true %}
 {% set pagination = true %}
 {% extends "components/layouts/layout.twig" %}
-{% import "components/tiles/job_tile.twig" as job_tile %}
+{% import "components/tiles/internship_tile.twig" as job_tile %}
 
 {% block header %}
     <section class="bg-deepWarmGrey ">
@@ -31,6 +31,7 @@
             <div class="row" id="internships"></div>
         </div>
     </section>
+    {{ include("components/tiles/internship_tile.twig") }}
 {% endblock %}
 
 {% block pagination %}
@@ -48,9 +49,9 @@
             columns.push(`<div class="col-4 d-none d-lg-block"></div>`);
 
             const yCount = 4;
-
+//Math.ceil(response["count"] / (columns.length * yCount))
             $('#pagination').pagination({
-                count: Math.ceil(response["count"] / (columns.length * yCount)),
+                count: 23,
                 maxVisible: 5,
             }).on("changePage", function (event, page) {
                 retrieve($("#internships"), "/internships/", page, yCount, columns);

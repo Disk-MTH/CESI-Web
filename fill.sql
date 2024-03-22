@@ -61,6 +61,7 @@ INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activi
 INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id) VALUES (4, 'Maconnerie', 'www.maconnerie.com', 100, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 4);
 INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id) VALUES (5, 'Dev', 'www.dev.com', 1000, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 5);
 
+
 INSERT INTO company_location (company_id, location_id) VALUES (1, 1);
 INSERT INTO company_location (company_id, location_id) VALUES (2, 2);
 INSERT INTO company_location (company_id, location_id) VALUES (3, 3);

@@ -1,10 +1,10 @@
 {% set title = "Stagify - Accueil" %}
 {% extends "components/layouts/layout.twig" %}
 {% import "components/tiles/home_info_tile.twig" as home_info_tile %}
-{% import "components/tiles/job_tile.twig" as job_tile %}
+{% import "components/tiles/internship_tile.twig" as job_tile %}
 
 {% block header %}
-    <section class="bg-deepWarmGrey rounded-bottom-5 pb-5">
+    <section class="bg-deepWarmGrey pb-5">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
@@ -20,7 +20,7 @@
                 </div>
                 <div class="col-lg-2 d-none d-lg-block"></div>
                 <div class="col-lg-4 d-none d-lg-block align-self-center">
-                    <img class="img-fluid rounded-5" src="/assets/illustrations/home_page.svg"
+                    <img class="img-fluid" src="/assets/illustrations/home_page.svg"
                          alt="illustration-homepage"/>
                 </div>
             </div>
