@@ -14,6 +14,9 @@ use Slim\Views\Twig;
 use stagify\Middlewares\ErrorsMiddleware;
 use stagify\Middlewares\FlashMiddleware;
 use stagify\Middlewares\OldDataMiddleware;
+use stagify\Model\Entities\ActivitySector;
+use stagify\Model\Entities\Company;
+use stagify\Model\Entities\Location;
 use stagify\Model\Entities\InternshipOffer;
 use stagify\Model\Entities\Session;
 use stagify\Model\Entities\User;
@@ -33,6 +36,9 @@ function render(Response $response, string $template, array $data = []): Respons
 {
     global $twig;
     global $entityManager;
+    global $logger;
+
+    $logger->debug("Rendering template $template");
 
     $sessionRepo = $entityManager->getRepository(Session::class);
     $session = $sessionRepo->findOneBy(["token" => $_COOKIE["session"] ?? ""]);
@@ -53,9 +59,11 @@ function render(Response $response, string $template, array $data = []): Respons
         }
     }
 
-    if ($session == null && $template !== "pages/login.twig") {
-        return redirect($response, "login");
+    if ($session == null && !isset($_SESSION["user"]) && $template !== "pages/login.twig") {
+        $logger->debug("Redirecting to login page");
+        return redirect($response, "/login");
     } else if ($session != null && $template === "pages/login.twig") {
+        $logger->debug("Redirecting to home page");
         return redirect($response, "/");
     }
 
@@ -213,6 +221,10 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
     $app->get("/createuser/pilot", function (Request $request, Response $response) {
         return render($response, "pages/create_pilot.twig");
     })->setName("create_pilot");
+
+    $app->get("/create-company", function (Request $request, Response $response) {
+        return render($response, "pages/create_company.twig");
+    })->setName("create_company");
 
     $app->post("/create-company", function (Request $request, Response $response) use ($entityManager, $logger) {
         $data = $request->getParsedBody();
