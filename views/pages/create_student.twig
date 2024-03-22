@@ -16,7 +16,7 @@
 {% block content %}
     <section>
         <div class="container">
-            <div class="card bg-deepWarmGrey py-3 px-3 my-5 shadow">
+            <form class="card bg-deepWarmGrey py-3 px-3 my-5 shadow" action="{{ url_for("create_student") }}" method="post" enctype="multipart/form-data">
                 <div class="row mb-2">
                     <div class="col-6 text-center border-end border-heavyBlack text-deepSeaBlue" >
                         <a class="disabled text-decoration-none" href={{ url_for("create_student") }}>
@@ -33,28 +33,28 @@
                 <div class="row">
                     <div class="col-md-6 col-lg">
                         <h5>Nom</h5>
-                        {{ form_field.content("firstName") }}
+                        {{ form_field.content(errors, old, "firstName") }}
 
                         <h5 class="mt-2">Prenom</h5>
-                        {{ form_field.content("lastName") }}
+                        {{ form_field.content(errors, old, "lastName") }}
 
                         <h5 class="mt-2">Code postal</h5>
-                        {{ form_field.content("zipCode") }}
+                        {{ form_field.content(errors, old, "zipCode") }}
 
                         <h5 class="mt-2">Ville</h5>
-                        {{ form_field.content("city") }}
+                        {{ form_field.content(errors, old, "city") }}
 
                         <h5 class="mt-2">Photo de profil</h5>
-                        {{ form_field.content("profilePicture", false, 0, false, true) }}
+                        {{ form_field.content(errors, old, "profilePicture", false, 0, false, true) }}
 
                         <h5 class="mt-2">Formation</h5>
-                        {{ form_field.content("promoType") }}
+                        {{ form_field.content(errors, old, "promoType") }}
 
                         <h5 class="mt-2">Promo</h5>
-                        {{ form_field.content("promo") }}
+                        {{ form_field.content(errors, old, "promo") }}
 
                         <h5 class="mt-2">Ecole</h5>
-                        {{ form_field.content("campus") }}
+                        {{ form_field.content(errors, old, "campus") }}
 
                         <h5 class="mt-2">Compétences</h5>
                         <div class="input-group rounded-5 shadow ">
@@ -71,7 +71,7 @@
                         <div class="my-2 d-md-none"></div>
 
                         <h5>Description du profil</h5>
-                        {{ form_field.content("description", true, 11) }}
+                        {{ form_field.content(errors, old, "description", true, 11) }}
 
                         <div class="my-4"></div>
 
@@ -101,7 +101,7 @@
                         <div class="btn btn-deepSeaBlue">Valider</div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </section>
 

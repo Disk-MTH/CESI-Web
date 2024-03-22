@@ -4,6 +4,7 @@ namespace stagify;
 
 use DateTime;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\Driver\RepeatableAttributeCollection;
 use Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -218,6 +219,22 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
         return render($response, "pages/create_student.twig");
     })->setName("create_student");
 
+    $app->post("/createuser/student", function (Request $request, Response $response) use ($entityManager, $logger){
+        $data = $request->getParsedBody();
+        $logger->debug("Creating student with data: " . json_encode($data));
+        $errors = OldDataMiddleware::validate($data);
+        $fail = false;
+
+        Validator::notEmpty()->validate($data["firstName"]) || $errors["firstName"] = "Le prénom ne peut pas être vide";
+        Validator::notEmpty()->validate($data["lastName"]) || $errors["lastName"] = "Le nom ne peut pas être vide";
+        Validator::notEmpty()->validate($data["email"]) || $errors["email"] = "L'email ne peut pas être vide";
+        Validator::notEmpty()->validate($data["password"]) || $errors["password"] = "Le mot de passe ne peut pas être vide";
+
+
+
+    })->setName("create_student");
+
+
     $app->get("/createuser/pilot", function (Request $request, Response $response) {
         return render($response, "pages/create_pilot.twig");
     })->setName("create_pilot");
@@ -229,6 +246,9 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
     $app->post("/create-company", function (Request $request, Response $response) use ($entityManager, $logger) {
         $data = $request->getParsedBody();
         $uploadedFiles = $request->getUploadedFiles();
+
+
+
         $logger->debug("Creating company with data: " . json_encode($data));
         $errors = OldDataMiddleware::validate($data);
         $fail = false;
@@ -236,7 +256,7 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
         $logger->debug("Uploaded files: " . print_r($uploadedFiles, true));
 
         Validator::notEmpty()->validate($data["name"]) || $errors["name"] = "Le nom ne peut pas être vide";
-        Validator::notEmpty()->validate($uploadedFiles["logo"]) || $errors["logo"] = "Le logo ne peut pas être vide";
+        //Validator::notEmpty()->validate($uploadedFiles["logo"]) || $errors["logo"] = "Le logo ne peut pas être vide";
         Validator::notEmpty()->validate($data["sector"]) || $errors["sector"] = "Le secteur ne peut pas être vide";
         Validator::notEmpty()->validate($data["zipCode"]) || $errors["zipCode"] = "Le code postal ne peut pas être vide";
         Validator::notEmpty()->validate($data["city"]) || $errors["city"] = "La ville ne peut pas être vide";
@@ -250,14 +270,21 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
             $Company->setWebsite($data["website"]);
             $Company->setEmployeeCount($data["employees"]);
 
-            if (isset($uploadedFiles['logo']) && $uploadedFiles['logo']->getError() === UPLOAD_ERR_OK) {
+            /*if (isset($uploadedFiles['logo']) && $uploadedFiles['logo']->getError() === UPLOAD_ERR_OK) {
                 $Company->setLogoPath($uploadedFiles["logo"]);
             } else {
                 // Handle the case where no file was uploaded
                 $logger->error("No file was uploaded for 'logo'");
-            }
+            }*/
 
-            $Company->setActivitySector($data["sector"]);
+            //$Company->setLogoPath($uploadedFiles["logo"]);
+
+            $Company->setLogoPath("logo");
+
+            $ActivitySector = new ActivitySector();
+            $ActivitySector->setName($data["sector"]);
+
+            $Company->setActivitySector($ActivitySector);
 
             $Location = new Location();
             $Location->setZipCode($data["zipCode"]);
