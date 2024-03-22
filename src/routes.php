@@ -16,6 +16,7 @@ use stagify\Middlewares\FlashMiddleware;
 use stagify\Middlewares\OldDataMiddleware;
 use stagify\Model\Entities\Company;
 use stagify\Model\Entities\InternshipOffer;
+use stagify\Model\Entities\Location;
 use stagify\Model\Entities\Session;
 use stagify\Model\Entities\User;
 use stagify\Model\Repositories\CompanyRepo;
@@ -242,10 +243,15 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
         return render($response, "pages/create_pilot.twig");
     })->setName("create_pilot");
 
+    $app->get("/create-company", function (Request $request, Response $response) {
+        return render($response, "pages/create_company.twig");
+    })->setName("create_company");
+
     $app->post("/create-company", function (Request $request, Response $response) use ($entityManager, $logger) {
         $data = $request->getParsedBody();
         $uploadedFiles = $request->getUploadedFiles();
         $logger->debug("Creating company with data: " . json_encode($data));
+        $logger->debug("Uploaded files: " . print_r($uploadedFiles, true));
         $errors = OldDataMiddleware::validate($data);
         $fail = false;
 

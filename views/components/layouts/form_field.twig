@@ -21,7 +21,7 @@
             {% endif %}
         </div>
     {% elseif file %}
-        <input type="file" class="form-control rounded-5 {% if shadow %}shadow{% endif %}" id="{{ id }}" value="{{ old[id] }}">
+        <input type="file" class="form-control rounded-5 {% if shadow %}shadow{% endif %}" id="{{ id }}" name="{{ id }}" value="{{ old[id] }}">
     {% else %}
         <input class="form-control {% if shadow %}shadow{% endif %}" id="{{ id }}" name="{{ id }}"
                value="{{ old[id] }}" aria-label="">
