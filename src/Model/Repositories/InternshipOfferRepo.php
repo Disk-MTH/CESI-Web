@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityRepository;
 
 final class InternshipOfferRepo extends EntityRepository
 {
-    public function getInternshipOffers(int $page, int $limit) : array
+    public function getInternshipOffers(int $page, int $limit): array
     {
         $query = $this->createQueryBuilder('io')
             ->select('io')

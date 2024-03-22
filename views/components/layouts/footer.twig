@@ -1,23 +1,28 @@
-<footer class="align-bottom bg-heavyBlack py-4">
-    <div class="container">
-        <div class="row flex-column flex-lg-row align-items-center justify-content-between text-center">
-            <div class="col-auto">
-                <div class="text-white small">
-                    Stagify &copy; 2024, All rights reserved
+<footer class="align-bottom">
+    {% if pagination %}
+        <div class="d-flex justify-content-center" id="pagination"></div>
+    {% endif %}
+    <div class="bg-heavyBlack py-4">
+        <div class="container">
+            <div class="row flex-column flex-lg-row align-items-center justify-content-between text-center">
+                <div class="col-auto">
+                    <div class="text-white small">
+                        Stagify &copy; 2024, All rights reserved
+                    </div>
                 </div>
-            </div>
-            <div class="col-auto">
-                <a class="link-light small" href={{ url_for("home") }}>
-                    Nous contacter
-                </a>
-                <span class="text-white mx-1">&middot;</span>
-                <a class="link-light small" href="{{ url_for("tos") }}#policies">
-                    Politique de confidentialité
-                </a>
-                <span class="text-white mx-1">&middot;</span>
-                <a class="link-light small" href="{{ url_for("tos") }}#terms">
-                    Conditions générales d'utilisation
-                </a>
+                <div class="col-auto">
+                    <a class="link-light small" href={{ url_for("home") }}>
+                        Nous contacter
+                    </a>
+                    <span class="text-white mx-1">&middot;</span>
+                    <a class="link-light small" href="{{ url_for("tos") }}#policies">
+                        Politique de confidentialité
+                    </a>
+                    <span class="text-white mx-1">&middot;</span>
+                    <a class="link-light small" href="{{ url_for("tos") }}#terms">
+                        Conditions générales d'utilisation
+                    </a>
+                </div>
             </div>
         </div>
     </div>
