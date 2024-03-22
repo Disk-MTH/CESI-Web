@@ -55,11 +55,11 @@ INSERT INTO activity_sector (id, name) VALUES (3, 'Boulangerie');
 INSERT INTO activity_sector (id, name) VALUES (4, 'Maconnerie');
 INSERT INTO activity_sector (id, name) VALUES (5, 'Dev');
 
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id) VALUES (1, 'Google', 'www.google.com', 100000, 'google.jpg', 0, 1);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id) VALUES (2, 'Hopital', 'www.hopital.com', 1000, 'hopital.jpg', 0, 2);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id) VALUES (3, 'Boulangerie', 'www.boulangerie.com', 10, 'boulangerie.jpg', 0, 3);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id) VALUES (4, 'Maconnerie', 'www.maconnerie.com', 100, 'maconnerie.jpg', 0, 4);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id) VALUES (5, 'Dev', 'www.dev.com', 1000, 'dev.jpg', 0, 5);
+INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id) VALUES (1, 'Google', 'www.google.com', 100000, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 1);
+INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id) VALUES (2, 'Hopital', 'www.hopital.com', 1000, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 2);
+INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id) VALUES (3, 'Boulangerie', 'www.boulangerie.com', 10, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 3);
+INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id) VALUES (4, 'Maconnerie', 'www.maconnerie.com', 100, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 4);
+INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id) VALUES (5, 'Dev', 'www.dev.com', 1000, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 5);
 
 INSERT INTO company_location (company_id, location_id) VALUES (1, 1);
 INSERT INTO company_location (company_id, location_id) VALUES (2, 2);

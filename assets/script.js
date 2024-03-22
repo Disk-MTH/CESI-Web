@@ -82,48 +82,68 @@ function clickStar(event, id) {
     event.stopPropagation();
 }
 
-function retrieve(content, endpoint, page, yCount, xCount) {
- /*   content.html(
-        `<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
+function setLoadingStatus(content) {
+    content.html(
+        `<div class="col text-center my-5">
+            <div class="spinner-border text-primary"></div>
         </div>`
-    );*/
+    );
+}
 
-    console.log(content);
-    console.log(xCount + " " + yCount);
+function retrieve(element, endpoint, page, yCount, columns) {
+    setLoadingStatus(element);
 
-    /*for (let i = 0; i < count; i++) {
-        fetch(`/jobs/${page}?count=${count}&tile=${i}`, {method: "GET"}).then((response) => {
-            if (response.status === 200) {
-                response.text().then((data) => {
-                    //append the data to the content depending on the size of the screen. One column for mobile, two for tablet and four for desktop
-                    /!*if (window.matchMedia(`(min-width: 992px)`).matches) {
-                        content.innerHTML += `<div class="col-3">${data}</div>`;
-                    } else if (window.matchMedia(`(min-width: 768px)`).matches) {
-                        content.innerHTML += `<div class="col-6">${data}</div>`;
-                    } else {
-                        content.innerHTML += `<div class="col-12">${data}</div>`;
-                    }*!/
+    columns = columns.map((column) => jQuery(column));
 
-                    if (count === 12) {
-                        let desktop = document.getElementById("desktop");
-                        console.log(desktop);
-                    } else if (count === 8) {
-                        let tablet = document.getElementById("tablet");
-                        console.log(tablet);
-                    } else {
-                        let mobile = document.getElementById("mobile");
-                        mobile.innerHTML += data;
+    fetch(`${endpoint}${page}?count=${columns.length * yCount}`, {method: "GET"}).then((response) => {
+        if (response.status === 200) {
+            response.json().then((data) => {
+                let row = 0;
+                data.forEach((item) => {
+                    if (row === yCount - 1) {
+                        row = 0;
                     }
+
+                    columns[row].append(
+                        `<div class="card shadow mb-3 bg-gradient-card cursor-pointer user-select-none"
+                             onclick="navigateTo(event, '/')">
+                            <div class="card-body">
+                                <div class="row align-items-center text-nowrap">
+                                    <div class="col">
+                                        <h6 class="card-title">${item["title"]}</h6>
+                                        <p class="text-lightGrey ms-3">&middot ${item["salary"]} $/mois</p>
+                                    </div>
+                                    <div class="col text-end">
+                                        <img class="img-fluid" src="/assets/svg/misc/wish_empty.svg" alt="wish_mark" id="wish" onclick="toggleWishMark(event, 'wish')">
+                                    </div>
+                                </div>
+                                <div class="mb-3"></div>
+                                <div class="row row-cols-2">
+                                    <div class="col-3 col-lg-4 col-xl-2 w-auto">
+                                        <img class="img-fluid bg-deepSeaBlue bg-opacity-25 py-3 px-3 rounded-3" src="${item["company_logo"]}"
+                                             alt="company_logo">
+                                    </div>
+                                    <div class="col">
+                                        <h6 class="card-title">${item["company_name"]}</h6>
+                                        <p class="text-lightGrey">
+                                            <img class="img-fluid" src="/assets/svg/tile/map_pin.svg" alt="mapPin">
+                                            ${item["location"]}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`
+                    );
+                    row++;
                 });
-            } else {
-                content.innerHTML +=
-                    `<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-                        <h1 class="text-danger">Error ${response.status}</h1>
-                    </div>`;
-            }
-        });
-    }*/
+            });
+
+            //set content of element to columns
+            element.empty();
+            columns.forEach((column) => element.append(column));
+        } else {
+            //TODO: handle error
+            console.error("Failed to fetch data from " + endpoint);
+        }
+    });
 }

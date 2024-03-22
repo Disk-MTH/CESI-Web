@@ -14,8 +14,9 @@ use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
+use stagify\Model\Repositories\CompanyRepo;
 
-#[Entity, Table(name: "company")]
+#[Entity(repositoryClass: CompanyRepo::class), Table(name: "company")]
 class Company
 {
     #[Id, Column(type: "integer"), GeneratedValue(strategy: "AUTO")]
