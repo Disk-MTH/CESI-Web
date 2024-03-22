@@ -82,34 +82,30 @@ function clickStar(event, id) {
     event.stopPropagation();
 }
 
-function retrieve(page) {
-    let content = document.getElementById("content");
-    //set the content with a loading spinner
-    content.innerHTML = `<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-                            <div class="spinner-border text-primary" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div>`;
+function retrieve(content, endpoint, page, yCount, xCount) {
+ /*   content.html(
+        `<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>`
+    );*/
 
-    let count = 4;
-    if (window.matchMedia(`(min-width: 992px)`).matches) {
-        count = 12;
-    } else if (window.matchMedia(`(min-width: 768px)`).matches) {
-        count = 8;
-    }
+    console.log(content);
+    console.log(xCount + " " + yCount);
 
-    for (let i = 0; i < count; i++) {
+    /*for (let i = 0; i < count; i++) {
         fetch(`/jobs/${page}?count=${count}&tile=${i}`, {method: "GET"}).then((response) => {
             if (response.status === 200) {
                 response.text().then((data) => {
                     //append the data to the content depending on the size of the screen. One column for mobile, two for tablet and four for desktop
-                    /*if (window.matchMedia(`(min-width: 992px)`).matches) {
+                    /!*if (window.matchMedia(`(min-width: 992px)`).matches) {
                         content.innerHTML += `<div class="col-3">${data}</div>`;
                     } else if (window.matchMedia(`(min-width: 768px)`).matches) {
                         content.innerHTML += `<div class="col-6">${data}</div>`;
                     } else {
                         content.innerHTML += `<div class="col-12">${data}</div>`;
-                    }*/
+                    }*!/
 
                     if (count === 12) {
                         let desktop = document.getElementById("desktop");
@@ -129,5 +125,5 @@ function retrieve(page) {
                     </div>`;
             }
         });
-    }
+    }*/
 }

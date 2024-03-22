@@ -14,8 +14,10 @@ use Slim\Views\Twig;
 use stagify\Middlewares\ErrorsMiddleware;
 use stagify\Middlewares\FlashMiddleware;
 use stagify\Middlewares\OldDataMiddleware;
+use stagify\Model\Entities\InternshipOffer;
 use stagify\Model\Entities\Session;
 use stagify\Model\Entities\User;
+use stagify\Model\Repositories\InternshipOfferRepo;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -38,8 +40,6 @@ function render(Response $response, string $template, array $data = []): Respons
     if ($session != null) {
         if ($template !== "pages/login.twig") {
             $data["user"] = $entityManager->getRepository(User::class)->findOneBy(["id" => $_SESSION["user"]]);
-//            global $logger;
-//            $logger->warning(($data["user"])->getPromos()[0]->getName());
         }
 
         if ($session->getLastActivity() < new DateTime("-" . Session::$duration)) {
@@ -114,36 +114,30 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
         return redirect($response, "login");
     })->setName("logout");
 
-    $app->get("/jobs", function (Request $request, Response $response) use ($entityManager) {
-        return render($response, "pages/jobs.twig");
-    })->setName("jobs");
+    $app->get("/internships", function (Request $request, Response $response) use ($entityManager) {
+        return render($response, "pages/internships.twig");
+    })->setName("internships");
 
     /*-------------------------------------------------- Endpoints --------------------------------------------------*/
 
-    $app->get("/jobs/{page}", function (Request $request, Response $response, array $args) use ($entityManager, $logger) {
+    $app->get("/internships/{page}", function (Request $request, Response $response, array $args) use ($entityManager, $logger) {
         $page = $args["page"];
         $count = $request->getQueryParams()["count"] ?? 4;
-        $tile = $request->getQueryParams()["tile"] ?? 0;
 
         if ($page < 0) {
-            $response->withStatus(404)->getBody()->write("Page index out of range");
+            $response->withStatus(404)->getBody()->write(json_encode(["error" => "Page index out of range"]));
             return $response;
         }
-
-        if ($tile < 0 || $tile >= $count) {
-            $response->withStatus(404)->getBody()->write("Tile index out of range");
-            return $response;
-        }
-
-        $logger->info("Fetching job tile" . $page . " " . $count . " " . $tile);
 
         /** @var InternshipOfferRepo $internshipRepo */
         $internshipRepo = $entityManager->getRepository(InternshipOffer::class);
-        $internship = $internshipRepo->getInternshipOffer($args["page"], $count, $tile);
+        $internships = $internshipRepo->getInternshipOffers($page, $count);
+        $internships = array_map(function($internship) {
+            return $internship->toArray();
+        }, $internships);
 
-        global $twig;
-        $logger->info("Rendering job tile");
-        return $twig->render($response, "components/tiles/job_tile.twig");
+        $response->getBody()->write(json_encode($internships));
+        return $response->withHeader("Content-Type", "application/json");
     });
 
     // $internshipRepo = $entityManager->getRepository(InternshipOffer::class);
@@ -181,7 +175,7 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
     })->setName("companies");
 
     $app->get("/jobs", function (Request $request, Response $response) {
-        return render($response, "pages/jobs.twig");
+        return render($response, "pages/internships.twig");
     })->setName("jobs");
 
     $app->get("/users", function (Request $request, Response $response) {
@@ -220,7 +214,7 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
         return render($response, "pages/create_pilot.twig");
     })->setName("create_pilot");
 
-    $app->post("/createcompany", function (Request $request, Response $response) use ($entityManager, $logger) {
+    $app->post("/create-company", function (Request $request, Response $response) use ($entityManager, $logger) {
         $data = $request->getParsedBody();
         $uploadedFiles = $request->getUploadedFiles();
         $logger->debug("Creating company with data: " . json_encode($data));

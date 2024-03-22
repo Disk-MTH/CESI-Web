@@ -6,8 +6,7 @@ use Doctrine\ORM\EntityRepository;
 
 final class InternshipOfferRepo extends EntityRepository
 {
-    //add a method to get all internship offers with pagination
-    public function getInternshipOffer(int $page, int $limit, int $tile)
+    public function getInternshipOffers(int $page, int $limit) : array
     {
         $query = $this->createQueryBuilder('io')
             ->select('io')
@@ -16,6 +15,6 @@ final class InternshipOfferRepo extends EntityRepository
             ->setMaxResults($limit)
             ->getQuery();
 
-        return $query->getResult()[$tile];
+        return $query->getResult();
     }
 }

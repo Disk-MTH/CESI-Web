@@ -27,50 +27,52 @@
 {% block content %}
     <section>
         <div class="container pt-4">
-            <div class="row" id="content">
+            <div class="d-flex justify-content-center" id="content">
+                <div class="row align-items-center" style="height: 10vh;">
+                    <div class="spinner-border text-primary" role="status">
+{#                        <span class="visually-hidden">Loading...</span>#}
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center fixed-bottom" id="pagination"></div>
+        </div>
+    </section>
 
-                <script>
-                    $('.demo1').paginator({
-                        total: 5
-                    }).on("page", function(event, num){
-                        $(".content").html("Page " + num); // or some ajax content loading...
+    <script>
+        $('#pagination').pagination({
+            count: 23,
+            maxVisible: 5,
+        }).on("changePage", function (event, page) {
+            /*$("#content").html("Page " + num);*/
+            retrieve($("#content"), "/internships/", page, 4, window.matchMedia(`(min-width: 992px)`).matches ? 3 : window.matchMedia(`(min-width: 768px)`).matches ? 2 : 1);
+        }).trigger("changePage", 1);
+    </script>
+{% endblock %}
 
-                        // ... after content load -> change total to 10
-                        $(this).paginator({total: 10, maxVisible: 10});
-
-                    });
-                </script>
-
-                {#<div class="col-12 col-md-6 col-lg-4" id="desktop"></div>
+{# <div class="col-12 col-md-6 col-lg-4" id="desktop"></div>
                 <div class="col-6 col-lg-4 d-none d-md-block" id="tablet"></div>
-                <div class="col-4 d-none d-lg-block" id="mobile"></div>#}
+                <div class="col-4 d-none d-lg-block" id="mobile"></div> #}
 
                 {# <div class="col-12 col-md-6 col-lg-4" id="desktop">
                 #}{# {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
                     {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
                     {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
                     {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }} #}{#
-                </div>
-                <div class="col-6 col-lg-4 d-none d-md-block" id="tablet">
-                #}{#                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
+</div>
+<div class="col-6 col-lg-4 d-none d-md-block" id="tablet">
+#}{#                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
                     {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
                     {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
                     {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }} #}{#
-                </div>
-                <div class="col-4 d-none d-lg-block" id="mobile">
-                #}{# {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
+</div>
+<div class="col-4 d-none d-lg-block" id="mobile">
+#}{# {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
                     {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
                     {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
                     {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }} #}{#
-                </div> #}
-            </div>
- {#           <script>
-                retrieve(1);
-            </script>#}
-        </div>
-    </section>
+</div> #}
 
-    <nav aria-label="Page navigation example">
+    {# <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center pt-2 ">
             <li class="page-item disabled">
                 <a class="page-link border-0" href="#" tabindex="-1">Previous</a>
@@ -84,5 +86,4 @@
                 <a class="page-link border-0" href="#">Next</a>
             </li>
         </ul>
-    </nav>
-{% endblock %}
+    </nav> #}
