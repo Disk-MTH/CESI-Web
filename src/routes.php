@@ -14,10 +14,10 @@ use Slim\Views\Twig;
 use stagify\Middlewares\ErrorsMiddleware;
 use stagify\Middlewares\FlashMiddleware;
 use stagify\Middlewares\OldDataMiddleware;
-use stagify\Model\Entities\InternshipOffer;
 use stagify\Model\Entities\Session;
 use stagify\Model\Entities\User;
-use stagify\Model\Repositories\InternshipOfferRepo;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 function redirect(Response $response, string $url): Response
 {
@@ -38,7 +38,6 @@ function render(Response $response, string $template, array $data = []): Respons
     if ($session != null) {
         if ($template !== "pages/login.twig") {
             $data["user"] = $entityManager->getRepository(User::class)->findOneBy(["id" => $_SESSION["user"]]);
-
 //            global $logger;
 //            $logger->warning(($data["user"])->getPromos()[0]->getName());
         }
@@ -181,6 +180,9 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
         return render($response, "pages/companies.twig");
     })->setName("companies");
 
+    $app->get("/jobs", function (Request $request, Response $response) {
+        return render($response, "pages/jobs.twig");
+    })->setName("jobs");
 
     $app->get("/users", function (Request $request, Response $response) {
         return render($response, "pages/users.twig");
@@ -218,8 +220,58 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
         return render($response, "pages/create_pilot.twig");
     })->setName("create_pilot");
 
-    $app->get("/createcompany", function (Request $request, Response $response) {
-        return render($response, "pages/create_company.twig");
+    $app->post("/createcompany", function (Request $request, Response $response) use ($entityManager, $logger) {
+        $data = $request->getParsedBody();
+        $uploadedFiles = $request->getUploadedFiles();
+        $logger->debug("Creating company with data: " . json_encode($data));
+        $errors = OldDataMiddleware::validate($data);
+        $fail = false;
+
+        $logger->debug("Uploaded files: " . print_r($uploadedFiles, true));
+
+        Validator::notEmpty()->validate($data["name"]) || $errors["name"] = "Le nom ne peut pas être vide";
+        Validator::notEmpty()->validate($uploadedFiles["logo"]) || $errors["logo"] = "Le logo ne peut pas être vide";
+        Validator::notEmpty()->validate($data["sector"]) || $errors["sector"] = "Le secteur ne peut pas être vide";
+        Validator::notEmpty()->validate($data["zipCode"]) || $errors["zipCode"] = "Le code postal ne peut pas être vide";
+        Validator::notEmpty()->validate($data["city"]) || $errors["city"] = "La ville ne peut pas être vide";
+        Validator::notEmpty()->validate($data["employees"]) || $errors["employees"] = "Le nombre d'employés ne peut pas être vide";
+        Validator::notEmpty()->validate($data["website"]) || $errors["website"] = "Le site web ne peut pas être vide";
+
+        if (empty($errors)) {
+            $CompanyRepo = $entityManager->getRepository(Company::class);
+            $Company = new Company();
+            $Company->setName($data["name"]);
+            $Company->setWebsite($data["website"]);
+            $Company->setEmployeeCount($data["employees"]);
+
+            if (isset($uploadedFiles['logo']) && $uploadedFiles['logo']->getError() === UPLOAD_ERR_OK) {
+                $Company->setLogoPath($uploadedFiles["logo"]);
+            } else {
+                // Handle the case where no file was uploaded
+                $logger->error("No file was uploaded for 'logo'");
+            }
+
+            $Company->setActivitySector($data["sector"]);
+
+            $Location = new Location();
+            $Location->setZipCode($data["zipCode"]);
+            $Location->setCity($data["city"]);
+
+            $Company->addLocation($Location);
+
+            $entityManager->persist($Company);
+            $entityManager->flush();
+
+            FlashMiddleware::flash("success", "Entreprise créée avec succès");
+            return redirect($response, "companies");
+        } else {
+            $fail = true;
+        }
+        if ($fail) {
+            ErrorsMiddleware::error($errors);
+            return redirect($response, "createcompany");
+        }
+        return redirect($response, "companies");
     })->setName("create_company");
 
     $app->get("/pilots", function (Request $request, Response $response) {

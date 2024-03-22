@@ -16,32 +16,32 @@
 {% block content %}
     <section>
         <div class="container">
-            <div class="card bg-deepWarmGrey py-3 px-3 my-5 shadow">
+            <form class="card bg-deepWarmGrey py-3 px-3 my-5 shadow" action="{{ url_for("create_company") }}" method="post">
                 <div class="row">
-                    <div class="col-md-6 col-lg">
+                    <div class="col-md-6 col-lg" >
                         <h5>Nom</h5>
-                        {{ form_field.content("name") }}
+                        {{ form_field.content(errors, old, "name") }}
 
                         <h5 class="mt-2">Logo</h5>
-                        {{ form_field.content("logo", false, 0, false, true) }}
+                        {{ form_field.content(errors, old, "logo", false, 0, false, true) }}
 
                         <h5 class="mt-2">Secteur d'activité</h5>
-                        {{ form_field.content("sector") }}
+                        {{ form_field.content(errors, old, "sector") }}
 
                         <h5 class="mt-2">Localité (code postal - ville) </h5>
                         <div class="input-group shadow rounded-5">
-                            {{ form_field.content("zipCode", false, 0, false, false, false) }}
-                            {{ form_field.content("city", false, 0, false, false, false) }}
+                            {{ form_field.content(errors, old, "zipCode", false, 0, false, false, false) }}
+                            {{ form_field.content(errors, old, "city", false, 0, false, false, false) }}
                             <div class="input-group-append">
                                 <button class="btn btn-deepSeaBlue rounded-start-0" type="button">Ajouter</button>
                             </div>
                         </div>
 
                         <h5 class="mt-2">Nombre d'employés</h5>
-                        {{ form_field.content("employees") }}
+                        {{ form_field.content(errors, old, "employees") }}
 
                         <h5 class="mt-2">Site web</h5>
-                        {{ form_field.content("website") }}
+                        {{ form_field.content(errors, old, "website") }}
                     </div>
 
                     <div class="col-md-6 col-lg">
@@ -64,10 +64,10 @@
 
                 <div class="row mt-4">
                     <div class="col text-end">
-                        <div class="btn btn-deepSeaBlue">Valider</div>
+                        <button class="btn btn-deepSeaBlue">Valider</button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </section>
 {% endblock %}
