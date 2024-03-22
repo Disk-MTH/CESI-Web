@@ -14,6 +14,8 @@ use Slim\Views\Twig;
 use stagify\Middlewares\ErrorsMiddleware;
 use stagify\Middlewares\FlashMiddleware;
 use stagify\Middlewares\OldDataMiddleware;
+use stagify\Model\Entities\ActivitySector;
+use stagify\Model\Entities\Company;
 use stagify\Model\Entities\InternshipOffer;
 use stagify\Model\Entities\Location;
 use stagify\Model\Entities\Session;
