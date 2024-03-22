@@ -37,13 +37,13 @@ class Company
     #[Column(type: "boolean", nullable: false, options: ["default" => false])]
     private bool $deleted;
 
-    #[ManyToOne(inversedBy: "activity_sector")]
+    #[ManyToOne(cascade: ["persist"], inversedBy: "activity_sector")]
     private ActivitySector $activitySector;
 
     #[JoinTable]
     #[JoinColumn(referencedColumnName: "id")]
     #[InverseJoinColumn(referencedColumnName: "id", unique: true)]
-    #[ManyToMany(targetEntity: Location::class)]
+    #[ManyToMany(targetEntity: Location::class, cascade: ["persist"])]
     private Collection $locations;
 
     #[JoinTable]
