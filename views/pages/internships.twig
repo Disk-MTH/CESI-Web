@@ -37,13 +37,11 @@
 {% block pagination %}
     <script>
         (async function() {
-            const element = $("#internships");
-            setLoading(element);
-
             $("#pagination").pagination({
                 count: Math.ceil((await fetch("/internships?count=true").then(response => response.json().then(data => data)))["count"] / 5),
                 maxVisible: 5,
             }).on("changePage", function (event, page) {
+                const element = $("#internships");
                 setLoading(element);
                 retrieve(element, $("#internship_tile"), `/internships/${page}`);
             }).trigger("changePage", 1);

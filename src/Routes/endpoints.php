@@ -8,6 +8,7 @@ use Slim\App;
 use Slim\Views\Twig;
 use stagify\Model\Entities\Company;
 use stagify\Model\Entities\InternshipOffer;
+use stagify\Model\Entities\Location;
 use stagify\Model\Repositories\CompanyRepo;
 use stagify\Model\Repositories\InternshipOfferRepo;
 
@@ -40,6 +41,33 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
         }, $internships);
 
         $response->getBody()->write(json_encode($internships));
+        return $response->withHeader("Content-Type", "application/json");
+    });
+
+    $app->get("/companies/{page}", function (Request $request, Response $response, array $args) use ($entityManager, $logger) {
+        $page = $args["page"];
+
+        if ($page < 0) {
+            $response->withStatus(404)->getBody()->write(json_encode(["error" => "Page out of range"]));
+            return $response;
+        }
+
+        $companyRepo = $entityManager->getRepository(Company::class);
+
+        $locationRepo = $entityManager->getRepository(Location::class);
+
+        $companies = $companyRepo->getCompaniesDistinct($page);
+
+        $companies = array_map(function ($company) use ($locationRepo) {
+            $location = $locationRepo->findByCompany($company);
+            return [
+                "name" => $company->getName(),
+                "logo" => $company->getLogoPath(),
+                "location" => $location->getZipCode() . " - " . $location->getCity(),
+            ];
+        }, $companies);
+
+        $response->getBody()->write(json_encode($companies));
         return $response->withHeader("Content-Type", "application/json");
     });
 };

@@ -26,7 +26,8 @@
                         {{ form_field.content(errors, old, "logo", false, 0, false, true) }}
 
                         <h5 class="mt-2">Secteur d'activité</h5>
-                        {{ form_field.content(errors, old, "sector") }}
+                        {{ form_field.content(errors, old, "sector", false, 0, false, false, true) }}
+                        <div id="sector-suggestions" class="suggestions-dropdown"></div>
 
                         <h5 class="mt-2">Localité (code postal - ville) </h5>
                         <div class="input-group shadow rounded-5">

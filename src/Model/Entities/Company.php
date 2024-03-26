@@ -42,13 +42,13 @@ class Company
 
     #[JoinTable]
     #[JoinColumn(referencedColumnName: "id")]
-    #[InverseJoinColumn(referencedColumnName: "id", unique: true)]
+    #[InverseJoinColumn(referencedColumnName: "id")]
     #[ManyToMany(targetEntity: Location::class, cascade: ["persist"])]
     private Collection $locations;
 
     #[JoinTable]
     #[JoinColumn(referencedColumnName: "id")]
-    #[InverseJoinColumn(referencedColumnName: "id", unique: true)]
+    #[InverseJoinColumn(referencedColumnName: "id")]
     #[ManyToMany(targetEntity: InternshipOffer::class)]
     private Collection $internshipOffers;
 

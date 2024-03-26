@@ -25,4 +25,31 @@ final class CompanyRepo extends EntityRepository
 
         return $query->getSingleResult();
     }
+
+    function getCompanies(int $page, int $limit = 12): array
+    {
+        $query = $this->createQueryBuilder("c")
+            ->select("c")
+            ->orderBy("c.id", "ASC")
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit)
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    function getCompaniesDistinct(int $page, int $limit = 12): array
+    {
+
+        $query = $this->createQueryBuilder('c')
+            ->select('DISTINCT c.id, c.name, l.city, l.zipCode')
+            ->innerJoin('c.company_location', 'cl')
+            ->innerJoin('cl.location', 'l')
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit)
+            ->GetQuery();
+
+
+        return $query->getResult();
+    }
 }
