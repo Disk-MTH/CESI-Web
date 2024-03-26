@@ -7,11 +7,11 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\OneToOne;
+use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
 
-#[Entity, Table(name: "internship_candidate")]
-class InternshipHasCandidate
+#[Entity, Table(name: "application")]
+class Application
 {
     #[Id, Column(type: "integer"), GeneratedValue(strategy: "AUTO")]
     private int $id;
@@ -26,11 +26,11 @@ class InternshipHasCandidate
     private bool $accepted;
 
     #[JoinColumn(referencedColumnName: "id")]
-    #[OneToOne(targetEntity: InternshipOffer::class)]
+    #[ManyToOne(targetEntity: InternshipOffer::class)]
     private InternshipOffer $internshipOffer;
 
     #[JoinColumn(referencedColumnName: "id")]
-    #[OneToOne(targetEntity: User::class)]
+    #[ManyToOne(targetEntity: User::class)]
     private User $user;
 
     /*-------------------------------------------------- Getters --------------------------------------------------*/
