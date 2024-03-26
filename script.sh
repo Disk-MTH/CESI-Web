@@ -57,8 +57,10 @@ do
     sed -i "s/^DB_HOST=.*/DB_HOST=$ORIGINAL_DB_HOST/g" .env
   elif [ "$MODE" = "i" ]; then
       echo "Installing bootstrap"
+      cd "dependencies" || exit 1
       npm install -g sass
-      npm install "${PWD}/dependencies" --prefix "${PWD}/dependencies" # patch bug
+      npm install
+      cd ..
   elif [ "$MODE" = "c" ]; then
     echo "Recompile bootstrap"
     sass "${PWD}"/dependencies/bootstrap.scss "${PWD}"/assets/bootstrap.css

@@ -1,0 +1,34 @@
+<template id="internship_tile">
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card shadow bg-gradient-card cursor-pointer user-select-none text-nowrap"
+             onclick="navigateTo(event, '{url}')">
+            <div class="card-body">
+                <div class="row align-items-center text-nowrap">
+                    <div class="col">
+                        <h6 class="card-title">{title}</h6>
+                        <p class="text-lightGrey ms-3">&middot {salary} $/mois</p>
+                    </div>
+                    <div class="col text-end">
+                        <img class="img-fluid" src="/assets/svg/misc/wish_empty.svg" alt="wish_mark" id="wish"
+                             onclick="toggleWishMark(event, 'wish')">
+                    </div>
+                </div>
+                <div class="mb-3"></div>
+                <div class="row row-cols-2">
+                    <div class="col-3 col-lg-4 col-xl-2 w-auto">
+                        <img class="img-fluid bg-deepSeaBlue bg-opacity-25 py-3 px-3 rounded-3"
+                             src="{company_logo}"
+                             alt="company_logo">
+                    </div>
+                    <div class="col">
+                        <h6 class="card-title">{company_name}</h6>
+                        <p class="text-lightGrey">
+                            <img class="img-fluid" src="/assets/svg/tile/map_pin.svg" alt="mapPin">
+                            {location}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

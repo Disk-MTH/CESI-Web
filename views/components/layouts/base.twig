@@ -17,5 +17,15 @@
 
 <body class="d-flex flex-column" style="min-height: 100vh">
     {% block body %} Body here {% endblock %}
+    <template id="loading">
+        <div class="col text-center my-5">
+            <div class="spinner-border text-primary"></div>
+        </div>
+    </template>
+    <template id="error">
+        <div class="col text-center my-5">
+            <div class="h1 text-coldRed">Erreur</div>
+        </div>
+    </template>
 </body>
 </html>

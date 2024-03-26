@@ -22,13 +22,13 @@ $theme-colors: map-merge($theme-colors,
                 "heavyBlack": #171616,
         ));
 
-$btn-border-radius: 1rem;
+/*$btn-border-radius: 1rem;
 $btn-border-radius-sm: 1rem;
 $btn-border-radius-lg: 1rem;
 
 $input-border-radius: 1rem;
 $input-border-radius-sm: 1rem;
-$input-border-radius-lg: 1rem;
+$input-border-radius-lg: 1rem;*/
 
 @import "node_modules/bootstrap/scss/bootstrap";
 

@@ -2,7 +2,7 @@
 {% set alternative_search_bar = true %}
 {% set pagination = true %}
 {% extends "components/layouts/layout.twig" %}
-{% import "components/tiles/job_tile.twig" as job_tile %}
+{% import "components/tiles/internship_tile.twig" as job_tile %}
 
 {% block header %}
     <section class="bg-deepWarmGrey ">
@@ -31,29 +31,21 @@
             <div class="row" id="internships"></div>
         </div>
     </section>
+    {{ include("components/tiles/internship_tile.twig") }}
 {% endblock %}
 
 {% block pagination %}
     <script>
         (async function() {
-            const response = await fetch("/internships?count=true").then(response => response.json().then(data => data));
+            const element = $("#internships");
+            setLoading(element);
 
-            const columns = [];
-            if (window.matchMedia(`(min-width: 992px)`).matches) {
-                columns.push(`<div class="col-12 col-md-6 col-lg-4"></div>`);
-            }
-            if (window.matchMedia(`(min-width: 768px)`).matches) {
-                columns.push(`<div class="col-6 col-lg-4 d-none d-md-block"></div>`);
-            }
-            columns.push(`<div class="col-4 d-none d-lg-block"></div>`);
-
-            const yCount = 4;
-
-            $('#pagination').pagination({
-                count: Math.ceil(response["count"] / (columns.length * yCount)),
+            $("#pagination").pagination({
+                count: Math.ceil((await fetch("/internships?count=true").then(response => response.json().then(data => data)))["count"] / 5),
                 maxVisible: 5,
             }).on("changePage", function (event, page) {
-                retrieve($("#internships"), "/internships/", page, yCount, columns);
+                setLoading(element);
+                retrieve(element, $("#internship_tile"), `/internships/${page}`);
             }).trigger("changePage", 1);
         })();
     </script>

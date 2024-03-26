@@ -6,11 +6,11 @@ use Doctrine\ORM\EntityRepository;
 
 final class InternshipOfferRepo extends EntityRepository
 {
-    public function getInternshipOffers(int $page, int $limit): array
+    public function getInternshipOffers(int $page, int $limit = 12): array
     {
-        $query = $this->createQueryBuilder('io')
-            ->select('io')
-            ->orderBy('io.id', 'ASC')
+        $query = $this->createQueryBuilder("io")
+            ->select("io")
+            ->orderBy("io.id", "ASC")
             ->setFirstResult(($page - 1) * $limit)
             ->setMaxResults($limit)
             ->getQuery();
