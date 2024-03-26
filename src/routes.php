@@ -2,7 +2,6 @@
 
 namespace stagify;
 
-use DateTime;
 use Doctrine\ORM\EntityManager;
 use Exception;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -11,11 +10,8 @@ use Psr\Log\LoggerInterface as Logger;
 use Slim\App;
 use Slim\Psr7\UploadedFile;
 use Slim\Views\Twig;
-use stagify\Middlewares\FlashMiddleware;
 use stagify\Model\Entities\Company;
 use stagify\Model\Entities\InternshipOffer;
-use stagify\Model\Entities\Session;
-use stagify\Model\Entities\User;
 use stagify\Model\Repositories\CompanyRepo;
 use stagify\Model\Repositories\InternshipOfferRepo;
 
@@ -85,7 +81,7 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
     });
 
     $session = require __DIR__ . "/Routes/session.php";
-    $session($app, $logger, $twig, $entityManager, $fileDirectory);
+    $session($app, $logger, $twig, $entityManager);
 
     $listing = require __DIR__ . "/Routes/listing.php";
     $listing($app, $logger, $twig, $entityManager, $fileDirectory);
@@ -96,36 +92,6 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
     $form = require __DIR__ . "/Routes/form.php";
     $form($app, $logger, $twig, $entityManager, $fileDirectory);
 
-    /*-------------------------------------------------- Endpoints --------------------------------------------------*/
-
-    $app->get("/internships/{page}", function (Request $request, Response $response, array $args) use ($entityManager, $logger) {
-        $page = $args["page"];
-
-        if ($page < 0) {
-            $response->withStatus(404)->getBody()->write(json_encode(["error" => "Page out of range"]));
-            return $response;
-        }
-
-        /** @var InternshipOfferRepo $internshipRepo */
-        $internshipRepo = $entityManager->getRepository(InternshipOffer::class);
-
-        /** @var CompanyRepo $companyRepo */
-        $companyRepo = $entityManager->getRepository(Company::class);
-
-        $internships = $internshipRepo->getInternshipOffers($page);
-        $internships = array_map(function ($internship) use ($companyRepo) {
-            $company = $companyRepo->findByInternshipOffer($internship);
-            return [
-                "title" => $internship->getTitle(),
-                "salary" => $internship->getLowSalary() . " - " . $internship->getHighSalary(),
-                "location" => $internship->getLocation()->getZipCode() . " - " . $internship->getLocation()->getCity(),
-                "user_wish" => true,
-                "company_name" => $company->getName(),
-                "company_logo" => $company->getLogoPath(),
-            ];
-        }, $internships);
-
-        $response->getBody()->write(json_encode($internships));
-        return $response->withHeader("Content-Type", "application/json");
-    });
+    $endpoints = require __DIR__ . "/Routes/endpoints.php";
+    $endpoints($app, $logger, $twig, $entityManager);
 };
