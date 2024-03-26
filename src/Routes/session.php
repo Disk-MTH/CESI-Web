@@ -15,7 +15,7 @@ use stagify\Model\Entities\User;
 use function stagify\redirect;
 use function stagify\render;
 
-return function (App $app, Logger $logger, Twig $twig, EntityManager $entityManager, string $fileDirectory) {
+return function (App $app, Logger $logger, Twig $twig, EntityManager $entityManager) {
     $app->get("/login", function (Request $request, Response $response) {
         return render($response, "pages/login.twig");
     })->setName("login");

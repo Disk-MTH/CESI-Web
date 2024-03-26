@@ -12,12 +12,8 @@ use Slim\App;
 use Slim\Psr7\UploadedFile;
 use Slim\Views\Twig;
 use stagify\Middlewares\FlashMiddleware;
-use stagify\Model\Entities\Company;
-use stagify\Model\Entities\InternshipOffer;
 use stagify\Model\Entities\Session;
 use stagify\Model\Entities\User;
-use stagify\Model\Repositories\CompanyRepo;
-use stagify\Model\Repositories\InternshipOfferRepo;
 
 /**
  * @throws Exception
@@ -27,14 +23,10 @@ function render(Response $response, string $template, array $data = []): Respons
     global $twig;
     global $entityManager;
 
-    /*$sessionRepo = $entityManager->getRepository(Session::class);
+    $sessionRepo = $entityManager->getRepository(Session::class);
     $session = $sessionRepo->findOneBy(["token" => $_COOKIE["session"] ?? ""]);
 
     if ($session != null) {
-        if ($template !== "pages/login.twig") {
-            $data["user"] = $entityManager->getRepository(User::class)->findOneBy(["id" => $_SESSION["user"]]);
-        }
-
         if ($session->getLastActivity() < new DateTime("-" . Session::$duration)) {
             $session = null;
             Session::logOut();
@@ -50,7 +42,11 @@ function render(Response $response, string $template, array $data = []): Respons
         return redirect($response, "login");
     } else if ($session != null && $template === "pages/login.twig") {
         return redirect($response, "/");
-    }*/
+    }
+
+    if ($session != null) {
+        $data["user"] = $entityManager->getRepository(User::class)->findOneBy(["id" => $_SESSION["user"]]);
+    }
 
     return $twig->render($response, $template, $data);
 }
@@ -60,6 +56,7 @@ function redirect(Response $response, string $url): Response
     return $response->withStatus(302)->withHeader("Location", $url);
 }
 
+//todo: remake
 function moveUploadedFile($directory, UploadedFile $uploadedFile): string
 {
     $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
@@ -82,10 +79,10 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
 
     $app->get("/offline", function (Request $request, Response $response) use ($twig) {
         return $twig->render($response, "pages/offline.twig");
-    });
+    })->setName("offline");
 
     $session = require __DIR__ . "/Routes/session.php";
-    $session($app, $logger, $twig, $entityManager, $fileDirectory);
+    $session($app, $logger, $twig, $entityManager);
 
     $listing = require __DIR__ . "/Routes/listing.php";
     $listing($app, $logger, $twig, $entityManager, $fileDirectory);
@@ -96,36 +93,6 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
     $form = require __DIR__ . "/Routes/form.php";
     $form($app, $logger, $twig, $entityManager, $fileDirectory);
 
-    /*-------------------------------------------------- Endpoints --------------------------------------------------*/
-
-    $app->get("/internships/{page}", function (Request $request, Response $response, array $args) use ($entityManager, $logger) {
-        $page = $args["page"];
-
-        if ($page < 0) {
-            $response->withStatus(404)->getBody()->write(json_encode(["error" => "Page out of range"]));
-            return $response;
-        }
-
-        /** @var InternshipOfferRepo $internshipRepo */
-        $internshipRepo = $entityManager->getRepository(InternshipOffer::class);
-
-        /** @var CompanyRepo $companyRepo */
-        $companyRepo = $entityManager->getRepository(Company::class);
-
-        $internships = $internshipRepo->getInternshipOffers($page);
-        $internships = array_map(function ($internship) use ($companyRepo) {
-            $company = $companyRepo->findByInternshipOffer($internship);
-            return [
-                "title" => $internship->getTitle(),
-                "salary" => $internship->getLowSalary() . " - " . $internship->getHighSalary(),
-                "location" => $internship->getLocation()->getZipCode() . " - " . $internship->getLocation()->getCity(),
-                "user_wish" => true,
-                "company_name" => $company->getName(),
-                "company_logo" => $company->getLogoPath(),
-            ];
-        }, $internships);
-
-        $response->getBody()->write(json_encode($internships));
-        return $response->withHeader("Content-Type", "application/json");
-    });
+    $endpoints = require __DIR__ . "/Routes/endpoints.php";
+    $endpoints($app, $logger, $twig, $entityManager);
 };
