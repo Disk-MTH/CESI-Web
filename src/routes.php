@@ -8,23 +8,16 @@ use Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Log\LoggerInterface as Logger;
-use Respect\Validation\Validator;
 use Slim\App;
+use Slim\Psr7\UploadedFile;
 use Slim\Views\Twig;
-use stagify\Middlewares\ErrorsMiddleware;
 use stagify\Middlewares\FlashMiddleware;
-use stagify\Middlewares\OldDataMiddleware;
-use stagify\Model\Entities\ActivitySector;
 use stagify\Model\Entities\Company;
 use stagify\Model\Entities\InternshipOffer;
-use stagify\Model\Entities\Location;
 use stagify\Model\Entities\Session;
 use stagify\Model\Entities\User;
 use stagify\Model\Repositories\CompanyRepo;
 use stagify\Model\Repositories\InternshipOfferRepo;
-use Twig\Environment;
-use Twig\Loader\FilesystemLoader;
-use Slim\Psr7\UploadedFile;
 
 /**
  * @throws Exception
@@ -34,7 +27,7 @@ function render(Response $response, string $template, array $data = []): Respons
     global $twig;
     global $entityManager;
 
-    $sessionRepo = $entityManager->getRepository(Session::class);
+    /*$sessionRepo = $entityManager->getRepository(Session::class);
     $session = $sessionRepo->findOneBy(["token" => $_COOKIE["session"] ?? ""]);
 
     if ($session != null) {
@@ -57,7 +50,7 @@ function render(Response $response, string $template, array $data = []): Respons
         return redirect($response, "login");
     } else if ($session != null && $template === "pages/login.twig") {
         return redirect($response, "/");
-    }
+    }*/
 
     return $twig->render($response, $template, $data);
 }
@@ -67,7 +60,7 @@ function redirect(Response $response, string $url): Response
     return $response->withStatus(302)->withHeader("Location", $url);
 }
 
-function moveUploadedFile($directory, UploadedFile $uploadedFile) : string
+function moveUploadedFile($directory, UploadedFile $uploadedFile): string
 {
     $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
     $basename = bin2hex(random_bytes(8)); // see http://php.net/manual/en/function.random-bytes.php
@@ -107,7 +100,6 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
 
     $app->get("/internships/{page}", function (Request $request, Response $response, array $args) use ($entityManager, $logger) {
         $page = $args["page"];
-        $count = $request->getQueryParams()["count"] ?? 4;
 
         if ($page < 0) {
             $response->withStatus(404)->getBody()->write(json_encode(["error" => "Page out of range"]));
@@ -120,13 +112,14 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
         /** @var CompanyRepo $companyRepo */
         $companyRepo = $entityManager->getRepository(Company::class);
 
-        $internships = $internshipRepo->getInternshipOffers($page, $count);
+        $internships = $internshipRepo->getInternshipOffers($page);
         $internships = array_map(function ($internship) use ($companyRepo) {
             $company = $companyRepo->findByInternshipOffer($internship);
             return [
                 "title" => $internship->getTitle(),
                 "salary" => $internship->getLowSalary() . " - " . $internship->getHighSalary(),
                 "location" => $internship->getLocation()->getZipCode() . " - " . $internship->getLocation()->getCity(),
+                "user_wish" => true,
                 "company_name" => $company->getName(),
                 "company_logo" => $company->getLogoPath(),
             ];

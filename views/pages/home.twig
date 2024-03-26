@@ -1,7 +1,6 @@
 {% set title = "Stagify - Accueil" %}
 {% extends "components/layouts/layout.twig" %}
 {% import "components/tiles/home_info_tile.twig" as home_info_tile %}
-{% import "components/tiles/internship_tile.twig" as job_tile %}
 
 {% block header %}
     <section class="bg-deepWarmGrey pb-5">
@@ -58,25 +57,24 @@
             </div>
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-4">
-                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
-                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
-                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
-                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
+                    {{ include("components/tiles/internship_tile.twig") }}
+                    {{ include("components/tiles/internship_tile.twig") }}
+                    {{ include("components/tiles/internship_tile.twig") }}
+                    {{ include("components/tiles/internship_tile.twig") }}
                 </div>
                 <div class="col-6 col-lg-4 d-none d-md-block">
-                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
-                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
-                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
-                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
+                    {{ include("components/tiles/internship_tile.twig") }}
+                    {{ include("components/tiles/internship_tile.twig") }}
+                    {{ include("components/tiles/internship_tile.twig") }}
+                    {{ include("components/tiles/internship_tile.twig") }}
                 </div>
                 <div class="col-4 d-none d-lg-block">
-                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
-                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
-                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
-                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
+                    {{ include("components/tiles/internship_tile.twig") }}
+                    {{ include("components/tiles/internship_tile.twig") }}
+                    {{ include("components/tiles/internship_tile.twig") }}
+                    {{ include("components/tiles/internship_tile.twig") }}
                 </div>
             </div>
-
         </div>
     </section>
 {% endblock %}

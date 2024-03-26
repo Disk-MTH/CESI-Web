@@ -82,42 +82,31 @@ function clickStar(event, id) {
     event.stopPropagation();
 }
 
-function setLoadingStatus(content) {
-    content.html(
-        `<div class="col text-center my-5">
-            <div class="spinner-border text-primary"></div>
-        </div>`
-    );
+function setLoading(content) {
+    content.html($("#loading").html());
 }
 
-function retrieve(element, endpoint, page, yCount, columns) {
-    setLoadingStatus(element);
+function setError(content) {
+    content.html($("#error").html());
+}
 
-    columns = columns.map((column) => jQuery(column));
-
-    const internshipTile = $("#internship_tile").html();
-
-    fetch(`${endpoint}${page}?count=${columns.length * yCount}`, {method: "GET"}).then((response) => {
+function retrieve(element, template, endpoint) {
+    fetch(endpoint, {method: "GET"}).then((response) => {
         if (response.status === 200) {
             response.json().then((data) => {
-                let row = 0;
+                element.empty();
                 data.forEach((item) => {
-                    if (row === yCount - 1) {
-                        row = 0;
-                    }
-
-                    columns[row].append(
-                        internshipTile
+                    element.append(
+                        template.html().replace(/{(\w+)}/g, function(match, key) {
+                            return item[key] || "";
+                        })
                     );
-                    row++;
                 });
-            });
 
-            element.empty();
-            columns.forEach((column) => element.append(column));
+                if(element.children().length === 0) setError(element);
+            });
         } else {
-            //TODO: handle error
-            console.error("Failed to fetch data from " + endpoint);
+            setError(element);
         }
     });
 }
