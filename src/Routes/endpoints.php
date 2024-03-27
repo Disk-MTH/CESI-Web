@@ -9,8 +9,10 @@ use Slim\Views\Twig;
 use stagify\Model\Entities\Company;
 use stagify\Model\Entities\InternshipOffer;
 use stagify\Model\Entities\Location;
+use stagify\Model\Entities\User;
 use stagify\Model\Repositories\CompanyRepo;
 use stagify\Model\Repositories\InternshipOfferRepo;
+use stagify\Model\Repositories\UserRepo;
 
 return function (App $app, Logger $logger, Twig $twig, EntityManager $entityManager) {
     $app->get("/internships/{page}", function (Request $request, Response $response, array $args) use ($entityManager, $logger) {
@@ -54,20 +56,77 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
 
         $companyRepo = $entityManager->getRepository(Company::class);
 
-        $locationRepo = $entityManager->getRepository(Location::class);
-
         $companies = $companyRepo->getCompaniesDistinct($page);
 
-        $companies = array_map(function ($company) use ($locationRepo) {
-            $location = $locationRepo->findByCompany($company);
+        $companies = array_map(function ($company) {
             return [
-                "name" => $company->getName(),
-                "logo" => $company->getLogoPath(),
-                "location" => $location->getZipCode() . " - " . $location->getCity(),
+                "id" => $company["id"],
+                "company" => $company["name"],
+                "location" => $company["zipCode"] . " - " . $company["city"],
+                "icon" => $company["logoPath"],
+                "rating_count" => $company["numberOfReviews"],
             ];
         }, $companies);
 
         $response->getBody()->write(json_encode($companies));
         return $response->withHeader("Content-Type", "application/json");
     });
+
+    $app->get("/users/{page}", function (Request $request, Response $response, array $args) use ($entityManager, $logger) {
+        $page = $args["page"];
+
+        if ($page < 0) {
+            $response->withStatus(404)->getBody()->write(json_encode(["error" => "Page out of range"]));
+            return $response;
+        }
+
+        /** @var UserRepo $internshipRepo */
+        $userRepo = $entityManager->getRepository(User::class);
+
+        $users = $userRepo->getStudents($page);
+
+        $users = array_map(function ($user) {
+            return [
+                "id" => $user["id"],
+                "profile_picture" => $user["profilePicturePath"],
+                "first_name" => $user["firstName"],
+                "last_name" => $user["lastName"],
+                "location" => $user["zipCode"] . " - " . $user["city"],
+                "formation" => $user["school"],
+            ];
+        }, $users);
+
+        $response->getBody()->write(json_encode($users));
+        return $response->withHeader("Content-Type", "application/json");
+    });
+
+    $app->get("/users/{page}", function (Request $request, Response $response, array $args) use ($entityManager, $logger) {
+        $page = $args["page"];
+
+        if ($page < 0) {
+            $response->withStatus(404)->getBody()->write(json_encode(["error" => "Page out of range"]));
+            return $response;
+        }
+
+        /** @var UserRepo $internshipRepo */
+        $userRepo = $entityManager->getRepository(User::class);
+
+        $users = $userRepo->getStudents($page);
+
+        $users = array_map(function ($user) {
+            return [
+                "id" => $user["id"],
+                "profile_picture" => $user["profilePicturePath"],
+                "first_name" => $user["firstName"],
+                "last_name" => $user["lastName"],
+                "location" => $user["zipCode"] . " - " . $user["city"],
+                "formation" => $user["school"],
+            ];
+        }, $users);
+
+        $response->getBody()->write(json_encode($users));
+        return $response->withHeader("Content-Type", "application/json");
+    });
+
+
 };

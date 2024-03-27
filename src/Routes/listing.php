@@ -6,15 +6,17 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Log\LoggerInterface as Logger;
 use Slim\App;
 use Slim\Views\Twig;
+use stagify\Model\Entities\Company;
 use stagify\Model\Entities\InternshipOffer;
+use stagify\Model\Entities\User;
 use stagify\Model\Repositories\InternshipOfferRepo;
 use function stagify\render;
 
 return function (App $app, Logger $logger, Twig $twig, EntityManager $entityManager, string $fileDirectory) {
     $app->get("/internships", function (Request $request, Response $response) use ($entityManager) {
-        $total = $request->getQueryParams()["count"] ?? false;
+        $count = $request->getQueryParams()["count"] ?? false;
 
-        if ($total) {
+        if ($count) {
             /** @var InternshipOfferRepo $internshipRepo */
             $internshipRepo = $entityManager->getRepository(InternshipOffer::class);
             $response->getBody()->write(json_encode(["count" => $internshipRepo->count([])]));
@@ -24,11 +26,27 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
         return render($response, "pages/internships.twig");
     })->setName("internships");
 
-    $app->get("/companies", function (Request $request, Response $response) {
+    $app->get("/companies", function (Request $request, Response $response) use ($entityManager) {
+        $count = $request->getQueryParams()["count"] ?? false;
+
+        if ($count) {
+            $companyRepo = $entityManager->getRepository(Company::class);
+            $response->getBody()->write(json_encode(["count" => $companyRepo->count([])]));
+            return $response->withHeader("Content-Type", "application/json");
+        }
+
         return render($response, "pages/companies.twig");
     })->setName("companies");
 
-    $app->get("/users", function (Request $request, Response $response) {
+    $app->get("/users", function (Request $request, Response $response) use ($entityManager){
+        $count = $request->getQueryParams()["count"] ?? false;
+
+        if ($count) {
+            $userRepo = $entityManager->getRepository(User::class);
+            $response->getBody()->write(json_encode(["count" => $userRepo->count([])]));
+            return $response->withHeader("Content-Type", "application/json");
+        }
+
         return render($response, "pages/users.twig");
     })->setName("users");
 
