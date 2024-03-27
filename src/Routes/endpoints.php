@@ -8,7 +8,6 @@ use Slim\App;
 use Slim\Views\Twig;
 use stagify\Model\Entities\Company;
 use stagify\Model\Entities\InternshipOffer;
-use stagify\Model\Entities\Location;
 use stagify\Model\Entities\User;
 use stagify\Model\Repositories\CompanyRepo;
 use stagify\Model\Repositories\InternshipOfferRepo;
