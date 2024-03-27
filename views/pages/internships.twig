@@ -2,7 +2,10 @@
 {% set alternative_search_bar = true %}
 {% set pagination = true %}
 {% extends "components/layouts/layout.twig" %}
-{% import "components/tiles/internship_tile.twig" as job_tile %}
+
+{% block templates %}
+    {{ include("components/tiles/internship_tile.twig") }}
+{% endblock %}
 
 {% block header %}
     <section class="bg-deepWarmGrey ">
@@ -14,10 +17,10 @@
                 <div class="col-lg-4 col-md-5 col-7 text-end">
                     <div class="dropdown dropdown-menu-end">
                         <div class="btn btn-deepWarmGrey shadow" data-bs-toggle="dropdown"
-                             data-bs-target="#dropdownMenuButtonJob">
+                             data-bs-target="#intershipFilters">
                             <img src="/assets/svg/misc/sliders.svg" alt="slider"> Filtres
                         </div>
-                        {{ include("components/filters/jobs_filter.twig") }}
+                        {{ include("components/filters/internship_filters.twig") }}
                     </div>
                 </div>
             </div>
@@ -31,17 +34,22 @@
             <div class="row" id="internships"></div>
         </div>
     </section>
-    {{ include("components/tiles/internship_tile.twig") }}
 {% endblock %}
 
 {% block pagination %}
     <script>
+        const element = $("#internships");
+        const filters = $("#intershipFilters");
+
+        setLoading(element);
+
+        console.log(filters);
+
         (async function() {
             $("#pagination").pagination({
-                count: Math.ceil((await fetch("/internships?count=true").then(response => response.json().then(data => data)))["count"] / 5),
+                count: Math.ceil((await fetch("/internships?count=true").then(response => response.json().then(data => data)))["count"] / 12),
                 maxVisible: 5,
             }).on("changePage", function (event, page) {
-                const element = $("#internships");
                 setLoading(element);
                 retrieve(element, $("#internship_tile"), `/internships/${page}`);
             }).trigger("changePage", 1);
