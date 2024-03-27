@@ -9,8 +9,10 @@ use Slim\Views\Twig;
 use stagify\Model\Entities\Company;
 use stagify\Model\Entities\InternshipOffer;
 use stagify\Model\Entities\Location;
+use stagify\Model\Entities\Skill;
 use stagify\Model\Repositories\CompanyRepo;
 use stagify\Model\Repositories\InternshipOfferRepo;
+use stagify\Model\Repositories\SkillRepo;
 
 return function (App $app, Logger $logger, Twig $twig, EntityManager $entityManager) {
     $app->get("/internships/{page}", function (Request $request, Response $response, array $args) use ($entityManager, $logger) {
@@ -53,11 +55,9 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
         }
 
         $companyRepo = $entityManager->getRepository(Company::class);
-
         $locationRepo = $entityManager->getRepository(Location::class);
 
         $companies = $companyRepo->getCompaniesDistinct($page);
-
         $companies = array_map(function ($company) use ($locationRepo) {
             $location = $locationRepo->findByCompany($company);
             return [
@@ -68,6 +68,23 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
         }, $companies);
 
         $response->getBody()->write(json_encode($companies));
+        return $response->withHeader("Content-Type", "application/json");
+    });
+
+    $app->get("/skills/{pattern}", function (Request $request, Response $response, array $args) use ($entityManager, $logger) {
+        $pattern = $args["pattern"];
+
+        /** @var SkillRepo $internshipRepo */
+        $skillRepo = $entityManager->getRepository(Skill::class);
+
+        $skills = $skillRepo->findSuggestions($pattern);
+        $skills = array_map(function ($skill) {
+            return [
+                "name" => $skill->getName(),
+            ];
+        }, $skills);
+
+        $response->getBody()->write(json_encode($skills));
         return $response->withHeader("Content-Type", "application/json");
     });
 };

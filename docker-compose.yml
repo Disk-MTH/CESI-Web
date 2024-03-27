@@ -39,7 +39,7 @@ services:
     container_name: stagify-phpmyadmin
     image: phpmyadmin/phpmyadmin
     labels:
-      - "traefik.http.routers.phpmyadmin.rule=Host(`admin.stadigy.fr`)"
+      - "traefik.http.routers.phpmyadmin.rule=Host(`admin.stagify.fr`)"
     depends_on:
       - mysql
     environment:

@@ -1,28 +1,27 @@
-<div class="dropdown-menu  shadow-lg px-4" id="intershipFilters">
+<div class="dropdown-menu shadow-lg px-4" id="intershipFilters">
     <label class="pt-2">Filtrer Stages par</label>
+    <div class="dropdown-divider"></div>
+
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="date" id="dateDesc">
+        <label class="form-check-label" for="dateDesc">Les plus récents</label>
+    </div>
+
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="date" id="dateAsc">
+        <label class="form-check-label" for="dateAsc">Les plus anciens</label>
+    </div>
 
     <div class="dropdown-divider"></div>
 
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="dateRadio" id="dateRadio1" value="option1">
-        <label class="form-check-label" for="dateRadio1">Les plus récents</label>
+        <input class="form-check-input" type="radio" name="rating" id="ratingDesc">
+        <label class="form-check-label" for="ratingDesc">Avis (décroissant)</label>
     </div>
 
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="dateRadio" id="dateRadio2" value="option2">
-        <label class="form-check-label" for="dateRadio2">Les plus anciens</label>
-    </div>
-
-    <div class="dropdown-divider"></div>
-
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="ratingRadio" id="ratingRadio1" value="option1">
-        <label class="form-check-label" for="ratingRadio1">Avis (décroissant)</label>
-    </div>
-
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="ratingRadio" id="ratingRadio2" value="option2">
-        <label class="form-check-label" for="ratingRadio2">Avis (croissant)</label>
+        <input class="form-check-input" type="radio" name="rating" id="ratingAsc">
+        <label class="form-check-label" for="ratingAsc">Avis (croissant)</label>
     </div>
 
     <div class="dropdown-divider pt-2"></div>
@@ -30,43 +29,41 @@
     <div class="dropdown-divider pb-2"></div>
 
     <div class="form-check py-1">
-        <input class="form-check-input py-1" type="checkbox" value="" id="defaultCheck5">
-        <label class="form-check-label" for="defaultCheck5">
-            Sur site
-        </label>
+        <input class="form-check-input py-1" type="checkbox" id="office">
+        <label class="form-check-label" for="office">Sur site</label>
     </div>
 
     <div class="form-check py-1">
-        <input class="form-check-input py-1" type="checkbox" value="" id="defaultCheck6">
-        <label class="form-check-label" for="defaultCheck6">
-            Hybride
-        </label>
+        <input class="form-check-input py-1" type="checkbox" id="hybrid">
+        <label class="form-check-label" for="hybrid">Hybride</label>
     </div>
 
     <div class="form-check py-1">
-        <input class="form-check-input py-1" type="checkbox" value="" id="defaultCheck7">
-        <label class="form-check-label" for="defaultCheck7">
-            Full remote
-        </label>
+        <input class="form-check-input py-1" type="checkbox" id="remote">
+        <label class="form-check-label" for="remote">Télétravail</label>
     </div>
 
     <div class="dropdown-divider pt-2"></div>
     <label>Compétences</label>
     <div class="dropdown-divider pb-2"></div>
 
-    <div class="input-group rounded-5 shadow ">
-        <input type="text" class="form-control" placeholder="Compétences" list="list-skills" id="input-datalist"
-               aria-label="skills">
+    <div class="input-group rounded-5 shadow" id="skills">
+        <input class="form-control" type="text" placeholder="Compétences" id="skillsField">
         <div class="input-group-append">
-            <button class="btn btn-deepSeaBlue rounded-start-0" type="button">Ajouter</button>
+            <div class="btn btn-deepSeaBlue rounded-start-0" onclick="addFilterItem('skillsList', 'skillsField')">Ajouter</div>
         </div>
     </div>
 
-    <div class="pb-2"></div>
+    <div id="skillsList"></div>
 
     <div class="dropdown-divider pb-2"></div>
 
-    <div class="text-end">
-        <div class="btn btn-deepSeaBlue">Valider</div>
+    <div class="row">
+        <div class="col text-start">
+            <div class="btn btn-deepSeaBlue" onclick="resetFilters()">Réinitialiser</div>
+        </div>
+        <div class="col text-end">
+            <div class="btn btn-deepSeaBlue" onclick="applyFilters()">Valider</div>
+        </div>
     </div>
 </div>

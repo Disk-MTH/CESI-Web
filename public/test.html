@@ -1,22 +1,51 @@
 <html lang="en">
 <head>
-    <script src="/assets/jquery.min.js"></script>
-    <script src="/assets/bootstrap.min.js"></script>
-    <script src="/assets/pagination.js"></script>
-    <link rel="stylesheet" href="/assets/bootstrap.css">
-    <title>Test</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery UI Autocomplete - Default functionality</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            var availableTags = [
+                "ActionScript",
+                "AppleScript",
+                "Asp",
+                "BASIC",
+                "C",
+                "C++",
+                "Clojure",
+                "COBOL",
+                "ColdFusion",
+                "Erlang",
+                "Fortran",
+                "Groovy",
+                "Haskell",
+                "Java",
+                "JavaScript",
+                "Lisp",
+                "Perl",
+                "PHP",
+                "Python",
+                "Ruby",
+                "Scala",
+                "Scheme"
+            ];
+            $( "#tags" ).autocomplete({
+                source: availableTags
+            });
+        } );
+    </script>
 </head>
 <body>
-<div id="content"></div>
-<nav id="paginator"></nav>
-<script>
-    $('#paginator').pagination({
-        count: 23,
-        maxVisible: 5,
-    }).on("changePage", function (event, num) {
-        $("#content").html("Page " + num);
-    }).trigger("changePage", 1);
-</script>
+
+<div class="ui-widget">
+    <label for="tags">Tags: </label>
+    <input id="tags">
+</div>
+
 
 </body>
 </html>

@@ -1,5 +1,5 @@
 const VERBOSE = true;
-const VERSION = "V4";
+const VERSION = "V5";
 const CACHED_FILES = [
     "/assets/img/logo.ico",
     "/assets/bootstrap.css",

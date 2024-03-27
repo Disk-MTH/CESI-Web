@@ -1,5 +1,11 @@
 @charset "UTF-8";
 /* ------------------------- Variables ------------------------- */
+.ui-autocomplete {
+  z-index: 1050 !important;
+  /*  max-width: none !important;
+    width: fit-content !important;*/
+}
+
 /*$btn-border-radius: 1rem;
 $btn-border-radius-sm: 1rem;
 $btn-border-radius-lg: 1rem;

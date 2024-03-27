@@ -7,8 +7,9 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Table;
+use stagify\Model\Repositories\SkillRepo;
 
-#[Entity, Table(name: "skill")]
+#[Entity(repositoryClass: SkillRepo::class), Table(name: "skill")]
 class Skill
 {
     #[Id, Column(type: "integer"), GeneratedValue(strategy: "AUTO")]
@@ -16,14 +17,6 @@ class Skill
 
     #[Column(type: "string", nullable: false)]
     private string $name;
-
-    public function toArray() : array
-    {
-        return [
-            "id" => $this->id,
-            "name" => $this->name
-        ];
-    }
 
     /*-------------------------------------------------- Getters --------------------------------------------------*/
 

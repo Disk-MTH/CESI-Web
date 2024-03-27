@@ -72,25 +72,6 @@ class InternshipOffer
         $this->rates = new ArrayCollection();
     }
 
-    public function toArray(): array
-    {
-        return [
-            "id" => $this->id,
-            "startDate" => $this->startDate->format("Y-m-d"),
-            "endDate" => $this->endDate->format("Y-m-d"),
-            "durationDays" => $this->durationDays,
-            "lowSalary" => $this->lowSalary,
-            "highSalary" => $this->highSalary,
-            "placeCount" => $this->placeCount,
-            "title" => $this->title,
-            "description" => $this->description,
-            "deleted" => $this->deleted,
-            "location" => $this->location->toArray(),
-            "skills" => $this->skills->map(fn(Skill $skill) => $skill->toArray())->toArray(),
-            "rates" => $this->rates->map(fn(Rate $rate) => $rate->toArray())->toArray()
-        ];
-    }
-
     /*-------------------------------------------------- Getters --------------------------------------------------*/
 
     public function getId(): int

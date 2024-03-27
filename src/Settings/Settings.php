@@ -29,13 +29,14 @@ class Settings implements SettingsInterface
             "twig" => [
                 "path" => __DIR__ . "/../../views/",
                 "options" => [
-                    "cache" => false,
-                    //TODO: Add more options
+                    "cache" => false
+//                    "cache" => __DIR__ . "/../../cache/twig",
                 ],
             ],
 
             "doctrine" => [
                 "paths" => array(__DIR__ . "/../Model/Entities"),
+                "cache_dir" => __DIR__ . "/../../cache/doctrine",
                 "dev_mode" => $env["APP_DEBUG"],
                 "connection" => [
                     "driver" => $env["DB_DRIVER"],

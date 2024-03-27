@@ -23,6 +23,10 @@
         if (!settings.maxVisible || isNaN(settings.maxVisible)) settings.maxVisible = settings.count;
         if (settings.maxVisible < 1 || settings.maxVisible > settings.count) settings.maxVisible = settings.count;
 
+        this.changePage = function() {
+            $owner.trigger("changePage", [settings.page]);
+        }
+
         function href(page) {
             return settings.href.replace(settings.hrefVariable, page);
         }
@@ -57,7 +61,8 @@
                 e.preventDefault();
                 settings.page = parseInt($(this).text(), 10);
                 $owner.pagination(settings);
-                $owner.trigger("changePage", [settings.page]);
+                // $owner.trigger("changePage", [settings.page]);
+                this.changePage();
             });
 
             $pagination.find(".previous-page").click(function (e) {
@@ -65,7 +70,8 @@
                 if (settings.page > 1) {
                     settings.page--;
                     $owner.pagination(settings);
-                    $owner.trigger("changePage", [settings.page]);
+                    // $owner.trigger("changePage", [settings.page]);
+                    this.changePage();
                 }
             });
 
@@ -74,7 +80,8 @@
                 if (settings.page < settings.count) {
                     settings.page++;
                     $owner.pagination(settings);
-                    $owner.trigger("changePage", [settings.page]);
+                    // $owner.trigger("changePage", [settings.page]);
+                    this.changePage();
                 }
             });
         });

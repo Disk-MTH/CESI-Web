@@ -6,13 +6,13 @@
         </textarea>
     {% elseif password %}
         <div class="input-group rounded-5 {% if shadow %}shadow{% endif %}">
-            <input
+            <input class="form-control" id="{{ id }}" name="{{ id }}"
                     {% if password %}
                         type="password"
                     {% else %}
                         type="text"
                     {% endif %}
-                    class="form-control" id="{{ id }}" name="{{ id }}" value="{{ old[id] }}" aria-label="">
+                    value="{{ old[id] }}" aria-label="">
             {% if password %}
                 <div class="input-group-text bg-deepWarmGrey" onclick="toggleText(event, '{{ id }}')">
                     <img class="img-fluid" src=/assets/svg/misc/visibility_on.svg alt="search"
@@ -21,7 +21,7 @@
             {% endif %}
         </div>
     {% elseif file %}
-        <input type="file" class="form-control rounded-5 {% if shadow %}shadow{% endif %}" id="{{ id }}" name="{{ id }}" value="{{ old[id] }}">
+        <input class="form-control rounded-5 {% if shadow %}shadow{% endif %}" type="file" id="{{ id }}" name="{{ id }}" value="{{ old[id] }}">
     {% else %}
         <input class="form-control {% if shadow %}shadow{% endif %}" id="{{ id }}" name="{{ id }}"
                value="{{ old[id] }}" aria-label="">

@@ -34,7 +34,7 @@
 {% endblock %}
 
 
-{% block pagination %}
+{% block scripting %}
     <script>
         (async function() {
             $("#pagination").pagination({
@@ -43,7 +43,7 @@
             }).on("changePage", function (event, page) {
                 const element = $("#companies");
                 setLoading(element);
-                retrieve(element, $("#company_tile"), `/companies/${page}`);
+                retrieve(element, $("#companyTile"), `/companies/${page}`);
             }).trigger("changePage", 1);
         })();
     </script>

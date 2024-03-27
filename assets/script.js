@@ -97,16 +97,33 @@ function retrieve(element, template, endpoint) {
                 element.empty();
                 data.forEach((item) => {
                     element.append(
-                        template.html().replace(/{(\w+)}/g, function(match, key) {
+                        template.html().replace(/{(\w+)}/g, function (match, key) {
                             return item[key] || "";
                         })
                     );
                 });
 
-                if(element.children().length === 0) setError(element);
+                if (element.children().length === 0) setError(element);
             });
         } else {
             setError(element);
         }
     });
+}
+
+function addFilterItem(listId, contentId) {
+    const content = $(`#${contentId}`);
+
+    $(`#${listId}`).append(
+        $("#filterItem")
+            .html()
+            .replaceAll("{id}", Math.random().toString(36).substring(10))
+            .replace("{content}", content.val())
+    );
+
+    content.val("");
+}
+
+function removeFilterItem(id) {
+    $(`#${id}`).remove();
 }
