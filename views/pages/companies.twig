@@ -39,7 +39,7 @@
 
 {% block pagination %}
     <script>
-        (async function() {
+        (async function () {
             $("#pagination").pagination({
                 count: Math.ceil((await fetch("/companies?count=true").then(response => response.json().then(data => data)))["count"] / 12),
                 maxVisible: 5,

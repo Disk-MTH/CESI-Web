@@ -100,7 +100,7 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
         return $response->withHeader("Content-Type", "application/json");
     });
 
-    $app->get("/users/{page}", function (Request $request, Response $response, array $args) use ($entityManager, $logger) {
+    $app->get("/pilots/{page}", function (Request $request, Response $response, array $args) use ($entityManager, $logger) {
         $page = $args["page"];
 
         if ($page < 0) {
@@ -111,7 +111,7 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
         /** @var UserRepo $internshipRepo */
         $userRepo = $entityManager->getRepository(User::class);
 
-        $users = $userRepo->getStudents($page);
+        $users = $userRepo->getPilots($page);
 
         $users = array_map(function ($user) {
             return [
@@ -120,7 +120,6 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
                 "first_name" => $user["firstName"],
                 "last_name" => $user["lastName"],
                 "location" => $user["zipCode"] . " - " . $user["city"],
-                "formation" => $user["school"],
             ];
         }, $users);
 

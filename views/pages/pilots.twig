@@ -1,9 +1,10 @@
 {% set title = "Stagify - Utilisateurs" %}
 {% set alternative_search_bar = true %}
 {% extends "components/layouts/layout.twig" %}
+{% set pagination = true %}
 
 {% block templates %}
-    {{ include("components/tiles/user_tile.twig") }}
+    {{ include("components/tiles/pilot_tile.twig") }}
 {% endblock %}
 
 {% block header %}
@@ -32,20 +33,35 @@
     <section>
         <div class="container pt-4">
             <div class="row mb-2">
-                <div class="col-6 text-center border-end border-heavyBlack " >
+                <div class="col-6 text-center border-end border-heavyBlack ">
                     <a class="text-decoration-none text-heavyBlack" href={{ url_for("users") }}>
                         <h4>Etudiants</h4>
                     </a>
                 </div>
-                <div class="col-6 text-center text-deepSeaBlue" >
-                    <a class="disabled text-decoration-none" href={{ url_for("pilots") }} >
+                <div class="col-6 text-center text-deepSeaBlue">
+                    <a class="disabled text-decoration-none" href={{ url_for("pilots") }}>
                         <h4>Pilotes</h4>
                     </a>
                 </div>
             </div>
             <hr>
-            <div class="row">
+            <div class="row" id="pilots">
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block pagination %}
+    <script>
+        (async function () {
+            $("#pagination").pagination({
+                count: Math.ceil((await fetch("/pilots?count=true").then(response => response.json().then(data => data)))["count"] / 12),
+                maxVisible: 5,
+            }).on("changePage", function (event, page) {
+                const element = $("#pilots");
+                setLoading(element);
+                retrieve(element, $("#pilot_tile"), `/pilots/${page}`);
+            }).trigger("changePage", 1);
+        })();
+    </script>
 {% endblock %}

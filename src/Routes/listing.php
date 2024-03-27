@@ -38,7 +38,7 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
         return render($response, "pages/companies.twig");
     })->setName("companies");
 
-    $app->get("/users", function (Request $request, Response $response) use ($entityManager){
+    $app->get("/users", function (Request $request, Response $response) use ($entityManager) {
         $count = $request->getQueryParams()["count"] ?? false;
 
         if ($count) {
@@ -55,7 +55,15 @@ return function (App $app, Logger $logger, Twig $twig, EntityManager $entityMana
         return render($response, "pages/wishlist.twig");
     })->setName("wishlist");
 
-    $app->get("/pilots", function (Request $request, Response $response) {
+    $app->get("/pilots", function (Request $request, Response $response) use ($entityManager) {
+        $count = $request->getQueryParams()["count"] ?? false;
+
+        if ($count) {
+            $userRepo = $entityManager->getRepository(User::class);
+            $response->getBody()->write(json_encode(["count" => $userRepo->count([])]));
+            return $response->withHeader("Content-Type", "application/json");
+        }
+
         return render($response, "pages/pilots.twig");
     })->setName("pilots");
 
