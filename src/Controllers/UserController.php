@@ -4,7 +4,6 @@ namespace stagify\Controllers;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use stagify\Controllers\Controller;
 
 class UserController extends Controller
 {

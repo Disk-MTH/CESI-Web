@@ -10,7 +10,7 @@ use stagify\Model\Entities\Internship;
 
 final class SkillRepo extends EntityRepository
 {
-    function findSuggestions(string $pattern, $limit = 5): array
+    function suggestions(string $pattern, $limit = 5): array
     {
         $query = $this->createQueryBuilder("s")
             ->where("s.name LIKE :pattern")

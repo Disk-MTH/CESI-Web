@@ -94,7 +94,6 @@ function retrieve(element, template, endpoint) {
     fetch(endpoint, {method: "GET"}).then((response) => {
         if (response.status === 200) {
             response.json().then((data) => {
-                console.log(data);
                 element.empty();
                 data.forEach((item) => {
                     element.append(

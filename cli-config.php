@@ -15,4 +15,4 @@ require __DIR__ . "/vendor/autoload.php";
 $container = require __DIR__ . "/src/dependencies.php";
 $container = $container();
 
-ConsoleRunner::run(new SingleManagerProvider($container->get(EntityManager::class)));
+ConsoleRunner::run(new SingleManagerProvider($container->get("entityManager")));

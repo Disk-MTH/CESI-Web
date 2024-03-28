@@ -101,9 +101,9 @@
         </div>
     </nav>
 
-    <section>{% block header %} Header here {% endblock %}</section>
+    <section>{% block header %}{% endblock %}</section>
 
-    <section class="flex-fill">{% block content %} Content here {% endblock %}</section>
+    <section class="flex-fill">{% block content %}{% endblock %}</section>
 
     {{ include("components/layouts/footer.twig") }}
 

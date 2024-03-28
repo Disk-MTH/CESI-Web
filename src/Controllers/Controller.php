@@ -45,4 +45,10 @@ class Controller extends Container
     {
         return $response->withStatus(302)->withHeader("Location", $url);
     }
+
+    function json(Response $response, array $data): Response
+    {
+        $response->getBody()->write(json_encode($data));
+        return $response->withHeader("Content-Type", "application/json");
+    }
 }

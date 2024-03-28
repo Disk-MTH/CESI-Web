@@ -22,6 +22,7 @@ $routes($app);
 
 $app->run();
 
+//TODO: remove this when no longer needed
 /*$app->get("/list", function (Request $request, Response $response) use ($entityManager) {
         $users = $entityManager->getRepository(User::class)->findAll();
         return render($response, "temp/list.twig", ["users" => $users]);

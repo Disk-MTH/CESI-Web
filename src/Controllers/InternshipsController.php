@@ -23,12 +23,7 @@ class InternshipsController extends Controller
     function internships(Request $request, Response $response): Response
     {
         $total = $request->getQueryParams()["count"] ?? false;
-
-        if ($total) {
-            $response->getBody()->write(json_encode(["count" => $this->internshipRepo->count([])]));
-            return $response->withHeader("Content-Type", "application/json");
-        }
-
+        if ($total) return $this->json($response, ["count" => $this->internshipRepo->count([])]);
         return $this->render($response, "pages/internships.twig");
     }
 

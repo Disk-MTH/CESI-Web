@@ -3,30 +3,13 @@
 namespace stagify\Model\Repositories;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use stagify\Model\Entities\Company;
 use stagify\Model\Entities\Internship;
+use Throwable;
 
 final class CompanyRepo extends EntityRepository
 {
-    /**
-     * @throws NonUniqueResultException
-     * @throws NoResultException
-     */
-    function findByInternshipOffer(Internship $internshipOffer): Company
-    {
-        $query = $this->createQueryBuilder('c')
-            ->select('c')
-            ->innerJoin('c.internshipOffers', 'io')
-            ->where('io.id = :internshipOfferId')
-            ->setParameter('internshipOfferId', $internshipOffer->getId())
-            ->getQuery();
-
-        return $query->getSingleResult();
-    }
-
-    function getCompanies(int $page, int $limit = 12): array
+    function pagination(int $page, int $limit = 12): array
     {
         $query = $this->createQueryBuilder("c")
             ->select("c")
@@ -38,6 +21,23 @@ final class CompanyRepo extends EntityRepository
         return $query->getResult();
     }
 
+    function byInternship(Internship $internshipOffer): Company|null
+    {
+        $query = $this->createQueryBuilder('c')
+            ->select('c')
+            ->innerJoin('c.internshipOffers', 'io')
+            ->where('io.id = :internshipOfferId')
+            ->setParameter('internshipOfferId', $internshipOffer->getId())
+            ->getQuery();
+
+        try {
+            return $query->getSingleResult();
+        } catch (Throwable) {
+            return null;
+        }
+    }
+
+    //TODO: Rename this
     function getCompaniesDistinct(int $page, int $limit = 12): array
     {
         $query = $this->createQueryBuilder('c')

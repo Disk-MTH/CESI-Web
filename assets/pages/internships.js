@@ -14,11 +14,11 @@
             "skills": $("#skillsList").children().map((index, item) => $(item).find("#filterItemContent").text()).get(),
         };
 
-        // Object.keys(filters).forEach(key => filters[key] === null && delete filters[key]);
+        Object.keys(filters).forEach(key => (filters[key] === null || filters[key].length === 0) && delete filters[key]);
         console.log("filters: ", filters);
 
         setLoading(element);
-        retrieve(element, $("#internship_tile"), `/internships/${page}`);
+        retrieve(element, $("#internship_tile"), `/internships/${page}?${new URLSearchParams(filters).toString()}`);
     }).trigger("changePage", 1);
 })();
 
@@ -34,6 +34,11 @@ $("#skillsField").autocomplete({
     },
     classes: {
         "ui-autocomplete": "card",
+    },
+    messages: {
+        noResults: "",
+        results: function () {
+        },
     },
 });
 

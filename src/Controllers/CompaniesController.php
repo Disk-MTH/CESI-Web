@@ -23,12 +23,7 @@ class CompaniesController extends Controller
     function companies(Request $request, Response $response): Response
     {
         $total = $request->getQueryParams()["count"] ?? false;
-
-        if ($total) {
-            $response->getBody()->write(json_encode(["count" => $this->companyRepo->count([])]));
-            return $response->withHeader("Content-Type", "application/json");
-        }
-
+        if ($total) return $this->json($response, ["count" => $this->companyRepo->count([])]);
         return $this->render($response, "pages/companies.twig");
     }
 

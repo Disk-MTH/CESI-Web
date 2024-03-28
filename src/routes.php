@@ -3,6 +3,7 @@
 namespace stagify;
 
 use Slim\App;
+use stagify\Controllers\ApiController;
 use stagify\Controllers\CompaniesController;
 use stagify\Controllers\InternshipsController;
 use stagify\Controllers\MiscController;
@@ -76,4 +77,12 @@ return function (App $app) {
     $app->get("/internship/apply", [InternshipsController::class, "apply"])->setName("apply_internship");
 
     $app->get("/create/internship", [InternshipsController::class, "createInternship"])->setName("create_internship");
+
+    /* ---------------------------------------- API ----------------------------------------*/
+
+    $app->get("/internships/{page}", [ApiController::class, "internships"]);
+
+    $app->get("/companies/{page}", [ApiController::class, "companies"]);
+
+    $app->get("/skills/{pattern}", [ApiController::class, "skills"]);
 };

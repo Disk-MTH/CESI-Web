@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
 use stagify\Model\Repositories\InternshipRepo;
 
-#[Entity(repositoryClass: InternshipRepo::class), Table(name: "internship_offer")]
+#[Entity(repositoryClass: InternshipRepo::class), Table(name: "internship")]
 class Internship
 {
     #[Id, Column(type: "integer"), GeneratedValue(strategy: "AUTO")]
