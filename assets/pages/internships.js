@@ -9,15 +9,12 @@
 
     pagination.on("changePage", function (event, page) {
         const filters = {
-            "date": $("#dateDesc").is(':checked') ? "desc" : $("#dateAsc").is(':checked') ? "asc" : null,
-            "rating": $("#ratingDesc").is(':checked') ? "desc" : $("#ratingAsc").is(':checked') ? "asc" : null,
-            "office": $("#office").is(':checked') ? true : null,
-            "hybrid": $("#hybrid").is(':checked') ? true : null,
-            "remote": $("#remote").is(':checked') ? true : null,
-            "skills": $("#skillsList").children().map((index, item) => $(item).text()).get(),
+            "date": $("#dateDesc").is(':checked') ? "DESC" : $("#dateAsc").is(':checked') ? "ASC" : null,
+            "rating": $("#ratingDesc").is(':checked') ? "DESC" : $("#ratingAsc").is(':checked') ? "ASC" : null,
+            "skills": $("#skillsList").children().map((index, item) => $(item).find("#filterItemContent").text()).get(),
         };
 
-        Object.keys(filters).forEach(key => filters[key] === null && delete filters[key]);
+        // Object.keys(filters).forEach(key => filters[key] === null && delete filters[key]);
         console.log("filters: ", filters);
 
         setLoading(element);
@@ -41,8 +38,7 @@ $("#skillsField").autocomplete({
 });
 
 function resetFilters() {
-    $("input[type=radio]").prop('checked', false);
-    $("input[type=checkbox]").prop('checked', false);
+    $("input[type=radio]").prop("checked", false);
     $("#skillsField").val("");
     $("#skillsList").empty();
 }

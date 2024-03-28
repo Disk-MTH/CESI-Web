@@ -21,7 +21,55 @@
                              data-bs-target="#intershipFilters">
                             <img src="/assets/svg/misc/sliders.svg" alt="slider"> Filtres
                         </div>
-                        {{ include("components/filters/internship_filters.twig") }}
+
+                        <div class="dropdown-menu shadow-lg px-4" id="intershipFilters">
+                            <label class="pt-2">Filtrer Stages par</label>
+                            <div class="dropdown-divider"></div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="date" id="dateDesc">
+                                <label class="form-check-label" for="dateDesc">Les plus récents</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="date" id="dateAsc">
+                                <label class="form-check-label" for="dateAsc">Les plus anciens</label>
+                            </div>
+
+                            <div class="dropdown-divider"></div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rating" id="ratingDesc">
+                                <label class="form-check-label" for="ratingDesc">Avis (décroissant)</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rating" id="ratingAsc">
+                                <label class="form-check-label" for="ratingAsc">Avis (croissant)</label>
+                            </div>
+
+                            <div class="dropdown-divider pt-2"></div>
+
+                            <div class="input-group rounded-5 shadow" id="skills">
+                                <input class="form-control" type="text" placeholder="Compétences" id="skillsField">
+                                <div class="input-group-append">
+                                    <div class="btn btn-deepSeaBlue rounded-start-0" onclick="addFilterItem('skillsList', 'skillsField')">Ajouter</div>
+                                </div>
+                            </div>
+
+                            <div id="skillsList"></div>
+
+                            <div class="dropdown-divider pb-2"></div>
+
+                            <div class="row">
+                                <div class="col text-start">
+                                    <div class="btn btn-deepSeaBlue" onclick="resetFilters()">Réinitialiser</div>
+                                </div>
+                                <div class="col text-end">
+                                    <div class="btn btn-deepSeaBlue" onclick="applyFilters()">Valider</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

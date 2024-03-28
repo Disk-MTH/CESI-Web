@@ -7,29 +7,34 @@ use Psr\Log\LoggerInterface as Logger;
 use Slim\App;
 use Slim\Views\Twig;
 use stagify\Model\Entities\Company;
-use stagify\Model\Entities\InternshipOffer;
+use stagify\Model\Entities\Internship;
 use stagify\Model\Entities\Location;
 use stagify\Model\Entities\Skill;
 use stagify\Model\Repositories\CompanyRepo;
-use stagify\Model\Repositories\InternshipOfferRepo;
+use stagify\Model\Repositories\InternshipRepo;
 use stagify\Model\Repositories\SkillRepo;
 
 return function (App $app, Logger $logger, Twig $twig, EntityManager $entityManager) {
     $app->get("/internships/{page}", function (Request $request, Response $response, array $args) use ($entityManager, $logger) {
+        $queryArgs = $request->getQueryParams();
+
         $page = $args["page"];
+        $date = $queryArgs["date"] ?? null;
+        $rating = $queryArgs["rating"] ?? null;
+        $skills = $queryArgs["skills"] ?? [];
 
         if ($page < 0) {
             $response->withStatus(404)->getBody()->write(json_encode(["error" => "Page out of range"]));
             return $response;
         }
 
-        /** @var InternshipOfferRepo $internshipRepo */
-        $internshipRepo = $entityManager->getRepository(InternshipOffer::class);
+        /** @var InternshipRepo $internshipRepo */
+        $internshipRepo = $entityManager->getRepository(Internship::class);
 
         /** @var CompanyRepo $companyRepo */
         $companyRepo = $entityManager->getRepository(Company::class);
 
-        $internships = $internshipRepo->getInternshipOffers($page);
+        $internships = $internshipRepo->getInternships($page, $date, $rating, $skills);
         $internships = array_map(function ($internship) use ($companyRepo) {
             $company = $companyRepo->findByInternshipOffer($internship);
             return [

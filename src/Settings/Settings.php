@@ -6,7 +6,7 @@ use Bramus\Monolog\Formatter\ColoredLineFormatter;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Level;
 
-class Settings implements SettingsInterface
+class Settings
 {
     private array $settings;
 
@@ -17,6 +17,7 @@ class Settings implements SettingsInterface
             "displayErrorDetails" => $env["APP_DISPLAY_ERRORS_DETAILS"],
             "logErrors" => $env["APP_LOG_ERRORS"],
             "logErrorDetails" => $env["APP_LOG_ERROR_DETAILS"],
+            "fileDirectory" => __DIR__ . "/../public/files",
 
             "logger" => [
                 "name" => $env["APP_NAME"],
@@ -29,8 +30,7 @@ class Settings implements SettingsInterface
             "twig" => [
                 "path" => __DIR__ . "/../../views/",
                 "options" => [
-                    "cache" => false
-//                    "cache" => __DIR__ . "/../../cache/twig",
+                    "cache" => $_ENV["APP_DEBUG"] === "true" ? false : __DIR__ . "/../../cache/twig",
                 ],
             ],
 

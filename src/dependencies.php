@@ -11,22 +11,20 @@ use Dotenv\Dotenv;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Psr\Container\ContainerInterface;
-use Psr\Log\LoggerInterface;
 use Slim\Views\Twig;
 use stagify\Settings\Settings;
-use stagify\Settings\SettingsInterface;
 
 return function (): Container {
     Dotenv::createImmutable(__DIR__ . "/../")->load();
     $containerBuilder = new ContainerBuilder();
 
     $containerBuilder->addDefinitions([
-        SettingsInterface::class => function () {
+        "settings" => function () {
             return new Settings($_ENV);
         },
 
-        LoggerInterface::class => function (ContainerInterface $container) {
-            $loggerSettings = $container->get(SettingsInterface::class)->get("logger");
+        "logger" => function (ContainerInterface $container) {
+            $loggerSettings = $container->get("settings")->get("logger");
             $logger = new Logger($loggerSettings["name"]);
 
             $file = new StreamHandler($loggerSettings["filePath"], $loggerSettings["level"]);
@@ -41,13 +39,13 @@ return function (): Container {
             return $logger;
         },
 
-        Twig::class => function (ContainerInterface $container) {
-            $twigSettings = $container->get(SettingsInterface::class)->get("twig");
+        "twig" => function (ContainerInterface $container) {
+            $twigSettings = $container->get("settings")->get("twig");
             return Twig::create($twigSettings["path"], $twigSettings["options"]);
         },
 
-        EntityManager::class => function (ContainerInterface $container) {
-            $ormSettings = $container->get(SettingsInterface::class)->get("doctrine");
+        "entityManager" => function (ContainerInterface $container) {
+            $ormSettings = $container->get("settings")->get("doctrine");
 
             $config = ORMSetup::createAttributeMetadataConfiguration(
                 paths: $ormSettings["paths"],
@@ -57,13 +55,11 @@ return function (): Container {
 
             return new EntityManager($connection, $config);
         },
-
-        "fileDirectory" => __DIR__ . "/../public/files",
     ]);
 
     if ($_ENV["APP_DEBUG"] === "false") {
         $containerBuilder->enableCompilation(__DIR__ . "/../cache");
     }
-    return $containerBuilder->build();
 
+    return $containerBuilder->build();
 };

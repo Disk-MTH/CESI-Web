@@ -15,10 +15,10 @@ use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
-use stagify\Model\Repositories\InternshipOfferRepo;
+use stagify\Model\Repositories\InternshipRepo;
 
-#[Entity(repositoryClass: InternshipOfferRepo::class), Table(name: "internship_offer")]
-class InternshipOffer
+#[Entity(repositoryClass: InternshipRepo::class), Table(name: "internship_offer")]
+class Internship
 {
     #[Id, Column(type: "integer"), GeneratedValue(strategy: "AUTO")]
     private int $id;

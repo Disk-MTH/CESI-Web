@@ -3,7 +3,6 @@
 {% extends "components/layouts/layout.twig" %}
 {% import "components/tiles/job_info_tiles.twig" as job_info_tiles %}
 {% import "components/tiles/job_rating_tile.twig" as job_rating_tile %}
-{% import "components/profiles/job_profile.twig" as job_profile %}
 
 {% block header %}
     <section class="bg-deepWarmGrey rounded-bottom-5 pb-5">
@@ -14,7 +13,19 @@
                 </div>
 
                 <div class="col-md-5 col-8">
-                    {{ job_profile.content("Ingénieur logiciel","Facebook") }}
+                    <div class="container">
+                        <div class="row align-items-center ">
+                            <h2 class="mt-3">{{ job_name }}</h2>
+                            <h4 class ="mb-3 text-darkGrey">{{ company_name }}</h4>
+                            <div class="col-1" onclick="toggleWishMark(event, 'wish')">
+                                <img src="/assets/svg/misc/wish_empty.svg" alt="wish_mark" id="wish">
+                            </div>
+                            <div class="col ">
+                                <div class="btn btn-deepSeaBlue rounded-2">Faire une demande
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-4 d-none d-md-block">

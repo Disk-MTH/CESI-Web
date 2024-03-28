@@ -6,13 +6,13 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
+use stagify\Container;
 
-class FlashMiddleware implements MiddlewareInterface
+class FlashMiddleware extends Container implements MiddlewareInterface
 {
     public function process(Request $request, RequestHandler $handler): Response
     {
-        global $twig;
-        $twig->offsetSet("flash", $_SESSION["flash"] ?? null);
+        $this->twig->offsetSet("flash", $_SESSION["flash"] ?? null);
 
         if (isset($_SESSION["flash"])) {
             unset($_SESSION["flash"]);

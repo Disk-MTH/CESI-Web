@@ -71,7 +71,7 @@ class User
     #[JoinTable]
     #[JoinColumn(referencedColumnName: "id")]
     #[InverseJoinColumn(referencedColumnName: "id")]
-    #[ManyToMany(targetEntity: InternshipOffer::class)]
+    #[ManyToMany(targetEntity: Internship::class)]
     private Collection $wishes;
 
     public function __construct()
@@ -247,13 +247,13 @@ class User
         return $this;
     }
 
-    public function addWish(InternshipOffer $wish): self
+    public function addWish(Internship $wish): self
     {
         $this->wishes->add($wish);
         return $this;
     }
 
-    public function removeWish(InternshipOffer $wish): self
+    public function removeWish(Internship $wish): self
     {
         $this->wishes->removeElement($wish);
         return $this;

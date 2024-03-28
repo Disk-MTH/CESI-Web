@@ -2,61 +2,14 @@
 
 namespace stagify;
 
-use DateTime;
-use Doctrine\ORM\EntityManager;
-use Exception;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Psr\Log\LoggerInterface as Logger;
 use Slim\App;
-use Slim\Psr7\UploadedFile;
-use Slim\Views\Twig;
-use stagify\Middlewares\FlashMiddleware;
-use stagify\Model\Entities\Session;
-use stagify\Model\Entities\User;
+use stagify\Controllers\CompaniesController;
+use stagify\Controllers\InternshipsController;
+use stagify\Controllers\MiscController;
+use stagify\Controllers\UserController;
 
-/**
- * @throws Exception
- */
-function render(Response $response, string $template, array $data = []): Response
-{
-    global $twig;
-    global $entityManager;
 
-    $sessionRepo = $entityManager->getRepository(Session::class);
-    $session = $sessionRepo->findOneBy(["token" => $_COOKIE["session"] ?? ""]);
-
-    if ($session != null) {
-        if ($session->getLastActivity() < new DateTime("-" . Session::$duration)) {
-            $session = null;
-            Session::logOut();
-            FlashMiddleware::flash("warning", "Session expirée, veuillez vous reconnecter");
-        } else {
-            $session->setLastActivity(new DateTime());
-            $entityManager->flush();
-            Session::logIn($session);
-        }
-    }
-
-    if ($session == null && $template !== "pages/login.twig") {
-        return redirect($response, "login");
-    } else if ($session != null && $template === "pages/login.twig") {
-        return redirect($response, "/");
-    }
-
-    if ($session != null) {
-        $data["user"] = $entityManager->getRepository(User::class)->findOneBy(["id" => $_SESSION["user"]]);
-    }
-
-    return $twig->render($response, $template, $data);
-}
-
-function redirect(Response $response, string $url): Response
-{
-    return $response->withStatus(302)->withHeader("Location", $url);
-}
-
-//todo: remake
+/*//todo: remake
 function moveUploadedFile($directory, UploadedFile $uploadedFile): string
 {
     $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
@@ -66,33 +19,61 @@ function moveUploadedFile($directory, UploadedFile $uploadedFile): string
     $uploadedFile->moveTo($directory . DIRECTORY_SEPARATOR . $filename);
 
     return $filename;
-}
+}*/
 
-return function (App $app, Logger $logger, Twig $twig, EntityManager $entityManager, string $fileDirectory) {
-    $app->get("/", function (Request $request, Response $response) use ($entityManager, $logger) {
-        return render($response, "pages/home.twig");
-    })->setName("home");
+return function (App $app) {
+    /* ---------------------------------------- Misc ----------------------------------------*/
 
-    $app->get("/tos", function (Request $request, Response $response) {
-        return render($response, "pages/tos.twig");
-    })->setName("tos");
+    $app->get("/", [MiscController::class, "home"])->setName("home");
 
-    $app->get("/offline", function (Request $request, Response $response) use ($twig) {
-        return $twig->render($response, "pages/offline.twig");
-    })->setName("offline");
+    $app->get("/tos", [MiscController::class, "tos"])->setName("tos");
 
-    $session = require __DIR__ . "/Routes/session.php";
-    $session($app, $logger, $twig, $entityManager);
+    $app->get("/offline", [MiscController::class, "offline"])->setName("offline");
 
-    $listing = require __DIR__ . "/Routes/listing.php";
-    $listing($app, $logger, $twig, $entityManager, $fileDirectory);
+    $app->get("/login", [MiscController::class, "login"])->setName("login");
 
-    $info = require __DIR__ . "/Routes/info.php";
-    $info($app, $logger, $twig, $entityManager, $fileDirectory);
+    $app->post("/login", [MiscController::class, "login"])->setName("login");
 
-    $form = require __DIR__ . "/Routes/form.php";
-    $form($app, $logger, $twig, $entityManager, $fileDirectory);
+    $app->post("/logout", [MiscController::class, "logout"])->setName("logout");
 
-    $endpoints = require __DIR__ . "/Routes/endpoints.php";
-    $endpoints($app, $logger, $twig, $entityManager);
+    /* ---------------------------------------- Users ----------------------------------------*/
+
+    $app->get("/users/{role}", [UserController::class, "users"])->setName("users");
+
+    //TODO: /user/{id}
+    $app->get("/user", [UserController::class, "user"])->setName("user");
+
+    //TODO: user -> id
+    $app->get("/user/wishlist", [UserController::class, "wishlist"])->setName("wishlist");
+
+    $app->get("/create/user/{role}", [UserController::class, "createUser"])->setName("create_user");
+
+    /* ---------------------------------------- Companies ----------------------------------------*/
+
+    $app->get("/companies", [CompaniesController::class, "companies"])->setName("companies");
+
+    //TODO: /company/{id}
+    $app->get("/company", [CompaniesController::class, "company"])->setName("company");
+
+    //TODO: company -> id
+    $app->get("/company/rating", [CompaniesController::class, "rating"])->setName("company_rating");
+
+    $app->get("/create/company", [CompaniesController::class, "createCompany"])->setName("create_company");
+
+    $app->post("/create/company", [CompaniesController::class, "createCompany"])->setName("create_company");
+
+    /* ---------------------------------------- Internships ----------------------------------------*/
+
+    $app->get("/internships", [InternshipsController::class, "internships"])->setName("internships");
+
+    //TODO: /internship/{id}
+    $app->get("/internship", [InternshipsController::class, "internship"])->setName("internship");
+
+    //TODO: internship -> id
+    $app->get("/internship/rating", [InternshipsController::class, "rating"])->setName("internship_rating");
+
+    //TODO: internship -> id
+    $app->get("/internship/apply", [InternshipsController::class, "apply"])->setName("apply_internship");
+
+    $app->get("/create/internship", [InternshipsController::class, "createInternship"])->setName("create_internship");
 };

@@ -49,7 +49,7 @@ class Company
     #[JoinTable]
     #[JoinColumn(referencedColumnName: "id")]
     #[InverseJoinColumn(referencedColumnName: "id")]
-    #[ManyToMany(targetEntity: InternshipOffer::class)]
+    #[ManyToMany(targetEntity: Internship::class)]
     private Collection $internshipOffers;
 
     public function __construct()
@@ -156,13 +156,13 @@ class Company
         return $this;
     }
 
-    public function addInternshipOffer(InternshipOffer $internshipOffer): self
+    public function addInternshipOffer(Internship $internshipOffer): self
     {
         $this->internshipOffers->add($internshipOffer);
         return $this;
     }
 
-    public function removeInternshipOffer(InternshipOffer $internshipOffer): self
+    public function removeInternshipOffer(Internship $internshipOffer): self
     {
         $this->internshipOffers->removeElement($internshipOffer);
         return $this;

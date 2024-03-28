@@ -1,6 +1,5 @@
 {% set title = "Stagify - Utilisateur" %}
 {% extends "components/layouts/layout.twig" %}
-{% import "components/profiles/user_profile.twig" as user_profile %}
 
 {% block header %}
     <section class="bg-gradient-card">
@@ -16,7 +15,18 @@
     </section>
 
     <section class="bg-deepWarmGrey rounded-bottom-5 pb-5">
-        {{ user_profile.content(user) }}
+        <div class="container">
+            <div class="row align-items-center text-nowrap">
+                <div class="my-2"></div>
+                <h2>{{ user.getFirstName() }} {{ user.getLastName() }}</h2>
+                <h4>A{{ user.getPromos()[0].getYear() }} {{ user.getPromos()[0].getType() }} - {{ user.getPromos()[0].getSchool() }}</h4>
+                <h6 class="text-lightGrey">{{ user.getLocation().getZipCode() }} {{ user.getLocation().getCity() }}</h6>
+                <div class="my-2"></div>
+                <a class="h6 text-deepSeaBlue text-decoration-none" href="{{ url_for("home") }}"> {#user_details#}
+                    Details du profil
+                </a>
+            </div>
+        </div>
     </section>
 {% endblock %}
 

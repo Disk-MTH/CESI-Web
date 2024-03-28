@@ -2,22 +2,47 @@
 
 namespace stagify\Controllers;
 
+use DateTime;
 use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Slim\App;
-use Slim\Views\Twig;
+use stagify\Container;
+use stagify\Middlewares\FlashMiddleware;
+use stagify\Model\Entities\Session;
+use stagify\Model\Entities\User;
 
-class Controller
+class Controller extends Container
 {
-    private $app;
-
-    public function __construct(App $app)
+    function render(Response $response, string $template, array $data = []): Response
     {
-        $this->app = $app;
+        $sessionRepo = $this->entityManager->getRepository(Session::class);
+        $session = $sessionRepo->findOneBy(["token" => $_COOKIE["session"] ?? ""]);
+
+        if ($session != null) {
+            if ($session->getLastActivity() < new DateTime("-" . Session::$duration)) {
+                $session = null;
+                Session::logOut();
+                FlashMiddleware::flash("warning", "Session expirée, veuillez vous reconnecter");
+            } else {
+                $session->setLastActivity(new DateTime());
+                $this->entityManager->flush();
+                Session::logIn($session);
+            }
+        }
+
+        if ($session == null && $template !== "pages/login.twig") {
+            return $this->redirect($response, "login");
+        } else if ($session != null && $template === "pages/login.twig") {
+            return $this->redirect($response, "/");
+        }
+
+        if ($session != null) {
+            $data["user"] = $this->entityManager->getRepository(User::class)->findOneBy(["id" => $_SESSION["user"]]);
+        }
+
+        return $this->twig->render($response, $template, $data);
     }
 
-    public function render(Request $request, Response $response, String $view, array $data = []) : Response
+    function redirect(Response $response, string $url): Response
     {
-        return Twig::fromRequest($response)->render($response, $view, $data);
+        return $response->withStatus(302)->withHeader("Location", $url);
     }
 }

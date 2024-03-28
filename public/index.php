@@ -2,11 +2,7 @@
 
 namespace stagify;
 
-use Doctrine\ORM\EntityManager;
-use Psr\Log\LoggerInterface;
 use Slim\Factory\AppFactory;
-use Slim\Views\Twig; 
-use stagify\Settings\SettingsInterface;
 
 require __DIR__ . "/../vendor/autoload.php";
 
@@ -15,29 +11,14 @@ session_start();
 $container = require __DIR__ . "/../src/dependencies.php";
 $container = $container();
 
-/** @var LoggerInterface $logger */
-$logger = $container->get(LoggerInterface::class);
-
-/** @var SettingsInterface $settings */
-$settings = $container->get(SettingsInterface::class);
-
-/** @var Twig $twig */
-$twig = $container->get(Twig::class);
-
-/** @var EntityManager $entityManager */
-$entityManager = $container->get(EntityManager::class);
-
-/** @var string $fileDirectory */
-$fileDirectory = $container->get("fileDirectory");
-
 AppFactory::setContainer($container);
 $app = AppFactory::create();
 
-$routes = require __DIR__ . "/../src/routes.php";
-$routes($app, $logger, $twig, $entityManager, $fileDirectory);
-
 $middlewares = require __DIR__ . "/../src/middlewares.php";
-$middlewares($app);
+$middlewares($app, $container);
+
+$routes = require __DIR__ . "/../src/routes.php";
+$routes($app);
 
 $app->run();
 

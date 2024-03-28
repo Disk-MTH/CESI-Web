@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use stagify\Model\Entities\Company;
-use stagify\Model\Entities\InternshipOffer;
+use stagify\Model\Entities\Internship;
 
 final class SkillRepo extends EntityRepository
 {
