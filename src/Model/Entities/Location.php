@@ -10,8 +10,9 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
+use stagify\Model\Repositories\LocationRepo;
 
-#[Entity, Table(name: "location")]
+#[Entity(repositoryClass: LocationRepo::class), Table(name: "location")]
 class Location
 {
     #[Id, Column(type: "integer"), GeneratedValue(strategy: "AUTO")]

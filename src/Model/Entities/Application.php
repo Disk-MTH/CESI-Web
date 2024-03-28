@@ -27,7 +27,7 @@ class Application
 
     #[JoinColumn(referencedColumnName: "id")]
     #[ManyToOne(targetEntity: Internship::class)]
-    private Internship $internshipOffer;
+    private Internship $internship;
 
     #[JoinColumn(referencedColumnName: "id")]
     #[ManyToOne(targetEntity: User::class)]
@@ -55,9 +55,9 @@ class Application
         return $this->accepted;
     }
 
-    public function getInternshipOffer(): Internship
+    public function getInternship(): Internship
     {
-        return $this->internshipOffer;
+        return $this->internship;
     }
 
     public function getUser(): User
@@ -85,9 +85,9 @@ class Application
         return $this;
     }
 
-    public function setInternshipOffer(Internship $internshipOffer): self
+    public function setInternship(Internship $internship): self
     {
-        $this->internshipOffer = $internshipOffer;
+        $this->internship = $internship;
         return $this;
     }
 

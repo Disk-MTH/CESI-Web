@@ -5,6 +5,7 @@
 
 {% block templates %}
     {{ include("components/tiles/company_tile.twig") }}
+    {{ include("components/filters/filter_item.twig") }}
 {% endblock %}
 
 {% block header %}
@@ -17,10 +18,103 @@
                 <div class="col-4 text-end">
                     <div class="dropdown dropdown-menu-end">
                         <div class="btn btn-deepWarmGrey shadow" data-bs-toggle="dropdown"
-                             data-bs-target="#dropdownMenuButton">
+                             data-bs-target="#companiesFilter">
                             <img src="/assets/svg/misc/sliders.svg" alt="slider"> Filtres
                         </div>
-                        {{ include("components/filters/company_filter.twig") }}
+
+                        <div class="dropdown-menu shadow-lg px-4" id="companiesFilter">
+                            <label class="pt-2">Filtrer Entreprises par</label>
+                            <div class="dropdown-divider"></div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rating" id="ratingDesc">
+                                <label class="form-check-label" for="ratingDesc">Avis (décroissant)</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rating" id="ratingAsc">
+                                <label class="form-check-label" for="ratingAsc">Avis (croissant)</label>
+                            </div>
+
+                            <div class="dropdown-divider"></div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="internshipsCount"
+                                       id="internshipsCountDesc">
+                                <label class="form-check-label" for="internshipsCountDesc">
+                                    Nombre d'offres de stages (décroissant)
+                                </label>
+                            </div>
+
+                            <div class="form-check ">
+                                <input class="form-check-input" type="radio" name="internshipsCount"
+                                       id="internshipsCountAsc">
+                                <label class="form-check-label" for="internshipsCountAsc">
+                                    Nombre d'offres de stages (croissant)
+                                </label>
+                            </div>
+
+                            <div class="dropdown-divider"></div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="intersCount" id="intersCountDesc">
+                                <label class="form-check-label" for="intersCountDesc">
+                                    Nombre de stagiaires (décroissant)
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="intersCount" id="intersCountAsc">
+                                <label class="form-check-label" for="intersCountAsc">
+                                    Nombre de stagiaires (croissant)
+                                </label>
+                            </div>
+
+                            <div class="dropdown-divider pt-2"></div>
+                            <label>Taille de l'entreprise</label>
+                            <div class="dropdown-divider pb-2"></div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="employeesCount"
+                                       id="employeesCount1">
+                                <label class="form-check-label" for="employeesCount1">1-10 employés</label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="employeesCount"
+                                       id="employeesCount11">
+                                <label class="form-check-label" for="employeesCount11">11-100 employés</label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="employeesCount"
+                                       id="employeesCount101">
+                                <label class="form-check-label" for="employeesCount101">101-1000 employés</label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="employeesCount"
+                                       id="employeesCount1001">
+                                <label class="form-check-label" for="employeesCount1001">1001-10 000 employés</label>
+                            </div>
+
+                            <div class="form-check form-check-inline pb-1">
+                                <input class="form-check-input" type="radio" name="employeesCount"
+                                       id="employeesCount10001">
+                                <label class="form-check-label" for="employeesCount10001">10 000+ employés</label>
+                            </div>
+
+                            <div class="dropdown-divider pb-2"></div>
+
+                            <div class="row">
+                                <div class="col text-start">
+                                    <div class="btn btn-deepSeaBlue" onclick="resetFilters()">Réinitialiser</div>
+                                </div>
+                                <div class="col text-end">
+                                    <div class="btn btn-deepSeaBlue" onclick="applyFilters()">Valider</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -36,18 +130,6 @@
     </section>
 {% endblock %}
 
-
 {% block scripting %}
-    <script>
-        (async function () {
-            $("#pagination").pagination({
-                count: Math.ceil((await fetch("/companies?count=true").then(response => response.json().then(data => data)))["count"] / 12),
-                maxVisible: 5,
-            }).on("changePage", function (event, page) {
-                const element = $("#companies");
-                setLoading(element);
-                retrieve(element, $("#companyTile"), `/companies/${page}`);
-            }).trigger("changePage", 1);
-        })();
-    </script>
+    <script src="/assets/pages/companies.js"></script>
 {% endblock %}

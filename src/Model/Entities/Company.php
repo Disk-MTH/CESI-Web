@@ -50,13 +50,13 @@ class Company
     #[JoinColumn(referencedColumnName: "id")]
     #[InverseJoinColumn(referencedColumnName: "id")]
     #[ManyToMany(targetEntity: Internship::class)]
-    private Collection $internshipOffers;
+    private Collection $internships;
 
     public function __construct()
     {
         $this->deleted = false;
         $this->locations = new ArrayCollection();
-        $this->internshipOffers = new ArrayCollection();
+        $this->internships = new ArrayCollection();
     }
 
     /*-------------------------------------------------- Getters --------------------------------------------------*/
@@ -101,9 +101,9 @@ class Company
         return $this->locations;
     }
 
-    public function getInternshipOffers(): Collection
+    public function getInternships(): Collection
     {
-        return $this->internshipOffers;
+        return $this->internships;
     }
 
     /*-------------------------------------------------- Setters --------------------------------------------------*/
@@ -156,15 +156,15 @@ class Company
         return $this;
     }
 
-    public function addInternshipOffer(Internship $internshipOffer): self
+    public function addInternship(Internship $internship): self
     {
-        $this->internshipOffers->add($internshipOffer);
+        $this->internships->add($internship);
         return $this;
     }
 
-    public function removeInternshipOffer(Internship $internshipOffer): self
+    public function removeInternship(Internship $internship): self
     {
-        $this->internshipOffers->removeElement($internshipOffer);
+        $this->internships->removeElement($internship);
         return $this;
     }
 }

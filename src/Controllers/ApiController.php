@@ -12,6 +12,7 @@ use stagify\Model\Entities\Location;
 use stagify\Model\Entities\Skill;
 use stagify\Model\Repositories\CompanyRepo;
 use stagify\Model\Repositories\InternshipRepo;
+use stagify\Model\Repositories\LocationRepo;
 use stagify\Model\Repositories\SkillRepo;
 
 class ApiController extends Controller
@@ -22,7 +23,7 @@ class ApiController extends Controller
     /** @var CompanyRepo $companyRepo */
     private EntityRepository $companyRepo;
 
-    /** @var EntityRepository $locationRepo */
+    /** @var LocationRepo $locationRepo */
     private EntityRepository $locationRepo;
 
     /** @var SkillRepo $internshipRepo */
@@ -47,18 +48,17 @@ class ApiController extends Controller
             return $response;
         }
 
-        $this->logger->debug("Query args: " . json_encode($queryArgs));
         $internships = $this->internshipRepo->pagination($page, $queryArgs["date"] ?? null, $queryArgs["rating"] ?? null, $queryArgs["skills"] ?? null);
         $internships = array_map(function ($internship) {
             $company = $this->companyRepo->byInternship($internship);
-            return $company != null ? [
+            return [
                 "title" => $internship->getTitle(),
                 "salary" => $internship->getLowSalary() . " - " . $internship->getHighSalary(),
                 "location" => $internship->getLocation()->getZipCode() . " - " . $internship->getLocation()->getCity(),
                 "user_wish" => true,
-                "company_name" => $company->getName(),
-                "company_logo" => $company->getLogoPath(),
-            ] : [];
+                "company_name" => $company?->getName(),
+                "company_logo" => $company?->getLogoPath(),
+            ];
         }, $internships);
 
         return $this->json($response, $internships);
@@ -73,13 +73,14 @@ class ApiController extends Controller
             return $response;
         }
 
-        $companies = $this->companyRepo->getCompaniesDistinct($page);
+        $companies = $this->companyRepo->pagination($page);
         $companies = array_map(function ($company) {
-            $location = $this->locationRepo->findByCompany($company); //TODO: Fix this
             return [
-                "name" => $company->getName(),
-                "logo" => $company->getLogoPath(),
-                "location" => $location->getZipCode() . " - " . $location->getCity(),
+                "id" => $company["id"],
+                "company" => $company["name"],
+                "location" => $company["zipCode"] . " - " . $company["city"],
+                "icon" => $company["logoPath"],
+                "rating_count" => $company["numberOfReviews"],
             ];
         }, $companies);
 

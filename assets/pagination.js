@@ -61,8 +61,7 @@
                 e.preventDefault();
                 settings.page = parseInt($(this).text(), 10);
                 $owner.pagination(settings);
-                // $owner.trigger("changePage", [settings.page]);
-                this.changePage();
+                $owner.changePage();
             });
 
             $pagination.find(".previous-page").click(function (e) {
@@ -70,8 +69,7 @@
                 if (settings.page > 1) {
                     settings.page--;
                     $owner.pagination(settings);
-                    // $owner.trigger("changePage", [settings.page]);
-                    this.changePage();
+                    $owner.changePage();
                 }
             });
 
@@ -80,8 +78,7 @@
                 if (settings.page < settings.count) {
                     settings.page++;
                     $owner.pagination(settings);
-                    // $owner.trigger("changePage", [settings.page]);
-                    this.changePage();
+                    $owner.changePage();
                 }
             });
         });

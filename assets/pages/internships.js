@@ -1,7 +1,4 @@
 (async function () {
-    const element = $("#internships");
-    setLoading(element);
-
     pagination = $("#pagination").pagination({
         count: Math.ceil((await fetch("/internships?count=true").then(response => response.json().then(data => data)))["count"] / 12),
         maxVisible: 5,
@@ -15,11 +12,13 @@
         };
 
         Object.keys(filters).forEach(key => (filters[key] === null || filters[key].length === 0) && delete filters[key]);
-        console.log("filters: ", filters);
 
+        const element = $("#internships");
         setLoading(element);
-        retrieve(element, $("#internship_tile"), `/internships/${page}?${new URLSearchParams(filters).toString()}`);
-    }).trigger("changePage", 1);
+        retrieve(element, $("#internshipTile"), `/internships/${page}?${new URLSearchParams(filters).toString()}`);
+    });
+
+    pagination.changePage();
 })();
 
 $("#skillsField").autocomplete({

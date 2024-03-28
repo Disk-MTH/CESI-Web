@@ -98,7 +98,7 @@ function retrieve(element, template, endpoint) {
                 data.forEach((item) => {
                     element.append(
                         template.html().replace(/{(\w+)}/g, function (match, key) {
-                            return item[key] || "";
+                            return item[key] !== undefined && item[key] !== null ? item[key] : "N/A";
                         })
                     );
                 });
