@@ -2,7 +2,10 @@
 {% set alternative_search_bar = true %}
 {% set pagination = true %}
 {% extends "components/layouts/layout.twig" %}
-{% import "components/tiles/company_tile.twig" as company_tile %}
+
+{% block templates %}
+    {{ include("components/tiles/company_tile.twig") }}
+{% endblock %}
 
 {% block header %}
     <section class="bg-deepWarmGrey ">
@@ -36,9 +39,9 @@
 
 {% block scripting %}
     <script>
-        (async function() {
+        (async function () {
             $("#pagination").pagination({
-                count: Math.ceil((await fetch("/companies?count=true").then(response => response.json().then(data => data)))["count"] / 5),
+                count: Math.ceil((await fetch("/companies?count=true").then(response => response.json().then(data => data)))["count"] / 12),
                 maxVisible: 5,
             }).on("changePage", function (event, page) {
                 const element = $("#companies");

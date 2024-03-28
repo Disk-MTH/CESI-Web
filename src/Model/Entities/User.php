@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
 use stagify\Model\Repositories\UserRepo;
 
-#[Entity/*(repositoryClass: UserRepo::class)*/, Table(name: "user")]
+#[Entity(repositoryClass: UserRepo::class), Table(name: "user")]
 class User
 {
     #[Id, Column(type: "integer"), GeneratedValue(strategy: "AUTO")]
