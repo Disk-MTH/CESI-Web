@@ -6,9 +6,9 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
-use stagify\Container;
+use stagify\Shared;
 
-class FlashMiddleware extends Container implements MiddlewareInterface
+class FlashMiddleware extends Shared implements MiddlewareInterface
 {
     public function process(Request $request, RequestHandler $handler): Response
     {

@@ -1,0 +1,11 @@
+{% macro content(id, old = [], errors = [], shadow = true) %}
+    <div class="input-group rounded-2 {% if shadow %}shadow{% endif %}">
+        <input class="form-control" type="text" id="{{ id }}" name="{{ id }}" aria-label="{{ id }}"
+               {% if old[id] %}value="{{ old[id] }}"{% endif %}>
+    </div>
+    {% if errors[id] %}
+        <div class="text-coldRed ms-1">
+            {{ errors[id] }}
+        </div>
+    {% endif %}
+{% endmacro %}

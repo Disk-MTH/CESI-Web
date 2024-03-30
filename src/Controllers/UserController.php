@@ -9,11 +9,13 @@ class UserController extends Controller
 {
     function users(Request $request, Response $response, array $pathArgs): Response
     {
-        if ($pathArgs["role"] == 2) {
-            return $this->render($response, "pages/pilots.twig");
+        $role = $pathArgs["role"];
+
+        if ($role != 2 && $role != 3) {
+            return $this->redirect($response, "/users/3");
         }
 
-        return $this->render($response, "pages/users.twig");
+        return $this->render($response, "pages/users.twig", ["role" => $role]);
     }
 
     function user(Request $request, Response $response, array $pathArgs): Response

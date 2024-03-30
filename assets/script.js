@@ -91,9 +91,9 @@ function setError(content) {
 }
 
 function retrieve(element, template, endpoint) {
-    fetch(endpoint, {method: "GET"}).then((response) => {
+    fetch(endpoint, {method: "GET"}).then(response => {
         if (response.status === 200) {
-            response.json().then((data) => {
+            response.json().then(data => {
                 element.empty();
                 data.forEach((item) => {
                     element.append(

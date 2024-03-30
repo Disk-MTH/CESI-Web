@@ -6,9 +6,9 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
-use stagify\Container;
+use stagify\Shared;
 
-class ErrorsMiddleware extends Container implements MiddlewareInterface
+class ErrorsMiddleware extends Shared implements MiddlewareInterface
 {
     public function process(Request $request, RequestHandler $handler): Response
     {
@@ -21,6 +21,15 @@ class ErrorsMiddleware extends Container implements MiddlewareInterface
         return $handler->handle($request);
     }
 
+    public static function validate(array $data) : array {
+        $errors = [];
+        foreach ($data as $key => $value) {
+            if (!preg_match("/^[A-Za-z0-9!@#$%^&*()_.]*$/", $value)) {
+                $errors[$key] = "Le champs contient des caractères non autorisés";
+            }
+        }
+        return $errors;
+    }
     public static function error(array $errors): void
     {
         $_SESSION["errors"] = $errors;

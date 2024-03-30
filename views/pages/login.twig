@@ -1,6 +1,8 @@
 {% set title = "Stagify - Authentification" %}
 {% extends "components/layouts/base.twig" %}
-{% import "components/layouts/form_field.twig" as form_field %}
+{% import "components/forms/form_field.twig" as form_field %}
+{% import "components/forms/password_field.twig" as password_field %}
+{% import "components/forms/checkbox_field.twig" as checkbox_field %}
 
 {% block body %}
     <header class="bg-deepWarmGrey shadow">
@@ -23,11 +25,12 @@
                 {{ include("components/layouts/flash_banners.twig") }}
                 <h1>Connectez vous sur Stagify,<br>LA plateforme de recherche de stages étudiants</h1>
                 <h5 class="mt-3">Identifiant</h5>
-                {{ form_field.content(errors, old, "login") }}
+                {{ form_field.content("login", old, errors) }}
                 <h5 class="mt-3">Mot de passe</h5>
-                {{ form_field.content(errors, old, "password", false, 0, true) }}
-                <div class="my-4 text-center">
-                    <button class="btn btn-deepSeaBlue text-nowrap shadow w-75">S'identifier</button>
+                {{ password_field.content("password", errors) }}
+                <div class="mt-2">{{ checkbox_field.content("persist", "Rester connecter", old) }}</div>
+                <div class="mt-4 text-center">
+                    <button class="btn btn-deepSeaBlue w-75 shadow">S'identifier</button>
                 </div>
             </form>
             <div class="col-lg-2 d-none d-lg-block"></div>

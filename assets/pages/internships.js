@@ -12,6 +12,7 @@
         };
 
         Object.keys(filters).forEach(key => (filters[key] === null || filters[key].length === 0) && delete filters[key]);
+        console.log(filters);
 
         const element = $("#internships");
         setLoading(element);
@@ -61,4 +62,3 @@ async function fectchSkills(text) {
         }
     });
 }
-

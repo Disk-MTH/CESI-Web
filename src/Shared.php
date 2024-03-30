@@ -9,7 +9,7 @@ use Slim\Views\Twig;
 use stagify\Settings\Settings;
 use Throwable;
 
-class Container
+class Shared
 {
     protected Settings $settings;
     protected LoggerInterface $logger;

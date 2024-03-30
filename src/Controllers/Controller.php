@@ -4,46 +4,32 @@ namespace stagify\Controllers;
 
 use DateTime;
 use Psr\Http\Message\ResponseInterface as Response;
-use stagify\Container;
+use stagify\Shared;
 use stagify\Middlewares\FlashMiddleware;
 use stagify\Model\Entities\Session;
 use stagify\Model\Entities\User;
+use Throwable;
+use Twig\Error\Error;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
-class Controller extends Container
+class Controller extends Shared
 {
-    function render(Response $response, string $template, array $data = []): Response
-    {
-        $sessionRepo = $this->entityManager->getRepository(Session::class);
-        $session = $sessionRepo->findOneBy(["token" => $_COOKIE["session"] ?? ""]);
-
-        if ($session != null) {
-            if ($session->getLastActivity() < new DateTime("-" . Session::$duration)) {
-                $session = null;
-                Session::logOut();
-                FlashMiddleware::flash("warning", "Session expirée, veuillez vous reconnecter");
-            } else {
-                $session->setLastActivity(new DateTime());
-                $this->entityManager->flush();
-                Session::logIn($session);
-            }
-        }
-
-        if ($session == null && $template !== "pages/login.twig") {
-            return $this->redirect($response, "login");
-        } else if ($session != null && $template === "pages/login.twig") {
-            return $this->redirect($response, "/");
-        }
-
-        if ($session != null) {
-            $data["user"] = $this->entityManager->getRepository(User::class)->findOneBy(["id" => $_SESSION["user"]]);
-        }
-
-        return $this->twig->render($response, $template, $data);
-    }
-
-    function redirect(Response $response, string $url): Response
+    static function redirect(Response $response, string $url): Response
     {
         return $response->withStatus(302)->withHeader("Location", $url);
+    }
+
+    function render(Response $response, string $template, array $data = []): Response
+    {
+        //$data["user"] = $this->entityManager->getRepository(User::class)->findOneBy(["id" => $_SESSION["user"]]);
+        try {
+            return $this->twig->render($response, $template, $data);
+        } catch (Error $error) {
+            $response->getBody()->write($error->getMessage());
+            return $response->withStatus(500);
+        }
     }
 
     function json(Response $response, array $data): Response
