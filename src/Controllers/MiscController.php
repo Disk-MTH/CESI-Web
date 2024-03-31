@@ -4,15 +4,12 @@ namespace stagify\Controllers;
 
 use DateTime;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Exception\ORMException;
-use Doctrine\ORM\OptimisticLockException;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Respect\Validation\Validator;
 use stagify\Middlewares\ErrorsMiddleware;
 use stagify\Middlewares\FlashMiddleware;
-use stagify\Middlewares\OldDataMiddleware;
 use stagify\Middlewares\SessionMiddleware;
 use stagify\Model\Entities\Session;
 use stagify\Model\Entities\User;
@@ -44,7 +41,6 @@ class MiscController extends Controller
 
         if ($request->getMethod() === "POST") {
             $data = $request->getParsedBody();
-            $this->logger->warning(implode(", ", $data));
             $errors = ErrorsMiddleware::validate($data);
             $fail = false;
 

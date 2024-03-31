@@ -8,9 +8,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use stagify\Controllers\Controller;
-use stagify\Model\Entities\User;
-use stagify\Shared;
 use stagify\Model\Entities\Session;
+use stagify\Shared;
 use Throwable;
 
 class SessionMiddleware extends Shared implements MiddlewareInterface
@@ -19,17 +18,19 @@ class SessionMiddleware extends Shared implements MiddlewareInterface
     public function process(Request $request, RequestHandler $handler): Response
     {
         $sessionRepo = $this->entityManager->getRepository(Session::class);
-        $session = $sessionRepo->findOneBy(["token" => $_COOKIE["session"] ?? ""]);
+        $session = null;
+
+        if (isset($_SESSION["session"])) $session = $sessionRepo->findOneBy(["token" => $_SESSION["session"]]);
+        else if (isset($_COOKIE["session"])) $session = $sessionRepo->findOneBy(["token" => $_COOKIE["session"]]);
 
         if ($session != null) {
-            if ($session->getLastActivity() < new DateTime("-" . self::$sessionDuration)) {
+            if ($session->getLastActivity() < new DateTime("-1 day")) {
                 $session = null;
-                self::logOut();
+                $this->logOut();
                 FlashMiddleware::flash("warning", "Session expirée, veuillez vous reconnecter");
             } else {
                 $session->setLastActivity(new DateTime());
                 $this->entityManager->flush();
-                self::logIn($session, true);
             }
         }
 
@@ -44,15 +45,15 @@ class SessionMiddleware extends Shared implements MiddlewareInterface
         return $handler->handle($request);
     }
 
-    private static string $sessionDuration = "1 day";
-
-    public static function logIn(Session $session, bool $persist) : void {
-        $_SESSION["user"] = $session->getUser()->getId();
+    public static function logIn(Session $session, bool $persist): void
+    {
+        $_SESSION["session"] = $session->getToken();
         if ($persist) setcookie("session", $session->getToken(), strtotime("+5 year"));
     }
 
-    public static function logOut() : void {
-        unset($_SESSION["user"]);
+    public static function logOut(): void
+    {
+        unset($_SESSION["session"]);
         setcookie("session", "", strtotime("-1 year"));
     }
 }
