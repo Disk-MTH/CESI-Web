@@ -73,7 +73,8 @@
                             <div class="dropdown-divider pb-2"></div>
 
                             <div class="input-group rounded-5 shadow ">
-                                <input class="form-control" type="text" placeholder="Formation" list="list-formation" id="input-datalist"
+                                <input class="form-control" type="text" placeholder="Formation" list="list-formation"
+                                       id="input-datalist"
                                        aria-label="formation">
                                 <div class="input-group-append">
                                     <button class="btn btn-deepSeaBlue rounded-start-0" type="button">Ajouter</button>
@@ -85,7 +86,8 @@
                             <div class="dropdown-divider pb-2"></div>
 
                             <div class="input-group rounded-5 shadow ">
-                                <input class="form-control" type="text" placeholder="Campus" list="list-campus" id="input-datalist"
+                                <input class="form-control" type="text" placeholder="Campus" list="list-campus"
+                                       id="input-datalist"
                                        aria-label="campus">
                                 <div class="input-group-append">
                                     <button class="btn btn-deepSeaBlue rounded-start-0" type="button">Ajouter</button>
@@ -97,7 +99,8 @@
                             <div class="dropdown-divider pb-2"></div>
 
                             <div class="input-group rounded-5 shadow ">
-                                <input class="form-control" type="text" placeholder="Compétences" list="list-skills" id="input-datalist"
+                                <input class="form-control" type="text" placeholder="Compétences" list="list-skills"
+                                       id="input-datalist"
                                        aria-label="skills">
                                 <div class="input-group-append">
                                     <button class="btn btn-deepSeaBlue rounded-start-0" type="button">Ajouter</button>
@@ -123,19 +126,21 @@
     <section>
         <div class="container pt-4">
             <div class="row mb-2">
-                <div class="col-6 text-center border-end border-heavyBlack " >
-                    <a class="text-decoration-none text-deepSeaBlue" href={{ url_for("users", {"role": 3}) }}>
+                <div class="col-6 text-center border-end border-heavyBlack ">
+                    <a class="text-decoration-none {% if role == 3 %}text-deepSeaBlue{% else %}text-heavyBlack{% endif %}"
+                       href={{ url_for("users", {"role": 3}) }}>
                         <h4>Etudiants</h4>
                     </a>
                 </div>
-                <div class="col-6 text-center text-heavyBlack" >
-                    <a class="disabled text-decoration-none text-heavyBlack" href={{ url_for("users", {"role": 2}) }} >
+                <div class="col-6 text-center text-heavyBlack">
+                    <a class="disabled text-decoration-none {% if role == 2 %}text-deepSeaBlue{% else %}text-heavyBlack{% endif %}"
+                       href={{ url_for("users", {"role": 2}) }}>
                         <h4>Pilotes</h4>
                     </a>
                 </div>
             </div>
             <hr>
-            <div class="row" id ="students"></div>
+            <div class="row" id="students"></div>
         </div>
     </section>
 {% endblock %}

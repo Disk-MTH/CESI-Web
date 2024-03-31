@@ -8,6 +8,7 @@ use Slim\Views\TwigMiddleware;
 use stagify\Middlewares\ErrorsMiddleware;
 use stagify\Middlewares\FlashMiddleware;
 use stagify\Middlewares\OldDataMiddleware;
+use stagify\Middlewares\RoleMiddleware;
 use stagify\Middlewares\SessionMiddleware;
 
 return function (App $app, ContainerInterface $container) {
@@ -16,6 +17,7 @@ return function (App $app, ContainerInterface $container) {
     $logger = $container->get("logger");
 
     $app->add(SessionMiddleware::class);
+    $app->add(RoleMiddleware::class);
     $app->addRoutingMiddleware();
     $app->addBodyParsingMiddleware();
     $app->add(OldDataMiddleware::class);
