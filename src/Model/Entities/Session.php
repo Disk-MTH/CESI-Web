@@ -22,6 +22,9 @@ class Session
     #[Column(type: "string", nullable: false)]
     private string $token;
 
+    #[Column(type: "boolean", nullable: false)]
+    private bool $persist;
+
     #[ManyToOne(targetEntity: User::class)]
     private User $user;
 
@@ -42,6 +45,11 @@ class Session
         return $this->token;
     }
 
+    public function getPersist(): bool
+    {
+        return $this->persist;
+    }
+
     public function getUser(): User
     {
         return $this->user;
@@ -58,6 +66,12 @@ class Session
     public function setToken(string $token): self
     {
         $this->token = $token;
+        return $this;
+    }
+
+    public function setPersist(bool $persist): self
+    {
+        $this->persist = $persist;
         return $this;
     }
 

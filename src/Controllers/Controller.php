@@ -23,7 +23,6 @@ class Controller extends Shared
 
     function render(Response $response, string $template, array $data = []): Response
     {
-        //$data["user"] = $this->entityManager->getRepository(User::class)->findOneBy(["id" => $_SESSION["user"]]);
         try {
             return $this->twig->render($response, $template, $data);
         } catch (Error $error) {

@@ -73,7 +73,7 @@ class ApiController extends Controller
             return $response;
         }
 
-        $companies = $this->companyRepo->pagination($page);
+        $companies = $this->companyRepo->pagination($page, $request->getQueryParams()["rating"] ?? null, $request->getQueryParams()["internshipsCount"] ?? null, $request->getQueryParams()["internsCount"] ?? null, $request->getQueryParams()["employeesCountLow"] ?? null, $request->getQueryParams()["employeesCountHigh"] ?? null);
         $companies = array_map(function ($company) {
             return [
                 "id" => $company["id"],

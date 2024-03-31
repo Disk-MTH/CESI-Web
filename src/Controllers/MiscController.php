@@ -51,14 +51,16 @@ class MiscController extends Controller
                 $user = $this->userRepo->findOneBy(["login" => $data["login"], "passwordHash" => hash("sha512", $data["password"])]);
 
                 if ($user != null) {
+                    $persist = isset($data["persist"]);
                     $session = (new Session())
                         ->setLastActivity(new DateTime())
                         ->setToken(hash("sha512", random_bytes(10)))
+                        ->setPersist($persist)
                         ->setUser($user);
                     $this->entityManager->persist($session);
                     $this->entityManager->flush();
 
-                    SessionMiddleware::logIn($session, $data["persist"] ?? false);
+                    SessionMiddleware::logIn($session, $persist);
                     FlashMiddleware::flash("success", "Connexion réussie");
                 } else {
                     $fail = true;

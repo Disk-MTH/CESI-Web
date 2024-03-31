@@ -7,7 +7,7 @@ use stagify\Controllers\ApiController;
 use stagify\Controllers\CompaniesController;
 use stagify\Controllers\InternshipsController;
 use stagify\Controllers\MiscController;
-use stagify\Controllers\UserController;
+use stagify\Controllers\UsersController;
 
 
 /*//todo: remake
@@ -39,15 +39,15 @@ return function (App $app) {
 
     /* ---------------------------------------- Users ----------------------------------------*/
 
-    $app->get("/users/{role}", [UserController::class, "users"])->setName("users");
+    $app->get("/users/{role}", [UsersController::class, "users"])->setName("users");
 
     //TODO: /user/{id}
-    $app->get("/user", [UserController::class, "user"])->setName("user");
+    $app->get("/user", [UsersController::class, "user"])->setName("user");
 
     //TODO: user -> id
-    $app->get("/user/wishlist", [UserController::class, "wishlist"])->setName("wishlist");
+    $app->get("/user/wishlist", [UsersController::class, "wishlist"])->setName("wishlist");
 
-    $app->get("/create/user/{role}", [UserController::class, "createUser"])->setName("create_user");
+    $app->get("/create/user/{role}", [UsersController::class, "createUser"])->setName("create_user");
 
     /* ---------------------------------------- Companies ----------------------------------------*/
 

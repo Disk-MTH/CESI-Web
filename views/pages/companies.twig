@@ -2,6 +2,8 @@
 {% set alternative_search_bar = true %}
 {% set pagination = true %}
 {% extends "components/layouts/layout.twig" %}
+{% import "components/forms/radio_field.twig" as radio_field %}
+{% import "components/forms/checkbox_field.twig" as checkbox_field %}
 
 {% block templates %}
     {{ include("components/tiles/company_tile.twig") }}
@@ -11,7 +13,7 @@
 {% block header %}
     <section class="bg-deepWarmGrey ">
         <div class="container py-3">
-            <div class="row ">
+            <div class="row">
                 <div class="col-8">
                     <div class="pt-2">Recherche d'entreprises</div>
                 </div>
@@ -26,83 +28,28 @@
                             <label class="pt-2">Filtrer Entreprises par</label>
                             <div class="dropdown-divider"></div>
 
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="rating" id="ratingDesc">
-                                <label class="form-check-label" for="ratingDesc">Avis (décroissant)</label>
-                            </div>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="rating" id="ratingAsc">
-                                <label class="form-check-label" for="ratingAsc">Avis (croissant)</label>
-                            </div>
+                            {{ radio_field.content("ratingDesc", "rating", "Avis (décroissant)") }}
+                            {{ radio_field.content("ratingAsc", "rating", "Avis (croissant)") }}
 
                             <div class="dropdown-divider"></div>
 
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="internshipsCount"
-                                       id="internshipsCountDesc">
-                                <label class="form-check-label" for="internshipsCountDesc">
-                                    Nombre d'offres de stages (décroissant)
-                                </label>
-                            </div>
-
-                            <div class="form-check ">
-                                <input class="form-check-input" type="radio" name="internshipsCount"
-                                       id="internshipsCountAsc">
-                                <label class="form-check-label" for="internshipsCountAsc">
-                                    Nombre d'offres de stages (croissant)
-                                </label>
-                            </div>
+                            {{ radio_field.content("internshipsCountDesc", "internshipsCount", "Nombre d'offres de stages (décroissant)") }}
+                            {{ radio_field.content("internshipsCountAsc", "internshipsCount", "Nombre d'offres de stages (croissant)") }}
 
                             <div class="dropdown-divider"></div>
 
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="intersCount" id="intersCountDesc">
-                                <label class="form-check-label" for="intersCountDesc">
-                                    Nombre de stagiaires (décroissant)
-                                </label>
-                            </div>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="intersCount" id="intersCountAsc">
-                                <label class="form-check-label" for="intersCountAsc">
-                                    Nombre de stagiaires (croissant)
-                                </label>
-                            </div>
+                            {{ radio_field.content("internsCountDesc", "internsCount", "Nombre de stagiaires (décroissant)") }}
+                            {{ radio_field.content("internsCountAsc", "internsCount", "Nombre de stagiaires (croissant)") }}
 
                             <div class="dropdown-divider pt-2"></div>
                             <label>Taille de l'entreprise</label>
                             <div class="dropdown-divider pb-2"></div>
 
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="employeesCount"
-                                       id="employeesCount1">
-                                <label class="form-check-label" for="employeesCount1">1-10 employés</label>
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="employeesCount"
-                                       id="employeesCount11">
-                                <label class="form-check-label" for="employeesCount11">11-100 employés</label>
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="employeesCount"
-                                       id="employeesCount101">
-                                <label class="form-check-label" for="employeesCount101">101-1000 employés</label>
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="employeesCount"
-                                       id="employeesCount1001">
-                                <label class="form-check-label" for="employeesCount1001">1001-10 000 employés</label>
-                            </div>
-
-                            <div class="form-check form-check-inline pb-1">
-                                <input class="form-check-input" type="radio" name="employeesCount"
-                                       id="employeesCount10001">
-                                <label class="form-check-label" for="employeesCount10001">10 000+ employés</label>
-                            </div>
+                            {{ checkbox_field.content("employeesCount@0_10", "1-10 employés") }}
+                            {{ checkbox_field.content("employeesCount@11_100", "11-100 employés") }}
+                            {{ checkbox_field.content("employeesCount@101_1000", "101-1000 employés") }}
+                            {{ checkbox_field.content("employeesCount@1001_10000", "1001-10 000 employés") }}
+                            {{ checkbox_field.content("employeesCount@10001_0", "10 000+ employés") }}
 
                             <div class="dropdown-divider pb-2"></div>
 

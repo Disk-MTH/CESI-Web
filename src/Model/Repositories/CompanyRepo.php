@@ -9,8 +9,9 @@ use Throwable;
 
 final class CompanyRepo extends EntityRepository
 {
-    function pagination(int $page, int $limit = 12): array
+    function pagination(int $page, string|null $rating, string|null $internshipsCount, string|null $internsCount, int|null $employeesCountLow, int|null $employeesCountHigh, int $limit = 12): array
     {
+        //TODO: apply filters
         $query = $this->createQueryBuilder("c")
             ->select("DISTINCT c.id, c.name, l.city, l.zipCode,c.logoPath, cio.id, cio.title")
             ->addSelect("COUNT(ir.id) AS numberOfReviews")

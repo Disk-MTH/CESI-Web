@@ -5,7 +5,7 @@ namespace stagify\Controllers;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-class UserController extends Controller
+class UsersController extends Controller
 {
     function users(Request $request, Response $response, array $pathArgs): Response
     {

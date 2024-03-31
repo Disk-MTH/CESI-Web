@@ -6,13 +6,12 @@
 
     pagination.on("changePage", function (event, page) {
         const filters = {
-            "date": $("#dateDesc").is(':checked') ? "DESC" : $("#dateAsc").is(':checked') ? "ASC" : null,
-            "rating": $("#ratingDesc").is(':checked') ? "DESC" : $("#ratingAsc").is(':checked') ? "ASC" : null,
+            "date": $("#dateDesc").is(":checked") ? "DESC" : $("#dateAsc").is(":checked") ? "ASC" : null,
+            "rating": $("#ratingDesc").is(":checked") ? "DESC" : $("#ratingAsc").is(":checked") ? "ASC" : null,
             "skills": $("#skillsList").children().map((index, item) => $(item).find("#filterItemContent").text()).get(),
         };
 
         Object.keys(filters).forEach(key => (filters[key] === null || filters[key].length === 0) && delete filters[key]);
-        console.log(filters);
 
         const element = $("#internships");
         setLoading(element);

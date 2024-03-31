@@ -42,6 +42,7 @@ class SessionMiddleware extends Shared implements MiddlewareInterface
             return Controller::redirect($handler->handle($request), "/");
         }
 
+        if ($session != null) $this->twig->offsetSet("user", $session->getUser());
         return $handler->handle($request);
     }
 
