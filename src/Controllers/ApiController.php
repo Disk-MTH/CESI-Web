@@ -168,6 +168,32 @@ class ApiController extends Controller
         return $this->json($response, $users);
     }
 
+    //TODO
+    function promos(Request $request, Response $response, array $pathArgs): Response
+    {
+        $skills = $this->skillRepo->suggestions($pathArgs["pattern"]);
+        $skills = array_map(function ($skill) {
+            return [
+                "name" => $skill->getName(),
+            ];
+        }, $skills);
+
+        return $this->json($response, $skills);
+    }
+
+    //TODO
+    function campuses(Request $request, Response $response, array $pathArgs): Response
+    {
+        $skills = $this->skillRepo->suggestions($pathArgs["pattern"]);
+        $skills = array_map(function ($skill) {
+            return [
+                "name" => $skill->getName(),
+            ];
+        }, $skills);
+
+        return $this->json($response, $skills);
+    }
+
     function skills(Request $request, Response $response, array $pathArgs): Response
     {
         $skills = $this->skillRepo->suggestions($pathArgs["pattern"]);
