@@ -4,9 +4,9 @@ pagination.on("changePage", async function (event, page) {
     let filters = {
         "date": $("#dateDesc").is(":checked") ? "DESC" : $("#dateAsc").is(":checked") ? "ASC" : null,
         "rating": $("#ratingDesc").is(":checked") ? "DESC" : $("#ratingAsc").is(":checked") ? "ASC" : null,
-        "skills": $("#skillsList").children().map((index, item) => $(item).find("#filterItemContent").text()).get(),
+        "skills": $("#skillsList").children().map((index, item) => $(item).find("#content").text()).get(),
     };
-    Object.keys(filters).forEach(key => (filters[key] === null || filters[key].length === 0) && delete filters[key]);
+    Object.keys(filters).forEach(key => (filters[key] === null || filters[key].length === 0 || filters[key] == "") && delete filters[key]);
     filters = new URLSearchParams(filters).toString();
 
     const element = $("#internships");
@@ -17,26 +17,6 @@ pagination.on("changePage", async function (event, page) {
 
 pagination.changePage();
 
-$("#skillsField").autocomplete({
-    source: async function (request, response) {
-        response(await fectchSkills(request.term));
-    },
-    select: function (event, ui) {
-        event.stopPropagation();
-    },
-    open: function () {
-        $(".ui-autocomplete").css("width", $('#skills').width() + "px");
-    },
-    classes: {
-        "ui-autocomplete": "card",
-    },
-    messages: {
-        noResults: "",
-        results: function () {
-        },
-    },
-});
-
 function resetFilters() {
     $("input[type=radio]").prop("checked", false);
     $("#skillsField").val("");
@@ -44,16 +24,6 @@ function resetFilters() {
 }
 
 function applyFilters() {
-    $("#intershipFilters").collapse("hide");
+    $("#intershipsFilters").collapse("hide");
     pagination.changePage();
-}
-
-async function fectchSkills(text) {
-    return await fetch(`/skills/${text}`, {method: "GET"}).then(async (response) => {
-        if (response.status === 200) {
-            return await response.json().then((data) => {
-                return data.map((item) => item["name"]);
-            });
-        }
-    });
 }

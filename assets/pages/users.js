@@ -1,17 +1,14 @@
 pagination = $("#pagination").pagination({maxVisible: 5});
 
 pagination.on("changePage", async function (event, page) {
-    /*const filters = {
-        "date": $("#dateDesc").is(":checked") ? "DESC" : $("#dateAsc").is(":checked") ? "ASC" : null,
-        "rating": $("#ratingDesc").is(":checked") ? "DESC" : $("#ratingAsc").is(":checked") ? "ASC" : null,
-        "skills": $("#skillsList").children().map((index, item) => $(item).find("#filterItemContent").text()).get(),
-    };
-
-    Object.keys(filters).forEach(key => (filters[key] === null || filters[key].length === 0) && delete filters[key]);*/
-
     let filters = {
-        "role": role
+        "role": role,
+        "years": $("input[type=checkbox][id^='year']:checked").map((index, item) => $(item).attr("id").split("@")[1]).get(),
+        "promos": $("#promosList").children().map((index, item) => $(item).find("#content").text()).get(),
+        "campus": $("#campusList").children().map((index, item) => $(item).find("#content").text()).get(),
+        "skills": $("#skillsList").children().map((index, item) => $(item).find("#content").text()).get(),
     };
+    Object.keys(filters).forEach(key => (filters[key] === null || filters[key].length === 0 || filters[key] == "") && delete filters[key]);
     filters = new URLSearchParams(filters).toString();
 
     const element = $("#users");
@@ -21,3 +18,18 @@ pagination.on("changePage", async function (event, page) {
 });
 
 pagination.changePage();
+
+function resetFilters() {
+    $("input[type=checkbox]").prop("checked", false);
+    $("#promosField").val("");
+    $("#promosList").empty();
+    $("#campusField").val("");
+    $("#campusList").empty();
+    $("#skillsField").val("");
+    $("#skillsList").empty();
+}
+
+function applyFilters() {
+    $("#usersFilters").collapse("hide");
+    pagination.changePage();
+}

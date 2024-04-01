@@ -80,6 +80,8 @@ class ApiController extends Controller
             return $response;
         }
 
+        $this->logger->warning("Internships API called with parameters: " . json_encode($queryArgs));
+
         $internships = $this->internshipRepo->pagination(
             $page, $queryArgs["date"] ?? null,
             $queryArgs["rating"] ?? null,
@@ -103,6 +105,7 @@ class ApiController extends Controller
 
     function companies(Request $request, Response $response, array $pathArgs): Response
     {
+        $queryArgs = $request->getQueryParams();
         $page = $pathArgs["page"];
 
         if ($page < 0) {
@@ -110,13 +113,15 @@ class ApiController extends Controller
             return $response;
         }
 
+        $this->logger->warning("Companies API called with parameters: " . json_encode($queryArgs));
+
         $companies = $this->companyRepo->pagination(
             $page,
-            $request->getQueryParams()["rating"] ?? null,
-            $request->getQueryParams()["internshipsCount"] ?? null,
-            $request->getQueryParams()["internsCount"] ?? null,
-            $request->getQueryParams()["employeesCountLow"] ?? null,
-            $request->getQueryParams()["employeesCountHigh"] ?? null,
+            $queryArgs["rating"] ?? null,
+            $queryArgs["internshipsCount"] ?? null,
+            $queryArgs["internsCount"] ?? null,
+            $queryArgs["employeesCountLow"] ?? null,
+            $queryArgs["employeesCountHigh"] ?? null,
             false,
         );
         $companies = array_map(function ($company) {
@@ -134,12 +139,15 @@ class ApiController extends Controller
 
     function users(Request $request, Response $response, array $pathArgs): Response
     {
+        $queryArgs = $request->getQueryParams();
         $page = $pathArgs["page"];
 
         if ($page < 0) {
             $response->withStatus(404)->getBody()->write(json_encode(["error" => "Page out of range"]));
             return $response;
         }
+
+        $this->logger->warning("Users API called with parameters: " . json_encode($queryArgs));
 
         $users = $this->userRepo->pagination(
             $page,

@@ -13,6 +13,7 @@
     <script src="/assets/jquery.min.js"></script>
     <script src="/assets/jquery-ui.min.js"></script>
     <script src="/assets/pagination.js"></script>
+    <script src="/assets/suggestion.js"></script>
     <script src="/assets/script.js"></script>
 </head>
 
@@ -24,6 +25,16 @@
 <template id="error">
     <div class="col text-center my-5">
         <div class="h1 text-coldRed">Erreur</div>
+    </div>
+</template>
+<template id="suggestionItem">
+    <div class="card mt-2" id="{id}">
+        <div class="row">
+            <div class="col text-start align-self-center ms-2" id="content">{content}</div>
+            <div class="col text-end">
+                <div class="btn" onclick="removeSuggestion('{id}')">Del</div>
+            </div>
+        </div>
     </div>
 </template>
 {% block templates %}{% endblock %}

@@ -84,7 +84,9 @@ return function (App $app) {
 
     $app->get("/api/internships/{page}", [ApiController::class, "internships"]);
 
+    $app->get("/api/companies/{page}", [ApiController::class, "companies"]);
+
     $app->get("/api/users/{page}", [ApiController::class, "users"]);
 
-    $app->get("/api/skills/{pattern}", [ApiController::class, "skills"]);
+    $app->get("/api/suggestions/skills/{pattern}", [ApiController::class, "skills"]);
 };

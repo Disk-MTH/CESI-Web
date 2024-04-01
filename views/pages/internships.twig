@@ -3,10 +3,10 @@
 {% set pagination = true %}
 {% extends "components/layouts/layout.twig" %}
 {% import "components/forms/radio_field.twig" as radio_field %}
+{% import "components/forms/suggestion_field.twig" as suggestion_field %}
 
 {% block templates %}
     {{ include("components/tiles/internship_tile.twig") }}
-    {{ include("components/filters/filter_item.twig") }}
 {% endblock %}
 
 {% block header %}
@@ -24,7 +24,7 @@
                         </div>
 
                         <div class="dropdown-menu shadow-lg px-4" id="intershipsFilters">
-                            <label class="pt-2">Filtrer Stages par</label>
+                            <label class="pt-2">Filtrer les stages :</label>
                             <div class="dropdown-divider"></div>
 
                             {{ radio_field.content("dateDesc", "date", "Date (récent)") }}
@@ -35,20 +35,13 @@
                             {{ radio_field.content("ratingDesc", "rating", "Avis (décroissant)") }}
                             {{ radio_field.content("ratingAsc", "rating", "Avis (croissant)") }}
 
-                            <div class="dropdown-divider pt-2"></div>
+                            <div class="dropdown-divider"></div>
 
-                            <div class="input-group rounded-5 shadow" id="skills">
-                                <input class="form-control" type="text" placeholder="Compétences" id="skillsField">
-                                <div class="input-group-append">
-                                    <div class="btn btn-deepSeaBlue rounded-start-0" onclick="addFilterItem('skillsList', 'skillsField')">Ajouter</div>
-                                </div>
-                            </div>
+                            {{ suggestion_field.content("skills", "Compétences") }}
 
-                            <div id="skillsList"></div>
+                            <div class="dropdown-divider"></div>
 
-                            <div class="dropdown-divider pb-2"></div>
-
-                            <div class="row">
+                            <div class="row pt-2">
                                 <div class="col text-start">
                                     <div class="btn btn-deepSeaBlue" onclick="resetFilters()">Réinitialiser</div>
                                 </div>
@@ -74,4 +67,5 @@
 
 {% block scripting %}
     <script src="/assets/pages/internships.js"></script>
+    <script>suggestion("skills");</script>
 {% endblock %}

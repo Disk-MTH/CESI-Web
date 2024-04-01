@@ -106,20 +106,3 @@ function retrieve(element, template, endpoint) {
         }
     });
 }
-
-function addFilterItem(listId, contentId) {
-    const content = $(`#${contentId}`);
-
-    $(`#${listId}`).append(
-        $("#filterItem")
-            .html()
-            .replaceAll("{id}", Math.random().toString(36).substring(10))
-            .replace("{content}", content.val())
-    );
-
-    content.val("");
-}
-
-function removeFilterItem(id) {
-    $(`#${id}`).remove();
-}

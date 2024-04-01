@@ -2,6 +2,8 @@
 {% set alternative_search_bar = true %}
 {% set pagination = true %}
 {% extends "components/layouts/layout.twig" %}
+{% import "components/forms/checkbox_field.twig" as checkbox_field %}
+{% import "components/forms/suggestion_field.twig" as suggestion_field %}
 
 {% block templates %}
     {{ include("components/tiles/user_tile.twig") }}
@@ -22,98 +24,48 @@
                         </div>
 
                         <div class="dropdown-menu  shadow-lg px-4" id="usersFilters">
-                            <label class="pt-2">Filtrer Etudiants par</label>
+                            <label class="pt-2">Filtrer les utilisateurs par</label>
 
                             <div class="dropdown-divider"></div>
                             <label>Promo</label>
                             <div class="dropdown-divider pb-2"></div>
 
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                <label class="form-check-label" for="inlineCheckbox1">A1</label>
+                            <div class="row">
+                                <div class="col-3">{{ checkbox_field.content("year@1", "A1") }}</div>
+                                <div class="col-3">{{ checkbox_field.content("year@2", "A2") }}</div>
+                                <div class="col-3">{{ checkbox_field.content("year@3", "A3") }}</div>
+                                <div class="col-3">{{ checkbox_field.content("year@4", "A4") }}</div>
                             </div>
 
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                                <label class="form-check-label" for="inlineCheckbox2">A2</label>
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
-                                <label class="form-check-label" for="inlineCheckbox3">A3</label>
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4">
-                                <label class="form-check-label" for="inlineCheckbox4">A4</label>
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="option5">
-                                <label class="form-check-label" for="inlineCheckbox5">A5</label>
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="option6">
-                                <label class="form-check-label" for="inlineCheckbox6">A6</label>
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="option7">
-                                <label class="form-check-label" for="inlineCheckbox7">A7</label>
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox8" value="option8">
-                                <label class="form-check-label" for="inlineCheckbox8">A8</label>
+                            <div class="row">
+                                <div class="col-3">{{ checkbox_field.content("year@5", "A5") }}</div>
+                                <div class="col-3">{{ checkbox_field.content("year@6", "A6") }}</div>
+                                <div class="col-3">{{ checkbox_field.content("year@7", "A7") }}</div>
+                                <div class="col-3">{{ checkbox_field.content("year@8", "A8") }}</div>
                             </div>
 
                             <div class="dropdown-divider pt-2"></div>
-                            <label>Formation</label>
+
+                            {{ suggestion_field.content("promos", "Formations") }}
+
+                            <div class="dropdown-divider"></div>
+
+                            {{ suggestion_field.content("campus", "Campus") }}
+
+                            <div class="dropdown-divider"></div>
+
+                            {{ suggestion_field.content("skills", "Compétences") }}
+
                             <div class="dropdown-divider pb-2"></div>
 
-                            <div class="input-group rounded-5 shadow ">
-                                <input class="form-control" type="text" placeholder="Formation" list="list-formation"
-                                       id="input-datalist"
-                                       aria-label="formation">
-                                <div class="input-group-append">
-                                    <button class="btn btn-deepSeaBlue rounded-start-0" type="button">Ajouter</button>
+                            <div class="row pt-2">
+                                <div class="col text-start">
+                                    <div class="btn btn-deepSeaBlue" onclick="resetFilters()">Réinitialiser</div>
+                                </div>
+                                <div class="col text-end">
+                                    <div class="btn btn-deepSeaBlue" onclick="applyFilters()">Valider</div>
                                 </div>
                             </div>
-
-                            <div class="dropdown-divider pt-2"></div>
-                            <label>Campus</label>
-                            <div class="dropdown-divider pb-2"></div>
-
-                            <div class="input-group rounded-5 shadow ">
-                                <input class="form-control" type="text" placeholder="Campus" list="list-campus"
-                                       id="input-datalist"
-                                       aria-label="campus">
-                                <div class="input-group-append">
-                                    <button class="btn btn-deepSeaBlue rounded-start-0" type="button">Ajouter</button>
-                                </div>
-                            </div>
-
-                            <div class="dropdown-divider pt-2"></div>
-                            <label>Compétences</label>
-                            <div class="dropdown-divider pb-2"></div>
-
-                            <div class="input-group rounded-5 shadow ">
-                                <input class="form-control" type="text" placeholder="Compétences" list="list-skills"
-                                       id="input-datalist"
-                                       aria-label="skills">
-                                <div class="input-group-append">
-                                    <button class="btn btn-deepSeaBlue rounded-start-0" type="button">Ajouter</button>
-                                </div>
-                            </div>
-
-                            <div class="dropdown-divider pb-2"></div>
-
-                            <div class="text-end">
-                                <div class="btn btn-deepSeaBlue">Valider</div>
-                            </div>
-
-                            <div class="pb-2"></div>
                         </div>
                     </div>
                 </div>

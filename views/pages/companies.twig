@@ -7,7 +7,6 @@
 
 {% block templates %}
     {{ include("components/tiles/company_tile.twig") }}
-    {{ include("components/filters/filter_item.twig") }}
 {% endblock %}
 
 {% block header %}
@@ -25,7 +24,7 @@
                         </div>
 
                         <div class="dropdown-menu shadow-lg px-4" id="companiesFilter">
-                            <label class="pt-2">Filtrer Entreprises par</label>
+                            <label class="pt-2">Filtrer les entreprises :</label>
                             <div class="dropdown-divider"></div>
 
                             {{ radio_field.content("ratingDesc", "rating", "Avis (décroissant)") }}
@@ -41,9 +40,7 @@
                             {{ radio_field.content("internsCountDesc", "internsCount", "Nombre de stagiaires (décroissant)") }}
                             {{ radio_field.content("internsCountAsc", "internsCount", "Nombre de stagiaires (croissant)") }}
 
-                            <div class="dropdown-divider pt-2"></div>
-                            <label>Taille de l'entreprise</label>
-                            <div class="dropdown-divider pb-2"></div>
+                            <div class="dropdown-divider"></div>
 
                             {{ checkbox_field.content("employeesCount@0_10", "1-10 employés") }}
                             {{ checkbox_field.content("employeesCount@11_100", "11-100 employés") }}
@@ -51,9 +48,9 @@
                             {{ checkbox_field.content("employeesCount@1001_10000", "1001-10 000 employés") }}
                             {{ checkbox_field.content("employeesCount@10001_0", "10 000+ employés") }}
 
-                            <div class="dropdown-divider pb-2"></div>
+                            <div class="dropdown-divider"></div>
 
-                            <div class="row">
+                            <div class="row pt-2">
                                 <div class="col text-start">
                                     <div class="btn btn-deepSeaBlue" onclick="resetFilters()">Réinitialiser</div>
                                 </div>

@@ -8,7 +8,7 @@ pagination.on("changePage", async function (event, page) {
         "employeesCountLow": getEmployeesCount(true),
         "employeesCountHigh": getEmployeesCount(false),
     };
-    Object.keys(filters).forEach(key => (filters[key] === null || filters[key].length === 0) && delete filters[key]);
+    Object.keys(filters).forEach(key => (filters[key] === null || filters[key].length === 0 || filters[key] == "") && delete filters[key]);
     filters = new URLSearchParams(filters).toString();
 
     const element = $("#companies");
@@ -53,6 +53,6 @@ function resetFilters() {
 }
 
 function applyFilters() {
-    $("#intershipFilters").collapse("hide");
+    $("#companiesFilters").collapse("hide");
     pagination.changePage();
 }
