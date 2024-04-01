@@ -1,29 +1,36 @@
 (function ($) {
     $.fn.pagination = function (options) {
-        const $owner = this,
-            settings = $.extend({
-                    page: 1,
-                    count: 0,
-                    maxVisible: null,
-                    href: "javascript:void({{number}});",
-                    hrefVariable: "{{number}}",
-                    previous: "&laquo;",
-                    next: "&raquo;",
-                    paginationClass: "pagination",
-                    pageItemClass: "page-item",
-                    pageLinkClass: "page-link",
-                    activeClass: "active",
-                    inactiveClass: "disabled",
-                },
-                $owner.data('settings') || {},
-                options || {});
+        const $owner = this;
+
+        const defaultSettings = {
+            page: 1,
+            count: 1,
+            maxVisible: null,
+            href: "javascript:void({{number}});",
+            hrefVariable: "{{number}}",
+            previous: "&laquo;",
+            next: "&raquo;",
+            paginationClass: "pagination",
+            pageItemClass: "page-item",
+            pageLinkClass: "page-link",
+            activeClass: "active",
+            inactiveClass: "disabled",
+        }
+
+        settings = $.extend({}, defaultSettings, options);
 
         if (settings.count <= 0) return this;
         if (settings.page < 1) settings.page = 1;
         if (!settings.maxVisible || isNaN(settings.maxVisible)) settings.maxVisible = settings.count;
         if (settings.maxVisible < 1 || settings.maxVisible > settings.count) settings.maxVisible = settings.count;
 
-        this.changePage = function() {
+        this.setCount = function (count) {
+            settings.count = count;
+            settings.maxVisible = null;
+            $owner.pagination(settings);
+        }
+
+        this.changePage = function () {
             $owner.trigger("changePage", [settings.page]);
         }
 
@@ -83,4 +90,5 @@
             });
         });
     }
-})(jQuery);
+})
+(jQuery);

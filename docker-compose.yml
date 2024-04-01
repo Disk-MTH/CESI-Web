@@ -30,7 +30,6 @@ services:
       - ./assets:/var/www/html/assets
       - ./src:/var/www/src
       - ./views:/var/www/views
-      - ./vendor:/var/www/vendor
       - ./.env:/var/www/.env
     networks:
       - stagify-network

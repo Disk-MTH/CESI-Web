@@ -80,6 +80,8 @@ return function (App $app) {
 
     /* ---------------------------------------- API ----------------------------------------*/
 
+    $app->get("/count/{type}", [ApiController::class, "count"]);
+
     $app->get("/internships/{page}", [ApiController::class, "internships"]);
 
     $app->get("/companies/{page}", [ApiController::class, "companies"]);

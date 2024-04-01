@@ -38,6 +38,31 @@ class ApiController extends Controller
         $this->skillRepo = $this->entityManager->getRepository(Skill::class);
     }
 
+    function count(Request $request, Response $response, array $pathArgs): Response
+    {
+        $count = match ($pathArgs["type"]) {
+            "internships" => $this->internshipRepo->pagination(
+                -1,
+                $request->getQueryParams()["date"] ?? null,
+                $request->getQueryParams()["rating"] ?? null,
+                $request->getQueryParams()["skills"] ?? null,
+                true,
+            ),
+            "companies" => $this->companyRepo->pagination(
+                -1,
+                $request->getQueryParams()["rating"] ?? null,
+                $request->getQueryParams()["internshipsCount"] ?? null,
+                $request->getQueryParams()["internsCount"] ?? null,
+                $request->getQueryParams()["employeesCountLow"] ?? null,
+                $request->getQueryParams()["employeesCountHigh"] ?? null,
+                true,
+            ),
+            default => -1,
+        };
+
+        return $this->json($response, ["count" => $count]);
+    }
+
     function internships(Request $request, Response $response, array $pathArgs): Response
     {
         $queryArgs = $request->getQueryParams();
@@ -48,7 +73,12 @@ class ApiController extends Controller
             return $response;
         }
 
-        $internships = $this->internshipRepo->pagination($page, $queryArgs["date"] ?? null, $queryArgs["rating"] ?? null, $queryArgs["skills"] ?? null);
+        $internships = $this->internshipRepo->pagination(
+            $page, $queryArgs["date"] ?? null,
+            $queryArgs["rating"] ?? null,
+            $queryArgs["skills"] ?? null,
+            false,
+        );
         $internships = array_map(function ($internship) {
             $company = $this->companyRepo->byInternship($internship);
             return [
@@ -73,7 +103,15 @@ class ApiController extends Controller
             return $response;
         }
 
-        $companies = $this->companyRepo->pagination($page, $request->getQueryParams()["rating"] ?? null, $request->getQueryParams()["internshipsCount"] ?? null, $request->getQueryParams()["internsCount"] ?? null, $request->getQueryParams()["employeesCountLow"] ?? null, $request->getQueryParams()["employeesCountHigh"] ?? null);
+        $companies = $this->companyRepo->pagination(
+            $page,
+            $request->getQueryParams()["rating"] ?? null,
+            $request->getQueryParams()["internshipsCount"] ?? null,
+            $request->getQueryParams()["internsCount"] ?? null,
+            $request->getQueryParams()["employeesCountLow"] ?? null,
+            $request->getQueryParams()["employeesCountHigh"] ?? null,
+            false,
+        );
         $companies = array_map(function ($company) {
             return [
                 "id" => $company["id"],

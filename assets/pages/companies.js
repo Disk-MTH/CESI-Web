@@ -1,27 +1,23 @@
-(async function () {
-    pagination = $("#pagination").pagination({
-        count: Math.ceil((await fetch("/companies?count=true").then(response => response.json().then(data => data)))["count"] / 12),
-        maxVisible: 5,
-    })
+pagination = $("#pagination").pagination({maxVisible: 5});
 
-    pagination.on("changePage", function (event, page) {
-        const filters = {
-            "rating": $("#ratingDesc").is(":checked") ? "DESC" : $("#ratingAsc").is(":checked") ? "ASC" : null,
-            "internshipsCount": $("#internshipsCountDesc").is(":checked") ? "DESC" : $("#internshipsCountAsc").is(":checked") ? "ASC" : null,
-            "internsCount": $("#internsCountDesc").is(":checked") ? "DESC" : $("#internsCountAsc").is(":checked") ? "ASC" : null,
-            "employeesCountLow": getEmployeesCount(true),
-            "employeesCountHigh": getEmployeesCount(false),
-        };
+pagination.on("changePage", async function (event, page) {
+    const filters = {
+        "rating": $("#ratingDesc").is(":checked") ? "DESC" : $("#ratingAsc").is(":checked") ? "ASC" : null,
+        "internshipsCount": $("#internshipsCountDesc").is(":checked") ? "DESC" : $("#internshipsCountAsc").is(":checked") ? "ASC" : null,
+        "internsCount": $("#internsCountDesc").is(":checked") ? "DESC" : $("#internsCountAsc").is(":checked") ? "ASC" : null,
+        "employeesCountLow": getEmployeesCount(true),
+        "employeesCountHigh": getEmployeesCount(false),
+    };
 
-        Object.keys(filters).forEach(key => (filters[key] === null || filters[key].length === 0) && delete filters[key]);
+    Object.keys(filters).forEach(key => (filters[key] === null || filters[key].length === 0) && delete filters[key]);
 
-        const element = $("#companies");
-        setLoading(element);
-        retrieve(element, $("#companyTile"), `/companies/${page}?${new URLSearchParams(filters).toString()}`);
-    });
+    const element = $("#companies");
+    setLoading(element);
+    retrieve(element, $("#companyTile"), `/companies/${page}?${new URLSearchParams(filters).toString()}`);
+    pagination.setCount(Math.ceil((await fetch("/count/internships").then(response => response.json().then(data => data)))["count"] / 12));
+});
 
-    pagination.changePage();
-})();
+pagination.changePage();
 
 function getEmployeesCount(low) {
     const checkedBoxes = $("input[type=checkbox][id^='employeesCount']:checked");
