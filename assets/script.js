@@ -11,7 +11,7 @@ function navigateTo(event, url) {
     event.stopPropagation();
 }
 
-function toggleText(event, id) {
+function togglePasswordField(event, id) {
     const element = document.getElementById(id);
     const icon = document.getElementById(id + "-icon");
 
@@ -23,7 +23,6 @@ function toggleText(event, id) {
         element.type = "password";
         icon.src = "/assets/svg/misc/visibility_on.svg";
     }
-    event.stopPropagation();
 }
 
 function toggleWishMark(event, id) {
@@ -34,7 +33,6 @@ function toggleWishMark(event, id) {
     } else {
         icon.src = "/assets/svg/misc/wish_empty.svg";
     }
-    event.stopPropagation();
 }
 
 function toggleStar(event, id, fill) {
@@ -48,7 +46,6 @@ function toggleStar(event, id, fill) {
             icon.src = "/assets/svg/tile/star_empty.svg";
         }
     }
-    event.stopPropagation();
 }
 
 function clickStar(event, id) {
@@ -79,7 +76,6 @@ function clickStar(event, id) {
             };
         }
     }
-    event.stopPropagation();
 }
 
 function setLoading(content) {

@@ -10,10 +10,12 @@ use stagify\Model\Entities\Company;
 use stagify\Model\Entities\Internship;
 use stagify\Model\Entities\Location;
 use stagify\Model\Entities\Skill;
+use stagify\Model\Entities\User;
 use stagify\Model\Repositories\CompanyRepo;
 use stagify\Model\Repositories\InternshipRepo;
 use stagify\Model\Repositories\LocationRepo;
 use stagify\Model\Repositories\SkillRepo;
+use stagify\Model\Repositories\UserRepo;
 
 class ApiController extends Controller
 {
@@ -23,8 +25,8 @@ class ApiController extends Controller
     /** @var CompanyRepo $companyRepo */
     private EntityRepository $companyRepo;
 
-    /** @var LocationRepo $locationRepo */
-    private EntityRepository $locationRepo;
+    /** @var UserRepo $userRepo */
+    private EntityRepository $userRepo;
 
     /** @var SkillRepo $internshipRepo */
     private EntityRepository $skillRepo;
@@ -34,7 +36,7 @@ class ApiController extends Controller
         parent::__construct($container);
         $this->internshipRepo = $this->entityManager->getRepository(Internship::class);
         $this->companyRepo = $this->entityManager->getRepository(Company::class);
-        $this->locationRepo = $this->entityManager->getRepository(Location::class);
+        $this->userRepo = $this->entityManager->getRepository(User::class);
         $this->skillRepo = $this->entityManager->getRepository(Skill::class);
     }
 
@@ -55,6 +57,11 @@ class ApiController extends Controller
                 $request->getQueryParams()["internsCount"] ?? null,
                 $request->getQueryParams()["employeesCountLow"] ?? null,
                 $request->getQueryParams()["employeesCountHigh"] ?? null,
+                true,
+            ),
+            "users" => $this->userRepo->pagination(
+                -1,
+                $request->getQueryParams()["role"] ?? null,
                 true,
             ),
             default => -1,
@@ -123,6 +130,34 @@ class ApiController extends Controller
         }, $companies);
 
         return $this->json($response, $companies);
+    }
+
+    function users(Request $request, Response $response, array $pathArgs): Response
+    {
+        $page = $pathArgs["page"];
+
+        if ($page < 0) {
+            $response->withStatus(404)->getBody()->write(json_encode(["error" => "Page out of range"]));
+            return $response;
+        }
+
+        $users = $this->userRepo->pagination(
+            $page,
+            $request->getQueryParams()["role"] ?? null,
+            false,
+        );
+        $users = array_map(function ($user) {
+            return [
+                "id" => $user["id"],
+                "profile_picture" => $user["profilePicturePath"],
+                "first_name" => $user["firstName"],
+                "last_name" => $user["lastName"],
+                "location" => $user["zipCode"] . " - " . $user["city"],
+                "formation" => $user["school"],
+            ];
+        }, $users);
+
+        return $this->json($response, $users);
     }
 
     function skills(Request $request, Response $response, array $pathArgs): Response

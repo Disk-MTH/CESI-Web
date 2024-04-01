@@ -140,14 +140,12 @@
                 </div>
             </div>
             <hr>
-            <div class="row" id="students"></div>
+            <div class="row" id="users"></div>
         </div>
     </section>
 {% endblock %}
 
 {% block scripting %}
-    <script>
-        const role = {{ role }};
-    </script>
+    <script>const role = {{ role }};</script>
     <script src="/assets/pages/users.js"></script>
 {% endblock %}

@@ -1,20 +1,20 @@
 pagination = $("#pagination").pagination({maxVisible: 5});
 
 pagination.on("changePage", async function (event, page) {
-    const filters = {
+    let filters = {
         "rating": $("#ratingDesc").is(":checked") ? "DESC" : $("#ratingAsc").is(":checked") ? "ASC" : null,
         "internshipsCount": $("#internshipsCountDesc").is(":checked") ? "DESC" : $("#internshipsCountAsc").is(":checked") ? "ASC" : null,
         "internsCount": $("#internsCountDesc").is(":checked") ? "DESC" : $("#internsCountAsc").is(":checked") ? "ASC" : null,
         "employeesCountLow": getEmployeesCount(true),
         "employeesCountHigh": getEmployeesCount(false),
     };
-
     Object.keys(filters).forEach(key => (filters[key] === null || filters[key].length === 0) && delete filters[key]);
+    filters = new URLSearchParams(filters).toString();
 
     const element = $("#companies");
     setLoading(element);
-    retrieve(element, $("#companyTile"), `/companies/${page}?${new URLSearchParams(filters).toString()}`);
-    pagination.setCount(Math.ceil((await fetch("/count/internships").then(response => response.json().then(data => data)))["count"] / 12));
+    retrieve(element, $("#companyTile"), `/api/companies/${page}?${filters}`);
+    pagination.setCount(Math.ceil((await fetch(`/api/count/companies?${filters}`).then(response => response.json().then(data => data)))["count"] / 12));
 });
 
 pagination.changePage();

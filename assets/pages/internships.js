@@ -1,23 +1,21 @@
 pagination = $("#pagination").pagination({maxVisible: 5});
 
 pagination.on("changePage", async function (event, page) {
-    const filters = {
+    let filters = {
         "date": $("#dateDesc").is(":checked") ? "DESC" : $("#dateAsc").is(":checked") ? "ASC" : null,
         "rating": $("#ratingDesc").is(":checked") ? "DESC" : $("#ratingAsc").is(":checked") ? "ASC" : null,
         "skills": $("#skillsList").children().map((index, item) => $(item).find("#filterItemContent").text()).get(),
     };
-
     Object.keys(filters).forEach(key => (filters[key] === null || filters[key].length === 0) && delete filters[key]);
+    filters = new URLSearchParams(filters).toString();
 
     const element = $("#internships");
     setLoading(element);
-    retrieve(element, $("#internshipTile"), `/internships/${page}?${new URLSearchParams(filters).toString()}`);
-    pagination.setCount(Math.ceil((await fetch("/count/companies").then(response => response.json().then(data => data)))["count"] / 12));
-
+    retrieve(element, $("#internshipTile"), `/api/internships/${page}?${filters}`);
+    pagination.setCount(Math.ceil((await fetch(`/api/count/internships?${filters}`).then(response => response.json().then(data => data)))["count"] / 12));
 });
 
 pagination.changePage();
-
 
 $("#skillsField").autocomplete({
     source: async function (request, response) {

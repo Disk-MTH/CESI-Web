@@ -80,11 +80,11 @@ return function (App $app) {
 
     /* ---------------------------------------- API ----------------------------------------*/
 
-    $app->get("/count/{type}", [ApiController::class, "count"]);
+    $app->get("/api/count/{type}", [ApiController::class, "count"]);
 
-    $app->get("/internships/{page}", [ApiController::class, "internships"]);
+    $app->get("/api/internships/{page}", [ApiController::class, "internships"]);
 
-    $app->get("/companies/{page}", [ApiController::class, "companies"]);
+    $app->get("/api/users/{page}", [ApiController::class, "users"]);
 
-    $app->get("/skills/{pattern}", [ApiController::class, "skills"]);
+    $app->get("/api/skills/{pattern}", [ApiController::class, "skills"]);
 };
