@@ -57,6 +57,14 @@ class InternshipsController extends Controller
             $data = $request->getParsedBody();
             $errors = ErrorsMiddleware::validate($data);
 
+            $skills = [];
+            $promos = [];
+
+            foreach ($data as $key => $value) {
+                if (str_starts_with($key, "suggestion@skills_")) $skills[] = $value;
+                if (str_starts_with($key, "suggestion@promos_")) $promos[] = $value;
+            }
+
             Validator::notEmpty()->validate($data["companyField"]) || $errors["company"] = "L'entreprise ne peut pas être vide";
             Validator::notEmpty()->validate($data["title"]) || $data["title"] = "Le titre ne peut pas être vide";
             Validator::date()->validate($data["startDate"]) || $errors["startDate"] = "La date de début n'est pas valide";
@@ -65,13 +73,8 @@ class InternshipsController extends Controller
             Validator::intType()->validate($data["lowSalary"]) || $errors["lowSalary"] = "Le salaire minimum doit être un nombre";
             Validator::intType()->validate($data["highSalary"]) || $errors["highSalary"] = "Le salaire maximum doit être un nombre";
             Validator::notEmpty()->validate($data["description"]) || $errors["description"] = "La description ne peut pas être vide";
-
-            //check for pattern suggestion@id_randomId
-
-//            Validator::notEmpty()->validate($data["description"]) || $errors["description"] = "La description ne peut pas être vide";
-
-            //TODO: skills
-            //TODO: promos
+            Validator::notEmpty()->validate($skills) || $errors["skills"] = "Les compétences ne peuvent pas être vides";
+            Validator::notEmpty()->validate($promos) || $errors["promos"] = "Les promotions ne peuvent pas être vides";
 
             if (empty($errors)) {
                 /*$uploadedFile = $uploadedFiles["logo"];
