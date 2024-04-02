@@ -79,8 +79,6 @@ class ApiController extends Controller
             return $response;
         }
 
-        $this->logger->warning("Internships API called with parameters: " . json_encode($queryArgs));
-
         $internships = $this->internshipRepo->pagination(
             $page, $queryArgs["date"] ?? null,
             $queryArgs["rating"] ?? null,
@@ -90,7 +88,7 @@ class ApiController extends Controller
         $internships = array_map(function ($internship) {
             $company = $this->companyRepo->byInternshipId($internship["id"]);
             return [
-                "url" => "/",
+                "url" => "/internship/" . $internship["id"],
                 "startDate" => $internship["startDate"]->format("d/m/Y"),
                 "endDate" => $internship["endDate"]->format("d/m/Y"),
                 "rate" => round((float) $internship["rate"]),

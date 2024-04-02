@@ -48,19 +48,25 @@ final class InternshipRepo extends EntityRepository
             ->getResult();
     }
 
-    public function create(array $data): void
+    public function create(array $data): bool
     {
-        $internship = new Internship();
-        $internship->setTitle($data["title"]);
-        $internship->setDescription($data["description"]);
-        $internship->setLowSalary($data["lowSalary"]);
-        $internship->setHighSalary($data["highSalary"]);
-        $internship->setStartDate($data["startDate"]);
-        $internship->setEndDate($data["endDate"]);
-        $internship->setLocation($this->_em->getReference(Location::class, $data["location"]));
-        $internship->setCompany($this->_em->getReference(Company::class, $data["company"]));
-        $internship->setSkills(array_map(fn($skill) => $this->_em->getReference(Skill::class, $skill), $data["skills"]));
-        $this->_em->persist($internship);
-        $this->_em->flush();
+        try {
+            $this->_em->persist((new Internship())
+                ->setTitle($data["title"])
+                ->setDescription($data["description"])
+                ->setLowSalary($data["lowSalary"])
+                ->setHighSalary($data["highSalary"])
+                ->setStartDate($data["startDate"])
+                ->setEndDate($data["endDate"])
+                ->setLocation($this->_em->getReference(Location::class, $data["location"]))
+                ->setCompany($this->_em->getReference(Company::class, $data["company"]))
+                ->setSkills(array_map(fn($skill) => $this->_em->getReference(Skill::class, $skill), $data["skills"]))
+            );
+            $this->_em->flush();
+
+            return true;
+        } catch (Throwable) {
+            return false;
+        }
     }
 }
