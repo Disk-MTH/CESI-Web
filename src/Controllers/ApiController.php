@@ -133,16 +133,14 @@ class ApiController extends Controller
                 "id" => $company["id"],
                 "company" => $company["name"],
                 "location" => $company["zipCode"] . " - " . $company["city"],
-                //TODO
-
-//                "internshipsCount" => $company["id"],
-//                "internsCount" => $company["id"],
+                "internshipsCount" => $company["numberOfInternships"],
                 "employeesCount" => $company["employeeCount"],
                 "icon" => $company["logoPath"],
                 "ratingsCount" => $company["numberOfReviews"],
-                "rate" => round((float)$company["averageRating"]),
+                "rate" => round((float)$company["averageGrade"]),
                 "url" => "/company/" . $company["id"],
                 "ratingUrl" => "/company/" . $company["id"] . "/rating",
+
             ];
         }, $companies);
 

@@ -14,7 +14,7 @@ final class CompanyRepo extends EntityRepository
     function pagination(int $page, string|null $rating, string|null $internshipsCount, string|null $internsCount, string|null $employeesCount, bool $count, int $limit = 12): array|int
     {
         //TODO: apply filters
-        $builder = $this
+        /*$builder = $this
             ->createQueryBuilder("c")
             ->select("c.id, c.name, l.city, l.zipCode, c.logoPath, cio.id, cio.title, c.employeeCount")
             ->addSelect("COUNT(ir.id) AS numberOfReviews")
@@ -22,7 +22,14 @@ final class CompanyRepo extends EntityRepository
             ->innerJoin("c.internships", "cio")
             ->innerJoin("cio.location", "l")
             ->leftJoin("cio.rates", "ir")
-            ->groupBy("c.id, c.name, l.city, l.zipCode, c.logoPath, cio.title, cio.id");
+            ->groupBy("c.id, c.name, l.city, l.zipCode, c.logoPath, cio.title, cio.id");*/
+
+        $builder = $this->createQueryBuilder("c")
+            ->select("c.id, c.name, l.zipCode, l.city, c.employeeCount, c.logoPath")
+            ->addSelect("(SELECT COUNT(io.id) FROM stagify\Model\Entities\Company c1 JOIN c1.internships io WHERE c1.id = c.id) AS numberOfInternships")
+            ->addSelect("(SELECT COUNT(r1.id) FROM stagify\Model\Entities\Company c2 JOIN c2.internships io1 JOIN io1.rates r1 WHERE c2.id = c.id) AS numberOfReviews")
+            ->addSelect("(SELECT AVG(r2.grade) FROM stagify\Model\Entities\Company c3 JOIN c3.internships io2 JOIN io2.rates r2 WHERE c3.id = c.id) AS averageGrade")
+            ->innerJoin("c.locations", "l");
 
 
         if ($rating) $builder->orderBy("averageRating", $rating);
