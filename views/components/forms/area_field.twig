@@ -1,7 +1,7 @@
 {% macro content(id, old = [], errors = [], rows = 3, shadow = true) %}
     <div class="input-group rounded-2 {% if shadow %}shadow{% endif %}">
         <textarea class="form-control" id="{{ id }}" name="{{ id }}" aria-label="{{ id }}" rows="{{ rows }}"
-               {% if old[id] %}value="{{ old[id] }}"{% endif %} style="resize: none;"></textarea>
+                  style="resize: none;">{{ old[id] }}</textarea>
     </div>
     {% if errors[id] %}
         <div class="text-coldRed ms-1">

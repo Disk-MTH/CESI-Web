@@ -4,7 +4,8 @@ function addSuggestion(id) {
     $(`#${id}List`).append(
         $("#suggestionItem")
             .html()
-            .replaceAll("{id}", Math.random().toString(36).substring(10))
+            .replaceAll("{id}", id)
+            .replaceAll("{randomId}", Math.random().toString(36).substring(10))
             .replace("{content}", content.val())
     );
 

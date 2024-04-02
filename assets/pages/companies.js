@@ -4,7 +4,6 @@ pagination.on("changePage", async function (event, page) {
     let filters = {
         "rating": $("#ratingDesc").is(":checked") ? "DESC" : $("#ratingAsc").is(":checked") ? "ASC" : null,
         "internshipsCount": $("#internshipsCountDesc").is(":checked") ? "DESC" : $("#internshipsCountAsc").is(":checked") ? "ASC" : null,
-        "internsCount": $("#internsCountDesc").is(":checked") ? "DESC" : $("#internsCountAsc").is(":checked") ? "ASC" : null,
         "employeesCount": $("input[type=radio][id^='employeesCount']").filter(":checked").attr("id") ? $("input[type=radio][id^='employeesCount']").filter(":checked").attr("id").split("@")[1] : null,
     };
     Object.keys(filters).forEach(key => (filters[key] === null || filters[key].length === 0 || filters[key] == "") && delete filters[key]);

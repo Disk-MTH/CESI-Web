@@ -1,15 +1,30 @@
 {% macro content(id, placeholder, old = [], errors = [], list = true, shadow = true) %}
+    {% set fieldId = id ~ "Field" %}
     <div class="input-group rounded-2 {% if shadow %}shadow{% endif %}" id="{{ id }}">
-        <input class="form-control" type="text" placeholder="{{ placeholder }}" id="{{ id }}Field">
+        <input class="form-control" type="text" placeholder="{{ placeholder }}" id="{{ fieldId }}" name="{{ fieldId }}"
+               {% if old[fieldId] %}value="{{ old[fieldId] }}"{% endif %}>
         {% if list %}
             <div class="input-group-append">
                 <div class="btn btn-deepSeaBlue rounded-start-0" onclick="addSuggestion('{{ id }}')">Ajouter</div>
             </div>
         {% endif %}
     </div>
-
+    {% if errors[id] %}
+        <div class="text-coldRed ms-1">
+            {{ errors[id] }}
+        </div>
+    {% endif %}
     {% if list %}
         <div id="{{ id }}List"></div>
     {% endif %}
-    <script>suggestion("{{ id }}")</script>
+    <script>
+        suggestion("{{ id }}")
+        old = JSON.parse("{{ old|json_encode }}".replaceAll('&quot;', '"'));
+        for (let value in old) {
+            if (!value.startsWith("suggestion@{{ id }}_")) continue;
+            $("#{{ fieldId }}").val(old[value]);
+            addSuggestion("{{ id }}");
+        }
+        $("#{{ fieldId }}").val(old["{{ fieldId }}"]);
+    </script>
 {% endmacro %}
