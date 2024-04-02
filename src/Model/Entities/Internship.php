@@ -225,4 +225,13 @@ class Internship
         $this->rates->add($rate);
         return $this;
     }
+
+    public function setCompany(?Company $company): self
+    {
+        if ($company !== null) {
+            $company->addInternship($this);
+        }
+
+        return $this;
+    }
 }

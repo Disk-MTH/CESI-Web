@@ -50,6 +50,7 @@ class InternshipsController extends Controller
 
         if ($request->getMethod() === "POST") {
             var_dump($request->getParsedBody());
+            $this->internshipRepo->create($request->getParsedBody());
             die();
         }
     }
