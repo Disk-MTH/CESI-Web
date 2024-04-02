@@ -30,7 +30,9 @@
 <template id="suggestionItem">
     <div class="card mt-2" id="{id}">
         <div class="row">
-            <div class="col text-start align-self-center ms-2" id="content">{content}</div>
+            <div class="col text-start align-self-center ms-2">
+                <input class="border-0" id="suggestion@{id}" name="suggestion@{id}" value="{content}" style="outline: none" readonly>
+            </div>
             <div class="col text-end">
                 <div class="btn" onclick="removeSuggestion('{id}')">Del</div>
             </div>

@@ -1,3 +1,3 @@
 const element = $("#internships");
 setLoading(element);
-retrieve(element, $("#internshipTile"), "/internships/1");
+retrieve(element, $("#internshipTile"), "/api/internships/1");
