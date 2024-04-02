@@ -9,11 +9,9 @@ final class InternshipRepo extends EntityRepository
 {
     public function pagination(int $page, string|null $date, string|null $rating, string|array|null $skills, bool $count, int $limit = 12): array|int
     {
-        //TODO: apply filters
         $builder = $this->createQueryBuilder("i")
             ->select("i.id, i.title, i.lowSalary, i.highSalary, i.startDate, i.endDate, il.city, il.zipCode")
             ->innerJoin("i.location", "il");
-
 
         if ($date) $builder->orderBy("i.startDate", $date);
 
@@ -31,7 +29,6 @@ final class InternshipRepo extends EntityRepository
                     ->groupBy("i.id");
             }
         }
-
 
         if ($count) {
             try {

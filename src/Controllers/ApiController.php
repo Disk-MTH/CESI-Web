@@ -89,7 +89,7 @@ class ApiController extends Controller
             false,
         );
         $internships = array_map(function ($internship) {
-            $company = $this->companyRepo->byInternship($internship["id"]);
+            $company = $this->companyRepo->byInternshipId($internship["id"]);
             return [
                 "title" => $internship["title"],
                 "salary" => $internship["lowSalary"] . " - " . $internship["highSalary"],
