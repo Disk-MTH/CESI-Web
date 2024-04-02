@@ -37,13 +37,13 @@ final class CompanyRepo extends EntityRepository
             ->getResult();
     }
 
-    function byInternship(Internship $internship): Company|null
+    function byInternship(int $intershipId): Company|null
     {
         $query = $this->createQueryBuilder("c")
             ->select("c")
             ->innerJoin("c.internships", "i")
             ->where("i.id = :internshipId")
-            ->setParameter("internshipId", $internship->getId())
+            ->setParameter("internshipId", $intershipId)
             ->getQuery();
 
         try {
@@ -52,4 +52,6 @@ final class CompanyRepo extends EntityRepository
             return null;
         }
     }
+
+
 }

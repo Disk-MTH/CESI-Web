@@ -65,6 +65,7 @@ class Internship
     #[ManyToMany(targetEntity: Rate::class)]
     private Collection $rates;
 
+
     public function __construct()
     {
         $this->deleted = false;

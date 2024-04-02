@@ -35,6 +35,19 @@ final class UserRepo extends EntityRepository
             ->getResult();
     }
 
+    function isWish(int $internshipId): bool
+    {
+        $query = $this->createQueryBuilder("u")
+            ->select("u.id")
+            ->innerJoin("u.wishes", "w")
+            ->where("u.deleted = 0")
+            ->andWhere("w.id = :internshipId")
+            ->setParameter("internshipId", $internshipId)
+            ->getQuery();
+
+        return count($query->getResult()) > 0;
+    }
+
     function getPilots(int $page, int $limit = 12): array
     {
         $query = $this->createQueryBuilder("u")

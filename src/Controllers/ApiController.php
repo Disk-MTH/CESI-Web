@@ -89,14 +89,14 @@ class ApiController extends Controller
             false,
         );
         $internships = array_map(function ($internship) {
-            $company = $this->companyRepo->byInternship($internship);
+            $company = $this->companyRepo->byInternship($internship["id"]);
             return [
-                "title" => $internship->getTitle(),
-                "salary" => $internship->getLowSalary() . " - " . $internship->getHighSalary(),
-                "location" => $internship->getLocation()->getZipCode() . " - " . $internship->getLocation()->getCity(),
-                "user_wish" => true,
-                "company_name" => $company?->getName(),
-                "company_logo" => $company?->getLogoPath(),
+                "title" => $internship["title"],
+                "salary" => $internship["lowSalary"] . " - " . $internship["highSalary"],
+                "location" => $internship["zipCode"] . " - " . $internship["city"],
+                "user_wish" => $this->userRepo->isWish($internship["id"]),
+                "company_name" => $company->getName(),
+                "company_logo" => $company->getLogoPath(),
             ];
         }, $internships);
 
