@@ -3,6 +3,10 @@
 namespace stagify\Model\Repositories;
 
 use Doctrine\ORM\EntityRepository;
+use stagify\Model\Entities\Company;
+use stagify\Model\Entities\Internship;
+use stagify\Model\Entities\Location;
+use stagify\Model\Entities\Skill;
 use Throwable;
 
 final class InternshipRepo extends EntityRepository
@@ -42,5 +46,21 @@ final class InternshipRepo extends EntityRepository
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
+    }
+
+    public function create(array $data): void
+    {
+        $internship = new Internship();
+        $internship->setTitle($data["title"]);
+        $internship->setDescription($data["description"]);
+        $internship->setLowSalary($data["lowSalary"]);
+        $internship->setHighSalary($data["highSalary"]);
+        $internship->setStartDate($data["startDate"]);
+        $internship->setEndDate($data["endDate"]);
+        $internship->setLocation($this->_em->getReference(Location::class, $data["location"]));
+        $internship->setCompany($this->_em->getReference(Company::class, $data["company"]));
+        $internship->setSkills(array_map(fn($skill) => $this->_em->getReference(Skill::class, $skill), $data["skills"]));
+        $this->_em->persist($internship);
+        $this->_em->flush();
     }
 }

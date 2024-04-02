@@ -55,8 +55,7 @@ class ApiController extends Controller
                 $request->getQueryParams()["rating"] ?? null,
                 $request->getQueryParams()["internshipsCount"] ?? null,
                 $request->getQueryParams()["internsCount"] ?? null,
-                $request->getQueryParams()["employeesCountLow"] ?? null,
-                $request->getQueryParams()["employeesCountHigh"] ?? null,
+                $request->getQueryParams()["employeesCount"] ?? null,
                 true,
             ),
             "users" => $this->userRepo->pagination(
@@ -124,8 +123,7 @@ class ApiController extends Controller
             $queryArgs["rating"] ?? null,
             $queryArgs["internshipsCount"] ?? null,
             $queryArgs["internsCount"] ?? null,
-            $queryArgs["employeesCountLow"] ?? null,
-            $queryArgs["employeesCountHigh"] ?? null,
+            $queryArgs["employeesCount"] ?? null,
             false,
         );
         $companies = array_map(function ($company) {
@@ -135,6 +133,7 @@ class ApiController extends Controller
                 "location" => $company["zipCode"] . " - " . $company["city"],
                 "icon" => $company["logoPath"],
                 "rating_count" => $company["numberOfReviews"],
+                "average_rating" => $company["averageRating"],
             ];
         }, $companies);
 
