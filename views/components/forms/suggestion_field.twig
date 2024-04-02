@@ -1,11 +1,15 @@
-{% macro content(id, placeholder, shadow = true) %}
+{% macro content(id, placeholder, old = [], errors = [], list = true, shadow = true) %}
     <div class="input-group rounded-2 {% if shadow %}shadow{% endif %}" id="{{ id }}">
         <input class="form-control" type="text" placeholder="{{ placeholder }}" id="{{ id }}Field">
-        <div class="input-group-append">
-            <div class="btn btn-deepSeaBlue rounded-start-0" onclick="addSuggestion('{{ id }}')">Ajouter</div>
-        </div>
+        {% if list %}
+            <div class="input-group-append">
+                <div class="btn btn-deepSeaBlue rounded-start-0" onclick="addSuggestion('{{ id }}')">Ajouter</div>
+            </div>
+        {% endif %}
     </div>
 
-    <div id="{{ id }}List"></div>
+    {% if list %}
+        <div id="{{ id }}List"></div>
+    {% endif %}
     <script>suggestion("{{ id }}")</script>
 {% endmacro %}

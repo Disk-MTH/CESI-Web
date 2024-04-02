@@ -1,0 +1,66 @@
+{% set title = "Stagify - Création de stage" %}
+{% extends "components/layouts/layout.twig" %}
+{% import "components/forms/form_field.twig" as form_field %}
+{% import "components/forms/suggestion_field.twig" as suggestion_field %}
+{% import "components/forms/area_field.twig" as area_field %}
+
+{% block header %}
+    <section class="bg-deepWarmGrey rounded-bottom-5">
+        <div class="container">
+            <div class="row text-center">
+                <div class="text-heavyBlack py-3"><h4>Création d'offre</h4></div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block content %}
+
+    <section>
+        <div class="container">
+            <form class="card bg-deepWarmGrey py-3 px-3 my-5 shadow"  action="{{ url_for("create_internship") }}" method="post">
+                <div class="row">
+                    <div class="col-md-12 col-lg-6">
+                        <h5>Entreprise</h5>
+                        {{ suggestion_field.content("company", "", old, errors, false) }}
+
+                        <h5 class="mt-2">Titre du stage</h5>
+                        {{ form_field.content("title", old, errors) }}
+
+                        <h5 class="mt-2">Dates (début-fin)</h5>
+                        <div class="row">
+                            <div class="col">{{ form_field.content("startDate", old, errors) }}</div>
+                            <div class="col">{{ form_field.content("endDate", old, errors) }}</div>
+                        </div>
+
+                        <h5 class="mt-2">Durée du stage (jours)</h5>
+                        {{ form_field.content("duration", old, errors) }}
+
+                        <h5 class="mt-2">Rémunération (basse-haute)</h5>
+                        <div class="row">
+                            <div class="col">{{ form_field.content("lowSalary", old, errors) }}</div>
+                            <div class="col">{{ form_field.content("highSalary", old, errors) }}</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-6">
+                        <h5 class="mt-md-2 mt-lg-0">Compétences</h5>
+                        {{ suggestion_field.content("skills", "Compétences") }}
+
+                        <h5 class="mt-2">Promotions concernées</h5>
+                        {{ suggestion_field.content("promos", "Formation") }}
+
+                        <h5 class="mt-2">Description du poste</h5>
+                        {{ area_field.content("description", old, errors, 5) }}
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col text-end">
+                        <button class="btn btn-deepSeaBlue">Valider</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}

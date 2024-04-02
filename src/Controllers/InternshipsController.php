@@ -44,6 +44,13 @@ class InternshipsController extends Controller
 
     function createInternship(Request $request, Response $response): Response
     {
-        return $this->render($response, "pages/create_internship.twig");
+        if ($request->getMethod() === "GET") {
+            return $this->render($response, "pages/create_internship.twig");
+        }
+
+        if ($request->getMethod() === "POST") {
+            var_dump($request->getParsedBody());
+            die();
+        }
     }
 }
