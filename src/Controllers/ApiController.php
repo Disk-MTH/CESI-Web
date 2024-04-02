@@ -133,15 +133,14 @@ class ApiController extends Controller
                 "id" => $company["id"],
                 "company" => $company["name"],
                 "location" => $company["zipCode"] . " - " . $company["city"],
-                //TODO
-//                "internshipsCount" => $company["id"],
-//                "internsCount" => $company["id"],
+                "internshipsCount" => $company["numberOfInternships"],
                 "employeesCount" => $company["employeeCount"],
                 "icon" => $company["logoPath"],
-                "ratingsCount" => $company["ratingsCount"],
-                "rate" => round((float) $company["rate"]),
+                "ratingsCount" => $company["numberOfReviews"],
+                "rate" => round((float)$company["averageGrade"]),
                 "url" => "/company/" . $company["id"],
                 "ratingUrl" => "/company/" . $company["id"] . "/rating",
+
             ];
         }, $companies);
 
@@ -178,7 +177,7 @@ class ApiController extends Controller
 
         return $this->json($response, $users);
     }
-    
+
     function promos(Request $request, Response $response, array $pathArgs): Response
     {
         $promos = $this->promoRepo->suggestions($pathArgs["pattern"]);

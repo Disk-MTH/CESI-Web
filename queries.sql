@@ -1,13 +1,99 @@
 SELECT DISTINCT c.id, c.name, l.city, l.zipCode, io.id, io.title, COUNT(r.id) AS numberOfReviews
 FROM company c
          JOIN company_internship cio ON c.id = cio.company_id
-         JOIN internship io ON cio.internship_id = io.id
-         JOIN location l ON io.location_id = l.id
+         LEFT JOIN company_location cl ON c.id = cl.company_id
+         LEFT JOIN location l ON cl.location_id = l.id
+         LEFT JOIN internship io ON cio.internship_id = io.id
          LEFT JOIN internship_rate ir ON io.id = ir.internship_id
          LEFT JOIN rate r ON ir.rate_id = r.id
 GROUP BY c.id, c.name, l.city, l.zipCode, io.title, io.id;
 
-#
+SELECT DISTINCT c.id, c.name, l.zipCode, l.city, COUNT(io.id) as numberOfInternships
+FROM company c
+         JOIN company_location cl ON c.id = cl.company_id
+         JOIN location l ON cl.location_id = l.id
+         LEFT JOIN company_internship cio ON c.id = cio.company_id
+         LEFT JOIN internship io ON cio.internship_id = io.id
+WHERE io.location_id = l.id
+GROUP BY c.id, c.name, l.zipCode, l.city;
+
+SELECT DISTINCT c.id, c.name, l.zipCode, l.city, COUNT(io.id) as numberOfInternships
+FROM company c
+         JOIN company_location cl ON c.id = cl.company_id
+         JOIN location l ON cl.location_id = l.id
+         LEFT JOIN company_internship cio ON c.id = cio.company_id
+         LEFT JOIN internship io ON cio.internship_id = io.id AND io.location_id = l.id
+GROUP BY c.id, c.name, l.zipCode, l.city;
+
+SELECT DISTINCT c.id,
+                c.name,
+                l.zipCode,
+                l.city,
+                COUNT(io.id) as numberOfInternships,
+                COUNT(r.id)  as numberOfReviews,
+                AVG(r.grade) as averageGrade
+FROM company c
+         JOIN company_location cl ON c.id = cl.company_id
+         JOIN location l ON cl.location_id = l.id
+         LEFT JOIN company_internship cio ON c.id = cio.company_id
+         LEFT JOIN internship io ON cio.internship_id = io.id AND io.location_id = l.id
+         LEFT JOIN internship_rate ir ON io.id = ir.internship_id
+         LEFT JOIN rate r ON ir.rate_id = r.id
+GROUP BY c.id, c.name, l.zipCode, l.city;
+
+
+
+SELECT c.id,
+       c.name,
+       l.zipCode,
+       l.city,
+       c.employeeCount,
+       (SELECT COUNT(io.id) FROM company_internship cio
+                                     LEFT JOIN internship io ON cio.internship_id = io.id AND io.location_id = l.id
+        WHERE c.id = cio.company_id) as numberOfInternships,
+       (SELECT COUNT(r.id) FROM company_internship cio
+                                    LEFT JOIN internship io ON cio.internship_id = io.id AND io.location_id = l.id
+                                    LEFT JOIN internship_rate ir ON io.id = ir.internship_id
+                                    LEFT JOIN rate r ON ir.rate_id = r.id
+        WHERE c.id = cio.company_id) as numberOfReviews,
+       (SELECT AVG(r.grade) FROM company_internship cio
+                                     LEFT JOIN internship io ON cio.internship_id = io.id AND io.location_id = l.id
+                                     LEFT JOIN internship_rate ir ON io.id = ir.internship_id
+                                     LEFT JOIN rate r ON ir.rate_id = r.id
+        WHERE c.id = cio.company_id) as averageGrade
+FROM company c
+         JOIN company_location cl ON c.id = cl.company_id
+         JOIN location l ON cl.location_id = l.id;
+
+
+
+
+SELECT c.id,
+       c.name,
+       l.zipCode,
+       l.city,
+       (SELECT COUNT(io.id) FROM company_internship cio
+                                     LEFT JOIN internship io ON cio.internship_id = io.id AND io.location_id = l.id
+        WHERE c.id = cio.company_id) as numberOfInternships,
+       (SELECT COUNT(r.id) FROM company_internship cio
+                                    LEFT JOIN internship io ON cio.internship_id = io.id AND io.location_id = l.id
+                                    LEFT JOIN internship_rate ir ON io.id = ir.internship_id
+                                    LEFT JOIN rate r ON ir.rate_id = r.id
+        WHERE c.id = cio.company_id) as numberOfReviews,
+       (SELECT AVG(r.grade) FROM company_internship cio
+                                     LEFT JOIN internship io ON cio.internship_id = io.id AND io.location_id = l.id
+                                     LEFT JOIN internship_rate ir ON io.id = ir.internship_id
+                                     LEFT JOIN rate r ON ir.rate_id = r.id
+        WHERE c.id = cio.company_id) as averageGrade,
+       (SELECT COUNT(a.id) FROM application a
+                                    LEFT JOIN internship io ON a.internship_id = io.id
+        WHERE c.id = io.company_id) as numberOfApplications
+FROM company c
+         JOIN company_location cl ON c.id = cl.company_id
+         JOIN location l ON cl.location_id = l.id;
+
+
+
 
 SELECT DISTINCT c.id, c.name, l.city, l.zipCode, io.title, io.id
 FROM company c
