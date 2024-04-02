@@ -16,6 +16,7 @@ use stagify\Model\Repositories\InternshipRepo;
 use stagify\Model\Repositories\LocationRepo;
 use stagify\Model\Repositories\SkillRepo;
 use stagify\Model\Repositories\UserRepo;
+use stagify\Model\Repositories\PromoRepo;
 
 class ApiController extends Controller
 {
@@ -30,6 +31,9 @@ class ApiController extends Controller
 
     /** @var SkillRepo $internshipRepo */
     private EntityRepository $skillRepo;
+
+    /** @var EntityRepository */
+    private EntityRepository $promoRepo;
 
     public function __construct(ContainerInterface $container)
     {
@@ -91,7 +95,7 @@ class ApiController extends Controller
                 "url" => "/internship/" . $internship["id"],
                 "startDate" => $internship["startDate"]->format("d/m/Y"),
                 "endDate" => $internship["endDate"]->format("d/m/Y"),
-                "rate" => round((float) $internship["rate"]),
+                "rate" => round((float)$internship["rate"]),
                 "title" => $internship["title"],
                 "salary" => $internship["lowSalary"] . " - " . $internship["highSalary"],
                 "location" => $internship["zipCode"] . " - " . $internship["city"],
@@ -174,32 +178,19 @@ class ApiController extends Controller
 
         return $this->json($response, $users);
     }
-
-    //TODO
+    
     function promos(Request $request, Response $response, array $pathArgs): Response
     {
-        $skills = $this->skillRepo->suggestions($pathArgs["pattern"]);
-        $skills = array_map(function ($skill) {
+        $promos = $this->promoRepo->suggestions($pathArgs["pattern"]);
+        $promos = array_map(function ($promo) {
             return [
-                "name" => $skill->getName(),
+                "name" => $promo->getYear() + $promo->getType() + $promo->getSchool()
             ];
-        }, $skills);
+        }, $promos);
 
-        return $this->json($response, $skills);
+        return $this->json($response, $promos);
     }
 
-    //TODO
-    function campuses(Request $request, Response $response, array $pathArgs): Response
-    {
-        $skills = $this->skillRepo->suggestions($pathArgs["pattern"]);
-        $skills = array_map(function ($skill) {
-            return [
-                "name" => $skill->getName(),
-            ];
-        }, $skills);
-
-        return $this->json($response, $skills);
-    }
 
     function skills(Request $request, Response $response, array $pathArgs): Response
     {
