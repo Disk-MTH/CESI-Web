@@ -13,12 +13,9 @@ final class CompanyRepo extends EntityRepository
 {
     function pagination(int $page, string|null $rating, string|null $internshipsCount, string|null $internsCount, string|null $employeesCount, bool $count, int $limit = 12): array|int
     {
-        //TODO: apply filters
         $builder = $this
             ->createQueryBuilder("c")
-            ->select("c.id, c.name, l.city, l.zipCode, c.logoPath, cio.id, cio.title, c.employeeCount")
-            ->addSelect("COUNT(ir.id) AS numberOfReviews")
-            ->addSelect("AVG(ir.grade) AS averageRating")
+            ->select("c.id, c.name, l.city, l.zipCode, c.logoPath, cio.id, cio.title, c.employeeCount, COUNT(ir.id) AS ratingsCount, AVG(ir.grade) AS rate")
             ->innerJoin("c.internships", "cio")
             ->innerJoin("cio.location", "l")
             ->leftJoin("cio.rates", "ir")

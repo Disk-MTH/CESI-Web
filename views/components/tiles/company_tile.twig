@@ -10,8 +10,11 @@
                     <div class="col">
                         <h6 class="card-title text-heavyBlack">{company}</h6>
                         <p class="text-lightGrey">
-                            <img class="img-fluid" src="/assets/svg/tile/map_pin.svg" alt="mapPin">
-                            {location}
+                            <i class="fa fa-map-marker"></i> &middot; {location}
+                            <br>
+                            <i class="fa fa-book"></i> &middot; {internshipsCount} stages - {internsCount} stagiaires
+                            <br>
+                            <i class="fa fa-users"></i> &middot; {employeesCount} employés
                         </p>
                     </div>
                 </div>
@@ -22,8 +25,8 @@
                     </div>
 
                     <div class="col-8 text-end">
-                        <div class="btn btn-pastelBlue shadow" onclick="navigateTo(event, '{rating_url}')">
-                            Voir les {rating_count} avis
+                        <div class="btn btn-pastelBlue shadow" onclick="navigateTo(event, '{ratingUrl}')">
+                            Voir les {ratingsCount} avis ({rate} <i class="fa fa-star text-goldenBrown"></i>)
                         </div>
                     </div>
                 </div>
