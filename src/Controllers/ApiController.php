@@ -91,6 +91,10 @@ class ApiController extends Controller
         $internships = array_map(function ($internship) {
             $company = $this->companyRepo->byInternshipId($internship["id"]);
             return [
+                "url" => "/",
+                "startDate" => $internship["startDate"]->format("d/m/Y"),
+                "endDate" => $internship["endDate"]->format("d/m/Y"),
+                "rate" => round((float) $internship["rate"]),
                 "title" => $internship["title"],
                 "salary" => $internship["lowSalary"] . " - " . $internship["highSalary"],
                 "location" => $internship["zipCode"] . " - " . $internship["city"],

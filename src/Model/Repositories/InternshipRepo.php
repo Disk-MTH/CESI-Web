@@ -10,15 +10,14 @@ final class InternshipRepo extends EntityRepository
     public function pagination(int $page, string|null $date, string|null $rating, string|array|null $skills, bool $count, int $limit = 12): array|int
     {
         $builder = $this->createQueryBuilder("i")
-            ->select("i.id, i.title, i.lowSalary, i.highSalary, i.startDate, i.endDate, il.city, il.zipCode")
-            ->innerJoin("i.location", "il");
+            ->select("i.id, i.title, i.lowSalary, i.highSalary, i.startDate, i.endDate, il.city, il.zipCode, AVG(r.grade) AS rate")
+            ->innerJoin("i.location", "il")
+            ->leftJoin("i.rates", "r")
+            ->groupBy("i.id");
 
         if ($date) $builder->orderBy("i.startDate", $date);
 
-        if ($rating) $builder->addSelect("ROUND(AVG(r.grade) AS averageRating, 2)")
-            ->innerJoin("i.rates", "r")
-            ->groupBy("i.id")
-            ->orderBy("averageRating", $rating);
+        if ($rating) $builder->orderBy("rate", $rating);
 
         if ($skills) {
             $skills = explode(",", $skills);
