@@ -49,6 +49,7 @@ class SessionMiddleware extends Shared implements MiddlewareInterface
     public static function logIn(Session $session, bool $persist): void
     {
         $_SESSION["session"] = $session->getToken();
+        $_SESSION["user"] = $session->getUser()->getId();
         $_SESSION["role"] = $session->getUser()->getRole();
         if ($persist) setcookie("session", $session->getToken(), strtotime("+5 year"));
     }
@@ -56,6 +57,7 @@ class SessionMiddleware extends Shared implements MiddlewareInterface
     public static function logOut(): void
     {
         unset($_SESSION["session"]);
+        unset($_SESSION["user"]);
         unset($_SESSION["role"]);
         setcookie("session", "", strtotime("-1 year"));
     }
