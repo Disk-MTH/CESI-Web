@@ -32,14 +32,9 @@ final class CompanyRepo extends EntityRepository
             ->innerJoin("c.locations", "l");
 
 
-        if ($rating) $builder->orderBy("averageRating", $rating);
+        if ($rating) $builder->orderBy("averageGrade", $rating);
 
-        if ($internshipsCount) $builder->orderBy("COUNT(cio.id)", $internshipsCount);
-
-        if ($internsCount) $builder->addSelect("COUNT(DISTINCT i.id) AS internsCount")
-            ->innerJoin("cio.interns", "i")
-            ->groupBy("c.id, c.name, l.city, l.zipCode, c.logoPath, cio.title, cio.id")
-            ->orderBy("internsCount", $internsCount);
+        if ($internshipsCount) $builder->orderBy("numberOfInternships", $internshipsCount);
 
         if ($employeesCount) {
             $limits = explode("_", $employeesCount);
