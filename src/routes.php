@@ -48,7 +48,9 @@ return function (App $app) {
     $app->get("/user/wishlist", [UsersController::class, "wishlist"])->setName("wishlist");
 
     $app->get("/create/user/{role}", [UsersController::class, "createUser"])->setName("create_user");
-    
+
+    $app->post("/create/user/{role}", [UsersController::class, "createUser"])->setName("create_user");
+
     /* ---------------------------------------- Companies ----------------------------------------*/
 
     $app->get("/companies", [CompaniesController::class, "companies"])->setName("companies");

@@ -120,6 +120,6 @@ class UsersController extends Controller
 
             }
         }
-        return $this->redirect($response, "/create/internship");
+        return $this->redirect($response, "/create/user/$role");
     }
 }
