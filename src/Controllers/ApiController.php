@@ -103,9 +103,9 @@ class ApiController extends Controller
                 "title" => $internship["title"],
                 "salary" => $internship["lowSalary"] . " - " . $internship["highSalary"],
                 "location" => $internship["zipCode"] . " - " . $internship["city"],
-                "user_wish" => $this->userRepo->isWish($internship["id"]),
-                "company_name" => $company->getName(),
-                "company_logo" => $company->getLogoPath(),
+                "userWish" => $this->userRepo->isWish($internship["id"]),
+                "companyName" => $company->getName(),
+                "companyLogo" => "/files/companies/" . $company->getLogoPicture(),
             ];
         }, $internships);
 
@@ -138,7 +138,7 @@ class ApiController extends Controller
                 "location" => $company["zipCode"] . " - " . $company["city"],
                 "internshipsCount" => $company["numberOfInternships"],
                 "employeesCount" => $company["employeeCount"],
-                "icon" => $company["logoPath"],
+                "logo" => "/files/companies/" . $company["logoPicture"],
                 "ratingsCount" => $company["numberOfReviews"],
                 "rate" => round((float)$company["averageGrade"]),
                 "url" => "/company/" . $company["id"],

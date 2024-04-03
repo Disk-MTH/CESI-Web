@@ -102,7 +102,7 @@ class InternshipsController extends Controller
                     $data["description"] = $internship->getDescription();
                     $data["companiesField"] = $company->getName() . " - " . $internship->getLocation()->getZipCode() . " " . $internship->getLocation()->getCity();
                     $data["skills"] = [];
-                    foreach ($internship->getSkills() as $skills) $data["suggestion-skills_" . bin2hex(random_bytes(10))] = $skills->getName();
+                    foreach ($internship->getSkills() as $skill) $data["suggestion-skills_" . bin2hex(random_bytes(10))] = $skill->getName();
                     $data["promos"] = [];
                     foreach ($internship->getPromos() as $promo) $data["suggestion-promos_" . bin2hex(random_bytes(10))] = "A" . $promo->getYear() . " " . $promo->getType() . " - " . $promo->getSchool();
 
@@ -180,10 +180,14 @@ class InternshipsController extends Controller
                             FlashMiddleware::flash("success", "Offre de stage enregistrée avec succès.");
                             return $this->redirect($response, "/create/internship?edit=true&id=" . $internship->getId());
                         }
-                        else FlashMiddleware::flash("error", "Une erreur est survenue lors de la modification de l'offre de stage.");
+                        else {
+                            FlashMiddleware::flash("error", "Une erreur est survenue lors de la modification de l'offre de stage.");
+                            if ($_POST["_method"] === "PATCH") return $this->redirect($response, "/create/internship?edit=true&id=" . $data["id"]);
+                        }
                     }
                 }
                 ErrorsMiddleware::error($errors);
+                if ($_POST["_method"] === "PATCH") return $this->redirect($response, "/create/internship?edit=true&id=" . $data["id"]);
             }
 
             if ($_POST["_method"] === "DELETE") {

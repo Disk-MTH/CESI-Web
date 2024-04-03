@@ -11,7 +11,7 @@
     <section class="bg-deepWarmGrey">
         <div class="container">
             <div class="row text-center">
-                <div class="text-heavyBlack py-3"><h4>Création d'étudiant</h4></div>
+                <div class="text-heavyBlack py-3"><h4>Création d'entreprise</h4></div>
             </div>
         </div>
     </section>
@@ -20,10 +20,18 @@
 {% block content %}
     <section>
         <div class="container">
+            {% if edit %}
+                <form action="{{ url_for("create_company") }}" method="post" id="state">
+                    <input type="hidden" name="_method" value="{% if deleted %}RESTORE{% else %}DELETE{% endif %}">
+                    <input type="hidden" id="id" name="id" value="{{ id }}">
+                </form>
+            {% endif %}
             <form class="card bg-deepWarmGrey py-3 px-3 my-5 shadow"
                   action="{{ url_for("create_company", {"role": 3}) }}"
                   method="post" enctype="multipart/form-data">
                 {{ include("components/layouts/flash_banners.twig") }}
+                <input type="hidden" name="_method" value="{% if edit %}PATCH{% else %}POST{% endif %}">
+                {% if edit %}<input type="hidden" id="id" name="id" value="{{ id }}">{% endif %}
                 <div class="row">
                     <div class="row">
                         <div class="col-md-12 col-lg-6">
@@ -36,30 +44,44 @@
                             <h5 class="mt-2">Site web</h5>
                             {{ form_field.content("website", old, errors) }}
 
-                            <h5 class="mt-md-2 mt-lg-0">Secteur d'activité</h5>
-                            {{ suggestion_field.content("sector", "Secteur", old, errors) }}
-
-
+                            <h5 class="mt-2">Secteur d'activité</h5>
+                            {{ suggestion_field.content("sectors", "Secteur", old, errors, false) }}
                         </div>
 
                         <div class="col-md-12 col-lg-6">
+                            <h5 class="mt-md-2 mt-lg-0">Logo</h5>
+                            {{ file_field.content("logoPicture", errors) }}
 
-                            <h5>Logo</h5>
-                            {{ file_field.content("logoPicture", old, errors) }}
-
-                            <h5 class="mt-2">Localisation (Ville - Code postal)</h5>
+                            <h5 class="mt-2">Localisations (Code postal - Ville)</h5>
                             <div class="row">
-                                <div class="col-5">{{ form_field.content("city", old, errors) }}</div>
                                 <div class="col-5">{{ form_field.content("zipCode", old, errors) }}</div>
+                                <div class="col-5">{{ form_field.content("city", old, errors) }}</div>
                                 <div class="col-2">
-                                    <div class="btn btn-deepSeaBlue">Ajouter</div>
+                                    <div class="btn btn-deepSeaBlue" onclick="addLocation()">Ajouter</div>
                                 </div>
                             </div>
-
+                            <div id="locations">
+                                {% if errors["locations"] %}
+                                    <div class="text-coldRed ms-1">
+                                        {{ errors["locations"] }}
+                                    </div>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
 
                     <div class="row mt-3">
+                        {% if edit %}
+                            {% if deleted %}
+                                <div class="col">
+                                    <button class="btn btn-deepGreen text-white" form="state">Restaurer</button>
+                                </div>
+                            {% else %}
+                                <div class="col">
+                                    <button class="btn btn-coldRed text-white" form="state">Supprimer</button>
+                                </div>
+                            {% endif %}
+                        {% endif %}
                         <div class="col text-end">
                             <button class="btn btn-deepSeaBlue">Valider</button>
                         </div>
@@ -68,4 +90,9 @@
             </form>
         </div>
     </section>
+{% endblock %}
+
+{% block scripting %}
+    <script>old = "{{ old|json_encode }}";</script>
+    <script src="/assets/pages/create_company.js"></script>
 {% endblock %}

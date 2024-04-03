@@ -25,7 +25,7 @@ final class CompanyRepo extends EntityRepository
             ->groupBy("c.id, c.name, l.city, l.zipCode, c.logoPath, cio.title, cio.id");*/
 
         $builder = $this->createQueryBuilder("c")
-            ->select("c.id, c.name, l.zipCode, l.city, c.employeeCount, c.logoPath")
+            ->select("c.id, c.name, l.zipCode, l.city, c.employeeCount, c.logoPicture")
             ->addSelect("(SELECT COUNT(io.id) FROM stagify\Model\Entities\Company c1 JOIN c1.internships io WHERE c1.id = c.id) AS numberOfInternships")
             ->addSelect("(SELECT COUNT(r1.id) FROM stagify\Model\Entities\Company c2 JOIN c2.internships io1 JOIN io1.rates r1 WHERE c2.id = c.id) AS numberOfReviews")
             ->addSelect("(SELECT AVG(r2.grade) FROM stagify\Model\Entities\Company c3 JOIN c3.internships io2 JOIN io2.rates r2 WHERE c3.id = c.id) AS averageGrade")
@@ -108,18 +108,69 @@ final class CompanyRepo extends EntityRepository
     function create(array $data): Company|null
     {
         try {
-            $company = new Company();
-            $company->setName($data["companyName"]);
-            $company->setEmployeeCount($data["employeeCount"]);
-            $company->setWebsite($data["website"]);
-            $company->setActivitySector($data["sector"]);
-            $company->setLocations($data["city"], $data["zipCode"]);
-            $company->setLogoPath($data["logo"]);
+            $company = (new Company())
+                ->setName($data["companyName"])
+                ->setWebsite($data["website"])
+                ->setEmployeeCount($data["employeeCount"])
+                ->setLogoPicture($data["logoPicture"])
+                ->setActivitySector($data["sector"])
+                ->setLocations($data["locations"]);
             $this->_em->persist($company);
             $this->_em->flush();
             return $company;
         } catch (Throwable) {
             return null;
+        }
+    }
+
+    function update(array $data): Company|null
+    {
+        try {
+            $company = $this->find($data["id"]);
+            if ($company) {
+                $company
+                    ->setName($data["companyName"])
+                    ->setWebsite($data["website"])
+                    ->setEmployeeCount($data["employeeCount"])
+                    ->setLogoPicture($data["logoPicture"])
+                    ->setActivitySector($data["sector"])
+                    ->setLocations($data["locations"]);
+                $this->_em->flush();
+                return $company;
+            }
+            return null;
+        } catch (Throwable) {
+            return null;
+        }
+    }
+
+    public function delete(int $id): bool
+    {
+        try {
+            $company = $this->find($id);
+            if ($company) {
+                $company->setDeleted(true);
+                $this->_em->flush();
+                return true;
+            }
+            return false;
+        } catch (Throwable) {
+            return false;
+        }
+    }
+
+    public function restore(int $id): bool
+    {
+        try {
+            $company = $this->find($id);
+            if ($company) {
+                $company->setDeleted(false);
+                $this->_em->flush();
+                return true;
+            }
+            return false;
+        } catch (Throwable) {
+            return false;
         }
     }
 }

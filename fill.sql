@@ -252,70 +252,70 @@ VALUES (9, 'Finance');
 INSERT INTO activity_sector (id, name)
 VALUES (10, 'Ressources Humaines');
 
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (1, 'Google', 'www.google.com', 100000, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 1);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (2, 'Hopital', 'www.hopital.com', 1000, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 2);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (3, 'Boulangerie', 'www.boulangerie.com', 10, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 3);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (4, 'Maconnerie', 'www.maconnerie.com', 100, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 4);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (5, 'Dev', 'www.dev.com', 1000, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 5);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (6, 'Vente', 'www.vente.com', 10000, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 6);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (7, 'Marketing', 'www.marketing.com', 1000, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 7);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (8, 'Communication', 'www.communication.com', 1000, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0,
         8);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (9, 'Finance', 'www.finance.com', 1000, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 9);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (10, 'Ressources Humaines', 'www.ressourceshumaines.com', 1000,
         'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 10);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (11, 'Google2', 'www.google.com', 100000, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 1);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (12, 'Hopital2', 'www.hopital.com', 1000, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 2);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (13, 'Boulangerie2', 'www.boulangerie.com', 10, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 3);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (14, 'Maconnerie2', 'www.maconnerie.com', 100, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 4);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (15, 'Dev2', 'www.dev.com', 1000, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 5);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (16, 'Vente2', 'www.vente.com', 10000, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 6);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (17, 'Marketing2', 'www.marketing.com', 1000, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 7);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (18, 'Communication2', 'www.communication.com', 1000, 'http://stagify.fr/assets/illustrations/company_logo.svg',
         0, 8);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (19, 'Finance2', 'www.finance.com', 1000, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 9);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (20, 'Ressources Humaines2', 'www.ressourceshumaines.com', 1000,
         'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 10);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (21, 'Google3', 'www.google.com', 100000, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 1);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (22, 'Hopital3', 'www.hopital.com', 1000, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 2);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (23, 'Boulangerie3', 'www.boulangerie.com', 10, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 3);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (24, 'Maconnerie3', 'www.maconnerie.com', 100, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 4);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (25, 'Dev3', 'www.dev.com', 1000, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 5);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (26, 'Vente3', 'www.vente.com', 10000, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 6);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (27, 'Marketing3', 'www.marketing.com', 1000, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 7);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (28, 'Communication3', 'www.communication.com', 1000, 'http://stagify.fr/assets/illustrations/company_logo.svg',
         0, 8);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (29, 'Finance3', 'www.finance.com', 1000, 'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 9);
-INSERT INTO company (id, name, website, employeeCount, logoPath, deleted, activitySector_id)
+INSERT INTO company (id, name, website, employeeCount, logoPicture, deleted, activitySector_id)
 VALUES (30, 'Ressources Humaines3', 'www.ressourceshumaines.com', 1000,
         'http://stagify.fr/assets/illustrations/company_logo.svg', 0, 10);
 
