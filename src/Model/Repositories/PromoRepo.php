@@ -25,7 +25,7 @@ final class PromoRepo extends EntityRepository
         try {
             return $this->createQueryBuilder("p")
                 ->select("p")
-                ->where("CONCAT('A', p.year, ' ', p.type, ' ', p.school) = :concat")
+                ->where("CONCAT('A', p.year, ' ', p.type, ' - ', p.school) = :concat")
                 ->setParameter("concat", $concat)
                 ->getQuery()
                 ->getOneOrNullResult();

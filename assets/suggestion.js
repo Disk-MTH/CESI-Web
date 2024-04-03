@@ -1,11 +1,14 @@
 function addSuggestion(id) {
     const content = $(`#${id}Field`);
 
+    if (!content.val()) return;
+
     $(`#${id}List`).append(
         $("#suggestionItem")
             .html()
             .replaceAll("{id}", id)
-            .replaceAll("{randomId}", Math.random().toString(36).substring(10))
+            .replaceAll("{tileId}", Math.random().toString(36).substring(10))
+            .replaceAll("{fieldId}", Math.random().toString(36).substring(10))
             .replace("{content}", content.val())
     );
 

@@ -158,10 +158,7 @@ class Company
 
     public function addInternship(Internship $internship): self
     {
-        if (!$this->internships->contains($internship)) {
-            $this->internships[] = $internship;
-        }
-
+        $this->internships->add($internship);
         return $this;
     }
 

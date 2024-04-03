@@ -22,6 +22,10 @@ $theme-colors: map-merge($theme-colors,
                 "heavyBlack": #171616,
         ));
 
+.ui-autocomplete {
+  z-index: 1050 !important;
+}
+
 @import "node_modules/bootstrap/scss/bootstrap";
 
 /* ------------------------- Utilities ------------------------- */
