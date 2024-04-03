@@ -4,12 +4,11 @@
             <div class="row align-items-center ">
                 <div class="col-6 text-center border-end border-heavyBlack">
                     <div class="">Salaire mensuel</div>
-                    <div>{{ low_salary }}$ - {{ high_salary }}$</div>
+                    <div>{{ lowSalary }}$ - {{ highSalary }}$</div>
                 </div>
                 <div class="col-6 text-center">
                     <img src="/assets/svg/internships/folded_map.svg" alt="map">
-                    <div>{{ zip_code }} {{ city }}</div>
-                    <div>{{ address }}</div>
+                    <div>{{ location }}</div>
                 </div>
             </div>
         </div>
@@ -22,11 +21,11 @@
                 <div class="col-4">
                     <img src="/assets/svg/internships/calendar.svg" alt="calendar">
                     <div class="text-darkGrey">OFFRE DISPONIBLE</div>
-                    <div class="mb-2">Du {{ start_date }} au {{ end_date }}</div>
+                    <div class="mb-2">Du {{ startDate }} au {{ endDate }}</div>
 
                     <img src="/assets/svg/internships/timer.svg" alt="timer">
                     <div class="text-darkGrey">NOMBRE DE PLACES</div>
-                    <div class="mb-2">{{ place_count }} stagiaires recherchés</div>
+                    <div class="mb-2">{{ placesCount }} stagiaires recherchés</div>
                 </div>
 
                 <div class="col-4">
@@ -38,7 +37,7 @@
                 <div class="col-4">
                     <img src="/assets/svg/internships/brief_case.svg" alt="briefcase">
                     <div class="text-darkGrey">NIVEAU REQUIS</div>
-                    <div class="mb-2">{{ promo_year }}</div>
+                    <div class="mb-2">{{ promos }}</div>
                 </div>
             </div>
         </div>

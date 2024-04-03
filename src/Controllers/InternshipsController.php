@@ -64,7 +64,33 @@ class InternshipsController extends Controller
 
     function internship(Request $request, Response $response): Response
     {
-        return $this->render($response, "pages/internship.twig");
+        $id = $request->getQueryParams()["id"] ?? null;
+
+        $data = [];
+
+        if ($id) {
+            $internship = $this->internshipRepo->find($id);
+            $company = $this->companyRepo->byInternshipId($id);
+            if ($internship && $company) {
+                $data["id"] = $internship->getId();
+                $data["title"] = $internship->getTitle();
+                $data["startDate"] = $internship->getStartDate()->format("Y-m-d");
+                $data["endDate"] = $internship->getEndDate()->format("Y-m-d");
+                $data["duration"] = $internship->getDurationDays();
+                $data["lowSalary"] = $internship->getLowSalary();
+                $data["highSalary"] = $internship->getHighSalary();
+                $data["placesCount"] = $internship->getPlaceCount();
+                $data["description"] = $internship->getDescription();
+                $data["company"] = $company->getName();
+                $data["location"] = $internship->getLocation()->getZipCode() . " " . $internship->getLocation()->getCity();
+                $data["skills"] = [];
+                foreach ($internship->getSkills() as $skills) $data["skills"][] = $skills->getName();
+                $data["promos"] = [];
+                foreach ($internship->getPromos() as $promo) $data["promos"][] = "A" . $promo->getYear() . " " . $promo->getType() . " - " . $promo->getSchool();
+            }
+        }
+
+        return $this->render($response, "pages/internship.twig", $data);
     }
 
     function rating(Request $request, Response $response): Response
@@ -179,8 +205,7 @@ class InternshipsController extends Controller
                         if ($internship) {
                             FlashMiddleware::flash("success", "Offre de stage enregistrée avec succès.");
                             return $this->redirect($response, "/create/internship?edit=true&id=" . $internship->getId());
-                        }
-                        else FlashMiddleware::flash("error", "Une erreur est survenue lors de la modification de l'offre de stage.");
+                        } else FlashMiddleware::flash("error", "Une erreur est survenue lors de la modification de l'offre de stage.");
                     }
                 }
                 ErrorsMiddleware::error($errors);
