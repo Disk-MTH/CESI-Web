@@ -48,7 +48,7 @@ final class InternshipRepo extends EntityRepository
             ->getResult();
     }
 
-    public function create(array $data): bool
+    public function create(array $data): Internship|null
     {
         try {
             $internship = (new Internship())
@@ -66,7 +66,62 @@ final class InternshipRepo extends EntityRepository
             $this->_em->persist($internship);
             $this->_em->flush();
 
-            return true;
+            return $internship;
+        } catch (Throwable) {
+            return null;
+        }
+    }
+
+    public function update(array $data): Internship|null
+    {
+        try {
+            $internship = $this->find($data["id"]);
+            if ($internship) {
+                $internship->setStartDate($data["startDate"])
+                    ->setEndDate($data["endDate"])
+                    ->setDurationDays($data["duration"])
+                    ->setLowSalary($data["lowSalary"])
+                    ->setHighSalary($data["highSalary"])
+                    ->setPlaceCount($data["placesCount"])
+                    ->setTitle($data["title"])
+                    ->setDescription($data["description"])
+                    ->setLocation($data["location"])
+                    ->setSkills($data["skills"]);
+                $this->_em->flush();
+
+                return $internship;
+            }
+            return null;
+        } catch (Throwable) {
+            return null;
+        }
+    }
+
+    public function delete(int $id): bool
+    {
+        try {
+            $internship = $this->find($id);
+            if ($internship) {
+                $internship->setDeleted(true);
+                $this->_em->flush();
+                return true;
+            }
+            return false;
+        } catch (Throwable) {
+            return false;
+        }
+    }
+
+    public function restore(int $id): bool
+    {
+        try {
+            $internship = $this->find($id);
+            if ($internship) {
+                $internship->setDeleted(false);
+                $this->_em->flush();
+                return true;
+            }
+            return false;
         } catch (Throwable) {
             return false;
         }

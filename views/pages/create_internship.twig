@@ -18,8 +18,17 @@
 {% block content %}
     <section>
         <div class="container">
-            <form class="card bg-deepWarmGrey py-3 px-3 my-5 shadow"  action="{{ url_for("create_internship") }}" method="post">
+            {% if edit %}
+                <form action="{{ url_for("create_internship") }}" method="post" id="state">
+                    <input type="hidden" name="_method" value="{% if deleted %}RESTORE{% else %}DELETE{% endif %}">
+                    <input type="hidden" id="id" name="id" value="{{ id }}">
+                </form>
+            {% endif %}
+            <form class="card bg-deepWarmGrey py-3 px-3 my-5 shadow" action="{{ url_for("create_internship") }}"
+                  method="post">
                 {{ include("components/layouts/flash_banners.twig") }}
+                <input type="hidden" name="_method" value="{% if edit %}PATCH{% else %}POST{% endif %}">
+                {% if edit %}<input type="hidden" id="id" name="id" value="{{ id }}">{% endif %}
                 <div class="row">
                     <div class="col-md-12 col-lg-6">
                         <h5>Entreprise</h5>
@@ -60,6 +69,17 @@
                 </div>
 
                 <div class="row mt-3">
+                    {% if edit %}
+                        {% if deleted %}
+                            <div class="col">
+                                <button class="btn btn-deepGreen text-white" form="state">Restaurer</button>
+                            </div>
+                        {% else %}
+                            <div class="col">
+                                <button class="btn btn-coldRed text-white" form="state">Supprimer</button>
+                            </div>
+                        {% endif %}
+                    {% endif %}
                     <div class="col text-end">
                         <button class="btn btn-deepSeaBlue">Valider</button>
                     </div>
