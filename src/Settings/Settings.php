@@ -17,7 +17,7 @@ class Settings
             "displayErrorDetails" => $env["APP_DISPLAY_ERRORS_DETAILS"],
             "logErrors" => $env["APP_LOG_ERRORS"],
             "logErrorDetails" => $env["APP_LOG_ERROR_DETAILS"],
-            "fileDirectory" => __DIR__ . "/../public/files",
+            "fileDirectory" => "files",
 
             "logger" => [
                 "name" => $env["APP_NAME"],

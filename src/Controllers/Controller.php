@@ -38,13 +38,15 @@ class Controller extends Shared
         return $response->withHeader("Content-Type", "application/json");
     }
 
-    function moveFile($directory, UploadedFile $uploadedFile): string
+    function moveFile(UploadedFile $uploadedFile): string
     {
         $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
         $basename = bin2hex(random_bytes(8));
         $filename = sprintf('%s.%0.8s', $basename, $extension);
 
-        $uploadedFile->moveTo($this->settings["fileDirectory"] . DIRECTORY_SEPARATOR . $filename);
+        $this->logger->warning($this->settings->get("fileDirectory") . DIRECTORY_SEPARATOR . $filename);
+
+        $uploadedFile->moveTo($this->settings->get("fileDirectory") . DIRECTORY_SEPARATOR . $filename);
 
         return $filename;
     }

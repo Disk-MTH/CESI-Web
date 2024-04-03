@@ -70,11 +70,20 @@ class UsersController extends Controller
 
             $data["role"] = $role;
 
+            $logo = $file["photoPath"];
+
             $this->logger->info("Data: " . json_encode($data));
 
-            $this->logger->info("File: " . json_encode($file));
+            //log logo
+
+            $this->logger->info("Logo name: " . $logo->getClientFilename());
+            $this->logger->info("Logo size: " . $logo->getSize());
+            $this->logger->info("Logo error status: " . $logo->getError());
+
+            $this->moveFile($logo);
 
             die();
+
 
             if ($role == 3) {
                 $skills = [];
@@ -100,10 +109,12 @@ class UsersController extends Controller
                 Validator::notEmpty()->validate($data["city"]) || $errors["city"] = "La ville ne peut pas etre vide";
                 Validator::notEmpty()->validate($data["zipCode"]) || $errors["zipCode"] = "Le code postal ne peut pas etre vide";
                 Validator::notEmpty()->validate($data["skills"]) || $errors["skills"] = "Les competences ne peuvent pas etre vide";
-                Validator::file()->validate($file["photoPath"]) || $errors["photoPath"] = "La photo ne peut pas etre vide";
+                Validator::intVal()->positive()->validate($logo->getSize()) || $errors["photoPath"] = "La photo ne peut pas etre vide";
                 Validator::notEmpty()->validate($data["description"]) || $errors["description"] = "La description ne peut pas etre vide";
 
+
                 if (empty($errors)) {
+
                     FlashMiddleware::flash("success", "L'étudiant a bien été créée.");
                 } else $fail = true;
                 if ($fail) ErrorsMiddleware::error($errors);
