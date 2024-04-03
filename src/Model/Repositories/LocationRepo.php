@@ -9,6 +9,22 @@ use Throwable;
 
 final class LocationRepo extends EntityRepository
 {
+
+    function suggestions(string $pattern, bool $city, $limit = 5): array
+    {
+        $query = $this->createQueryBuilder("l")
+            ->select("l");
+
+        if ($city) $query->where("l.city LIKE :pattern");
+        else $query->where("l.zipCode LIKE :pattern");
+
+        return $query
+            ->setParameter("pattern", "%" . $pattern . "%")
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
     function byCompany(Company $company): array
     {
         $query = $this->createQueryBuilder("l")

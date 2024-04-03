@@ -41,6 +41,9 @@ class ApiController extends Controller
     /** @var ActivitySectorRepo $activitySectorRepo */
     private EntityRepository $activitySectorRepo;
 
+    /** @var LocationRepo $locationRepo */
+    private EntityRepository $locationRepo;
+
     public function __construct(ContainerInterface $container)
     {
         parent::__construct($container);
@@ -50,6 +53,7 @@ class ApiController extends Controller
         $this->skillRepo = $this->entityManager->getRepository(Skill::class);
         $this->promoRepo = $this->entityManager->getRepository(Promo::class);
         $this->activitySectorRepo = $this->entityManager->getRepository(ActivitySector::class);
+        $this->locationRepo = $this->entityManager->getRepository(Location::class);
     }
 
     function count(Request $request, Response $response, array $pathArgs): Response
@@ -207,5 +211,19 @@ class ApiController extends Controller
         $sectors = $this->activitySectorRepo->suggestions($pathArgs["pattern"]);
         $sectors = array_map(fn($sector) => ["content" => $sector->getName()], $sectors);
         return $this->json($response, $sectors);
+    }
+
+    function zipCodesSuggestions(Request $request, Response $response, array $pathArgs): Response
+    {
+        $zipCodes = $this->locationRepo->suggestions($pathArgs["pattern"], false);
+        $zipCodes = array_map(fn($zipCode) => ["content" => $zipCode->getZipCode()], $zipCodes);
+        return $this->json($response, $zipCodes);
+    }
+
+    function citiesSuggestions(Request $request, Response $response, array $pathArgs): Response
+    {
+        $cities = $this->locationRepo->suggestions($pathArgs["pattern"], true);
+        $cities = array_map(fn($city) => ["content" => $city->getCity()], $cities);
+        return $this->json($response, $cities);
     }
 }

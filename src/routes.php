@@ -99,4 +99,8 @@ return function (App $app) {
     $app->get("/api/suggestions/skills/{pattern}", [ApiController::class, "skillsSuggestions"]);
 
     $app->get("/api/suggestions/sectors/{pattern}", [ApiController::class, "activitySectorsSuggestions"]);
+
+    $app->get("/api/suggestions/zip_codes/{pattern}", [ApiController::class, "zipCodesSuggestions"]);
+
+    $app->get("/api/suggestions/cities/{pattern}", [ApiController::class, "citiesSuggestions"]);
 };

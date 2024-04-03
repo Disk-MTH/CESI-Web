@@ -1,14 +1,14 @@
 old = JSON.parse(old.replaceAll("&quot;", '"'));
 for (let value in old) {
     if (!value.startsWith("suggestion-locations_")) continue;
-    $("#zipCode").val(old[value].split(" ")[0]);
-    $("#city").val(old[value].split(" ")[1]);
+    $("#zip_codesField").val(old[value].split(" ")[0]);
+    $("#citiesField").val(old[value].split(" ")[1]);
     addLocation();
 }
 
 function addLocation() {
-    const zipCode = $("#zipCode");
-    const city = $("#city");
+    const zipCode = $("#zip_codesField");
+    const city = $("#citiesField");
 
     if (!zipCode.val() || !parseInt(zipCode.val()) || !city.val()) return;
 

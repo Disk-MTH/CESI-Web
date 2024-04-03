@@ -52,10 +52,10 @@
                             <h5 class="mt-md-2 mt-lg-0">Logo</h5>
                             {{ file_field.content("logoPicture", errors) }}
 
-                            <h5 class="mt-2">Localisations (Code postal - Ville)</h5>
+                            <h5 class="mt-2">Localisations</h5>
                             <div class="row">
-                                <div class="col-5">{{ form_field.content("zipCode", old, errors) }}</div>
-                                <div class="col-5">{{ form_field.content("city", old, errors) }}</div>
+                                <div class="col-5">{{ suggestion_field.content("zip_codes", "Code postal", old, errors, false) }}</div>
+                                <div class="col-5">{{ suggestion_field.content("cities", "Ville", old, errors, false) }}</div>
                                 <div class="col-2">
                                     <div class="btn btn-deepSeaBlue" onclick="addLocation()">Ajouter</div>
                                 </div>
