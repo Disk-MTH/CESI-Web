@@ -3,6 +3,10 @@
 namespace stagify\Model\Repositories;
 
 use Doctrine\ORM\EntityRepository;
+use stagify\Model\Entities\Location;
+use stagify\Model\Entities\Promo;
+use stagify\Model\Entities\Skill;
+use stagify\Model\Entities\User;
 use Throwable;
 
 final class UserRepo extends EntityRepository
@@ -61,5 +65,36 @@ final class UserRepo extends EntityRepository
             ->getQuery();
 
         return $query->getResult();
+    }
+
+    public function create(array $data): bool
+    {
+        try {
+            $user = (new User())
+                ->setLastName($data["lastName"])
+                ->setFirstName($data["firstName"])
+                ->setLocation($this->_em->getReference(Location::class, $data["location"]))
+                ->setLogin($data["username"])
+                ->setPasswordHash(password_hash($data["password"], PASSWORD_DEFAULT))
+                ->setRole($data["role"])
+                ->setProfilePicturePath($data["photoPath"])
+                ->setDescription($data["description"]);
+
+            if ($data["role"] === 3) {
+                $user->addSkill($this->_em->getReference(Skill::class, $data["skills"]))
+                    ->addPromo($this->_em->getReference(Promo::class, $data["promo"]));
+            }
+            if ($data["role"] === 2) {
+                $user->addPromo($this->_em->getReference(Promo::class, $data["promos"]));
+            }
+
+            $this->_em->persist($user);
+            $this->_em->flush();
+
+            return true;
+        } catch (Throwable) {
+            return false;
+        }
+
     }
 }
