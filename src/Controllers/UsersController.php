@@ -63,6 +63,8 @@ class UsersController extends Controller
             $fail = false;
 
             $data["role"] = $role;
+            
+            $this->logger->info("Data: " . json_encode($data));
 
             if ($role === 3) {
                 $skills = [];
