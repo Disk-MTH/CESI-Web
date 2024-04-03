@@ -51,6 +51,8 @@ class UsersController extends Controller
     {
         $role = $pathArgs["role"];
 
+        $this->logger->info("Role: $role");
+
         if ($request->getMethod() === "GET") {
             if ($role != 2 && $role != 3) return $this->redirect($response, "/create/user/3");
             if ($pathArgs["role"] == 2) return $this->render($response, "pages/create_pilot.twig");
@@ -58,15 +60,23 @@ class UsersController extends Controller
         }
 
         if ($request->getMethod() === "POST") {
+
+            $this->logger->info("POST");
+
             $data = $request->getParsedBody();
+            $file = $request->getUploadedFiles();
             $errors = ErrorsMiddleware::validate($data);
             $fail = false;
 
             $data["role"] = $role;
-            
+
             $this->logger->info("Data: " . json_encode($data));
 
-            if ($role === 3) {
+            $this->logger->info("File: " . json_encode($file));
+
+            die();
+
+            if ($role == 3) {
                 $skills = [];
 
                 foreach ($data as $key => $value) {
@@ -75,6 +85,10 @@ class UsersController extends Controller
                         if ($skill) $skills[] = $skill;
                     }
                 }
+
+                $this->logger->info("Skills: " . json_encode($skills));
+
+                $data["skills"] = $data["skills"] ?? '';
 
                 Validator::notEmpty()->validate($data["lastName"]) || $errors["lastName"] = "Le nom ne peut pas etre vide";
                 Validator::notEmpty()->validate($data["firstName"]) || $errors["firstName"] = "Le prenom ne peut pas etre vide";
@@ -86,7 +100,7 @@ class UsersController extends Controller
                 Validator::notEmpty()->validate($data["city"]) || $errors["city"] = "La ville ne peut pas etre vide";
                 Validator::notEmpty()->validate($data["zipCode"]) || $errors["zipCode"] = "Le code postal ne peut pas etre vide";
                 Validator::notEmpty()->validate($data["skills"]) || $errors["skills"] = "Les competences ne peuvent pas etre vide";
-                Validator::file()->validate($data["photoPath"]) || $errors["photoPath"] = "La photo ne peut pas etre vide";
+                Validator::file()->validate($file["photoPath"]) || $errors["photoPath"] = "La photo ne peut pas etre vide";
                 Validator::notEmpty()->validate($data["description"]) || $errors["description"] = "La description ne peut pas etre vide";
 
                 if (empty($errors)) {
@@ -95,7 +109,7 @@ class UsersController extends Controller
                 if ($fail) ErrorsMiddleware::error($errors);
             }
 
-            if ($role === 2) {
+            if ($role == 2) {
                 $promos = [];
 
                 foreach ($data as $key => $value) {
