@@ -49,6 +49,8 @@ return function (App $app) {
 
     $app->get("/create/user/{role}", [UsersController::class, "createUser"])->setName("create_user");
 
+    $app->post("/create/user/{role}", [UsersController::class, "createUser"])->setName("create_user");
+
     /* ---------------------------------------- Companies ----------------------------------------*/
 
     $app->get("/companies", [CompaniesController::class, "companies"])->setName("companies");
@@ -95,4 +97,6 @@ return function (App $app) {
     $app->get("/api/suggestions/promos/{pattern}", [ApiController::class, "promosSuggestions"]);
 
     $app->get("/api/suggestions/skills/{pattern}", [ApiController::class, "skillsSuggestions"]);
+
+
 };
