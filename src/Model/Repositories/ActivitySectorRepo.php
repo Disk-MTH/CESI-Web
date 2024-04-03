@@ -8,6 +8,16 @@ use Throwable;
 
 class ActivitySectorRepo extends EntityRepository
 {
+    function suggestions(string $pattern, $limit = 5): array
+    {
+        return $this->createQueryBuilder("a")
+            ->where("a.name LIKE :pattern")
+            ->setParameter("pattern", "%" . $pattern . "%")
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
     function byName(string $name): ActivitySector|null
     {
         try {
