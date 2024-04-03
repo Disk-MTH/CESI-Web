@@ -1,13 +1,17 @@
-{% set title = "Stagify - Création d'entreprise" %}
+{% set title = "Stagify - Création d'utilisateur" %}
 {% extends "components/layouts/layout.twig" %}
-{% import "components/layouts/form_field.twig" as form_field %}
-{% import "components/tiles/removable_tile.twig" as removable_tile %}
+{% import "components/forms/form_field.twig" as form_field %}
+{% import "components/forms/date_field.twig" as date_field %}
+{% import "components/forms/suggestion_field.twig" as suggestion_field %}
+{% import "components/forms/area_field.twig" as area_field %}
+{% import "components/forms/file_field.twig" as file_field %}
+{% import "components/forms/password_field.twig" as password_field %}
 
 {% block header %}
-    <section class="bg-deepWarmGrey rounded-bottom-5">
+    <section class="bg-deepWarmGrey">
         <div class="container">
             <div class="row text-center">
-                <div class="text-heavyBlack py-3"><h4>Création d'entreprise</h4></div>
+                <div class="text-heavyBlack py-3"><h4>Création d'étudiant</h4></div>
             </div>
         </div>
     </section>
@@ -16,56 +20,49 @@
 {% block content %}
     <section>
         <div class="container">
-            <form class="card bg-deepWarmGrey py-3 px-3 my-5 shadow" action="{{ url_for("create_company") }}" method="post" enctype="multipart/form-data" >
+            <form class="card bg-deepWarmGrey py-3 px-3 my-5 shadow"
+                  action="{{ url_for("create_company", {"role": 3}) }}"
+                  method="post" enctype="multipart/form-data">
+                {{ include("components/layouts/flash_banners.twig") }}
                 <div class="row">
-                    <div class="col-md-6 col-lg" >
-                        <h5>Nom</h5>
-                        {{ form_field.content(errors, old, "name") }}
+                    <div class="row">
+                        <div class="col-md-12 col-lg-6">
+                            <h5>Nom de l'entreprise</h5>
+                            {{ form_field.content("companyName", old, errors) }}
 
-                        <h5 class="mt-2">Logo</h5>
-                        {{ form_field.content(errors, old, "logo", false, 0, false, true) }}
+                            <h5 class="mt-2">Nombre d'employés</h5>
+                            {{ form_field.content("employeeCount", old, errors) }}
 
-                        <h5 class="mt-2">Secteur d'activité</h5>
-                        {{ form_field.content(errors, old, "sector", false, 0, false, false, true) }}
-                        <div id="sector-suggestions" class="suggestions-dropdown"></div>
+                            <h5 class="mt-2">Site web</h5>
+                            {{ form_field.content("website", old, errors) }}
 
-                        <h5 class="mt-2">Localité (code postal - ville) </h5>
-                        <div class="input-group shadow rounded-5">
-                            {{ form_field.content(errors, old, "zipCode", false, 0, false, false, false) }}
-                            {{ form_field.content(errors, old, "city", false, 0, false, false, false) }}
-                            <div class="input-group-append">
-                                <button class="btn btn-deepSeaBlue rounded-start-0" type="button">Ajouter</button>
-                            </div>
+                            <h5 class="mt-md-2 mt-lg-0">Secteur d'activité</h5>
+                            {{ suggestion_field.content("sector", "Secteur", old, errors) }}
+
+
                         </div>
 
-                        <h5 class="mt-2">Nombre d'employés</h5>
-                        {{ form_field.content(errors, old, "employees") }}
+                        <div class="col-md-12 col-lg-6">
 
-                        <h5 class="mt-2">Site web</h5>
-                        {{ form_field.content(errors, old, "website") }}
-                    </div>
+                            <h5>Logo</h5>
+                            {{ file_field.content("logoPicture", old, errors) }}
 
-                    <div class="col-md-6 col-lg">
-                        <div class="my-4 d-md-none"></div>
-
-                        <div class="card bg-pastelBlue bg-opacity-50 overflow-y-scroll shadow rounded-5"
-                             style="height: 460px">
-                            <div class="card-body">
-                                <h6>Adresses</h6>
-                                <div class="row">
-                                    <div class="col">
-                                        {{ removable_tile.content("51100 Reims") }}
-                                        {{ removable_tile.content("51100 Reims") }}
-                                    </div>
+                            <h5 class="mt-2">Localisation (Ville - Code postal)</h5>
+                            <div class="row">
+                                <div class="col-5">{{ form_field.content("city", old, errors) }}</div>
+                                <div class="col-5">{{ form_field.content("zipCode", old, errors) }}</div>
+                                <div class="col-2">
+                                    <div class="btn btn-deepSeaBlue">Ajouter</div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
-                </div>
 
-                <div class="row mt-4">
-                    <div class="col text-end">
-                        <button class="btn btn-deepSeaBlue">Valider</button>
+                    <div class="row mt-3">
+                        <div class="col text-end">
+                            <button class="btn btn-deepSeaBlue">Valider</button>
+                        </div>
                     </div>
                 </div>
             </form>
