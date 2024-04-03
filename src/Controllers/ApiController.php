@@ -85,6 +85,8 @@ class ApiController extends Controller
             return $response;
         }
 
+        $this->logger->warning("Internships API called with parameters: " . json_encode($queryArgs));
+
         $internships = $this->internshipRepo->pagination(
             $page, $queryArgs["date"] ?? null,
             $queryArgs["rating"] ?? null,

@@ -4,6 +4,7 @@ namespace stagify\Controllers;
 
 use DateTime;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Psr7\UploadedFile;
 use stagify\Shared;
 use stagify\Middlewares\FlashMiddleware;
 use stagify\Model\Entities\Session;
@@ -35,5 +36,16 @@ class Controller extends Shared
     {
         $response->getBody()->write(json_encode($data));
         return $response->withHeader("Content-Type", "application/json");
+    }
+
+    function moveFile($directory, UploadedFile $uploadedFile): string
+    {
+        $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
+        $basename = bin2hex(random_bytes(8));
+        $filename = sprintf('%s.%0.8s', $basename, $extension);
+
+        $uploadedFile->moveTo($this->settings["fileDirectory"] . DIRECTORY_SEPARATOR . $filename);
+
+        return $filename;
     }
 }

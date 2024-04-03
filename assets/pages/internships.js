@@ -4,7 +4,7 @@ pagination.on("changePage", async function (event, page) {
     let filters = {
         "date": $("#dateDesc").is(":checked") ? "DESC" : $("#dateAsc").is(":checked") ? "ASC" : null,
         "rating": $("#ratingDesc").is(":checked") ? "DESC" : $("#ratingAsc").is(":checked") ? "ASC" : null,
-        "skills": $("#skillsList").children().map((index, item) => $(item).find("#content").text()).get(),
+        "skills": $("#skillsList").children().map((index, item) => $(item).find("input").val()).get().join(","),
     };
     Object.keys(filters).forEach(key => (filters[key] === null || filters[key].length === 0 || filters[key] == "") && delete filters[key]);
     filters = new URLSearchParams(filters).toString();
