@@ -62,6 +62,35 @@ final class CompanyRepo extends EntityRepository
             ->getResult();
     }
 
+    function suggestions(string $pattern, $limit = 5): array
+    {
+        return $this->createQueryBuilder("c")
+            ->where("c.name LIKE :pattern")
+            ->orWhere("l.city LIKE :pattern")
+            ->orWhere("l.zipCode LIKE :pattern")
+            ->setParameter("pattern", "%" . $pattern . "%")
+            ->select("c.name, l.city, l.zipCode")
+            ->innerJoin("c.locations", "l")
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    function byConcat(string $concat): Company|null
+    {
+        try {
+            return $this->createQueryBuilder("c")
+                ->select("c")
+                ->innerJoin("c.locations", "l")
+                ->where("CONCAT(c.name, ' - ', l.zipCode, ' ', l.city) = :concat")
+                ->setParameter("concat", $concat)
+                ->getQuery()
+                ->getOneOrNullResult();
+        } catch (Throwable) {
+            return null;
+        }
+    }
+
     function byInternshipId(int $internshipId): Company|null
     {
         $query = $this->createQueryBuilder("c")
@@ -77,6 +106,4 @@ final class CompanyRepo extends EntityRepository
             return null;
         }
     }
-
-
 }

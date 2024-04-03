@@ -19,12 +19,12 @@
     {% endif %}
     <script>
         suggestion("{{ id }}")
-        old = JSON.parse("{{ old|json_encode }}".replaceAll('&quot;', '"'));
+        old = JSON.parse("{{ old|json_encode }}".replaceAll("&quot;", '"'));
         for (let value in old) {
             if (!value.startsWith("suggestion@{{ id }}_")) continue;
             $("#{{ fieldId }}").val(old[value]);
             addSuggestion("{{ id }}");
         }
-        $("#{{ fieldId }}").val(old["{{ fieldId }}"]);
+        $("#{{ fieldId }}").val(old ? old["{{ fieldId }}"] : "");
     </script>
 {% endmacro %}

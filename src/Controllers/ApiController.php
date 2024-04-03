@@ -9,6 +9,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use stagify\Model\Entities\Company;
 use stagify\Model\Entities\Internship;
 use stagify\Model\Entities\Location;
+use stagify\Model\Entities\Promo;
 use stagify\Model\Entities\Skill;
 use stagify\Model\Entities\User;
 use stagify\Model\Repositories\CompanyRepo;
@@ -32,7 +33,7 @@ class ApiController extends Controller
     /** @var SkillRepo $internshipRepo */
     private EntityRepository $skillRepo;
 
-    /** @var EntityRepository */
+    /** @var PromoRepo $promoRepo */
     private EntityRepository $promoRepo;
 
     public function __construct(ContainerInterface $container)
@@ -42,6 +43,7 @@ class ApiController extends Controller
         $this->companyRepo = $this->entityManager->getRepository(Company::class);
         $this->userRepo = $this->entityManager->getRepository(User::class);
         $this->skillRepo = $this->entityManager->getRepository(Skill::class);
+        $this->promoRepo = $this->entityManager->getRepository(Promo::class);
     }
 
     function count(Request $request, Response $response, array $pathArgs): Response
@@ -130,7 +132,6 @@ class ApiController extends Controller
         );
         $companies = array_map(function ($company) {
             return [
-                "id" => $company["id"],
                 "company" => $company["name"],
                 "location" => $company["zipCode"] . " - " . $company["city"],
                 "internshipsCount" => $company["numberOfInternships"],
@@ -178,28 +179,24 @@ class ApiController extends Controller
         return $this->json($response, $users);
     }
 
-    function promos(Request $request, Response $response, array $pathArgs): Response
+    function companiesSuggestions(Request $request, Response $response, array $pathArgs): Response
+    {
+        $companies = $this->companyRepo->suggestions($pathArgs["pattern"]);
+        $companies = array_map(fn($company) => ["content" => $company["name"] . " - " . $company["zipCode"] . " " . $company["city"]], $companies);
+        return $this->json($response, $companies);
+    }
+
+    function promosSuggestions(Request $request, Response $response, array $pathArgs): Response
     {
         $promos = $this->promoRepo->suggestions($pathArgs["pattern"]);
-        $promos = array_map(function ($promo) {
-            return [
-                "name" => $promo->getYear() + $promo->getType() + $promo->getSchool()
-            ];
-        }, $promos);
-
+        $promos = array_map(fn($promo) => ["content" => "A" . $promo->getYear() . " " . $promo->getType() . " - " . $promo->getSchool()], $promos);
         return $this->json($response, $promos);
     }
 
-
-    function skills(Request $request, Response $response, array $pathArgs): Response
+    function skillsSuggestions(Request $request, Response $response, array $pathArgs): Response
     {
         $skills = $this->skillRepo->suggestions($pathArgs["pattern"]);
-        $skills = array_map(function ($skill) {
-            return [
-                "name" => $skill->getName(),
-            ];
-        }, $skills);
-
+        $skills = array_map(fn($skill) => ["content" => $skill->getName()], $skills);
         return $this->json($response, $skills);
     }
 }

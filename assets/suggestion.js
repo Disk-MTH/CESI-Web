@@ -22,17 +22,23 @@ function suggestion(id) {
             response(await fetch(`/api/suggestions/${id}/${request.term}`, {method: "GET"}).then(async (response) => {
                 if (response.status === 200) {
                     return await response.json().then((data) => {
-                        return data.map((item) => item["name"]);
+                        return data.map((item) => item["content"]);
                     });
                 }
             }));
         },
         open: function () {
+            $(".ui-autocomplete").css("width", $(`#${id}`).width() + "px");
             $(".ui-helper-hidden-accessible").remove();
         },
         appendTo: `#${id}List`,
         classes: {
             "ui-autocomplete": "card",
         },
+        messages: {
+            noResults: "",
+            results: function () {
+            }
+        }
     });
 }

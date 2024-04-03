@@ -30,6 +30,7 @@ class ErrorsMiddleware extends Shared implements MiddlewareInterface
         }
         return $errors;
     }
+
     public static function error(array $errors): void
     {
         $_SESSION["errors"] = $errors;

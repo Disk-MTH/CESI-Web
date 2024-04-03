@@ -14,8 +14,9 @@ use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
+use stagify\Model\Repositories\PromoRepo;
 
-#[Entity, Table(name: "promo")]
+#[Entity(repositoryClass: PromoRepo::class), Table(name: "promo")]
 class Promo
 {
     #[Id, Column(type: "integer"), GeneratedValue(strategy: "AUTO")]

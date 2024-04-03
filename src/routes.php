@@ -90,7 +90,9 @@ return function (App $app) {
 
     $app->get("/api/users/{page}", [ApiController::class, "users"]);
 
-    $app->get("/api/suggestions/promos/{pattern}", [ApiController::class, "promos"]);
+    $app->get("/api/suggestions/companies/{pattern}", [ApiController::class, "companiesSuggestions"]);
 
-    $app->get("/api/suggestions/skills/{pattern}", [ApiController::class, "skills"]);
+    $app->get("/api/suggestions/promos/{pattern}", [ApiController::class, "promosSuggestions"]);
+
+    $app->get("/api/suggestions/skills/{pattern}", [ApiController::class, "skillsSuggestions"]);
 };

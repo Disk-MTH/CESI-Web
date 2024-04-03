@@ -1,6 +1,7 @@
 {% set title = "Stagify - Création de stage" %}
 {% extends "components/layouts/layout.twig" %}
 {% import "components/forms/form_field.twig" as form_field %}
+{% import "components/forms/date_field.twig" as date_field %}
 {% import "components/forms/suggestion_field.twig" as suggestion_field %}
 {% import "components/forms/area_field.twig" as area_field %}
 
@@ -22,7 +23,7 @@
                 <div class="row">
                     <div class="col-md-12 col-lg-6">
                         <h5>Entreprise</h5>
-                        {{ suggestion_field.content("company", "", old, errors, false) }}
+                        {{ suggestion_field.content("companies", "", old, errors, false) }}
 
                         <h5 class="mt-2">Titre du stage</h5>
                         {{ form_field.content("title", old, errors) }}

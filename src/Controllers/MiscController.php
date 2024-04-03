@@ -66,9 +66,7 @@ class MiscController extends Controller
                     $fail = true;
                     FlashMiddleware::flash("error", "Identifiants incorrects, veuillez réessayer");
                 }
-            } else {
-                $fail = true;
-            }
+            } else $fail = true;
 
             if ($fail) {
                 ErrorsMiddleware::error($errors);
