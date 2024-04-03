@@ -30,9 +30,12 @@
 
                         <h5 class="mt-2">Dates (début-fin)</h5>
                         <div class="row">
-                            <div class="col">{{ form_field.content("startDate", old, errors) }}</div>
-                            <div class="col">{{ form_field.content("endDate", old, errors) }}</div>
+                            <div class="col">{{ date_field.content("startDate", old, errors) }}</div>
+                            <div class="col">{{ date_field.content("endDate", old, errors) }}</div>
                         </div>
+
+                        <h5 class="mt-2">Promotions concernées</h5>
+                        {{ suggestion_field.content("promos", "Formation", old, errors) }}
 
                         <h5 class="mt-2">Durée du stage (jours)</h5>
                         {{ form_field.content("duration", old, errors) }}
@@ -48,8 +51,8 @@
                         <h5 class="mt-md-2 mt-lg-0">Compétences</h5>
                         {{ suggestion_field.content("skills", "Compétences", old, errors) }}
 
-                        <h5 class="mt-2">Promotions concernées</h5>
-                        {{ suggestion_field.content("promos", "Formation", old, errors) }}
+                        <h5 class="mt-2">Nombre de places</h5>
+                        {{ form_field.content("placesCount", old, errors) }}
 
                         <h5 class="mt-2">Description du poste</h5>
                         {{ area_field.content("description", old, errors, 5) }}

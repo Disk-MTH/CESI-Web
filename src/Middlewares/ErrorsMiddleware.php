@@ -24,7 +24,7 @@ class ErrorsMiddleware extends Shared implements MiddlewareInterface
     public static function validate(array $data) : array {
         $errors = [];
         foreach ($data as $key => $value) {
-            if (!preg_match("/^[A-Za-z0-9!@#$%^&*()_.]*$/", $value)) {
+            if (!preg_match("/^[a-zA-ZÀ-Ÿ0-9!@#$%^&*()-_. ]*$/", $value)) {
                 $errors[$key] = "Le champs contient des caractères non autorisés";
             }
         }

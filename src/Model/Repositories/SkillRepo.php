@@ -7,6 +7,7 @@ use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use stagify\Model\Entities\Company;
 use stagify\Model\Entities\Internship;
+use stagify\Model\Entities\Location;
 use stagify\Model\Entities\Skill;
 use Throwable;
 
@@ -32,6 +33,18 @@ final class SkillRepo extends EntityRepository
                 ->getOneOrNullResult();
         } catch (Throwable) {
             return null;
+        }
+    }
+
+    function create(string $name) : bool
+    {
+        try {
+            $this->_em->persist((new Skill())->setName($name));
+            $this->_em->flush();
+
+            return true;
+        } catch (Throwable) {
+            return false;
         }
     }
 }

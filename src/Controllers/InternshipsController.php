@@ -2,6 +2,8 @@
 
 namespace stagify\Controllers;
 
+use DateTime;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -12,10 +14,12 @@ use stagify\Middlewares\FlashMiddleware;
 use stagify\Middlewares\OldDataMiddleware;
 use stagify\Model\Entities\Company;
 use stagify\Model\Entities\Internship;
+use stagify\Model\Entities\Location;
 use stagify\Model\Entities\Promo;
 use stagify\Model\Entities\Skill;
 use stagify\Model\Repositories\CompanyRepo;
 use stagify\Model\Repositories\InternshipRepo;
+use stagify\Model\Repositories\LocationRepo;
 use stagify\Model\Repositories\PromoRepo;
 use stagify\Model\Repositories\SkillRepo;
 
@@ -33,6 +37,11 @@ class InternshipsController extends Controller
     /** @var SkillRepo $skillRepo */
     private EntityRepository $skillRepo;
 
+    /** @var LocationRepo $locationRepo */
+    private EntityRepository $locationRepo;
+
+    private EntityManager $em;
+
     public function __construct(ContainerInterface $container)
     {
         parent::__construct($container);
@@ -40,6 +49,10 @@ class InternshipsController extends Controller
         $this->companyRepo = $this->entityManager->getRepository(Company::class);
         $this->promoRepo = $this->entityManager->getRepository(Promo::class);
         $this->skillRepo = $this->entityManager->getRepository(Skill::class);
+        $this->locationRepo = $this->entityManager->getRepository(Location::class);
+
+        $this->em = $container->get("entityManager");
+
     }
 
     function internships(Request $request, Response $response): Response
@@ -76,61 +89,63 @@ class InternshipsController extends Controller
             $fail = false;
 
             $data["company"] = $this->companyRepo->byConcat($data["companiesField"]);
-            $skills = [];
-            $promos = [];
-
+            $data["promos"] = [];
+            $data["skills"] = [];
             foreach ($data as $key => $value) {
-                if (str_starts_with($key, "suggestion@skills_")) {
-                    $skill = $this->skillRepo->byName($key);
-                    if ($skill) $skills[] = $skill;
-                    //TODO errors
-                }
-                if (str_starts_with($key, "suggestion@promos_")) {
-                    $promo = $this->promoRepo->byConcat($key);
-                    if ($promo) $promos[] = $promo;
+                if (str_starts_with($key, "suggestion-skills_")) $data["skills"][] = $value;
+                if (str_starts_with($key, "suggestion-promos_")) {
+                    $promo = $this->promoRepo->byConcat($value);
+                    if ($promo) $data["promos"][] = $promo;
+                    else $errors["promos"] = "La promotion \"" . $value . "\" n'existe pas";
                 }
             }
-
-            $data = array_merge($data, ["skills" => $skills, "promos" => $promos]);
 
             Validator::notEmpty()->validate($data["company"]) || $errors["companies"] = "L'entreprise n'est pas valide";
             Validator::notEmpty()->validate($data["title"]) || $errors["title"] = "Le titre ne peut pas être vide";
             Validator::date()->validate($data["startDate"]) || $errors["startDate"] = "La date de début n'est pas valide";
             Validator::date()->validate($data["endDate"]) || $errors["endDate"] = "La date de fin n'est pas valide";
-            Validator::intType()->validate($data["duration"]) || $errors["duration"] = "La durée doit être un nombre";
-            Validator::intType()->validate($data["lowSalary"]) || $errors["lowSalary"] = "Le salaire minimum doit être un nombre";
-            Validator::intType()->validate($data["highSalary"]) || $errors["highSalary"] = "Le salaire maximum doit être un nombre";
+            Validator::intVal()->validate($data["duration"]) || $errors["duration"] = "La durée doit être un nombre";
+            Validator::intVal()->validate($data["lowSalary"]) || $errors["lowSalary"] = "Le salaire minimum doit être un nombre";
+            Validator::intVal()->validate($data["highSalary"]) || $errors["highSalary"] = "Le salaire maximum doit être un nombre";
+            Validator::intVal()->positive()->validate($data["placesCount"]) || $errors["placesCount"] = "Le nombre de places doit être un nombre positif";
             Validator::notEmpty()->validate($data["description"]) || $errors["description"] = "La description ne peut pas être vide";
+            if (!isset($errors["promos"])) Validator::notEmpty()->validate($data["promos"]) || $errors["promos"] = "Les promotions ne peuvent pas être vides";
             Validator::notEmpty()->validate($data["skills"]) || $errors["skills"] = "Les compétences ne peuvent pas être vides";
-            Validator::notEmpty()->validate($data["promos"]) || $errors["promos"] = "Les promotions ne peuvent pas être vides";
+
+            $data["location"] = $this->locationRepo->byConcat(explode(" - ", $data["companiesField"])[1]);
+            $data["startDate"] = DateTime::createFromFormat("Y-m-d", $data["startDate"]);
+            $data["endDate"] = DateTime::createFromFormat("Y-m-d", $data["endDate"]);
+            if ($data["startDate"] && $data["endDate"]) {
+                if ($data["startDate"] >= $data["endDate"]) $errors["endDate"] = "La date de début doit être inférieure à la date de fin";
+                else {
+                    $interval = $data["startDate"]->diff($data["endDate"]);
+                    if ($interval->days < $data["duration"]) $errors["duration"] = "La durée doit être inférieure ou égale à la différence entre la date de début et la date de fin";
+                }
+            }
+
+            if ($data["lowSalary"] && $data["highSalary"]) {
+                if ($data["highSalary"] < $data["lowSalary"]) $errors["highSalary"] = "Le salaire maximum doit être supérieur au salaire minimum";
+            }
 
             if (empty($errors)) {
-                FlashMiddleware::flash("success", "L'offre de stage a bien été créée.");
-                /*if ($company) {
-                    $company = $this->companyRepo->byConcat($data["companiesField"]);
+                foreach ($data["skills"] as $value) {
+                    $skill = $this->skillRepo->byName($value);
+                    if ($skill) $data["skills"][] = $skill;
+                    else if (!$this->skillRepo->create($value)) $errors["skills"] = "Une erreur est survenue lors de la création de la compétence \"" . $value . "\"";
+                }
+                $data["skills"] = array_filter($data["skills"], fn($value) => is_object($value));
 
+                if (!isset($errors["skills"])) Validator::notEmpty()->validate($data["skills"]) || $errors["skills"] = "Les compétences ne peuvent pas être vides";
 
-
-
-                    FlashMiddleware::flash("success", "L'offre de stage a bien été créée.");
-                } else {
-                    $fail = true;
-                    FlashMiddleware::flash("error", "L'entreprise n'existe pas.");
-                }*/
-
-
-
-
-
-                /*
-                if ($this->internshipRepo->create($data)) {
-                    FlashMiddleware::flash("success", "L'offre de stage a bien été créée.");
-                } else {
-                    $fail = true;
-                    FlashMiddleware::flash("error", "Une erreur est survenue lors de la création de l'offre de stage.");
-                }*/
-            }
-            else $fail = true;
+                if (empty($errors)) {
+                    if ($this->internshipRepo->create($data)) {
+                        FlashMiddleware::flash("success", "L'offre de stage a bien été créée.");
+                    } else {
+                        $fail = true;
+                        FlashMiddleware::flash("error", "Une erreur est survenue lors de la création de l'offre de stage.");
+                    }
+                } else $fail = true;
+            } else $fail = true;
             if ($fail) ErrorsMiddleware::error($errors);
         }
 

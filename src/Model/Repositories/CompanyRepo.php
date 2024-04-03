@@ -93,15 +93,13 @@ final class CompanyRepo extends EntityRepository
 
     function byInternshipId(int $internshipId): Company|null
     {
-        $query = $this->createQueryBuilder("c")
-            ->select("c")
-            ->innerJoin("c.internships", "i")
-            ->where("i.id = :internshipId")
-            ->setParameter("internshipId", $internshipId)
-            ->getQuery();
-
         try {
-            return $query->getSingleResult();
+            return $this->createQueryBuilder("c")
+                ->select("c")
+                ->innerJoin("c.internships", "i")
+                ->where("i.id = :internshipId")
+                ->setParameter("internshipId", $internshipId)
+                ->getQuery()->getSingleResult();
         } catch (Throwable) {
             return null;
         }

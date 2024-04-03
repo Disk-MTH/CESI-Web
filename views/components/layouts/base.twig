@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#0a65cc"/>
     <meta name="description" content="Site web de Stagify. Page actuelle : {{ title }}"/>
     <title>{{ title }}</title>
-    <link rel="manifest" href="/manifest.json" />
+    <link rel="manifest" href="/manifest.json"/>
     <link rel="icon" href="/assets/img/logo.ico"/>
     <link href="/assets/bootstrap.css" rel="stylesheet"/>
     <link href="/assets/font_awesome/css/font-awesome.min.css" rel="stylesheet"/>
@@ -29,13 +29,14 @@
     </div>
 </template>
 <template id="suggestionItem">
-    <div class="card mt-2" id="{id}">
+    <div class="card mt-2" id="suggestionTile-{id}_{tileId}">
         <div class="row">
             <div class="col text-start align-self-center ms-2">
-                <input class="border-0" id="suggestion@{id}_{randomId}" name="suggestion@{id}_{randomId}" value="{content}" style="outline: none" readonly>
+                <input class="border-0" id="suggestion-{id}_{fieldId}" name="suggestion-{id}_{fieldId}"
+                       value="{content}" style="outline: none" readonly>
             </div>
             <div class="col text-end">
-                <div class="btn" onclick="removeSuggestion('{id}')">Del</div>
+                <div class="btn" onclick="removeSuggestion('suggestionTile-{id}_{tileId}')">Del</div>
             </div>
         </div>
     </div>
@@ -43,6 +44,6 @@
 {% block templates %}{% endblock %}
 
 <body class="d-flex flex-column" style="min-height: 100vh">
-    {% block body %}{% endblock %}
+{% block body %}{% endblock %}
 </body>
 </html>

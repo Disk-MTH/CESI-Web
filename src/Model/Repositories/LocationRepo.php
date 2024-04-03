@@ -4,6 +4,8 @@ namespace stagify\Model\Repositories;
 
 use Doctrine\ORM\EntityRepository;
 use stagify\Model\Entities\Company;
+use stagify\Model\Entities\Location;
+use Throwable;
 
 final class LocationRepo extends EntityRepository
 {
@@ -17,5 +19,19 @@ final class LocationRepo extends EntityRepository
             ->getQuery();
 
         return $query->getResult();
+    }
+
+    function byConcat(string $concat): Location|null
+    {
+        try {
+            return $this->createQueryBuilder("l")
+                ->select("l")
+                ->where("CONCAT(l.zipCode, ' ', l.city) = :concat")
+                ->setParameter("concat", $concat)
+                ->getQuery()
+                ->getOneOrNullResult();
+        } catch (Throwable) {
+            return null;
+        }
     }
 }

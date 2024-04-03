@@ -1,8 +1,7 @@
 {% macro content(id, placeholder, old = [], errors = [], list = true, shadow = true) %}
     {% set fieldId = id ~ "Field" %}
     <div class="input-group rounded-2 {% if shadow %}shadow{% endif %}" id="{{ id }}">
-        <input class="form-control" type="text" placeholder="{{ placeholder }}" id="{{ fieldId }}" name="{{ fieldId }}"
-               {% if old[fieldId] %}value="{{ old[fieldId] }}"{% endif %}>
+        <input class="form-control" type="text" placeholder="{{ placeholder }}" id="{{ fieldId }}" name="{{ fieldId }}">
         {% if list %}
             <div class="input-group-append">
                 <div class="btn btn-deepSeaBlue rounded-start-0" onclick="addSuggestion('{{ id }}')">Ajouter</div>
@@ -21,10 +20,10 @@
         suggestion("{{ id }}")
         old = JSON.parse("{{ old|json_encode }}".replaceAll("&quot;", '"'));
         for (let value in old) {
-            if (!value.startsWith("suggestion@{{ id }}_")) continue;
+            if (!value.startsWith("suggestion-{{ id }}_")) continue;
             $("#{{ fieldId }}").val(old[value]);
             addSuggestion("{{ id }}");
         }
-        $("#{{ fieldId }}").val(old ? old["{{ fieldId }}"] : "");
+        if (old && old["{{ fieldId }}"]) $("#{{ fieldId }}").val(old["{{ fieldId }}"]);
     </script>
 {% endmacro %}

@@ -48,21 +48,22 @@ final class InternshipRepo extends EntityRepository
             ->getResult();
     }
 
-    //TODO: redo this method
     public function create(array $data): bool
     {
         try {
-            $this->_em->persist((new Internship())
-                ->setTitle($data["title"])
-                ->setDescription($data["description"])
-                ->setLowSalary($data["lowSalary"])
-                ->setHighSalary($data["highSalary"])
+            $internship = (new Internship())
                 ->setStartDate($data["startDate"])
                 ->setEndDate($data["endDate"])
-                ->setLocation($this->_em->getReference(Location::class, $data["location"]))
-                ->setCompany($this->_em->getReference(Company::class, $data["company"]))
-                ->setSkills(array_map(fn($skill) => $this->_em->getReference(Skill::class, $skill), $data["skills"]))
-            );
+                ->setDurationDays($data["duration"])
+                ->setLowSalary($data["lowSalary"])
+                ->setHighSalary($data["highSalary"])
+                ->setPlaceCount($data["placesCount"])
+                ->setTitle($data["title"])
+                ->setDescription($data["description"])
+                ->setLocation($data["location"])
+                ->setSkills($data["skills"]);
+            $data["company"]->addInternship($internship);
+            $this->_em->persist($internship);
             $this->_em->flush();
 
             return true;

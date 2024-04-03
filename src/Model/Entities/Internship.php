@@ -61,6 +61,12 @@ class Internship
 
     #[JoinTable]
     #[JoinColumn(referencedColumnName: "id")]
+    #[InverseJoinColumn(referencedColumnName: "id")]
+    #[ManyToMany(targetEntity: Promo::class)]
+    private Collection $promos;
+
+    #[JoinTable]
+    #[JoinColumn(referencedColumnName: "id")]
     #[InverseJoinColumn(referencedColumnName: "id", unique: true)]
     #[ManyToMany(targetEntity: Rate::class)]
     private Collection $rates;
@@ -135,6 +141,11 @@ class Internship
         return $this->skills;
     }
 
+    public function getPromos(): Collection
+    {
+        return $this->promos;
+    }
+
     public function getRates(): Collection
     {
         return $this->rates;
@@ -202,9 +213,9 @@ class Internship
         return $this;
     }
 
-    public function setSkills(Collection $skills): self
+    public function setSkills(array $skills): self
     {
-        $this->skills = $skills;
+        $this->skills = new ArrayCollection($skills);
         return $this;
     }
 
@@ -214,9 +225,33 @@ class Internship
         return $this;
     }
 
-    public function setRates(Collection $rates): self
+    public function removeSkill(Skill $skill): self
     {
-        $this->rates = $rates;
+        $this->skills->removeElement($skill);
+        return $this;
+    }
+
+    public function setPromos(array $promos): self
+    {
+        $this->promos = new ArrayCollection($promos);
+        return $this;
+    }
+
+    public function addPromo(Promo $promo): self
+    {
+        $this->promos->add($promo);
+        return $this;
+    }
+
+    public function removePromo(Promo $promo): self
+    {
+        $this->promos->removeElement($promo);
+        return $this;
+    }
+
+    public function setRates(array $rates): self
+    {
+        $this->rates = new ArrayCollection($rates);
         return $this;
     }
 
@@ -226,12 +261,9 @@ class Internship
         return $this;
     }
 
-    public function setCompany(?Company $company): self
+    public function removeRate(Rate $rate): self
     {
-        if ($company !== null) {
-            $company->addInternship($this);
-        }
-
+        $this->rates->removeElement($rate);
         return $this;
     }
 }
