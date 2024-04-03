@@ -41,9 +41,9 @@ class CompaniesController extends Controller
         return $this->render($response, "pages/companies.twig");
     }
 
-    function company(Request $request, Response $response): Response
+    function company(Request $request, Response $response, array $pathArgs): Response
     {
-        return $this->render($response, "pages/company.twig");
+        return $this->render($response, "pages/company.twig", ["company" => $this->companyRepo->find($pathArgs["id"])]);
     }
 
     function rating(Request $request, Response $response): Response
