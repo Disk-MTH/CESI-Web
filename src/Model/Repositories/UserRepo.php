@@ -17,7 +17,7 @@ final class UserRepo extends EntityRepository
 
         //TODO: apply filters
         $builder = $this->createQueryBuilder("u")
-            ->select("u.id, u.firstName, u.lastName, u.profilePicturePath, l.city, l.zipCode, p.year, p.type, p.school")
+            ->select("u.id, u.firstName, u.lastName, u.profilePicture, l.city, l.zipCode, p.year, p.type, p.school")
             ->innerJoin("u.location", "l")
             ->innerJoin("u.promos", "p")
             ->where("u.deleted = 0")
@@ -55,7 +55,7 @@ final class UserRepo extends EntityRepository
     function getPilots(int $page, int $limit = 12): array
     {
         $query = $this->createQueryBuilder("u")
-            ->select("u.id, u.firstName, u.lastName, u.profilePicturePath, l.city, l.zipCode, p.year, p.type, p.school")
+            ->select("u.id, u.firstName, u.lastName, u.profilePicture, l.city, l.zipCode, p.year, p.type, p.school")
             ->innerJoin("u.location", "l")
             ->innerJoin("u.promos", "p")
             ->where("u.deleted = 0")
@@ -67,34 +67,32 @@ final class UserRepo extends EntityRepository
         return $query->getResult();
     }
 
-    public function create(array $data): bool
+    public function create(array $data): User|null
     {
         try {
             $user = (new User())
-                ->setLastName($data["lastName"])
-                ->setFirstName($data["firstName"])
-                ->setLocation($this->_em->getReference(Location::class, $data["location"]))
-                ->setLogin($data["username"])
-                ->setPasswordHash(password_hash($data["password"], PASSWORD_DEFAULT))
                 ->setRole($data["role"])
-                ->setProfilePicturePath($data["photoPath"])
-                ->setDescription($data["description"]);
+                ->setFirstName($data["firstName"])
+                ->setLastName($data["lastName"])
+                ->setProfilePicture($data["profilePicture"])
+                ->setDescription($data["description"])
+                ->setLogin($data["login"])
+                ->setPasswordHash(hash("sha512", $data["password"]))
+                ->setLocation($data["location"]);
 
-            if ($data["role"] === 3) {
-                $user->addSkill($this->_em->getReference(Skill::class, $data["skills"]))
-                    ->addPromo($this->_em->getReference(Promo::class, $data["promo"]));
-            }
-            if ($data["role"] === 2) {
-                $user->addPromo($this->_em->getReference(Promo::class, $data["promos"]));
+            if ($data["role"] == 2) {
+                $user->setPromos($data["promos"]);
+            } else {
+                $user->setSkills($data["skills"])
+                    ->addPromo($data["promo"]);
             }
 
             $this->_em->persist($user);
             $this->_em->flush();
 
-            return true;
+            return $user;
         } catch (Throwable) {
-            return false;
+            return null;
         }
-
     }
 }

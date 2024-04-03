@@ -21,6 +21,7 @@ TRUNCATE TABLE user_rate;
 TRUNCATE TABLE user_skill;
 TRUNCATE TABLE internship_rate;
 TRUNCATE TABLE internship_skill;
+TRUNCATE TABLE internship_promo;
 
 SET FOREIGN_KEY_CHECKS = 1;
 
@@ -36,132 +37,132 @@ INSERT INTO location (id, zipCode, city)
 VALUES (5, 13000, 'Marseille');
 
 # password = *Azertyui1
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (1, 1, 3, 'Julien', 'Turcot', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering',
         'julien.turcot@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
         0);
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (2, 2, 2, 'Mathieu', 'Gillet', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering',
         'mathieu.gillet@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
         0);
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (3, 3, 1, 'John', 'Doe', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering',
         'john.doe@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
         0);
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (4, 4, 1, 'MTH', 'Disk', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering',
         'disk.mth@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
         0);
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (5, 5, 1, 'Odd', 'Origin', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering',
         'odd.origin@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
         0);
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (6, 1, 3, 'user', '1', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering', 'user.1@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
         0);
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (7, 2, 2, 'user', '2', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering', 'user.2@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
         0);
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (8, 3, 1, 'user', '3', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering', 'user.3@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
         0);
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (9, 4, 1, 'user', '4', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering', 'user.4@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
         0);
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (10, 5, 1, 'user', '5', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering', 'user.5@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
         0);
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (11, 1, 3, 'user', '6', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering', 'user.6@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
         0);
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (12, 2, 2, 'user', '7', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering', 'user.7@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
         0);
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (13, 3, 1, 'user', '8', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering', 'user.8@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
         0);
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (14, 4, 1, 'user', '9', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering', 'user.9@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
         0);
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (15, 1, 3, 'user', '10', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering', 'user.10@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
         0);
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (16, 2, 2, 'user', '11', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering', 'user.11@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
         0);
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (17, 3, 1, 'user', '12', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering', 'user.12@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
         0);
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (18, 4, 1, 'user', '13', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering', 'user.13@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
         0);
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (19, 1, 3, 'user', '14', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering', 'user.14@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
         0);
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (20, 2, 2, 'user', '15', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering', 'user.15@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
         0);
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (21, 3, 1, 'user', '16', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering', 'user.16@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
         0);
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (22, 4, 1, 'user', '17', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering', 'user.17@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
         0);
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (23, 1, 3, 'user', '18', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering', 'user.18@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
         0);
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (24, 2, 2, 'user', '19', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering', 'user.19@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
         0);
-INSERT INTO user (id, location_id, role, firstName, lastName, profilePicturePath, description, login, passwordHash,
+INSERT INTO user (id, location_id, role, firstName, lastName, profilePicture, description, login, passwordHash,
                   deleted)
 VALUES (25, 3, 1, 'user', '20', 'http://stagify.fr/assets/illustrations/profile.svg', 'Blabbering', 'user.20@gmail.com',
         '4cc5bf4e0c968f62e03d06aa26f184589364bdb55bde4607f50fe5bed8e05ba687486fd69027a2f7af1690b3cb961ef63d1d000f453c3655edf2d0e2b6ed51d5',
@@ -662,17 +663,6 @@ INSERT INTO rate(id, grade, description)
 VALUES (9, 2, 'Blabbering');
 INSERT INTO rate(id, grade, description)
 VALUES (10, 1, 'Blabbering');
-
-INSERT INTO session (id, user_id, lastActivity, token)
-VALUES (1, 1, '2020-01-01', 'token');
-INSERT INTO session (id, user_id, lastActivity, token)
-VALUES (2, 2, '2020-01-01', 'token');
-INSERT INTO session (id, user_id, lastActivity, token)
-VALUES (3, 3, '2020-01-01', 'token');
-INSERT INTO session (id, user_id, lastActivity, token)
-VALUES (4, 4, '2020-01-01', 'token');
-INSERT INTO session (id, user_id, lastActivity, token)
-VALUES (5, 5, '2020-01-01', 'token');
 
 INSERT INTO skill(id, name)
 VALUES (1, 'Java');

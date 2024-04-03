@@ -55,10 +55,10 @@
                             </div>
 
                             <h5 class="mt-2">Nom d'utilisateur</h5>
-                            {{ form_field.content("username", old, errors) }}
+                            {{ form_field.content("login", old, errors) }}
 
                             <h5 class="mt-2">Mot de passe</h5>
-                            {{ password_field.content("password", old, errors) }}
+                            {{ password_field.content("password", errors) }}
                         </div>
 
                         <div class="col-md-12 col-lg-6">
@@ -73,7 +73,7 @@
                             {{ suggestion_field.content("skills", "Compétences", old, errors) }}
 
                             <h5 class="mt-2">Photo de profil</h5>
-                            {{ file_field.content("photoPath", old, errors) }}
+                            {{ file_field.content("profilePicture", old, errors) }}
 
                             <h5 class="mt-2">Description</h5>
                             {{ area_field.content("description", old, errors, 5) }}

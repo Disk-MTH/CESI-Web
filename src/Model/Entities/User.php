@@ -32,7 +32,7 @@ class User
     private string $lastName;
 
     #[Column(type: "string", nullable: false)]
-    private string $profilePicturePath;
+    private string $profilePicture;
 
     #[Column(type: "string", nullable: false)]
     private string $description;
@@ -104,9 +104,9 @@ class User
         return $this->lastName;
     }
 
-    public function getProfilePicturePath(): string
+    public function getProfilePicture(): string
     {
-        return $this->profilePicturePath;
+        return $this->profilePicture;
     }
 
     public function getDescription(): string
@@ -174,9 +174,9 @@ class User
         return $this;
     }
 
-    public function setProfilePicturePath(string $profilePicturePath): self
+    public function setProfilePicture(string $profilePicture): self
     {
-        $this->profilePicturePath = $profilePicturePath;
+        $this->profilePicture = $profilePicture;
         return $this;
     }
 
@@ -210,6 +210,12 @@ class User
         return $this;
     }
 
+    public function setPromos(array $promos): self
+    {
+        $this->promos = new ArrayCollection($promos);
+        return $this;
+    }
+
     public function addPromo(Promo $promo): self
     {
         $this->promos->add($promo);
@@ -222,11 +228,18 @@ class User
         return $this;
     }
 
+    public function setSkills(array $skills): self
+    {
+        $this->skills = new ArrayCollection($skills);
+        return $this;
+    }
+
     public function addSkill(Skill $skill): self
     {
         $this->skills->add($skill);
         return $this;
     }
+
 
     public function removeSkill(Skill $skill): self
     {

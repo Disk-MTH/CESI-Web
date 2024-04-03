@@ -36,15 +36,16 @@ final class SkillRepo extends EntityRepository
         }
     }
 
-    function create(string $name) : bool
+    function create(string $name): Skill|null
     {
         try {
-            $this->_em->persist((new Skill())->setName($name));
+            $skill = (new Skill())->setName($name);
+            $this->_em->persist($skill);
             $this->_em->flush();
 
-            return true;
+            return $skill;
         } catch (Throwable) {
-            return false;
+            return null;
         }
     }
 }

@@ -3,6 +3,7 @@
 namespace stagify\Model\Repositories;
 
 use Doctrine\ORM\EntityRepository;
+use stagify\Model\Entities\Location;
 use stagify\Model\Entities\Promo;
 use Throwable;
 
@@ -20,6 +21,22 @@ final class PromoRepo extends EntityRepository
             ->getResult();
     }
 
+    function create(array $data): Promo|null
+    {
+        try {
+            $promo = (new Promo())
+                ->setYear($data["year"])
+                ->setType($data["type"])
+                ->setSchool($data["school"]);
+            $this->_em->persist($promo);
+            $this->_em->flush();
+            
+            return $promo;
+        } catch (Throwable) {
+            return null;
+        }
+    }
+
     function byConcat(string $concat): Promo|null
     {
         try {
@@ -27,6 +44,24 @@ final class PromoRepo extends EntityRepository
                 ->select("p")
                 ->where("CONCAT('A', p.year, ' ', p.type, ' - ', p.school) = :concat")
                 ->setParameter("concat", $concat)
+                ->getQuery()
+                ->getOneOrNullResult();
+        } catch (Throwable) {
+            return null;
+        }
+    }
+
+    function byData(int $year, string $type, string $shool): Promo|null
+    {
+        try {
+            return $this->createQueryBuilder("p")
+                ->select("p")
+                ->where("p.year = :year")
+                ->andWhere("p.type = :type")
+                ->andWhere("p.school = :school")
+                ->setParameter("year", $year)
+                ->setParameter("type", $type)
+                ->setParameter("school", $shool)
                 ->getQuery()
                 ->getOneOrNullResult();
         } catch (Throwable) {

@@ -34,4 +34,35 @@ final class LocationRepo extends EntityRepository
             return null;
         }
     }
+
+    function byData(int $zipCode, string $city): Location|null
+    {
+        try {
+            return $this->createQueryBuilder("l")
+                ->select("l")
+                ->where("l.zipCode = :zipCode")
+                ->andWhere("l.city = :city")
+                ->setParameter("zipCode", $zipCode)
+                ->setParameter("city", $city)
+                ->getQuery()
+                ->getOneOrNullResult();
+        } catch (Throwable) {
+            return null;
+        }
+    }
+
+    function create(array $data): Location|null
+    {
+        try {
+            $location = (new Location())
+                ->setZipCode($data["zipCode"])
+                ->setCity($data["city"]);
+            $this->_em->persist($location);
+            $this->_em->flush();
+
+            return $location;
+        } catch (Throwable) {
+            return null;
+        }
+    }
 }

@@ -1,7 +1,6 @@
-{% macro content(id, old = [], errors = [], shadow = true) %}
+{% macro content(id, errors = [], shadow = true) %}
     <div class="input-group rounded-2 {% if shadow %}shadow{% endif %}">
-        <input class="form-control" type="file" id="{{ id }}" name="{{ id }}" aria-label="{{ id }}"
-               {% if old[id] %}value="{{ old[id] }}"{% endif %}>
+        <input class="form-control" type="file" id="{{ id }}" name="{{ id }}" aria-label="{{ id }}">
     </div>
     {% if errors[id] %}
         <div class="text-coldRed ms-1">

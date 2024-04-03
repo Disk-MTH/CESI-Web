@@ -90,9 +90,9 @@ class InternshipsController extends Controller
 
             $data["company"] = $this->companyRepo->byConcat($data["companiesField"]);
             $data["promos"] = [];
-            $data["skills"] = [];
+            $data["skillsString"] = [];
             foreach ($data as $key => $value) {
-                if (str_starts_with($key, "suggestion-skills_")) $data["skills"][] = $value;
+                if (str_starts_with($key, "suggestion-skills_")) $data["skillsString"][] = $value;
                 if (str_starts_with($key, "suggestion-promos_")) {
                     $promo = $this->promoRepo->byConcat($value);
                     if ($promo) $data["promos"][] = $promo;
@@ -110,7 +110,7 @@ class InternshipsController extends Controller
             Validator::intVal()->positive()->validate($data["placesCount"]) || $errors["placesCount"] = "Le nombre de places doit être un nombre positif";
             Validator::notEmpty()->validate($data["description"]) || $errors["description"] = "La description ne peut pas être vide";
             if (!isset($errors["promos"])) Validator::notEmpty()->validate($data["promos"]) || $errors["promos"] = "Les promotions ne peuvent pas être vides";
-            Validator::notEmpty()->validate($data["skills"]) || $errors["skills"] = "Les compétences ne peuvent pas être vides";
+            Validator::notEmpty()->validate($data["skillsString"]) || $errors["skills"] = "Les compétences ne peuvent pas être vides";
 
             $data["location"] = $this->locationRepo->byConcat(explode(" - ", $data["companiesField"])[1]);
             $data["startDate"] = DateTime::createFromFormat("Y-m-d", $data["startDate"]);
@@ -128,12 +128,15 @@ class InternshipsController extends Controller
             }
 
             if (empty($errors)) {
-                foreach ($data["skills"] as $value) {
+                $data["skills"] = [];
+                foreach ($data["skillsString"] as $value) {
                     $skill = $this->skillRepo->byName($value);
+                    if (!$skill) {
+                        $skill = $this->skillRepo->create($value);
+                        if (!$skill) $errors["skills"] = "Une erreur est survenue lors de la création de la compétence \"" . $value . "\"";
+                    }
                     if ($skill) $data["skills"][] = $skill;
-                    else if (!$this->skillRepo->create($value)) $errors["skills"] = "Une erreur est survenue lors de la création de la compétence \"" . $value . "\"";
                 }
-                $data["skills"] = array_filter($data["skills"], fn($value) => is_object($value));
 
                 if (!isset($errors["skills"])) Validator::notEmpty()->validate($data["skills"]) || $errors["skills"] = "Les compétences ne peuvent pas être vides";
 
