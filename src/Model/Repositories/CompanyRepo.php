@@ -104,4 +104,22 @@ final class CompanyRepo extends EntityRepository
             return null;
         }
     }
+
+    function create(array $data): Company|null
+    {
+        try {
+            $company = new Company();
+            $company->setName($data["companyName"]);
+            $company->setEmployeeCount($data["employeeCount"]);
+            $company->setWebsite($data["website"]);
+            $company->setActivitySector($data["sector"]);
+            $company->setLocations($data["city"], $data["zipCode"]);
+            $company->setLogoPath($data["logo"]);
+            $this->_em->persist($company);
+            $this->_em->flush();
+            return $company;
+        } catch (Throwable) {
+            return null;
+        }
+    }
 }

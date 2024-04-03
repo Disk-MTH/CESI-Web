@@ -6,7 +6,11 @@ use Doctrine\ORM\EntityRepository;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Respect\Validation\Validator;
+use stagify\Middlewares\ErrorsMiddleware;
+use stagify\Middlewares\FlashMiddleware;
 use stagify\Model\Entities\Company;
+use stagify\Model\Entities\Location;
 use stagify\Model\Repositories\CompanyRepo;
 
 class CompaniesController extends Controller
@@ -14,10 +18,14 @@ class CompaniesController extends Controller
     /** @var CompanyRepo $companyRepo */
     private EntityRepository $companyRepo;
 
+    /** @var LocationRepo $locationRepo */
+    private EntityRepository $locationRepo;
+
     public function __construct(ContainerInterface $container)
     {
         parent::__construct($container);
         $this->companyRepo = $this->entityManager->getRepository(Company::class);
+        $this->locationRepo = $this->entityManager->getRepository(Location::class);
     }
 
     function companies(Request $request, Response $response): Response
@@ -42,55 +50,41 @@ class CompaniesController extends Controller
         }
 
         if ($request->getMethod() === "POST") {
-            /*$data = $request->getParsedBody();
-            $uploadedFiles = $request->getUploadedFiles();
+            $data = $request->getParsedBody();
+            $files = $request->getUploadedFiles();
+            $errors = ErrorsMiddleware::validate($data);
+            $fail = false;
 
-            $logger->debug("Creating company with data: " . json_encode($data));
-            $logger->debug("Uploaded files: " . print_r($uploadedFiles, true));
+            $data["logo"] = $files["logoPicture"];
 
-            $errors = OldDataMiddleware::validate($data);
-
-            Validator::notEmpty()->validate($data["name"]) || $errors["name"] = "Le nom ne peut pas être vide";
-            Validator::notEmpty()->validate($uploadedFiles["logo"]) || $errors["logo"] = "Le logo ne peut pas être vide";
-            Validator::notEmpty()->validate($data["sector"]) || $errors["sector"] = "Le secteur ne peut pas être vide";
-            Validator::intType()->validate($data["zipCode"]) || $errors["zipCode"] = "Le code postal doit être un nombre";
-            Validator::notEmpty()->validate($data["city"]) || $errors["city"] = "La ville ne peut pas être vide";
-            Validator::intType()->validate($data["employees"]) || $errors["employees"] = "Le nombre d'employés doit être un nombre";
-            Validator::url()->validate($data["website"]) || $errors["website"] = "Le site web n'est pas valide";
+            Validator::notEmpty()->validate($data["companyName"]) || $errors["companyName"] = "Le nom de l'entreprise ne peut pas etre vide";
+            Validator::notEmpty()->validate($data["employeeCount"]) || $errors["employeeCount"] = "Le nombre d'employes ne peut pas etre vide";
+            Validator::notEmpty()->validate($data["website"]) || $errors["website"] = "Le site web ne peut pas etre vide";
+            Validator::notEmpty()->validate($data["sector"]) || $errors["sector"] = "Le secteur ne peut pas etre vide";
+            Validator::notEmpty()->validate($data["city"]) || $errors["city"] = "La ville ne peut pas etre vide";
+            Validator::notEmpty()->validate($data["zipCode"]) || $errors["zipCode"] = "Le code postal ne peut pas etre vide";
+            Validator::intVal()->positive()->validate($data["logo"]?->getSize()) || $errors["logo"] = "Le logo ne peut pas etre vide";
 
             if (empty($errors)) {
-                $uploadedFile = $uploadedFiles["logo"];
 
-                $Company = new Company();
-                $Company->setName($data["name"]);
-                $Company->setWebsite($data["website"]);
-                $Company->setEmployeeCount($data["employees"]);
+                $data["logoPicture"] = $this->moveFile($data["logoPicture"], "companies");
+                if (!$data["logoPicture"]) $errors["logoPicture"] = "La photo n'a pas pu être enregistrée";
+                $data["location"] = $this->locationRepo->byData($data["zipCode"], $data["city"]);
+                if (!$data["location"]) {
+                    $data["location"] = $this->locationRepo->create($data);
+                    if (!$data["location"]) $errors["zipCode"] = "Une erreur est survenue lors de la création de la localisation";
+                }
 
-                $filename = moveUploadedFile($fileDirectory, $uploadedFile);
-                $Company->setLogoPath($filename);
-
-                $ActivitySector = new ActivitySector();
-                $ActivitySector->setName($data["sector"]);
-
-                $Company->setActivitySector($ActivitySector);
-
-                $Location = new Location();
-                $Location->setZipCode($data["zipCode"]);
-                $Location->setCity($data["city"]);
-
-                $Company->addLocation($Location);
-
-                $entityManager->persist($Company);
-                $entityManager->flush();
-
-                FlashMiddleware::flash("success", "Entreprise créée avec succès");
-                return redirect($response, "/");
-            }
-
-            ErrorsMiddleware::error($errors);
-            return redirect($response, "create-company");*/
+                if (empty($errors)) {
+                    if ($this->companyRepo->create($data)) FlashMiddleware::flash("success", "L'utilisateur a bien été créé.");
+                    else {
+                        $fail = true;
+                        FlashMiddleware::flash("error", "Une erreur est survenue lors de la création de l'utilisateur.");
+                    }
+                } else $fail = true;
+            } else $fail = true;
+            if ($fail) ErrorsMiddleware::error($errors);
         }
-
         return $this->redirect($response, "/create/company");
     }
 }

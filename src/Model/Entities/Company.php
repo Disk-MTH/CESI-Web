@@ -167,4 +167,11 @@ class Company
         $this->internships->removeElement($internship);
         return $this;
     }
+
+    public function setLocations(mixed $city, mixed $zipCode): self
+    {
+        $this->locations->add(new Location($city, $zipCode));
+        return $this;
+
+    }
 }
