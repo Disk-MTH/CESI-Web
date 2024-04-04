@@ -84,6 +84,8 @@ return function (App $app) {
 
     $app->get("/internship/{id}/rating", [InternshipsController::class, "rating"])->setName("internship_rating");
 
+    $app->post("/internship/{id}/rating", [InternshipsController::class, "rating"])->setName("internship_rating");
+
     /* ---------------------------------------- API ----------------------------------------*/
 
     $app->get("/api/count/{type}", [ApiController::class, "count"]);
