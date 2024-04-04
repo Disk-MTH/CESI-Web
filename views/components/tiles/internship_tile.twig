@@ -15,7 +15,7 @@
                         <h6 class="col card-title">
                             {rate} <i class="fa fa-star text-goldenBrown"></i>
                         </h6>
-                        <i class="fa fa-2x fa-bookmark-o text-deepSeaBlue" onclick=""></i>
+                        <i class="fa fa-2x fa-bookmark-o text-deepSeaBlue" onclick='toggleWish(event, '')"></i>
                     </div>
                 </div>
                 <div class="row">
@@ -33,14 +33,4 @@
             </div>
         </div>
     </div>
-    <script>
-        function navigateTo(event, url) {
-            if (event.target.tagName === 'I') {
-                return;
-            }
-            window
-                .open(url, '_blank')
-                .focus();
-        }
-    </script>
 </template>

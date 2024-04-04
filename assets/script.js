@@ -11,6 +11,16 @@ function navigateTo(event, url) {
     event.stopPropagation();
 }
 
+function toggleWish(event, id) {
+    console.log("toggleWish");
+
+
+
+
+
+    event.stopPropagation();
+}
+
 function toggleWishMark(event, id) {
     const icon = document.getElementById(id);
 

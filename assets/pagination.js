@@ -30,7 +30,8 @@
             $owner.pagination(settings);
         }
 
-        this.changePage = function () {
+        this.changePage = function (page) {
+            if (page !== undefined) settings.page = page;
             $owner.trigger("changePage", [settings.page]);
         }
 

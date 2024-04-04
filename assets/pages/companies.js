@@ -23,5 +23,5 @@ function resetFilters() {
 
 function applyFilters() {
     $("#companiesFilters").collapse("hide");
-    pagination.changePage();
+    pagination.changePage(1);
 }
