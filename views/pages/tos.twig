@@ -1,6 +1,5 @@
 {% set title = "Stagify - RGPD" %}
 {% extends "components/layouts/base.twig" %}
-{% import "components/tiles/stars_tile.twig" as stars_tile %}
 
 {% block body %}
     <header class="bg-deepWarmGrey">
@@ -14,16 +13,6 @@
     </header>
 
     <section>
-        {{ stars_tile.content("test") }}
-        <div class="btn btn-deepSeaBlue" onclick="logRating('test')">
-            Test
-        </div>
-        <script>
-            function logRating(id) {
-                console.log("Rating: " + $('.stars[data-fixed="1"]').length);
-
-            }
-        </script>
         <hr class="hr bg-heavyBlack m-0" style="border:none; height: 3px"/>
     </section>
 
