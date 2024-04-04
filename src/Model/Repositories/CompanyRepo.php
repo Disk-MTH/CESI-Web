@@ -25,7 +25,7 @@ final class CompanyRepo extends EntityRepository
             ->groupBy("c.id, c.name, l.city, l.zipCode, c.logoPath, cio.title, cio.id");*/
 
         $builder = $this->createQueryBuilder("c")
-            ->select("c.id, c.name, l.zipCode, l.city, c.employeeCount, c.logoPicture")
+            ->select("c.id, c.name, l.zipCode, l.city, c.employeeCount, c.logoPicture, l.id AS locationId")
             ->addSelect("(SELECT COUNT(io.id) FROM stagify\Model\Entities\Company c1 JOIN c1.internships io WHERE c1.id = c.id) AS numberOfInternships")
             ->addSelect("(SELECT COUNT(r1.id) FROM stagify\Model\Entities\Company c2 JOIN c2.internships io1 JOIN io1.rates r1 WHERE c2.id = c.id) AS numberOfReviews")
             ->addSelect("(SELECT AVG(r2.grade) FROM stagify\Model\Entities\Company c3 JOIN c3.internships io2 JOIN io2.rates r2 WHERE c3.id = c.id) AS averageGrade")
