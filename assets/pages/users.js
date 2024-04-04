@@ -7,8 +7,10 @@ pagination.on("changePage", async function (event, page) {
         "promos": $("#promosList").children().map((index, item) => $(item).find("input").val()).get(),
         "campus": $("#campusList").children().map((index, item) => $(item).find("input").val()).get(),
         "skills": $("#skillsList").children().map((index, item) => $(item).find("input").val()).get(),
+        "keyword": $("#keyword").val(),
+        "location": $("#location").val(),
     };
-    Object.keys(filters).forEach(key => (filters[key] === null || filters[key].length === 0 || filters[key] == "") && delete filters[key]);
+    Object.keys(filters).forEach(key => (filters[key] === null || filters[key].length === 0 || filters[key] === "") && delete filters[key]);
     filters = new URLSearchParams(filters).toString();
 
     const element = $("#users");

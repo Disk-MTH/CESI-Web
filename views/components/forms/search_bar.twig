@@ -1,0 +1,12 @@
+{% macro content(id, placeholder, old = [], errors = [], shadow = true) %}
+
+    <input class="form-control border-start-0" placeholder="{{ placeholder }}" id="{{ id }}" name="{{ id }}"
+           aria-label="{{ id }}"
+           {% if old[id] %}value="{{ old[id] }}"{% endif %}>
+
+    {% if errors[id] %}
+        <div class="text-coldRed ms-1">
+            {{ errors[id] }}
+        </div>
+    {% endif %}
+{% endmacro %}

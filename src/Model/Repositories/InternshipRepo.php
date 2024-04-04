@@ -11,7 +11,7 @@ use Throwable;
 
 final class InternshipRepo extends EntityRepository
 {
-    public function pagination(int $page, string|null $date, string|null $rating, string|array|null $skills, bool $count, int $limit = 12): array|int
+    public function pagination(int $page, string|null $date, string|null $rating, string|array|null $skills, string|null $keyword, string|null $location, bool $count, int $limit = 12): array|int
     {
         $builder = $this->createQueryBuilder("i")
             ->select("i.id, i.title, i.lowSalary, i.highSalary, i.startDate, i.endDate, il.city, il.zipCode, AVG(r.grade) AS rate")
@@ -31,6 +31,18 @@ final class InternshipRepo extends EntityRepository
                     ->setParameter("skills", $skills)
                     ->groupBy("i.id");
             }
+        }
+
+        if ($keyword) {
+            $builder
+                ->andWhere("i.title LIKE :keyword")
+                ->setParameter("keyword", "%$keyword%");
+        }
+
+        if ($location) {
+            $builder
+                ->andWhere("il.city LIKE :location OR il.zipCode LIKE :location")
+                ->setParameter("location", "%$location%");
         }
 
         if ($count) {
