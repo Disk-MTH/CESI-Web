@@ -220,7 +220,7 @@ class InternshipsController extends Controller
                         $internship = $post ? $this->internshipRepo->create($data) : $this->internshipRepo->update($data);
                         if ($internship) {
                             FlashMiddleware::flash("success", "Offre de stage enregistrée avec succès.");
-                            if ($post) return $this->redirect($response, "/create/internship/" . $internship->getId());
+                            if ($post) return $this->redirect($response, "/create/internship");
                             else return $this->redirect($response, "/internships");
                         } else {
                             FlashMiddleware::flash("error", "Une erreur est survenue lors de la modification de l'offre de stage.");

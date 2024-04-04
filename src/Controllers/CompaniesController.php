@@ -135,7 +135,7 @@ class CompaniesController extends Controller
                         $company = $post ? $this->companyRepo->create($data) : $this->companyRepo->update($data);
                         if ($company) {
                             FlashMiddleware::flash("success", "Entreprise enregistrée avec succès.");
-                            if ($post) return $this->redirect($response, "/create/company" . $company->getId());
+                            if ($post) return $this->redirect($response, "/create/company");
                             else return $this->redirect($response, "/companies");
                         } else {
                             FlashMiddleware::flash("error", "Une erreur est survenue lors de la modification de l'entreprise.");
