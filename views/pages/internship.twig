@@ -9,14 +9,14 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-2 col-md-3 col-4">
-                    <img class="img-fluid my-3" src="/assets/illustrations/company_logo_bis.svg" alt="logo">
+                    <img class="img-fluid my-3" src="{{ "/files/companies/" ~ company.getLogoPicture() }}" alt="logo">
                 </div>
 
                 <div class="col-md-5 col-8">
                     <div class="container">
-                        <div class="row align-items-center ">
-                            <h2 class="mt-3">{{ job_name }}</h2>
-                            <h4 class="mb-3 text-darkGrey">{{ company_name }}</h4>
+                        <div class="row align-items-center">
+                            <h2 class="mt-3">{{ internship.getTitle() }}</h2>
+                            <h4 class="mb-3 text-darkGrey">{{ company.getName() }}</h4>
                             <div class="col-1" onclick="toggleWishMark(event, 'wish')">
                                 <img src="/assets/svg/misc/wish_empty.svg" alt="wish_mark" id="wish">
                             </div>
@@ -47,17 +47,18 @@
         <div class="container">
             <div class="row d-md-none">
                 <div class="col">
-                    {{ job_info_tiles.content(900, 1100, "Reims", 51100, "18 rue Jean Jaures", "8 avril", "26 juillet", 4, "12 semaines", "A2") }}
+                    {{ job_info_tiles.content(internship, company) }}
                 </div>
             </div>
             <div class="row">
                 <div class="col-xl-8 col-lg-7 col-md-6 col-12">
                     <div class="card shadow bg-deepWarmGrey my-3 py-3 px-3">
-                        {{ job_description }}
+                        <h4>Description de l'offre</h4>
+                        {{ internship.getDescription() }}
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-5 col-md-6  d-none d-md-block">
-                    {{ job_info_tiles.content(900, 1100, "Reims", 51100, "18 rue Jean Jaures", "8 avril", "26 juillet", 4, "12 semaines", "A2") }}
+                    {{ job_info_tiles.content(internship, company) }}
                 </div>
             </div>
         </div>

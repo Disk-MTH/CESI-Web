@@ -62,9 +62,9 @@ class InternshipsController extends Controller
         return $this->render($response, "pages/internships.twig");
     }
 
-    function internship(Request $request, Response $response): Response
+    function internship(Request $request, Response $response, array $pathArgs): Response
     {
-        return $this->render($response, "pages/internship.twig");
+        return $this->render($response, "pages/internship.twig", ["internship" => $this->internshipRepo->find($pathArgs["id"]), "company" => $this->companyRepo->byInternshipId($pathArgs["id"])]);
     }
 
     function rating(Request $request, Response $response): Response
@@ -179,8 +179,7 @@ class InternshipsController extends Controller
                         if ($internship) {
                             FlashMiddleware::flash("success", "Offre de stage enregistrée avec succès.");
                             return $this->redirect($response, "/create/internship?edit=true&id=" . $internship->getId());
-                        }
-                        else {
+                        } else {
                             FlashMiddleware::flash("error", "Une erreur est survenue lors de la modification de l'offre de stage.");
                             if ($_POST["_method"] === "PATCH") return $this->redirect($response, "/create/internship?edit=true&id=" . $data["id"]);
                         }
