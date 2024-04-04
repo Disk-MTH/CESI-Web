@@ -76,15 +76,39 @@ class InternshipsController extends Controller
 
     function rating(Request $request, Response $response, array $pathParams): Response
     {
-        $internship = $this->internshipRepo->find($pathParams["id"]);
-        $internshipRates = $internship->getRates();
-        $rates = [];
-        for ($i = 0; $i < count($internshipRates); $i++) {
-            $rates[$i]["rate"] = $internshipRates[$i];
-            $rates[$i]["users"] = $this->userRepo->findByRate($internshipRates[$i]);
+        if ($request->getMethod() === "GET") {
+
+
+            $internship = $this->internshipRepo->find($pathParams["id"]);
+            $internshipRates = $internship->getRates();
+            $rates = [];
+            for ($i = 0; $i < count($internshipRates); $i++) {
+                $rates[$i]["rate"] = $internshipRates[$i];
+                $rates[$i]["users"] = $this->userRepo->findByRate($internshipRates[$i]);
+            }
+
+            $company = $this->companyRepo->byInternshipId($pathParams["id"]);
         }
 
-        $company = $this->companyRepo->byInternshipId($pathParams["id"]);
+        if ($request->getMethod() === "POST") {
+            $data = $request->getParsedBody();
+            $errors = ErrorsMiddleware::validate($data);
+
+            $data["internship"] = $this->internshipRepo->find($pathParams["id"]);
+            $data["user"] = $this->userRepo->find($data["userId"]);
+
+            Validator::intVal()->positive()->validate($data["rate"]) || $errors["rate"] = "La note ne peut pas être vide";
+            Validator::notEmpty()->validate($data["description"]) || $errors["description"] = "La description ne peut pas être vide";
+
+            if (empty($errors)) {
+                $rate = $_POST["_method"] === "POST" ? $this->userRepo->create($data) : $this->internshipRepo->update($data);
+                if ($rate) {
+                    FlashMiddleware::flash("success", "Offre de stage enregistrée avec succès.");
+                    return $this->redirect($response, "/pages/internship_rating.twig" . $internship->getId());
+                }
+            }
+
+        }
 
         return $this->render($response, "pages/internship_rating.twig", ["internship" => $internship, "rates" => $rates, "company" => $company]);
     }
