@@ -77,7 +77,8 @@ final class InternshipRepo extends EntityRepository
         try {
             $internship = $this->find($data["id"]);
             if ($internship) {
-                $internship->setStartDate($data["startDate"])
+                $internship
+                    ->setStartDate($data["startDate"])
                     ->setEndDate($data["endDate"])
                     ->setDurationDays($data["duration"])
                     ->setLowSalary($data["lowSalary"])
@@ -88,7 +89,6 @@ final class InternshipRepo extends EntityRepository
                     ->setLocation($data["location"])
                     ->setSkills($data["skills"]);
                 $this->_em->flush();
-
                 return $internship;
             }
             return null;

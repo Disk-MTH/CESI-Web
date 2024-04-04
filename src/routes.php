@@ -55,11 +55,10 @@ return function (App $app) {
 
     $app->get("/companies", [CompaniesController::class, "companies"])->setName("companies");
 
-    //TODO: /company/{id}
-    $app->get("/company", [CompaniesController::class, "company"])->setName("company");
+    $app->get("/company/{id}", [CompaniesController::class, "company"])->setName("company");
 
     //TODO: company -> id
-    $app->get("/company/rating", [CompaniesController::class, "rating"])->setName("company_rating");
+    $app->get("/company/rating/{id}", [CompaniesController::class, "rating"])->setName("company_rating");
 
     $app->get("/create/company", [CompaniesController::class, "createCompany"])->setName("create_company");
 
@@ -99,4 +98,10 @@ return function (App $app) {
     $app->get("/api/suggestions/promos/{pattern}", [ApiController::class, "promosSuggestions"]);
 
     $app->get("/api/suggestions/skills/{pattern}", [ApiController::class, "skillsSuggestions"]);
+
+    $app->get("/api/suggestions/sectors/{pattern}", [ApiController::class, "activitySectorsSuggestions"]);
+
+    $app->get("/api/suggestions/zip_codes/{pattern}", [ApiController::class, "zipCodesSuggestions"]);
+
+    $app->get("/api/suggestions/cities/{pattern}", [ApiController::class, "citiesSuggestions"]);
 };

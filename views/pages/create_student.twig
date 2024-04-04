@@ -74,7 +74,7 @@
                             {{ suggestion_field.content("skills", "Compétences", old, errors) }}
 
                             <h5 class="mt-2">Photo de profil</h5>
-                            {{ file_field.content("profilePicture", old, errors) }}
+                            {{ file_field.content("profilePicture", errors) }}
 
                             <h5 class="mt-2">Description</h5>
                             {{ area_field.content("description", old, errors, 5) }}

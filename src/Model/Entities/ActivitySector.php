@@ -7,8 +7,9 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Table;
+use stagify\Model\Repositories\ActivitySectorRepo;
 
-#[Entity, Table(name: "activity_sector")]
+#[Entity(repositoryClass: ActivitySectorRepo::class), Table(name: "activity_sector")]
 class ActivitySector
 {
     #[Id, Column(type: "integer"), GeneratedValue(strategy: "AUTO")]

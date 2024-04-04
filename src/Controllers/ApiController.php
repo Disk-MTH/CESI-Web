@@ -6,12 +6,14 @@ use Doctrine\ORM\EntityRepository;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use stagify\Model\Entities\ActivitySector;
 use stagify\Model\Entities\Company;
 use stagify\Model\Entities\Internship;
 use stagify\Model\Entities\Location;
 use stagify\Model\Entities\Promo;
 use stagify\Model\Entities\Skill;
 use stagify\Model\Entities\User;
+use stagify\Model\Repositories\ActivitySectorRepo;
 use stagify\Model\Repositories\CompanyRepo;
 use stagify\Model\Repositories\InternshipRepo;
 use stagify\Model\Repositories\LocationRepo;
@@ -36,6 +38,12 @@ class ApiController extends Controller
     /** @var PromoRepo $promoRepo */
     private EntityRepository $promoRepo;
 
+    /** @var ActivitySectorRepo $activitySectorRepo */
+    private EntityRepository $activitySectorRepo;
+
+    /** @var LocationRepo $locationRepo */
+    private EntityRepository $locationRepo;
+
     public function __construct(ContainerInterface $container)
     {
         parent::__construct($container);
@@ -44,6 +52,8 @@ class ApiController extends Controller
         $this->userRepo = $this->entityManager->getRepository(User::class);
         $this->skillRepo = $this->entityManager->getRepository(Skill::class);
         $this->promoRepo = $this->entityManager->getRepository(Promo::class);
+        $this->activitySectorRepo = $this->entityManager->getRepository(ActivitySector::class);
+        $this->locationRepo = $this->entityManager->getRepository(Location::class);
     }
 
     function count(Request $request, Response $response, array $pathArgs): Response
@@ -85,8 +95,6 @@ class ApiController extends Controller
             return $response;
         }
 
-        $this->logger->warning("Internships API called with parameters: " . json_encode($queryArgs));
-
         $internships = $this->internshipRepo->pagination(
             $page, $queryArgs["date"] ?? null,
             $queryArgs["rating"] ?? null,
@@ -103,9 +111,9 @@ class ApiController extends Controller
                 "title" => $internship["title"],
                 "salary" => $internship["lowSalary"] . " - " . $internship["highSalary"],
                 "location" => $internship["zipCode"] . " - " . $internship["city"],
-                "user_wish" => $this->userRepo->isWish($internship["id"]),
-                "company_name" => $company->getName(),
-                "company_logo" => $company->getLogoPath(),
+                "userWish" => $this->userRepo->isWish($internship["id"]),
+                "companyName" => $company->getName(),
+                "companyLogo" => "/files/companies/" . $company->getLogoPicture(),
             ];
         }, $internships);
 
@@ -122,8 +130,6 @@ class ApiController extends Controller
             return $response;
         }
 
-        $this->logger->warning("Companies API called with parameters: " . json_encode($queryArgs));
-
         $companies = $this->companyRepo->pagination(
             $page,
             $queryArgs["rating"] ?? null,
@@ -138,7 +144,7 @@ class ApiController extends Controller
                 "location" => $company["zipCode"] . " - " . $company["city"],
                 "internshipsCount" => $company["numberOfInternships"],
                 "employeesCount" => $company["employeeCount"],
-                "icon" => $company["logoPath"],
+                "logo" => "/files/companies/" . $company["logoPicture"],
                 "ratingsCount" => $company["numberOfReviews"],
                 "rate" => round((float)$company["averageGrade"]),
                 "url" => "/company/" . $company["id"],
@@ -159,8 +165,6 @@ class ApiController extends Controller
             $response->withStatus(404)->getBody()->write(json_encode(["error" => "Page out of range"]));
             return $response;
         }
-
-        $this->logger->warning("Users API called with parameters: " . json_encode($queryArgs));
 
         $users = $this->userRepo->pagination(
             $page,
@@ -200,5 +204,26 @@ class ApiController extends Controller
         $skills = $this->skillRepo->suggestions($pathArgs["pattern"]);
         $skills = array_map(fn($skill) => ["content" => $skill->getName()], $skills);
         return $this->json($response, $skills);
+    }
+
+    function activitySectorsSuggestions(Request $request, Response $response, array $pathArgs): Response
+    {
+        $sectors = $this->activitySectorRepo->suggestions($pathArgs["pattern"]);
+        $sectors = array_map(fn($sector) => ["content" => $sector->getName()], $sectors);
+        return $this->json($response, $sectors);
+    }
+
+    function zipCodesSuggestions(Request $request, Response $response, array $pathArgs): Response
+    {
+        $zipCodes = $this->locationRepo->suggestions($pathArgs["pattern"], false);
+        $zipCodes = array_map(fn($zipCode) => ["content" => $zipCode->getZipCode()], $zipCodes);
+        return $this->json($response, $zipCodes);
+    }
+
+    function citiesSuggestions(Request $request, Response $response, array $pathArgs): Response
+    {
+        $cities = $this->locationRepo->suggestions($pathArgs["pattern"], true);
+        $cities = array_map(fn($city) => ["content" => $city->getCity()], $cities);
+        return $this->json($response, $cities);
     }
 }

@@ -32,7 +32,7 @@ class Company
     private int $employeeCount;
 
     #[Column(type: "string", nullable: false)]
-    private string $logoPath;
+    private string $logoPicture;
 
     #[Column(type: "boolean", nullable: false, options: ["default" => false])]
     private bool $deleted;
@@ -81,9 +81,9 @@ class Company
         return $this->employeeCount;
     }
 
-    public function getLogoPath(): string
+    public function getLogoPicture(): string
     {
-        return $this->logoPath;
+        return $this->logoPicture;
     }
 
     public function getDeleted(): bool
@@ -126,9 +126,9 @@ class Company
         return $this;
     }
 
-    public function setLogoPath(string $logoPath): self
+    public function setLogoPicture(string $logoPicture): self
     {
-        $this->logoPath = $logoPath;
+        $this->logoPicture = $logoPicture;
         return $this;
     }
 
@@ -141,6 +141,12 @@ class Company
     public function setActivitySector(ActivitySector $activitySector): self
     {
         $this->activitySector = $activitySector;
+        return $this;
+    }
+
+    public function setLocations(array $locations): self
+    {
+        $this->locations = new ArrayCollection($locations);
         return $this;
     }
 
@@ -166,12 +172,5 @@ class Company
     {
         $this->internships->removeElement($internship);
         return $this;
-    }
-
-    public function setLocations(mixed $city, mixed $zipCode): self
-    {
-        $this->locations->add(new Location($city, $zipCode));
-        return $this;
-
     }
 }
