@@ -1,12 +1,14 @@
 {% set title = "Stagify - Avis du stage" %}
 {% extends "components/layouts/layout.twig" %}
-{% import "components/tiles/rating_tile.twig" as rating_tile %}
-{% import "components/tiles/stars_tile.twig" as stars_tile %}
+ {% import "components/tiles/rating_tile.twig" as rating_tile %}
+{% import "components/forms/rating_field.twig" as rating_field %}
+{% import "components/forms/area_field.twig" as area_field %}
 
 {% block header %}
-    <section class="container bg-deepWarmGrey rounded-bottom-5">
+    <section class="container bg-deepWarmGrey rounded-bottom-5 shadow">
         <div class="row text-center">
-            <div class="text-heavyBlack py-3"><h4>Avis du poste ingénieur logiciel chez Facebook</h4></div>
+            <div class="text-heavyBlack py-3"><h4>Avis du poste {{ internship.getTitle() }}
+                    chez {{ company.getName() }}</h4></div>
         </div>
     </section>
 {% endblock %}
@@ -35,6 +37,14 @@
                                     Avis (décroissants)
                                 </label>
                             </div>
+                            <div class="row pt-2">
+                                <div class="col text-start">
+                                    <div class="btn btn-deepSeaBlue" onclick="resetFilters()">Réinitialiser</div>
+                                </div>
+                                <div class="col text-end">
+                                    <div class="btn btn-deepSeaBlue" onclick="applyFilters()">Valider</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -42,11 +52,9 @@
                         <div class="card-body overflow-y-scroll" style="height: 600px">
                             <div class="row">
                                 <div class="col-lg-11 col-12">
-                                    {{ rating_tile.content("Julien", "Turcot","CESI", "/assets/illustrations/profile.svg", "Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.") }}
-                                    {{ rating_tile.content("Julien", "Turcot","CESI", "/assets/illustrations/profile.svg", "Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.") }}
-                                    {{ rating_tile.content("Julien", "Turcot","CESI", "/assets/illustrations/profile.svg", "Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.") }}
-                                    {{ rating_tile.content("Julien", "Turcot","CESI", "/assets/illustrations/profile.svg", "Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.") }}
-                                    {{ rating_tile.content("Julien", "Turcot","CESI", "/assets/illustrations/profile.svg", "Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.") }}
+                                    {% for rate in rates %}
+                                        {{ rating_tile.content(rate, internship) }}
+                                    {% endfor %}
                                 </div>
                             </div>
 
@@ -72,18 +80,24 @@
                                     Avis (décroissants)
                                 </label>
                             </div>
-
+                            <div class="row pt-2">
+                                <div class="col text-start">
+                                    <div class="btn btn-deepSeaBlue" onclick="resetFilters()">Réinitialiser</div>
+                                </div>
+                                <div class="col text-end">
+                                    <div class="btn btn-deepSeaBlue" onclick="applyFilters()">Valider</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="card shadow my-3 bg-deepWarmGrey rounded-4 ">
                         <div class="card-body">
                             <div class="text-heavyBlack pb-2">Rédiger un avis</div>
-                            <textarea class="form-control pb-5 mb-3" id="exampleFormControlTextarea1"
-                                      rows="3"></textarea>
-                            <div class="row">
+                            {{ area_field.content("description", old, errors) }}
+                            <div class="row mt-3">
                                 <div class="col-7">
-                                    {{ stars_tile.content("job_rating") }}
+                                    {{ rating_field.content("job_rating") }}
                                 </div>
                                 <div class="col-5">
                                     <div class="btn btn-deepSeaBlue">Envoyer l'avis</div>

@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityRepository;
 use stagify\Model\Entities\Company;
 use stagify\Model\Entities\Internship;
 use stagify\Model\Entities\Location;
+use stagify\Model\Entities\Rate;
 use stagify\Model\Entities\Skill;
 use Throwable;
 
@@ -138,4 +139,6 @@ final class InternshipRepo extends EntityRepository
             return false;
         }
     }
+
+
 }

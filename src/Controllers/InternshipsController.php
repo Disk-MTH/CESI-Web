@@ -16,11 +16,13 @@ use stagify\Model\Entities\Internship;
 use stagify\Model\Entities\Location;
 use stagify\Model\Entities\Promo;
 use stagify\Model\Entities\Skill;
+use stagify\Model\Entities\User;
 use stagify\Model\Repositories\CompanyRepo;
 use stagify\Model\Repositories\InternshipRepo;
 use stagify\Model\Repositories\LocationRepo;
 use stagify\Model\Repositories\PromoRepo;
 use stagify\Model\Repositories\SkillRepo;
+use stagify\Model\Repositories\UserRepo;
 use Throwable;
 
 class InternshipsController extends Controller
@@ -40,7 +42,11 @@ class InternshipsController extends Controller
     /** @var LocationRepo $locationRepo */
     private EntityRepository $locationRepo;
 
+    /** @var UserRepo $userRepo */
+    private EntityRepository $userRepo;
+
     private EntityManager $em;
+
 
     public function __construct(ContainerInterface $container)
     {
@@ -50,6 +56,7 @@ class InternshipsController extends Controller
         $this->promoRepo = $this->entityManager->getRepository(Promo::class);
         $this->skillRepo = $this->entityManager->getRepository(Skill::class);
         $this->locationRepo = $this->entityManager->getRepository(Location::class);
+        $this->userRepo = $this->entityManager->getRepository(User::class);
 
         $this->em = $container->get("entityManager");
 
@@ -67,9 +74,19 @@ class InternshipsController extends Controller
         return $this->render($response, "pages/internship.twig", ["internship" => $this->internshipRepo->find($pathArgs["id"]), "company" => $this->companyRepo->byInternshipId($pathArgs["id"])]);
     }
 
-    function rating(Request $request, Response $response): Response
+    function rating(Request $request, Response $response, array $pathParams): Response
     {
-        return $this->render($response, "pages/internships_rating.twig");
+        $internship = $this->internshipRepo->find($pathParams["id"]);
+        $internshipRates = $internship->getRates();
+        $rates = [];
+        for ($i = 0; $i < count($internshipRates); $i++) {
+            $rates[$i]["rate"] = $internshipRates[$i];
+            $rates[$i]["users"] = $this->userRepo->findByRate($internshipRates[$i]);
+        }
+
+        $company = $this->companyRepo->byInternshipId($pathParams["id"]);
+
+        return $this->render($response, "pages/internship_rating.twig", ["internship" => $internship, "rates" => $rates, "company" => $company]);
     }
 
     function apply(Request $request, Response $response): Response
