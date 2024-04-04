@@ -28,5 +28,5 @@ function resetFilters() {
 
 function applyFilters() {
     $("#intershipsFilters").collapse("hide");
-    pagination.changePage();
+    pagination.changePage(1);
 }

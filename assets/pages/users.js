@@ -33,5 +33,5 @@ function resetFilters() {
 
 function applyFilters() {
     $("#usersFilters").collapse("hide");
-    pagination.changePage();
+    pagination.changePage(1);
 }

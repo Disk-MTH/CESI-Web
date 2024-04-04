@@ -30,7 +30,7 @@
                         </a>
                     </div>
                     <div class="col-6 text-center">
-                        <a class="text-decoration-none text-heavyBlack" {% if user.getRole() > 2 %}href={{ url_for("create_user", {"role": 2}) }}{% endif %}>
+                        <a class="text-decoration-none text-heavyBlack" {% if user.getRole() < 2 %}href={{ url_for("create_user", {"role": 2}) }}{% endif %}>
                             <h4>Pilote</h4>
                         </a>
                     </div>

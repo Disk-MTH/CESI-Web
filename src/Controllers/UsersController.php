@@ -74,78 +74,103 @@ class UsersController extends Controller
         }
 
         if ($request->getMethod() === "POST") {
-            $data = $request->getParsedBody();
-            $files = $request->getUploadedFiles();
-            $errors = ErrorsMiddleware::validate($data);
-            $fail = false;
+//            if ($_POST["_method"] === "POST" || $_POST["_method"] === "PATCH") {
+                $data = $request->getParsedBody();
+                $files = $request->getUploadedFiles();
+                $errors = ErrorsMiddleware::validate($data);
+//                $post = $_POST["_method"] === "POST";
+                $fail = false;
 
-            $data["role"] = $role;
-            $data["profilePicture"] = $files["profilePicture"];
+                $data["role"] = $role;
+                $data["profilePicture"] = $files["profilePicture"];
 
-            Validator::notEmpty()->validate($data["lastName"]) || $errors["lastName"] = "Le nom ne peut pas etre vide";
-            Validator::notEmpty()->validate($data["firstName"]) || $errors["firstName"] = "Le prenom ne peut pas etre vide";
-            Validator::notEmpty()->validate($data["login"]) || $errors["login"] = "Le nom d'utilisateur ne peut pas etre vide";
-            Validator::notEmpty()->validate($data["password"]) || $errors["password"] = "Le mot de passe ne peut pas etre vide";
-            Validator::notEmpty()->validate($data["zipCode"]) || $errors["zipCode"] = "Le code postal ne peut pas etre vide";
-            Validator::notEmpty()->validate($data["city"]) || $errors["city"] = "La ville ne peut pas etre vide";
-            Validator::intVal()->positive()->validate($data["profilePicture"]?->getSize()) || $errors["profilePicture"] = "La photo ne peut pas etre vide";
-            Validator::notEmpty()->validate($data["description"]) || $errors["description"] = "La description ne peut pas etre vide";
+                Validator::notEmpty()->validate($data["lastName"]) || $errors["lastName"] = "Le nom ne peut pas etre vide";
+                Validator::notEmpty()->validate($data["firstName"]) || $errors["firstName"] = "Le prenom ne peut pas etre vide";
+                Validator::notEmpty()->validate($data["login"]) || $errors["login"] = "Le nom d'utilisateur ne peut pas etre vide";
+                Validator::notEmpty()->validate($data["password"]) || $errors["password"] = "Le mot de passe ne peut pas etre vide";
+                Validator::notEmpty()->validate($data["zipCode"]) || $errors["zipCode"] = "Le code postal ne peut pas etre vide";
+                Validator::notEmpty()->validate($data["city"]) || $errors["city"] = "La ville ne peut pas etre vide";
+                Validator::intVal()->positive()->validate($data["profilePicture"]?->getSize()) || $errors["profilePicture"] = "La photo ne peut pas etre vide";
+                Validator::notEmpty()->validate($data["description"]) || $errors["description"] = "La description ne peut pas etre vide";
 
-
-            if ($role == 2) {
-                $data["promos"] = [];
-                foreach ($data as $key => $value) {
-                    if (str_starts_with($key, "suggestion-promos_")) {
-                        $promo = $this->promoRepo->byConcat($value);
-                        if ($promo) $data["promos"][] = $promo;
-                        else $errors["promos"] = "La promotion \"" . $value . "\" n'existe pas";
+                if ($role == 2) {
+                    $data["promos"] = [];
+                    foreach ($data as $key => $value) {
+                        if (str_starts_with($key, "suggestion-promos_")) {
+                            $promo = $this->promoRepo->byConcat($value);
+                            if ($promo) $data["promos"][] = $promo;
+                            else $errors["promos"] = "La promotion \"" . $value . "\" n'existe pas";
+                        }
                     }
-                }
 
-                if (!isset($errors["promos"])) Validator::notEmpty()->validate($data["promos"]) || $errors["promos"] = "Les promotions ne peuvent pas être vides";
-            } else {
-                $data["skills"] = [];
-                foreach ($data as $key => $value) {
-                    if (str_starts_with($key, "suggestion-skills_")) {
-                        $skill = $this->skillRepo->byName($value);
-                        if ($skill) $data["skills"][] = $skill;
-                        else $errors["skills"] = "La compétence \"" . $value . "\" n'existe pas";
+                    if (!isset($errors["promos"])) Validator::notEmpty()->validate($data["promos"]) || $errors["promos"] = "Les promotions ne peuvent pas être vides";
+                } else {
+                    $data["skills"] = [];
+                    foreach ($data as $key => $value) {
+                        if (str_starts_with($key, "suggestion-skills_")) {
+                            $skill = $this->skillRepo->byName($value);
+                            if ($skill) $data["skills"][] = $skill;
+                            else $errors["skills"] = "La compétence \"" . $value . "\" n'existe pas";
+                        }
                     }
-                }
 
-                if (!isset($errors["skills"])) Validator::notEmpty()->validate($data["skills"]) || $errors["skills"] = "Les compétences ne peuvent pas être vides";
-                Validator::notEmpty()->validate($data["school"]) || $errors["school"] = "L'école ne peut pas etre vide";
-                Validator::notEmpty()->validate($data["year"]) || $errors["year"] = "L'année ne peut pas etre vide";
-                Validator::notEmpty()->validate($data["type"]) || $errors["type"] = "La formation ne peut pas etre vide";
-            }
-
-            if (empty($errors)) {
-                $data["profilePicture"] = $this->moveFile($data["profilePicture"], "users");
-                if (!$data["profilePicture"]) $errors["profilePicture"] = "La photo n'a pas pu être enregistrée";
-                $data["location"] = $this->locationRepo->byData($data["zipCode"], $data["city"]);
-                if (!$data["location"]) {
-                    $data["location"] = $this->locationRepo->create($data);
-                    if (!$data["location"]) $errors["zipCode"] = "Une erreur est survenue lors de la création de la localisation";
-                }
-
-                if ($role == 3) {
-                    $data["promo"] = $this->promoRepo->byData($data["year"], $data["type"], $data["school"]);
-                    if (!$data["promo"]) {
-                        $data["promo"] = $this->promoRepo->create($data);
-                        if (!$data["promo"]) $errors["promo"] = "Une erreur est survenue lors de la création de la promotion";
-                    }
+                    if (!isset($errors["skills"])) Validator::notEmpty()->validate($data["skills"]) || $errors["skills"] = "Les compétences ne peuvent pas être vides";
+                    Validator::notEmpty()->validate($data["school"]) || $errors["school"] = "L'école ne peut pas etre vide";
+                    Validator::notEmpty()->validate($data["year"]) || $errors["year"] = "L'année ne peut pas etre vide";
+                    Validator::notEmpty()->validate($data["type"]) || $errors["type"] = "La formation ne peut pas etre vide";
                 }
 
                 if (empty($errors)) {
-                    if ($this->userRepo->create($data)) FlashMiddleware::flash("success", "L'utilisateur a bien été créé.");
-                    else {
-                        $fail = true;
-                        FlashMiddleware::flash("error", "Une erreur est survenue lors de la création de l'utilisateur.");
+                    $data["profilePicture"] = $this->moveFile($data["profilePicture"], "users");
+                    if (!$data["profilePicture"]) $errors["profilePicture"] = "La photo n'a pas pu être enregistrée";
+                    $data["location"] = $this->locationRepo->byData($data["zipCode"], $data["city"]);
+                    if (!$data["location"]) {
+                        $data["location"] = $this->locationRepo->create($data);
+                        if (!$data["location"]) $errors["zipCode"] = "Une erreur est survenue lors de la création de la localisation";
                     }
+
+                    if ($role == 3) {
+                        $data["promo"] = $this->promoRepo->byData($data["year"], $data["type"], $data["school"]);
+                        if (!$data["promo"]) {
+                            $data["promo"] = $this->promoRepo->create($data);
+                            if (!$data["promo"]) $errors["promo"] = "Une erreur est survenue lors de la création de la promotion";
+                        }
+                    }
+
+                    if (empty($errors)) {
+                        if ($this->userRepo->create($data)) FlashMiddleware::flash("success", "L'utilisateur a bien été créé.");
+                        else {
+                            $fail = true;
+                            FlashMiddleware::flash("error", "Une erreur est survenue lors de la création de l'utilisateur.");
+                        }
+                    } else $fail = true;
                 } else $fail = true;
-            } else $fail = true;
-            if ($fail) ErrorsMiddleware::error($errors);
+                if ($fail) ErrorsMiddleware::error($errors);
+//            }
+
+
+            /*
+             * if ($_POST["_method"] === "DELETE") {
+                $data = $request->getParsedBody();
+                $id = $data["id"];
+
+                if (Validator::intVal()->validate($id) && $this->companyRepo->delete($id)) FlashMiddleware::flash("success", "L'entreprise a bien été supprimée.");
+                else FlashMiddleware::flash("error", "Une erreur est survenue lors de la suppression de l'entreprise.");
+                return $this->redirect($response, "/create/company?edit=true&id=" . $data["id"]);
+            }
+
+            if ($_POST["_method"] === "RESTORE") {
+                $data = $request->getParsedBody();
+                $id = $data["id"];
+
+                if (Validator::intVal()->validate($id) && $this->companyRepo->restore($id)) FlashMiddleware::flash("success", "L'entreprise de stage a bien été retaurée.");
+                else FlashMiddleware::flash("error", "Une erreur est survenue lors de la restauration de l'entreprise.");
+                return $this->redirect($response, "/create/company?edit=true&id=" . $data["id"]);
+            }
+             */
+
         }
+
         return $this->redirect($response, "/create/user/$role");
     }
 }

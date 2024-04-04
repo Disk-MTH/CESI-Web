@@ -1,0 +1,41 @@
+{% macro content(id, fixed = -1) %}
+    <div id="stars-{{ id }}" class="user-select-none" data-fixed="{{ fixed }}">
+        {% if fixed < 0 %}<input type="hidden" id="{{ id }}" name="{{ id }}" value="0">{% endif %}
+        {% for i in 1..5 %}
+            <i class="fa fa-star {{ i <= fixed ? "text-goldenBrown" : "text-heavyBlack" }} star-{{ id }}" data-value="{{ i }}"></i>
+        {% endfor %}
+        <script>
+            $(document).ready(function() {
+                var stars = $("#stars-{{ id }}");
+                var starElements = stars.find(".star-{{ id }}");
+                var activeColor = "text-goldenBrown";
+                var inactiveColor = "text-heavyBlack";
+                var fixed = stars.data("fixed");
+
+                if (fixed < 0) {
+                    var rated = false;
+
+                    starElements.hover(function() {
+                        if (rated) return;
+                        $(this).prevAll().addBack().removeClass(inactiveColor).addClass(activeColor);
+                    }, function() {
+                        if (rated) return;
+                        starElements.removeClass(activeColor).addClass(inactiveColor);
+                    });
+
+                    starElements.click(function() {
+                        if (rated && $(this).hasClass(activeColor)) {
+                            starElements.removeClass(activeColor).addClass(inactiveColor);
+                            $("#" + "{{ id }}").val(0);
+                            rated = false;
+                        } else {
+                            $(this).prevAll().addBack().removeClass(inactiveColor).addClass(activeColor);
+                            $("#" + "{{ id }}").val($(this).data("value"));
+                            rated = true;
+                        }
+                    });
+                }
+            });
+        </script>
+    </div>
+{% endmacro %}
