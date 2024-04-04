@@ -28,7 +28,7 @@
                 </h4>
                 <h6 class="text-lightGrey">{{ user.getLocation().getZipCode() }} {{ user.getLocation().getCity() }}</h6>
                 <div class="my-2"></div>
-                <a class="h6 text-deepSeaBlue text-decoration-none" href="{{ url_for("home") }}">
+                <a class="h6 text-deepSeaBlue text-decoration-none" href="{{ url_for("wishlist", {"id": user.getId()}) }}">
                     Details du profil
                 </a>
             </div>

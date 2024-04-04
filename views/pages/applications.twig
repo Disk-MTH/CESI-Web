@@ -1,0 +1,54 @@
+{% set title = "Stagify - Postulations" %}
+{% extends "components/layouts/layout.twig" %}
+{% import "components/tiles/navigation_tile_vertical.twig" as navigation_tile_vertical %}
+{% import "components/tiles/navigation_tile_horizontal.twig" as navigation_tile_horizontal %}
+
+{% block header %}
+    <section class="bg-deepWarmGrey">
+        <div class="container">
+            <div class="row text-center">
+                <div class="text-heavyBlack py-3"><h4>Historique de postulations</h4></div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="container">
+            <div class="row">
+                {{ navigation_tile_vertical.content(user, 2) }}
+                {{ navigation_tile_horizontal.content(user, 2) }}
+
+                <div class="col-lg-8 col-12">
+                    <div class="card shadow my-3 bg-deepWarmGrey">
+                        <div class="card-body overflow-y-scroll" style="height: 60vh">
+                            {% for application in applications %}
+                                <div class="card shadow bg-gradient-card cursor-pointer user-select-none mb-4"
+                                     onclick="navigateTo(event, '{{ application["url"] }}')">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12 col-md-8">
+                                                <h6 class="card-title">{{ application["companyName"] }} - {{ application["internshipTitle"] }}</h6>
+                                            </div>
+                                            <div class="col-3 text-end text-nowrap">
+                                                Status :
+                                            </div>
+                                            <div class="col-1">
+                                                {% if application["accepted"] %}
+                                                    <i class="fa fa-2x fa-check-circle text-deepGreen"></i>
+                                                {% else %}
+                                                    <i class="fa fa-2x fa-times-circle text-coldRed"></i>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

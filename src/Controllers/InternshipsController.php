@@ -161,6 +161,7 @@ class InternshipsController extends Controller
             if ($_POST["_method"] === "POST" || $_POST["_method"] === "PATCH") {
                 $data = $request->getParsedBody();
                 $errors = ErrorsMiddleware::validate($data);
+                $post = $_POST["_method"] === "POST";
 
                 $data["company"] = $this->companyRepo->byConcat($data["companiesField"]);
                 $data["promos"] = [];
@@ -216,18 +217,19 @@ class InternshipsController extends Controller
                     if (!isset($errors["skills"])) Validator::notEmpty()->validate($data["skills"]) || $errors["skills"] = "Les compétences ne peuvent pas être vides";
 
                     if (empty($errors)) {
-                        $internship = $_POST["_method"] === "POST" ? $this->internshipRepo->create($data) : $this->internshipRepo->update($data);
+                        $internship = $post ? $this->internshipRepo->create($data) : $this->internshipRepo->update($data);
                         if ($internship) {
                             FlashMiddleware::flash("success", "Offre de stage enregistrée avec succès.");
-                            return $this->redirect($response, "/create/internship?edit=true&id=" . $internship->getId());
+                            if ($post) return $this->redirect($response, "/create/internship/" . $internship->getId());
+                            else return $this->redirect($response, "/internships");
                         } else {
                             FlashMiddleware::flash("error", "Une erreur est survenue lors de la modification de l'offre de stage.");
-                            if ($_POST["_method"] === "PATCH") return $this->redirect($response, "/create/internship?edit=true&id=" . $data["id"]);
+                            if (!$post) return $this->redirect($response, "/create/internship?edit=true&id=" . $data["id"]);
                         }
                     }
                 }
                 ErrorsMiddleware::error($errors);
-                if ($_POST["_method"] === "PATCH") return $this->redirect($response, "/create/internship?edit=true&id=" . $data["id"]);
+                if (!$post) return $this->redirect($response, "/create/internship?edit=true&id=" . $data["id"]);
             }
 
             if ($_POST["_method"] === "DELETE") {

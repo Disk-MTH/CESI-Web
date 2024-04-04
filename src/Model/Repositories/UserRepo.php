@@ -17,7 +17,6 @@ final class UserRepo extends EntityRepository
     {
         if (!$role) $role = 3;
 
-        //TODO: apply filters
         $builder = $this->createQueryBuilder("u")
             ->select("u.id, u.firstName, u.lastName, u.profilePicture, l.city, l.zipCode, p.year, p.type, p.school")
             ->innerJoin("u.location", "l")

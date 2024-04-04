@@ -9,12 +9,14 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use stagify\Middlewares\ErrorsMiddleware;
 use stagify\Middlewares\FlashMiddleware;
+use stagify\Model\Entities\Application;
 use stagify\Model\Entities\Company;
 use stagify\Model\Entities\Internship;
 use stagify\Model\Entities\Location;
 use stagify\Model\Entities\Promo;
 use stagify\Model\Entities\Skill;
 use stagify\Model\Entities\User;
+use stagify\Model\Repositories\ApplicationRepo;
 use stagify\Model\Repositories\CompanyRepo;
 use stagify\Model\Repositories\InternshipRepo;
 use stagify\Model\Repositories\LocationRepo;
@@ -40,6 +42,9 @@ class UsersController extends Controller
     /** @var CompanyRepo $companyRepo */
     private EntityRepository $companyRepo;
 
+    /** @var ApplicationRepo $applicationRepo */
+    private EntityRepository $applicationRepo;
+
     public function __construct(ContainerInterface $container)
     {
         parent::__construct($container);
@@ -48,6 +53,7 @@ class UsersController extends Controller
         $this->skillRepo = $this->entityManager->getRepository(Skill::class);
         $this->promoRepo = $this->entityManager->getRepository(Promo::class);
         $this->companyRepo = $this->entityManager->getRepository(Company::class);
+        $this->applicationRepo = $this->entityManager->getRepository(Application::class);
     }
 
     function users(Request $request, Response $response, array $pathArgs): Response
@@ -65,7 +71,6 @@ class UsersController extends Controller
     function wishlist(Request $request, Response $response, array $pathArgs): Response
     {
         $wishes = $this->userRepo->find($pathArgs["id"])->getWishes()->toArray();
-
         $wishes = array_map(function ($wish) {
             $company = $this->companyRepo->byInternshipId($wish->getId());
 
@@ -73,17 +78,33 @@ class UsersController extends Controller
                 "url" => "/internship/" . $wish->getId(),
                 "startDate" => $wish->getStartDate()->format("d/m/Y"),
                 "endDate" => $wish->getEndDate()->format("d/m/Y"),
-                //"rate" => round((float)$wish["rate"]),
                 "title" => $wish->getTitle(),
                 "salary" => $wish->getLowSalary() . " - " . $wish->getHighSalary(),
                 "location" => $wish->getLocation()->getZipCode() . " - " . $wish->getLocation()->getCity(),
-//                "userWish" => $wish->userRepo->isWish($wish["id"]),
                 "companyName" => $company->getName(),
                 "companyLogo" => "/files/companies/" . $company->getLogoPicture(),
             ];
         }, $wishes);
 
         return $this->render($response, "pages/wishlist.twig", ["wishes" => $wishes]);
+    }
+
+    function applications(Request $request, Response $response, array $pathArgs): Response
+    {
+        $applications = $this->applicationRepo->byUserId($pathArgs["id"]);
+        $applications = array_map(function ($application) {
+            $company = $this->companyRepo->byInternshipId($application["internshipId"]);
+
+            return [
+                "accepted" => $application["accepted"],
+                "url" => "/internship/" . $application["internshipId"],
+                "internshipTitle" => $application["internshipTitle"],
+                "companyName" => $company->getName(),
+                "companyLogo" => "/files/companies/" . $company->getLogoPicture(),
+            ];
+        }, $applications);
+
+        return $this->render($response, "pages/applications.twig", ["applications" => $applications]);
     }
 
     function createUser(Request $request, Response $response, array $pathArgs): Response

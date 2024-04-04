@@ -9,18 +9,19 @@ use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
+use stagify\Model\Repositories\ApplicationRepo;
 
-#[Entity, Table(name: "application")]
+#[Entity(repositoryClass: ApplicationRepo::class), Table(name: "application")]
 class Application
 {
     #[Id, Column(type: "integer"), GeneratedValue(strategy: "AUTO")]
     private int $id;
 
     #[Column(type: "string", nullable: false)]
-    private string $cvPath;
+    private string $cvFile;
 
     #[Column(type: "string", nullable: false)]
-    private string $coverLetterPath;
+    private string $coverLetterFile;
 
     #[Column(type: "boolean", nullable: false)]
     private bool $accepted;
@@ -40,14 +41,14 @@ class Application
         return $this->id;
     }
 
-    public function getCvPath(): string
+    public function getCvFile(): string
     {
-        return $this->cvPath;
+        return $this->cvFile;
     }
 
-    public function getCoverLetterPath(): string
+    public function getCoverLetterFile(): string
     {
-        return $this->coverLetterPath;
+        return $this->coverLetterFile;
     }
 
     public function getAccepted(): bool
@@ -67,15 +68,15 @@ class Application
 
     /*-------------------------------------------------- Setters --------------------------------------------------*/
 
-    public function setCvPath(string $cvPath): self
+    public function setCvFile(string $cvFile): self
     {
-        $this->cvPath = $cvPath;
+        $this->cvFile = $cvFile;
         return $this;
     }
 
-    public function setCoverLetterPath(string $coverLetterPath): self
+    public function setCoverLetterFile(string $coverLetterFile): self
     {
-        $this->coverLetterPath = $coverLetterPath;
+        $this->coverLetterFile = $coverLetterFile;
         return $this;
     }
 

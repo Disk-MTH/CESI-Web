@@ -9,19 +9,6 @@ use stagify\Controllers\InternshipsController;
 use stagify\Controllers\MiscController;
 use stagify\Controllers\UsersController;
 
-
-/*//todo: remake
-function moveUploadedFile($directory, UploadedFile $uploadedFile): string
-{
-    $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
-    $basename = bin2hex(random_bytes(8)); // see http://php.net/manual/en/function.random-bytes.php
-    $filename = sprintf('%s.%0.8s', $basename, $extension);
-
-    $uploadedFile->moveTo($directory . DIRECTORY_SEPARATOR . $filename);
-
-    return $filename;
-}*/
-
 return function (App $app) {
     /* ---------------------------------------- Misc ----------------------------------------*/
 
@@ -45,6 +32,8 @@ return function (App $app) {
 
     $app->get("/user/{id}/wishlist", [UsersController::class, "wishlist"])->setName("wishlist");
 
+    $app->get("/user/{id}/applications", [UsersController::class, "applications"])->setName("applications");
+
     $app->get("/create/user/{role}", [UsersController::class, "createUser"])->setName("create_user");
 
     $app->post("/create/user/{role}", [UsersController::class, "createUser"])->setName("create_user");
@@ -55,7 +44,6 @@ return function (App $app) {
 
     $app->get("/company/{id}/{location}", [CompaniesController::class, "company"])->setName("company");
 
-    //TODO: company -> id
     $app->get("/company/rating/{id}", [CompaniesController::class, "rating"])->setName("company_rating");
 
     $app->get("/create/company", [CompaniesController::class, "createCompany"])->setName("create_company");
@@ -68,7 +56,6 @@ return function (App $app) {
 
     $app->get("/internships", [InternshipsController::class, "internships"])->setName("internships");
 
-    //TODO: /internship/{id}
     $app->get("/internship", [InternshipsController::class, "internship"])->setName("internship");
 
     //TODO: internship -> id

@@ -557,79 +557,79 @@ INSERT INTO company_internship (company_id, internship_id)
 VALUES (4, 33);
 
 
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (1, 1, 'cv.pdf', 'coverLetter.pdf', 0, 1);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (2, 2, 'cv.pdf', 'coverLetter.pdf', 0, 2);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (3, 3, 'cv.pdf', 'coverLetter.pdf', 0, 3);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (4, 4, 'cv.pdf', 'coverLetter.pdf', 0, 4);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (5, 5, 'cv.pdf', 'coverLetter.pdf', 0, 5);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (6, 1, 'cv.pdf', 'coverLetter.pdf', 0, 6);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (7, 2, 'cv.pdf', 'coverLetter.pdf', 0, 7);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (8, 3, 'cv.pdf', 'coverLetter.pdf', 0, 8);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (9, 4, 'cv.pdf', 'coverLetter.pdf', 0, 9);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (10, 5, 'cv.pdf', 'coverLetter.pdf', 0, 10);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (11, 1, 'cv.pdf', 'coverLetter.pdf', 0, 11);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (12, 2, 'cv.pdf', 'coverLetter.pdf', 0, 12);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (13, 3, 'cv.pdf', 'coverLetter.pdf', 0, 13);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (14, 4, 'cv.pdf', 'coverLetter.pdf', 0, 14);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (15, 8, 'cv.pdf', 'coverLetter.pdf', 0, 15);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (16, 9, 'cv.pdf', 'coverLetter.pdf', 0, 16);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (17, 10, 'cv.pdf', 'coverLetter.pdf', 0, 17);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (18, 11, 'cv.pdf', 'coverLetter.pdf', 0, 18);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (19, 7, 'cv.pdf', 'coverLetter.pdf', 0, 19);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (20, 6, 'cv.pdf', 'coverLetter.pdf', 0, 20);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (21, 9, 'cv.pdf', 'coverLetter.pdf', 0, 21);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (22, 10, 'cv.pdf', 'coverLetter.pdf', 0, 22);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (23, 15, 'cv.pdf', 'coverLetter.pdf', 0, 23);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (24, 16, 'cv.pdf', 'coverLetter.pdf', 0, 24);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (25, 17, 'cv.pdf', 'coverLetter.pdf', 0, 25);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (26, 18, 'cv.pdf', 'coverLetter.pdf', 0, 1);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (27, 19, 'cv.pdf', 'coverLetter.pdf', 0, 1);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (28, 20, 'cv.pdf', 'coverLetter.pdf', 0, 1);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (29, 21, 'cv.pdf', 'coverLetter.pdf', 0, 1);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (30, 22, 'cv.pdf', 'coverLetter.pdf', 0, 1);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (31, 23, 'cv.pdf', 'coverLetter.pdf', 0, 1);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (32, 24, 'cv.pdf', 'coverLetter.pdf', 0, 1);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (33, 25, 'cv.pdf', 'coverLetter.pdf', 0, 1);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (34, 12, 'cv.pdf', 'coverLetter.pdf', 0, 1);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (35, 13, 'cv.pdf', 'coverLetter.pdf', 0, 1);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (36, 14, 'cv.pdf', 'coverLetter.pdf', 0, 1);
-INSERT INTO application (id, user_id, cvPath, coverLetterPath, accepted, internship_id)
+INSERT INTO application (id, user_id, cvFile, coverLetterFile, accepted, internship_id)
 VALUES (37, 15, 'cv.pdf', 'coverLetter.pdf', 0, 1);
 
 INSERT INTO promo_location (promo_id, location_id)

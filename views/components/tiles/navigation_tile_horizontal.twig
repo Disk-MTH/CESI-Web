@@ -1,4 +1,4 @@
-{% macro content(index) %}
+{% macro content(user, index) %}
     <div class="col-lg-4 col-12 d-lg-none align-self-center">
         <div class="card shadow my-3 bg-deepWarmGrey">
             <div class="card-body text-center my-4">
@@ -22,7 +22,7 @@
                     {% else %}
                        text-heavyBlack
                     {% endif %}
-                    " href="{{ url_for("home") }}">Historique</a>
+                    " href="{{ url_for("applications", {"id": user.getId()}) }}">Postulations</a>
                     </div>
                 </div>
             </div>

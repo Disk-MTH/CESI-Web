@@ -13,17 +13,6 @@ final class CompanyRepo extends EntityRepository
 {
     function pagination(int $page, string|null $rating, string|null $internshipsCount, string|null $internsCount, string|null $employeesCount, string|null $keyword, string|null $location, bool $count, int $limit = 12): array|int
     {
-        //TODO: apply filters
-        /*$builder = $this
-            ->createQueryBuilder("c")
-            ->select("c.id, c.name, l.city, l.zipCode, c.logoPath, cio.id, cio.title, c.employeeCount")
-            ->addSelect("COUNT(ir.id) AS numberOfReviews")
-            ->addSelect("AVG(ir.grade) AS averageRating")
-            ->innerJoin("c.internships", "cio")
-            ->innerJoin("cio.location", "l")
-            ->leftJoin("cio.rates", "ir")
-            ->groupBy("c.id, c.name, l.city, l.zipCode, c.logoPath, cio.title, cio.id");*/
-
         $builder = $this->createQueryBuilder("c")
             ->select("c.id, c.name, l.zipCode, l.city, c.employeeCount, c.logoPicture, l.id AS locationId")
             ->addSelect("(SELECT COUNT(io.id) FROM stagify\Model\Entities\Company c1 JOIN c1.internships io WHERE c1.id = c.id) AS numberOfInternships")
