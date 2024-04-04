@@ -84,7 +84,8 @@
 
                 <div class="col-lg-1 d-none d-lg-block text-end">
                     <a href={{ url_for("user") }}>
-                        <img class="img-fluid my-3 w-75" src="{{ user.getProfilePicturePath() }}" alt="profile_picture">
+                        <img class="img-fluid my-3 rounded-5" src="/files/users/{{ user.getProfilePicture() }}"
+                             alt="profile_picture" style="width: 7vh; height: 7vh;">
                     </a>
                 </div>
 
@@ -103,7 +104,8 @@
                         <div class="offcanvas-body">
                             <div class="card bg-richWarmGrey bg-opacity-25 rounded-5">
                                 <div class="card-body">
-                                    <a class="row text-heavyBlack text-decoration-none align-items-center" href="{{ url_for("users", {"role": 3}) }}">
+                                    <a class="row text-heavyBlack text-decoration-none align-items-center"
+                                       href="{{ url_for("users", {"role": 3}) }}">
                                         <img class="col-3 img-fluid" src="/assets/svg/side_menu/students_search.svg"
                                              alt="students_search">
                                         <div class="col">
@@ -111,7 +113,8 @@
                                         </div>
                                     </a>
                                     <div class="m-3"></div>
-                                    <a class="row text-heavyBlack text-decoration-none align-items-center" href={{ url_for("create_internship") }}>
+                                    <a class="row text-heavyBlack text-decoration-none align-items-center"
+                                       href={{ url_for("create_internship") }}>
                                         <img class="col-3 img-fluid" src="/assets/svg/side_menu/create_internship.svg"
                                              alt="create_internship">
                                         <div class="col">
@@ -119,7 +122,8 @@
                                         </div>
                                     </a>
                                     <div class="m-3"></div>
-                                    <a class="row text-heavyBlack text-decoration-none align-items-center" href={{ url_for("create_user", {"role": 3}) }}>
+                                    <a class="row text-heavyBlack text-decoration-none align-items-center"
+                                       href={{ url_for("create_user", {"role": 3}) }}>
                                         <img class="col-3 img-fluid" src="/assets/svg/side_menu/create_user.svg"
                                              alt="create_user">
                                         <div class="col">
@@ -127,7 +131,8 @@
                                         </div>
                                     </a>
                                     <div class="m-3"></div>
-                                    <a class="row text-heavyBlack text-decoration-none align-items-center" href={{ url_for("create_company") }}>
+                                    <a class="row text-heavyBlack text-decoration-none align-items-center"
+                                       href={{ url_for("create_company") }}>
                                         <img class="col-3 img-fluid" src="/assets/svg/side_menu/create_company.svg"
                                              alt="create_company">
                                         <div class="col">
