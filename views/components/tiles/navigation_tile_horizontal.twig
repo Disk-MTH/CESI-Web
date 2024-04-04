@@ -1,41 +1,23 @@
 {% macro content(index) %}
     <div class="col-lg-4 col-12 d-lg-none align-self-center">
-        <div class="card shadow my-3 bg-deepWarmGrey rounded-4">
+        <div class="card shadow my-3 bg-deepWarmGrey">
             <div class="card-body text-center my-4">
                 <div class="row">
-                    <div class="col border-end border-heavyBlack">
+                    <div class="col border-heavyBlack">
                         <a class="h3 text-decoration-none
                     {% if index == 1 %}
-                        text-deepSeaBlue
-                    {% else %}
-                        text-heavyBlack
-                    {% endif %}
-                    " href="{{ url_for("home") }}">Profil</a>
-                    </div>
-                    <div class="col">
-                        <a class="h3 text-decoration-none
-                    {% if index == 2 %}
                        text-deepSeaBlue
                     {% else %}
                        text-heavyBlack
                     {% endif %}
-                    " href="{{ url_for("home") }}">Informations</a>
+                    " href="{{ url_for("wishlist", {"id": user.getId()}) }}">Souhaits</a>
                     </div>
                 </div>
                 <div class="bg-heavyBlack mx-5 my-4" style="border:none; height: 1px"></div>
                 <div class="row">
-                    <div class="col border-end border-heavyBlack">
-                        <a class="h3 text-decoration-none
-                    {% if index == 3 %}
-                       text-deepSeaBlue
-                    {% else %}
-                       text-heavyBlack
-                    {% endif %}
-                    " href="{{ url_for("wishlist") }}">Souhaits</a>
-                    </div>
                     <div class="col">
                         <a class="h3 text-decoration-none
-                    {% if index == 4 %}
+                    {% if index == 2 %}
                        text-deepSeaBlue
                     {% else %}
                        text-heavyBlack

@@ -2,10 +2,9 @@
 {% extends "components/layouts/layout.twig" %}
 {% import "components/tiles/navigation_tile_vertical.twig" as navigation_tile_vertical %}
 {% import "components/tiles/navigation_tile_horizontal.twig" as navigation_tile_horizontal %}
-{% import "components/tiles/internship_tile.twig" as job_tile %}
 
 {% block header %}
-    <section class="bg-deepWarmGrey rounded-bottom-5">
+    <section class="bg-deepWarmGrey">
         <div class="container">
             <div class="row text-center">
                 <div class="text-heavyBlack py-3"><h4>Liste de souhaits</h4></div>
@@ -18,21 +17,46 @@
     <section>
         <div class="container">
             <div class="row">
-                {{ navigation_tile_vertical.content(3) }}
-                {{ navigation_tile_horizontal.content(3) }}
+                {{ navigation_tile_vertical.content(1) }}
+                {{ navigation_tile_horizontal.content(1) }}
 
                 <div class="col-lg-8 col-12">
-                    <div class="card shadow my-3 bg-deepWarmGrey rounded-4">
-                        <div class="card-body overflow-y-scroll" style="height: 615px">
-                            <div class="row">
-                                <div class="col">
-                                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
-                                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
-                                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
-                                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
-                                    {{ job_tile.content("Ingenieur logiciel", 700, "company_logo", "Google", "Reims") }}
+                    <div class="card shadow my-3 bg-deepWarmGrey">
+                        <div class="card-body overflow-y-scroll" style="height: 60vh">
+                            {% for wish in wishes %}
+                                <div class="card shadow bg-gradient-card cursor-pointer user-select-none mb-4"
+                                     onclick="navigateTo(event, '{{ wish["url"] }}')">
+                                    <div class="card-body text-nowrap">
+                                        <div class="row align-items-start">
+                                            <div class="col">
+                                                <h6 class="card-title">{{ wish["title"] }}</h6>
+                                                <p class="text-lightGrey ms-3">
+                                                    <i class="fa fa-money"></i> &middot; {{ wish["salary"] }}$/mois
+                                                    <br>
+                                                    <i class="fa fa-calendar"></i> &middot; {{ wish["startDate"] }}
+                                                    - {{ wish["endDate"] }}
+                                                </p>
+                                            </div>
+                                            <div class="col-2 text-end">
+                                                <i class="fa fa-2x fa-bookmark text-deepSeaBlue"></i>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-3 col-lg-4 col-xl-2 w-auto">
+                                                <img class="img-fluid bg-deepSeaBlue bg-opacity-25 rounded-2 p-2"
+                                                     src="files/companies/{{ wish["companyLogo"] }}"
+                                                     alt="company_logo" style="width: 7vh; height: 7vh;">
+                                            </div>
+                                            <div class="col">
+                                                <h6 class="card-title">{{ wish["companyName"] }}</h6>
+                                                <p class="text-lightGrey">
+                                                    <i class="fa fa-map-marker"></i> &middot; {{ wish["location"] }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

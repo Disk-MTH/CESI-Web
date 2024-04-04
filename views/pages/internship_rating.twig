@@ -5,10 +5,12 @@
 {% import "components/forms/area_field.twig" as area_field %}
 
 {% block header %}
-    <section class="container bg-deepWarmGrey rounded-bottom-5 shadow">
-        <div class="row text-center">
-            <div class="text-heavyBlack py-3"><h4>Avis du poste {{ internship.getTitle() }}
-                    chez {{ company.getName() }}</h4></div>
+    <section class="bg-deepWarmGrey">
+        <div class="container">
+            <div class="row text-center">
+                <div class="text-heavyBlack py-3"><h4>Avis du poste {{ internship.getTitle() }}
+                        chez {{ company.getName() }}</h4></div>
+            </div>
         </div>
     </section>
 {% endblock %}
@@ -19,7 +21,7 @@
             <div class="row">
                 <div class="col-xl-6 col-lg-8 col-12">
 
-                    <div class="card shadow my-3 bg-deepWarmGrey rounded-4 pb-2 d-lg-none">
+                    <div class="card shadow my-3 bg-deepWarmGrey pb-2 d-lg-none">
                         <div class="card-body">
                             <div class="text-heavyBlack">Filtres</div>
                             <hr>
@@ -48,21 +50,16 @@
                         </div>
                     </div>
 
-                    <div class="card shadow my-3 bg-deepWarmGrey rounded-4 ">
-                        <div class="card-body overflow-y-scroll" style="height: 600px">
-                            <div class="row">
-                                <div class="col-lg-11 col-12">
-                                    {% for rate in rates %}
-                                        {{ rating_tile.content(rate, internship) }}
-                                    {% endfor %}
-                                </div>
-                            </div>
-
+                    <div class="card shadow my-3 bg-deepWarmGrey">
+                        <div class="card-body overflow-y-scroll" style="height: 60vh">
+                            {% for rate in rates %}
+                                {{ rating_tile.content(rate, internship) }}
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-4 col-12">
-                    <div class="card shadow my-3 bg-deepWarmGrey rounded-4 pb-2 mb-5 d-none d-lg-block">
+                    <div class="card shadow my-3 bg-deepWarmGrey pb-2 mb-5 d-none d-lg-block">
                         <div class="card-body">
                             <div class="text-heavyBlack">Filtres</div>
                             <hr>
@@ -91,7 +88,7 @@
                         </div>
                     </div>
 
-                    <div class="card shadow my-3 bg-deepWarmGrey rounded-4 ">
+                    <div class="card shadow my-3 bg-deepWarmGrey">
                         <div class="card-body">
                             <div class="text-heavyBlack pb-2">Rédiger un avis</div>
                             {{ area_field.content("description", old, errors) }}

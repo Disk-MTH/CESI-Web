@@ -9,10 +9,14 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use stagify\Middlewares\ErrorsMiddleware;
 use stagify\Middlewares\FlashMiddleware;
+use stagify\Model\Entities\Company;
+use stagify\Model\Entities\Internship;
 use stagify\Model\Entities\Location;
 use stagify\Model\Entities\Promo;
 use stagify\Model\Entities\Skill;
 use stagify\Model\Entities\User;
+use stagify\Model\Repositories\CompanyRepo;
+use stagify\Model\Repositories\InternshipRepo;
 use stagify\Model\Repositories\LocationRepo;
 use stagify\Model\Repositories\PromoRepo;
 use stagify\Model\Repositories\SkillRepo;
@@ -33,7 +37,8 @@ class UsersController extends Controller
     /** @var PromoRepo $promoRepo */
     private EntityRepository $promoRepo;
 
-    private EntityManager $_em;
+    /** @var CompanyRepo $companyRepo */
+    private EntityRepository $companyRepo;
 
     public function __construct(ContainerInterface $container)
     {
@@ -42,8 +47,7 @@ class UsersController extends Controller
         $this->locationRepo = $this->entityManager->getRepository(Location::class);
         $this->skillRepo = $this->entityManager->getRepository(Skill::class);
         $this->promoRepo = $this->entityManager->getRepository(Promo::class);
-
-        $this->_em = $container->get("entityManager");
+        $this->companyRepo = $this->entityManager->getRepository(Company::class);
     }
 
     function users(Request $request, Response $response, array $pathArgs): Response
@@ -55,12 +59,31 @@ class UsersController extends Controller
 
     function user(Request $request, Response $response, array $pathArgs): Response
     {
-        return $this->render($response, "pages/user.twig");
+        return $this->render($response, "pages/user.twig", ["user" => $this->userRepo->find($pathArgs["id"])]);
     }
 
-    function wishlist(Request $request, Response $response): Response
+    function wishlist(Request $request, Response $response, array $pathArgs): Response
     {
-        return $this->render($response, "pages/wishlist.twig");
+        $wishes = $this->userRepo->find($pathArgs["id"])->getWishes()->toArray();
+
+        $wishes = array_map(function ($wish) {
+            $company = $this->companyRepo->byInternshipId($wish->getId());
+
+            return [
+                "url" => "/internship/" . $wish->getId(),
+                "startDate" => $wish->getStartDate()->format("d/m/Y"),
+                "endDate" => $wish->getEndDate()->format("d/m/Y"),
+                //"rate" => round((float)$wish["rate"]),
+                "title" => $wish->getTitle(),
+                "salary" => $wish->getLowSalary() . " - " . $wish->getHighSalary(),
+                "location" => $wish->getLocation()->getZipCode() . " - " . $wish->getLocation()->getCity(),
+//                "userWish" => $wish->userRepo->isWish($wish["id"]),
+                "companyName" => $company->getName(),
+                "companyLogo" => "/files/companies/" . $company->getLogoPicture(),
+            ];
+        }, $wishes);
+
+        return $this->render($response, "pages/wishlist.twig", ["wishes" => $wishes]);
     }
 
     function createUser(Request $request, Response $response, array $pathArgs): Response

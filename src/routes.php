@@ -41,11 +41,9 @@ return function (App $app) {
 
     $app->get("/users/{role}", [UsersController::class, "users"])->setName("users");
 
-    //TODO: /user/{id}
-    $app->get("/user", [UsersController::class, "user"])->setName("user");
+    $app->get("/user/{id}", [UsersController::class, "user"])->setName("user");
 
-    //TODO: user -> id
-    $app->get("/user/wishlist", [UsersController::class, "wishlist"])->setName("wishlist");
+    $app->get("/user/{id}/wishlist", [UsersController::class, "wishlist"])->setName("wishlist");
 
     $app->get("/create/user/{role}", [UsersController::class, "createUser"])->setName("create_user");
 

@@ -26,7 +26,7 @@
                         </li>
                         <div class="text-heavyBlack d-none d-lg-block align-self-center">&middot;</div>
                         <li class="nav-item">
-                            <a class="nav-link text-heavyBlack" href={{ url_for("user") }}>Profil</a>
+                            <a class="nav-link text-heavyBlack" href={{ url_for("user", {"id": user.getId()}) }}>Profil</a>
                         </li>
                         <div class="ms-lg-3"></div>
                         <li class="nav-item dropdown dropdown-center">
@@ -83,7 +83,7 @@
                 </div>
 
                 <div class="col-lg-1 d-none d-lg-block text-end">
-                    <a href={{ url_for("user") }}>
+                    <a href={{ url_for("user", {"id": user.getId()}) }}>
                         <img class="img-fluid my-3 rounded-5" src="/files/users/{{ user.getProfilePicture() }}"
                              alt="profile_picture" style="width: 7vh; height: 7vh;">
                     </a>
