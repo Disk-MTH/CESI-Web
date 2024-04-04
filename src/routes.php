@@ -64,15 +64,14 @@ return function (App $app) {
 
     $app->post("/create/company", [CompaniesController::class, "createCompany"])->setName("create_company");
 
+    $app->get("/company/{id}/{location}/rating", [CompaniesController::class, "rating"])->setName("company_rating");
+
     /* ---------------------------------------- Internships ----------------------------------------*/
 
     $app->get("/internships", [InternshipsController::class, "internships"])->setName("internships");
 
     //TODO: /internship/{id}
     $app->get("/internship", [InternshipsController::class, "internship"])->setName("internship");
-
-    //TODO: internship -> id
-    $app->get("/internship/rating", [InternshipsController::class, "rating"])->setName("internship_rating");
 
     //TODO: internship -> id
     $app->get("/internship/apply", [InternshipsController::class, "apply"])->setName("apply_internship");
@@ -82,6 +81,8 @@ return function (App $app) {
     $app->post("/create/internship", [InternshipsController::class, "createInternship"])->setName("create_internship");
 
     $app->get("/internship/{id}", [InternshipsController::class, "internship"])->setName("internship");
+
+    $app->get("/internship/{id}/rating", [InternshipsController::class, "rating"])->setName("internship_rating");
 
     /* ---------------------------------------- API ----------------------------------------*/
 

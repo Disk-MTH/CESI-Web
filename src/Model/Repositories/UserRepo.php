@@ -5,6 +5,7 @@ namespace stagify\Model\Repositories;
 use Doctrine\ORM\EntityRepository;
 use stagify\Model\Entities\Location;
 use stagify\Model\Entities\Promo;
+use stagify\Model\Entities\Rate;
 use stagify\Model\Entities\Skill;
 use stagify\Model\Entities\User;
 use Throwable;
@@ -104,5 +105,22 @@ final class UserRepo extends EntityRepository
         } catch (Throwable) {
             return null;
         }
+    }
+
+    public function findByRate(Rate $rate): User|null
+    {
+        try {
+            return $this->createQueryBuilder("u")
+                ->select("u")
+                ->innerJoin("u.rates", "r")
+                ->where("r.id = :rateId")
+                ->setParameter("rateId", $rate->getId())
+                ->getQuery()
+                ->getOneOrNullResult();
+        } catch (Throwable) {
+            return null;
+        }
+
+
     }
 }

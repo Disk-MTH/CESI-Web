@@ -10,7 +10,6 @@ pagination.on("changePage", async function (event, page) {
     };
     Object.keys(filters).forEach(key => (filters[key] === null || filters[key].length === 0 || filters[key] === "") && delete filters[key]);
     filters = new URLSearchParams(filters).toString();
-    console.log(filters);
 
     const element = $("#internships");
     setLoading(element);
