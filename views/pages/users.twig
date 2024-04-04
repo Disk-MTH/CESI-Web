@@ -86,7 +86,7 @@
                 </div>
                 <div class="col-6 text-center text-heavyBlack">
                     <a class="disabled text-decoration-none {% if role == 2 %}text-deepSeaBlue{% else %}text-heavyBlack{% endif %}"
-                       href={{ url_for("users", {"role": 2}) }}>
+                            {% if user.getRole() > 2 %}href={{ url_for("users", {"role": 2}) }}{% endif %}>
                         <h4>Pilotes</h4>
                     </a>
                 </div>

@@ -147,7 +147,7 @@ class ApiController extends Controller
                 "logo" => "/files/companies/" . $company["logoPicture"],
                 "ratingsCount" => $company["numberOfReviews"],
                 "rate" => round((float)$company["averageGrade"]),
-                "url" => "/company/" . $company["id"],
+                "url" => "/company/" . $company["id"] . "/" . $company["locationId"],
                 "ratingUrl" => "/company/" . $company["id"] . "/rating",
 
             ];

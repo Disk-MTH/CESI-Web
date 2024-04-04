@@ -55,7 +55,7 @@ return function (App $app) {
 
     $app->get("/companies", [CompaniesController::class, "companies"])->setName("companies");
 
-    $app->get("/company/{id}", [CompaniesController::class, "company"])->setName("company");
+    $app->get("/company/{id}/{location}", [CompaniesController::class, "company"])->setName("company");
 
     //TODO: company -> id
     $app->get("/company/rating/{id}", [CompaniesController::class, "rating"])->setName("company_rating");

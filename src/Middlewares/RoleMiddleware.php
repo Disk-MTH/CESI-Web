@@ -18,9 +18,10 @@ class RoleMiddleware extends Shared implements MiddlewareInterface
         $isPilot = $role === 2;
 
         $canAccess = match ($request->getUri()->getPath()) {
-            "/users/3"
+            "/users/3", "create/internship", "create/company", "create/user/3"
             => $isPilot || $isAdmin,
-            "/users/2" => $isAdmin,
+            "/users/2", "create/user/2"
+            => $isAdmin,
             default => true,
         };
 

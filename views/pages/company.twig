@@ -12,8 +12,8 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-4">
-                    <img class="img-fluid my-3 w-75" src="{{ "/files/companies/" ~ company.getLogoPicture() }}"
-                         alt="photo">
+                    <img class="img-fluid rounded-5 mt-4" src="{{ "/files/companies/" ~ company.getLogoPicture() }}"
+                         alt="photo" style="width: 15vh; height: 15vh;">
                 </div>
             </div>
         </div>
@@ -23,12 +23,8 @@
         <div class="container">
             <div class="row">
                 <div class="col col-md-4 text-nowrap">
-                        <h2 class="mt-3">{{ company.getName() }}</h2>
-                        <h4 class="mb-3">
-                            <i class="fa fa-thumbs-up"></i>
-                            &middot;
-                            {{ company.getActivitySector().getName() }}
-                        </h4>
+                        <h2 class="mt-3">{{ company.getName() }} - {{ location.getZipCode() }} {{ location.getCity() }}</h2>
+                        <h4 class="mb-3">{{ company.getActivitySector().getName() }}</h4>
                         <h5 class="text-deepSeaBlue">
                             <i class="fa fa-users"></i>
                             &middot;

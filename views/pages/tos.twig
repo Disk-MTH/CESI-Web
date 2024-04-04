@@ -1,5 +1,6 @@
-{% set title = "Stagify - Authentification" %}
+{% set title = "Stagify - RGPD" %}
 {% extends "components/layouts/base.twig" %}
+{% import "components/tiles/stars_tile.twig" as stars_tile %}
 
 {% block body %}
     <header class="bg-deepWarmGrey">
@@ -13,6 +14,16 @@
     </header>
 
     <section>
+        {{ stars_tile.content("test") }}
+        <div class="btn btn-deepSeaBlue" onclick="logRating('test')">
+            Test
+        </div>
+        <script>
+            function logRating(id) {
+                console.log("Rating: " + $('.stars[data-fixed="1"]').length);
+
+            }
+        </script>
         <hr class="hr bg-heavyBlack m-0" style="border:none; height: 3px"/>
     </section>
 
@@ -95,3 +106,40 @@
     </section>
     {{ include("components/layouts/footer.twig") }}
 {% endblock %}
+
+
+{#
+{% macro content(id, fixed = -1) %}
+    <div class="stars user-select-none" data-fixed="{{ fixed }}">
+        {% for i in 1..5 %}
+            <i class="star fa fa-star {{ i <= fixed ? "text-goldenBrown" : "text-heavyBlack" }}" data-value="{{ i }}"></i>
+        {% endfor %}
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('.stars').each(function() {
+                var stars = $(this);
+                stars.find(".star").each(function() {
+                    var star = $(this);
+                    star.hover(function() {
+                        if (stars.data('fixed') > -1) return;
+                        star.prevAll().addBack().addClass('text-warning');
+                        star.nextAll().removeClass('text-warning');
+                    }, function() {
+                        if (stars.data('fixed') > -1) return;
+                        stars.find('.star').removeClass('text-warning');
+                    });
+
+                    star.click(function() {
+                        if (stars.data('fixed') > -1) return;
+                        console.log("#######");
+
+                        stars.data('fixed', star.data('value'));
+                        star.prevAll().addBack().addClass('text-warning');
+                        star.nextAll().removeClass('text-warning');
+                    });
+                });
+            });
+        });
+    </script>
+{% endmacro %}#}

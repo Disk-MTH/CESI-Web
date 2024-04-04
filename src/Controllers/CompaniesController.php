@@ -43,7 +43,10 @@ class CompaniesController extends Controller
 
     function company(Request $request, Response $response, array $pathArgs): Response
     {
-        return $this->render($response, "pages/company.twig", ["company" => $this->companyRepo->find($pathArgs["id"])]);
+        return $this->render($response, "pages/company.twig", [
+            "company" => $this->companyRepo->find($pathArgs["id"]),
+            "location" => $this->locationRepo->find($pathArgs["location"])
+        ]);
     }
 
     function rating(Request $request, Response $response): Response
@@ -136,7 +139,7 @@ class CompaniesController extends Controller
                             return $this->redirect($response, "/create/company?edit=true&id=" . $company->getId());
                         } else {
                             FlashMiddleware::flash("error", "Une erreur est survenue lors de la modification de l'entreprise.");
-                            if ($_POST["_method"] === "PATCH") return $this->redirect($response, "/create/company?edit=true&id=" . $data["id"]);
+                            if ($_POST["_method"] === "PATCH") return $this->redirect($response, "/companies");
                         }
                     }
                 }
