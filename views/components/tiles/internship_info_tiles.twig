@@ -24,22 +24,29 @@
                     <div class="mb-2">Du {{ internship.getStartDate()|date("d/m/Y") }}
                         au {{ internship.getEndDate()|date("d/m/Y") }}</div>
 
-                    <img src="/assets/svg/internships/timer.svg" alt="timer">
-                    <div class="text-darkGrey">NOMBRE DE PLACES</div>
-                    <div class="mb-2">{{ internship.getPlacesCount() }} stagiaires recherchés</div>
+                    <img src="/assets/svg/internships/brief_case.svg" alt="briefcase">
+                    <div class="text-darkGrey">NIVEAU REQUIS</div>
+                    {% for promo in internship.getPromos() %}
+                        <div class="mb-2">A{{ promo.getYear() }} {{ promo.getType() }}</div>
+                    {% endfor %}
+
                 </div>
 
                 <div class="col-4">
                     <img src="/assets/svg/internships/stack.svg" alt="stack">
                     <div class="text-darkGrey">DUREE DU STAGE</div>
-                    <div class="mb-2">{{ internship.getDurationDays() }}</div>
+                    <div class="mb-2">{{ internship.getDurationDays() }} jours</div>
                 </div>
 
                 <div class="col-4">
+                    <img src="/assets/svg/internships/timer.svg" alt="timer">
+                    <div class="text-darkGrey">NOMBRE DE PLACES</div>
+                    <div class="mb-2">{{ internship.getPlaceCount() }} stagiaires recherchés</div>
+
                     <img src="/assets/svg/internships/brief_case.svg" alt="briefcase">
-                    <div class="text-darkGrey">NIVEAU REQUIS</div>
-                    {% for promo in internship.getPromos() %}
-                        <div class="mb-2">A{{ promo.getYear() }} {{ promo.getType() }}</div>
+                    <div class="text-darkGrey">COMPETENCES REQUISES</div>
+                    {% for skill in internship.getSkills() %}
+                        <div class="mb-2">{{ skill.getName() }} </div>
                     {% endfor %}
                 </div>
             </div>
