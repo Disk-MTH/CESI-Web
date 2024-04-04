@@ -12,12 +12,14 @@ function navigateTo(event, url) {
 }
 
 function toggleWish(event, id) {
-    console.log("toggleWish");
-
-
-
-
-
+    const element = $(`#wish-${id}`);
+    fetch(`/api/users/toggle_wish/${id}`, {method: "GET"}).then(response => {
+        if (response.status === 200) {
+            response.json().then(data => {
+                if (data["success"]) element.toggleClass("fa-bookmark fa-bookmark-o");
+            });
+        }
+    });
     event.stopPropagation();
 }
 
@@ -39,7 +41,7 @@ function setError(content) {
     content.html($("#error").html());
 }
 
-function retrieve(element, template, endpoint) {
+function retrieve(element, template, endpoint, then) {
     fetch(endpoint, {method: "GET"}).then(response => {
         if (response.status === 200) {
             response.json().then(data => {
@@ -53,6 +55,7 @@ function retrieve(element, template, endpoint) {
                 });
 
                 if (element.children().length === 0) setError(element);
+                else if (then !== undefined) then();
             });
         } else {
             setError(element);

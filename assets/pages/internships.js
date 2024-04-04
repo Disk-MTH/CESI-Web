@@ -13,8 +13,18 @@ pagination.on("changePage", async function (event, page) {
     console.log(filters);
 
     const element = $("#internships");
+
     setLoading(element);
-    retrieve(element, $("#internshipTile"), `/api/internships/${page}?${filters}`);
+    retrieve(element, $("#internshipTile"), `/api/internships/${page}?${filters}`, () => {
+        $("[data-wish]").each(function() {
+            var wish = $(this).attr("data-wish");
+            if (wish === "true") {
+                $(this).addClass("fa-bookmark");
+            } else {
+                $(this).addClass("fa-bookmark-o");
+            }
+        });
+    });
     pagination.setCount(Math.ceil((await fetch(`/api/count/internships?${filters}`).then(response => response.json().then(data => data)))["count"] / 12));
 });
 

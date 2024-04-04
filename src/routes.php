@@ -104,4 +104,6 @@ return function (App $app) {
     $app->get("/api/suggestions/zip_codes/{pattern}", [ApiController::class, "zipCodesSuggestions"]);
 
     $app->get("/api/suggestions/cities/{pattern}", [ApiController::class, "citiesSuggestions"]);
+
+    $app->get("/api/users/toggle_wish/{id}", [ApiController::class, "toggleWish"]);
 };

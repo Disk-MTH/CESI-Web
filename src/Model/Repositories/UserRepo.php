@@ -3,6 +3,7 @@
 namespace stagify\Model\Repositories;
 
 use Doctrine\ORM\EntityRepository;
+use stagify\Model\Entities\Internship;
 use stagify\Model\Entities\Location;
 use stagify\Model\Entities\Promo;
 use stagify\Model\Entities\Skill;
@@ -49,17 +50,18 @@ final class UserRepo extends EntityRepository
             ->getResult();
     }
 
-    function isWish(int $internshipId): bool
+    public function isWish(int $internshipId): bool
     {
-        $query = $this->createQueryBuilder("u")
-            ->select("u.id")
-            ->innerJoin("u.wishes", "w")
-            ->where("u.deleted = 0")
+        return !empty($this->createQueryBuilder("u")
+            ->select("w.id")
+            ->innerJoin("u.wishes", 'w')
+            ->where("u.id = :userId")
             ->andWhere("w.id = :internshipId")
+            ->setParameter("userId", $_SESSION["user"])
             ->setParameter("internshipId", $internshipId)
-            ->getQuery();
-
-        return count($query->getResult()) > 0;
+            ->getQuery()
+            ->getResult()
+        );
     }
 
     function getPilots(int $page, int $limit = 12): array
@@ -103,6 +105,23 @@ final class UserRepo extends EntityRepository
             return $user;
         } catch (Throwable) {
             return null;
+        }
+    }
+
+    public function toggleWish(Internship|null $internship): bool
+    {
+        $user = $this->find($_SESSION["user"]);
+        try {
+            if ($user->getWishes()->contains($internship)) {
+                $user->removeWish($internship);
+            } else {
+                $user->addWish($internship);
+            }
+
+            $this->_em->flush();
+            return true;
+        } catch (Throwable) {
+            return false;
         }
     }
 }

@@ -15,7 +15,8 @@
                         <h6 class="col card-title">
                             {rate} <i class="fa fa-star text-goldenBrown"></i>
                         </h6>
-                        <i class="fa fa-2x fa-bookmark-o text-deepSeaBlue" onclick='toggleWish(event, '')"></i>
+                        <i class="fa fa-2x text-deepSeaBlue" id="wish-{id}" data-wish="{userWish}"
+                           onclick="toggleWish(event, '{id}')"></i>
                     </div>
                 </div>
                 <div class="row">

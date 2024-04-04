@@ -110,7 +110,9 @@ class ApiController extends Controller
         );
         $internships = array_map(function ($internship) {
             $company = $this->companyRepo->byInternshipId($internship["id"]);
+
             return [
+                "id" => $internship["id"],
                 "url" => "/internship/" . $internship["id"],
                 "startDate" => $internship["startDate"]->format("d/m/Y"),
                 "endDate" => $internship["endDate"]->format("d/m/Y"),
@@ -236,5 +238,13 @@ class ApiController extends Controller
         $cities = $this->locationRepo->suggestions($pathArgs["pattern"], true);
         $cities = array_map(fn($city) => ["content" => $city->getCity()], $cities);
         return $this->json($response, $cities);
+    }
+
+    function toggleWish(Request $request, Response $response, array $pathArgs): Response
+    {
+        if ($this->userRepo->toggleWish($this->internshipRepo->find($pathArgs["id"]))) {
+            return $this->json($response, ["success" => true]);
+        }
+        return $this->json($response, ["success" => false]);
     }
 }
