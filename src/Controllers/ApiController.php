@@ -64,6 +64,9 @@ class ApiController extends Controller
                 $request->getQueryParams()["date"] ?? null,
                 $request->getQueryParams()["rating"] ?? null,
                 $request->getQueryParams()["skills"] ?? null,
+                $request->getQueryParams()["keyword"] ?? null,
+                $request->getQueryParams()["location"] ?? null,
+
                 true,
             ),
             "companies" => $this->companyRepo->pagination(
@@ -72,6 +75,8 @@ class ApiController extends Controller
                 $request->getQueryParams()["internshipsCount"] ?? null,
                 $request->getQueryParams()["internsCount"] ?? null,
                 $request->getQueryParams()["employeesCount"] ?? null,
+                $request->getQueryParams()["keyword"] ?? null,
+                $request->getQueryParams()["location"] ?? null,
                 true,
             ),
             "users" => $this->userRepo->pagination(
@@ -99,6 +104,8 @@ class ApiController extends Controller
             $page, $queryArgs["date"] ?? null,
             $queryArgs["rating"] ?? null,
             $queryArgs["skills"] ?? null,
+            $queryArgs["keyword"] ?? null,
+            $queryArgs["location"] ?? null,
             false,
         );
         $internships = array_map(function ($internship) {
@@ -136,6 +143,8 @@ class ApiController extends Controller
             $queryArgs["internshipsCount"] ?? null,
             $queryArgs["internsCount"] ?? null,
             $queryArgs["employeesCount"] ?? null,
+            $queryArgs["keyword"] ?? null,
+            $queryArgs["location"] ?? null,
             false,
         );
         $companies = array_map(function ($company) {
@@ -169,6 +178,8 @@ class ApiController extends Controller
         $users = $this->userRepo->pagination(
             $page,
             $request->getQueryParams()["role"] ?? null,
+            $queryArgs["keyword"] ?? null,
+            $queryArgs["location"] ?? null,
             false,
         );
         $users = array_map(function ($user) {

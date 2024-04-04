@@ -11,7 +11,7 @@ use Throwable;
 
 final class CompanyRepo extends EntityRepository
 {
-    function pagination(int $page, string|null $rating, string|null $internshipsCount, string|null $internsCount, string|null $employeesCount, bool $count, int $limit = 12): array|int
+    function pagination(int $page, string|null $rating, string|null $internshipsCount, string|null $internsCount, string|null $employeesCount, string|null $keyword, string|null $location, bool $count, int $limit = 12): array|int
     {
         //TODO: apply filters
         /*$builder = $this
@@ -44,6 +44,18 @@ final class CompanyRepo extends EntityRepository
             if ($limits[1] != 0) $builder
                 ->andWhere("c.employeeCount <= :maxEmployees")
                 ->setParameter("maxEmployees", $limits[1]);
+        }
+
+        if ($keyword) {
+            $builder
+                ->andWhere("c.name LIKE :keyword")
+                ->setParameter("keyword", "%$keyword%");
+        }
+
+        if ($location) {
+            $builder
+                ->andWhere("l.city LIKE :location OR l.zipCode LIKE :location")
+                ->setParameter("location", "%$location%");
         }
 
 

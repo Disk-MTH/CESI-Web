@@ -11,7 +11,7 @@ use Throwable;
 
 final class UserRepo extends EntityRepository
 {
-    function pagination(int $page, int|null $role, bool $count, int $limit = 12): array|int
+    function pagination(int $page, int|null $role, string|null $keyword, string|null $location, bool $count, int $limit = 12): array|int
     {
         if (!$role) $role = 3;
 
@@ -23,6 +23,16 @@ final class UserRepo extends EntityRepository
             ->where("u.deleted = 0")
             ->andWhere("u.role = :role")
             ->setParameter("role", $role);
+
+        if ($keyword) {
+            $builder->andWhere("u.firstName LIKE :keyword OR u.lastName LIKE :keyword OR p.school LIKE :keyword")
+                ->setParameter("keyword", "%$keyword%");
+        }
+
+        if ($location) {
+            $builder->andWhere("l.city LIKE :location OR l.zipCode LIKE :location")
+                ->setParameter("location", "%$location%");
+        }
 
         if ($count) {
             try {
