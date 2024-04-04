@@ -90,6 +90,7 @@ class CompaniesController extends Controller
                 $data = $request->getParsedBody();
                 $files = $request->getUploadedFiles();
                 $errors = ErrorsMiddleware::validate($data);
+                $post = $_POST["_method"] === "POST";
 
                 $data["sector"] = $this->activitySectorRepo->byName($data["sectorsField"]);
                 $data["logoPicture"] = $files["logoPicture"];
@@ -97,8 +98,6 @@ class CompaniesController extends Controller
                 foreach ($data as $key => $value) {
                     if (str_starts_with($key, "suggestion-locations_")) $data["locationsString"][] = $value;
                 }
-
-
 
                 Validator::notEmpty()->validate($data["companyName"]) || $errors["companyName"] = "Le nom de l'entreprise ne peut pas etre vide";
                 Validator::intVal()->validate($data["employeeCount"]) || $errors["employeeCount"] = "Le nombre d'employés doit être un nombre";
@@ -133,18 +132,19 @@ class CompaniesController extends Controller
                     }
 
                     if (empty($errors)) {
-                        $company = $_POST["_method"] === "POST" ? $this->companyRepo->create($data) : $this->companyRepo->update($data);
+                        $company = $post ? $this->companyRepo->create($data) : $this->companyRepo->update($data);
                         if ($company) {
                             FlashMiddleware::flash("success", "Entreprise enregistrée avec succès.");
-                            return $this->redirect($response, "/create/company?edit=true&id=" . $company->getId());
+                            if ($post) return $this->redirect($response, "/create/company" . $company->getId());
+                            else return $this->redirect($response, "/companies");
                         } else {
                             FlashMiddleware::flash("error", "Une erreur est survenue lors de la modification de l'entreprise.");
-                            if ($_POST["_method"] === "PATCH") return $this->redirect($response, "/companies");
+                            if (!$post) return $this->redirect($response, "/create/company?edit=true&id=" . $data["id"]);
                         }
                     }
                 }
                 ErrorsMiddleware::error($errors);
-                if ($_POST["_method"] === "PATCH") return $this->redirect($response, "/create/company?edit=true&id=" . $data["id"]);
+                if (!$post) return $this->redirect($response, "/create/company?edit=true&id=" . $data["id"]);
             }
 
             if ($_POST["_method"] === "DELETE") {
