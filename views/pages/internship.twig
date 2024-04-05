@@ -24,9 +24,14 @@
                             </div>
 
                             <div class="row">
-                                <div class="col btn btn-deepSeaBlue mx-3 mt-2 {% if user.getRole() == 2 %}disabled{% endif %}">
+                                <a class="col btn btn-deepSeaBlue mx-3 mt-2 {% if user.getRole() == 2 %}disabled{% endif %}"
+                                href="{{ url_for("apply_internship", {"id": internship.getId()}) }}">
                                     Faire une demande
-                                </div>
+                                </a>
+                                <a class="col btn btn-deepSeaBlue mx-3 mt-2 {% if user.getRole() == 2 %}disabled{% endif %}"
+                                   href="{{ url_for("home", {"id": internship.getId()}) }}"> {#internship_applications#}
+                                    Postulants
+                                </a>
                                 <a class="col btn btn-deepSeaBlue mx-3 mt-2 {% if user.getRole() > 2 %}disabled{% endif %}"
                                    href="{{ url_for("create_internship", {}, {"edit": true, "id": internship.getId()}) }}">
                                     Modifer
