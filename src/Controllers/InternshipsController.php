@@ -15,12 +15,14 @@ use stagify\Model\Entities\Company;
 use stagify\Model\Entities\Internship;
 use stagify\Model\Entities\Location;
 use stagify\Model\Entities\Promo;
+use stagify\Model\Entities\Rate;
 use stagify\Model\Entities\Skill;
 use stagify\Model\Entities\User;
 use stagify\Model\Repositories\CompanyRepo;
 use stagify\Model\Repositories\InternshipRepo;
 use stagify\Model\Repositories\LocationRepo;
 use stagify\Model\Repositories\PromoRepo;
+use stagify\Model\Repositories\RateRepo;
 use stagify\Model\Repositories\SkillRepo;
 use stagify\Model\Repositories\UserRepo;
 use Throwable;
@@ -45,9 +47,6 @@ class InternshipsController extends Controller
     /** @var UserRepo $userRepo */
     private EntityRepository $userRepo;
 
-    private EntityManager $em;
-
-
     public function __construct(ContainerInterface $container)
     {
         parent::__construct($container);
@@ -57,9 +56,6 @@ class InternshipsController extends Controller
         $this->skillRepo = $this->entityManager->getRepository(Skill::class);
         $this->locationRepo = $this->entityManager->getRepository(Location::class);
         $this->userRepo = $this->entityManager->getRepository(User::class);
-
-        $this->em = $container->get("entityManager");
-
     }
 
     function internships(Request $request, Response $response): Response
@@ -71,7 +67,14 @@ class InternshipsController extends Controller
 
     function internship(Request $request, Response $response, array $pathArgs): Response
     {
-        return $this->render($response, "pages/internship.twig", ["internship" => $this->internshipRepo->find($pathArgs["id"]), "company" => $this->companyRepo->byInternshipId($pathArgs["id"])]);
+        $internship = $this->internshipRepo->find($pathArgs["id"]);
+        $ratesCount = $internship->getRates()->count();
+        return $this->render($response, "pages/internship.twig", [
+            "internship" => $internship,
+            "company" => $this->companyRepo->byInternshipId($pathArgs["id"]),
+            "ratesCount" => $ratesCount,
+            "averageRate" => $ratesCount > 0 ? round(array_sum(array_map(fn(Rate $rate) => $rate->getGrade(), $internship->getRates()->toArray())) / $ratesCount) : 0
+        ]);
     }
 
     function rating(Request $request, Response $response, array $pathParams): Response

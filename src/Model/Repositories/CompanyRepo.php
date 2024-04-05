@@ -11,7 +11,7 @@ use Throwable;
 
 final class CompanyRepo extends EntityRepository
 {
-    function pagination(int $page, string|null $rating, string|null $internshipsCount, string|null $internsCount, string|null $employeesCount, string|null $keyword, string|null $location, bool $count, int $limit = 12): array|int
+    function pagination(int $page, string|null $rating, string|null $internshipsCount, string|null $employeesCount, string|null $keyword, string|null $location, bool $count, int $limit = 12): array|int
     {
         $builder = $this->createQueryBuilder("c")
             ->select("c.id, c.name, l.zipCode, l.city, c.employeeCount, c.logoPicture, l.id AS locationId")

@@ -145,6 +145,4 @@ final class InternshipRepo extends EntityRepository
             return false;
         }
     }
-
-
 }

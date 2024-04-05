@@ -2,7 +2,7 @@
 {% set alternative_search_bar = true %}
 {% extends "components/layouts/layout.twig" %}
 {% import "components/tiles/internship_info_tiles.twig" as job_info_tiles %}
-{% import "components/tiles/internship_rating_tile.twig" as job_rating_tile %}
+{% import "components/tiles/internship_rating_tile.twig" as internship_rating_tile %}
 
 {% block header %}
     <section class="bg-deepWarmGrey rounded-bottom-5 pb-5">
@@ -30,13 +30,12 @@
                 </div>
 
                 <div class="col-xl-4 col-lg-5 col-md-5 col-4 d-none d-md-block">
-                    {{ job_rating_tile.content("18", internship.getId()) }}
+                    {{ internship_rating_tile.content(internship.getId(), ratesCount, averageRate) }}
                 </div>
             </div>
             <div class="row d-md-none">
-
-                <div class="col12 text-start    ">
-                    {{ job_rating_tile.content("18", internship.getId()) }}
+                <div class="col12 text-start">
+                    {{ internship_rating_tile.content(internship.getId(), ratesCount, averageRate) }}
                 </div>
             </div>
         </div>

@@ -40,13 +40,13 @@
                             <i class="fa fa-share"></i>
                         </a>
                         <div class="d-md-none">
-                            {{ company_rating_tile.content("Facebook","250") }}
+                            {{ company_rating_tile.content(company.getName(), ratesCount, averageRate) }}
                         </div>
                 </div>
                 <div class="col-4 col-md-2 col-lg-3 col-xl-4 d-none d-md-block">
                 </div>
                 <div class="col-4 col-md-6 col-lg-5 col-xl-4 d-none d-md-block">
-                    {{ company_rating_tile.content("Facebook","250") }}
+                    {{ company_rating_tile.content(company.getName(), ratesCount, averageRate) }}
                 </div>
             </div>
         </div>

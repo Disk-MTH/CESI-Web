@@ -66,14 +66,12 @@ class ApiController extends Controller
                 $request->getQueryParams()["skills"] ?? null,
                 $request->getQueryParams()["keyword"] ?? null,
                 $request->getQueryParams()["location"] ?? null,
-
                 true,
             ),
             "companies" => $this->companyRepo->pagination(
                 -1,
                 $request->getQueryParams()["rating"] ?? null,
                 $request->getQueryParams()["internshipsCount"] ?? null,
-                $request->getQueryParams()["internsCount"] ?? null,
                 $request->getQueryParams()["employeesCount"] ?? null,
                 $request->getQueryParams()["keyword"] ?? null,
                 $request->getQueryParams()["location"] ?? null,
@@ -143,7 +141,6 @@ class ApiController extends Controller
             $page,
             $queryArgs["rating"] ?? null,
             $queryArgs["internshipsCount"] ?? null,
-            $queryArgs["internsCount"] ?? null,
             $queryArgs["employeesCount"] ?? null,
             $queryArgs["keyword"] ?? null,
             $queryArgs["location"] ?? null,

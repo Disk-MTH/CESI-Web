@@ -7,8 +7,9 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Table;
+use stagify\Model\Repositories\RateRepo;
 
-#[Entity, Table(name: "rate")]
+#[Entity(repositoryClass: RateRepo::class), Table(name: "rate")]
 class Rate
 {
     #[Id, Column(type: "integer"), GeneratedValue(strategy: "AUTO")]

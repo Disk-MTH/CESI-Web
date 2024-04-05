@@ -43,9 +43,13 @@ class CompaniesController extends Controller
 
     function company(Request $request, Response $response, array $pathArgs): Response
     {
+        $company = $this->companyRepo->find($pathArgs["id"]);
+        $ratesCount = array_sum(array_map(fn($internship) => $internship->getRates()->count(), $company->getInternships()->toArray()));
         return $this->render($response, "pages/company.twig", [
             "company" => $this->companyRepo->find($pathArgs["id"]),
-            "location" => $this->locationRepo->find($pathArgs["location"])
+            "location" => $this->locationRepo->find($pathArgs["location"]),
+            "ratesCount" => $ratesCount,
+            "averageRate" => $ratesCount > 0 ? round(array_sum(array_map(fn($internship) => array_sum(array_map(fn($rate) => $rate->getGrade(), $internship->getRates()->toArray())), $company->getInternships()->toArray())) / $ratesCount, 1) : 0
         ]);
     }
 
