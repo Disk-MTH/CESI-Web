@@ -89,6 +89,18 @@ class InternshipsController extends Controller
         ]);
     }
 
+    function applications(Request $request, Response $response, array $pathParams): Response
+    {
+        $internship = $this->internshipRepo->find($pathParams["id"]);
+        $applications = $this->applicationRepo->applicationByInternshipId($pathParams["id"]);
+
+        $this->logger->info(json_encode($applications));
+
+
+        return $this->render($response, "pages/internship_applications.twig", ["internship" => $internship, "applications" => $applications]);
+    }
+
+
     function rating(Request $request, Response $response, array $pathParams): Response
     {
         if ($request->getMethod() === "GET") {

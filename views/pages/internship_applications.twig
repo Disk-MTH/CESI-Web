@@ -1,0 +1,61 @@
+{% set title = "Stagify - Postulations" %}
+{% extends "components/layouts/layout.twig" %}
+
+
+{% block header %}
+    <section class="bg-deepWarmGrey">
+        <div class="container">
+            <div class="row text-center">
+                <div class="text-heavyBlack py-3"><h4>Postulations à l'offre {{ internship.getTitle() }}</h4></div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card shadow my-3 bg-deepWarmGrey">
+                        <div class="card-body overflow-y-scroll" style="height: 60vh">
+                            {% for application in applications %}
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="card shadow bg-gradient-card cursor-pointer user-select-none mb-4">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-12 col-md-8">
+                                                        <h6 class="card-title">{{ application.getUser().getFirstName() }} {{ application.getUser().getLastName() }}
+                                                            - Etudiant
+                                                            à {{ application.getUser().getPromos()[0].getSchool() }}</h6>
+                                                    </div>
+                                                    <div class="col-3 text-end text-nowrap">
+                                                        Status :
+                                                    </div>
+                                                    <div class="col-1">
+                                                        {% if application.getAccepted() %}
+                                                            <i class="fa fa-2x fa-check-circle text-deepGreen"></i>
+                                                        {% else %}
+                                                            <i class="fa fa-2x fa-times-circle text-coldRed"></i>
+                                                        {% endif %}
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="btn btn-deepGreen text-white">Approuver</div>
+                                        <div class="btn btn-coldRed text-white">Rejeter</div>
+                                    </div>
+                                </div>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

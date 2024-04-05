@@ -40,4 +40,38 @@ class ApplicationRepo extends EntityRepository
 
         return $application;
     }
+
+    public function byInternshipId(int $internshipId): array
+    {
+        return $this->createQueryBuilder("a")
+            ->select("a")
+            ->innerJoin("a.user", "u")
+            ->where("a.internship = :internshipId")
+            ->setParameter("internshipId", $internshipId)
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+    public function applicationByInternshipId(int $internshipId): array
+    {
+        return $this->createQueryBuilder("a")
+            ->select("a")
+            ->innerJoin("a.user", "u")
+            ->where("a.internship = :internshipId")
+            ->setParameter("internshipId", $internshipId)
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    public function getUserbyApplicationId(int $applicationId): array
+    {
+        return $this->createQueryBuilder("a")
+            ->select("u")
+            ->innerJoin("a.user", "u")
+            ->where("a.id = :applicationId")
+            ->setParameter("applicationId", $applicationId)
+            ->getQuery()
+            ->getArrayResult();
+    }
 }
