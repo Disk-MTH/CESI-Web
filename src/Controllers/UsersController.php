@@ -24,6 +24,7 @@ use stagify\Model\Repositories\PromoRepo;
 use stagify\Model\Repositories\SkillRepo;
 use Respect\Validation\Validator;
 use stagify\Model\Repositories\UserRepo;
+use Throwable;
 
 class UsersController extends Controller
 {
@@ -65,7 +66,7 @@ class UsersController extends Controller
 
     function user(Request $request, Response $response, array $pathArgs): Response
     {
-        return $this->render($response, "pages/user.twig", ["user" => $this->userRepo->find($pathArgs["id"])]);
+        return $this->render($response, "pages/user.twig", ["currentUser" => $this->userRepo->find($pathArgs["id"])]);
     }
 
     function wishlist(Request $request, Response $response, array $pathArgs): Response
@@ -107,23 +108,50 @@ class UsersController extends Controller
         return $this->render($response, "pages/applications.twig", ["applications" => $applications]);
     }
 
+    /** @throws Throwable */
     function createUser(Request $request, Response $response, array $pathArgs): Response
     {
         $role = $pathArgs["role"];
         if ($role != 2 && $role != 3) return $this->redirect($response, "/create/user/3");
 
         if ($request->getMethod() === "GET") {
-            if ($pathArgs["role"] == 2) return $this->render($response, "pages/create_pilot.twig");
-            return $this->render($response, "pages/create_student.twig");
+            $queryParams = $request->getQueryParams();
+            $edit = $queryParams["edit"] ?? false;
+            $id = $queryParams["id"] ?? null;
+            $args = [];
+            $data = [];
+            if ($edit && $id) {
+                $user = $this->userRepo->find($id);
+                if ($user) {
+                    $data["lastName"] = $user->getFirstName();
+                    $data["firstName"] = $user->getLastName();
+                    $data["school"] = $user->getPromos()[0]->getSchool();
+                    $data["year"] = $user->getPromos()[0]->getYear();
+                    $data["type"] = $user->getPromos()[0]->getType();
+                    $data["login"] = $user->getLogin();
+                    $data["zipCode"] = $user->getLocation()->getZipCode();
+                    $data["city"] = $user->getLocation()->getCity();
+                    $data["skills"] = [];
+                    foreach ($user->getSkills() as $skill) $data["suggestion-skills_" . bin2hex(random_bytes(10))] = $skill->getName();
+                    $data["description"] = $user->getDescription();
+
+                    $args["edit"] = $edit;
+                    $args["id"] = $id;
+                    $args["deleted"] = $user->getDeleted();
+                    $args["old"] = $data;
+                }
+            }
+
+            if ($pathArgs["role"] == 2) return $this->render($response, "pages/create_pilot.twig", $args);
+            return $this->render($response, "pages/create_student.twig", $args);
         }
 
         if ($request->getMethod() === "POST") {
-//            if ($_POST["_method"] === "POST" || $_POST["_method"] === "PATCH") {
+            if ($_POST["_method"] === "POST" || $_POST["_method"] === "PATCH") {
                 $data = $request->getParsedBody();
                 $files = $request->getUploadedFiles();
                 $errors = ErrorsMiddleware::validate($data);
-//                $post = $_POST["_method"] === "POST";
-                $fail = false;
+                $post = $_POST["_method"] === "POST";
 
                 $data["role"] = $role;
                 $data["profilePicture"] = $files["profilePicture"];
@@ -182,37 +210,39 @@ class UsersController extends Controller
                     }
 
                     if (empty($errors)) {
-                        if ($this->userRepo->create($data)) FlashMiddleware::flash("success", "L'utilisateur a bien été créé.");
-                        else {
-                            $fail = true;
-                            FlashMiddleware::flash("error", "Une erreur est survenue lors de la création de l'utilisateur.");
+                        $user = $post ? $this->userRepo->create($data) : $this->userRepo->update($data);
+
+                        if ($user) {
+                            FlashMiddleware::flash("success", "Utilisateur enregistrée avec succès.");
+                            if ($post) return $this->redirect($response, "/create/user/" . $role);
+                            else return $this->redirect($response, "/users/" . $role);
+                        } else {
+                            FlashMiddleware::flash("error", "Une erreur est survenue lors de la modification de l'utilisateur.");
+                            if (!$post) return $this->redirect($response, "/create/user/" . $role . "?edit=true&id=" . $data["id"]);
                         }
-                    } else $fail = true;
-                } else $fail = true;
-                if ($fail) ErrorsMiddleware::error($errors);
-//            }
+                    }
+                }
+                ErrorsMiddleware::error($errors);
+                if (!$post) return $this->redirect($response, "/create/user/" . $role . "?edit=true&id=" . $data["id"]);
+            }
 
-
-            /*
-             * if ($_POST["_method"] === "DELETE") {
+            if($_POST["_method"] === "DELETE") {
                 $data = $request->getParsedBody();
                 $id = $data["id"];
 
-                if (Validator::intVal()->validate($id) && $this->companyRepo->delete($id)) FlashMiddleware::flash("success", "L'entreprise a bien été supprimée.");
-                else FlashMiddleware::flash("error", "Une erreur est survenue lors de la suppression de l'entreprise.");
-                return $this->redirect($response, "/create/company?edit=true&id=" . $data["id"]);
+                if (Validator::intVal()->validate($id) && $this->userRepo->delete($id)) FlashMiddleware::flash("success", "L'utilisateur a bien été supprimée.");
+                else FlashMiddleware::flash("error", "Une erreur est survenue lors de la suppression de l'utilisateur.");
+                return $this->redirect($response, "/create/user/" . $role . "?edit=true&id=" . $data["id"]);
             }
 
             if ($_POST["_method"] === "RESTORE") {
                 $data = $request->getParsedBody();
                 $id = $data["id"];
 
-                if (Validator::intVal()->validate($id) && $this->companyRepo->restore($id)) FlashMiddleware::flash("success", "L'entreprise de stage a bien été retaurée.");
-                else FlashMiddleware::flash("error", "Une erreur est survenue lors de la restauration de l'entreprise.");
-                return $this->redirect($response, "/create/company?edit=true&id=" . $data["id"]);
+                if (Validator::intVal()->validate($id) && $this->userRepo->restore($id)) FlashMiddleware::flash("success", "L'utilisateur de stage a bien été retaurée.");
+                else FlashMiddleware::flash("error", "Une erreur est survenue lors de la restauration de l'utilisateur.");
+                return $this->redirect($response, "/create/user/" . $role . "?edit=true&id=" . $data["id"]);
             }
-             */
-
         }
 
         return $this->redirect($response, "/create/user/$role");

@@ -20,9 +20,15 @@
 {% block content %}
     <section>
         <div class="container">
-            <form class="card bg-deepWarmGrey py-3 px-3 my-5 shadow" action="{{ url_for("create_user", {"role": 3}) }}"
+            {% if edit %}
+                <form action="{{ url_for("create_user", {"role": 3}) }}" method="post" id="state">
+                    <input type="hidden" name="_method" value="{% if deleted %}RESTORE{% else %}DELETE{% endif %}">
+                    <input type="hidden" id="id" name="id" value="{{ id }}">
+                </form>
+            {% endif %}
+            <form class="card bg-deepWarmGrey py-3 px-3 my-5 shadow"
+                  action="{{ url_for("create_user", {"role": 3}) }}"
                   method="post" enctype="multipart/form-data">
-                {{ include("components/layouts/flash_banners.twig") }}
                 <div class="row mb-2">
                     <div class="col-6 text-center border-end border-heavyBlack text-deepSeaBlue">
                         <a class="disabled text-decoration-none" href={{ url_for("create_user", {"role": 3}) }}>
@@ -36,6 +42,9 @@
                     </div>
                 </div>
                 <hr>
+                {{ include("components/layouts/flash_banners.twig") }}
+                <input type="hidden" name="_method" value="{% if edit %}PATCH{% else %}POST{% endif %}">
+                {% if edit %}<input type="hidden" id="id" name="id" value="{{ id }}">{% endif %}
                 <div class="row">
                     <div class="row">
                         <div class="col-md-12 col-lg-6">
@@ -55,19 +64,36 @@
                             </div>
 
                             <h5 class="mt-2">Nom d'utilisateur</h5>
-                            {{ form_field.content("login", old, errors) }}
+                            {% if edit %}
+                                <input class="form-control" type="text" id="login" name="login" aria-label="login"
+                                       value="{{ old["login"] }}" readonly>
+                            {% else %}
+                                {{ form_field.content("login", old, errors) }}
+                            {% endif %}
 
                             <h5 class="mt-2">Mot de passe</h5>
                             {{ password_field.content("password", errors) }}
-
-
                         </div>
 
                         <div class="col-md-12 col-lg-6">
                             <h5 class="mt-md-2 mt-lg-0">Localisation (Code postal - Ville)</h5>
                             <div class="row">
-                                <div class="col">{{ form_field.content("zipCode", old, errors) }}</div>
-                                <div class="col">{{ form_field.content("city", old, errors) }}</div>
+                                <div class="col">
+                                    {% if edit %}
+                                        <input class="form-control" type="text" id="zipCode" name="zipCode" aria-label="zipCode"
+                                               value="{{ old["zipCode"] }}" readonly>
+                                    {% else %}
+                                        {{ form_field.content("zipCode", old, errors) }}
+                                    {% endif %}
+                                </div>
+                                <div class="col">
+                                    {% if edit %}
+                                        <input class="form-control" type="text" id="city" name="city" aria-label="city"
+                                               value="{{ old["city"] }}" readonly>
+                                    {% else %}
+                                        {{ form_field.content("city", old, errors) }}
+                                    {% endif %}
+                                </div>
                             </div>
 
                             <h5 class="mt-2">Compétences</h5>
@@ -82,6 +108,17 @@
                     </div>
 
                     <div class="row mt-3">
+                        {% if edit %}
+                            {% if deleted %}
+                                <div class="col">
+                                    <button class="btn btn-deepGreen text-white" form="state">Restaurer</button>
+                                </div>
+                            {% else %}
+                                <div class="col">
+                                    <button class="btn btn-coldRed text-white" form="state">Supprimer</button>
+                                </div>
+                            {% endif %}
+                        {% endif %}
                         <div class="col text-end">
                             <button class="btn btn-deepSeaBlue">Valider</button>
                         </div>

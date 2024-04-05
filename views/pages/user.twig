@@ -6,7 +6,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-4">
-                    <img class="img-fluid my-3 rounded-5" src="/files/users/{{ user.getProfilePicture() }}"
+                    <img class="img-fluid my-3 rounded-5" src="/files/users/{{ currentUser.getProfilePicture() }}"
                          alt="profile_picture" style="width: 20vh; height: 20vh;">
                 </div>
                 <div class="col-8">
@@ -19,21 +19,21 @@
         <div class="container">
             <div class="row align-items-center text-nowrap">
                 <div class="my-2"></div>
-                <h2>{{ user.getFirstName() }} {{ user.getLastName() }}</h2>
+                <h2>{{ currentUser.getFirstName() }} {{ currentUser.getLastName() }}</h2>
                 <h4>
-                    A{{ user.getPromos()[0].getYear() }}
-                    {{ user.getPromos()[0].getType() }}
+                    A{{ currentUser.getPromos()[0].getYear() }}
+                    {{ currentUser.getPromos()[0].getType() }}
                     -
-                    {{ user.getPromos()[0].getSchool() }}
+                    {{ currentUser.getPromos()[0].getSchool() }}
                 </h4>
-                <h6 class="text-lightGrey">{{ user.getLocation().getZipCode() }} {{ user.getLocation().getCity() }}</h6>
+                <h6 class="text-lightGrey">{{ currentUser.getLocation().getZipCode() }} {{ currentUser.getLocation().getCity() }}</h6>
                 <div class="my-2"></div>
-                <a class="col-7 btn btn-deepSeaBlue" href="{{ url_for("wishlist", {"id": user.getId()}) }}">
+                <a class="col-7 btn btn-deepSeaBlue" href="{{ url_for("wishlist", {"id": currentUser.getId()}) }}">
                     Consulter le profil
                     <i class="fa fa-share"></i>
                 </a>
                 <a class="col btn btn-deepSeaBlue ms-3 {% if user.getRole() > 2 %}disabled{% endif %}"
-                   {#href="{{ url_for("create_user", {}, {"edit": true, "id": internship.getId()}) }}"#}>
+                   href="{{ url_for("create_user", {"role": currentUser.getRole()}, {"edit": true, "id": currentUser.getId()}) }}">
                     Modifer
                 </a>
             </div>
@@ -45,7 +45,7 @@
     <section>
         <div class="container text-bg-deepWarmGrey rounded-2 pt-3 pb-4 px-3 my-5">
             <h2>Infos</h2>
-            {{ user.getDescription() }}
+            {{ currentUser.getDescription() }}
         </div>
     </section>
 {% endblock %}

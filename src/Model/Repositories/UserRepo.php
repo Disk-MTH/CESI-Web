@@ -108,6 +108,60 @@ final class UserRepo extends EntityRepository
         }
     }
 
+    public function update(array $data): User|null
+    {
+        try {
+            $user = $this->find($data["id"]);
+            if (!$user) return null;
+
+            $user->setFirstName($data["firstName"])
+                ->setLastName($data["lastName"])
+                ->setProfilePicture($data["profilePicture"])
+                ->setDescription($data["description"])
+                ->setLocation($data["location"]);
+
+            if ($user->getRole() == 3) {
+                $user->setSkills($data["skills"]);
+            }
+
+            $this->_em->flush();
+
+            return $user;
+        } catch (Throwable) {
+            return null;
+        }
+    }
+
+    public function delete(int $id): bool
+    {
+        try {
+            $user = $this->find($id);
+            if (!$user) return false;
+
+            $user->setDeleted(true);
+            $this->_em->flush();
+
+            return true;
+        } catch (Throwable) {
+            return false;
+        }
+    }
+
+    public function restore(int $id): bool
+    {
+        try {
+            $user = $this->find($id);
+            if (!$user) return false;
+
+            $user->setDeleted(false);
+            $this->_em->flush();
+
+            return true;
+        } catch (Throwable) {
+            return false;
+        }
+    }
+
     public function findByRate(Rate $rate): User|null
     {
         try {

@@ -185,7 +185,8 @@ class ApiController extends Controller
         );
         $users = array_map(function ($user) {
             return [
-                "id" => $user["id"],
+//                "id" => $user["id"],
+                "url" => "/user/" . $user["id"],
                 "profilePicture" => "/files/users/" . $user["profilePicture"],
                 "firstName" => $user["firstName"],
                 "lastName" => $user["lastName"],
