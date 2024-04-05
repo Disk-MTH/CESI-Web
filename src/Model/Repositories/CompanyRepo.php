@@ -20,6 +20,11 @@ final class CompanyRepo extends EntityRepository
             ->addSelect("(SELECT AVG(r2.grade) FROM stagify\Model\Entities\Company c3 JOIN c3.internships io2 JOIN io2.rates r2 WHERE c3.id = c.id) AS averageGrade")
             ->innerJoin("c.locations", "l");
 
+            if ($_SESSION["user"] > 1) {
+                $builder->andWhere("c.deleted = 0");
+            }
+
+            $builder->orderBy("c.id", "ASC");;
 
         if ($rating) $builder->orderBy("averageGrade", $rating);
 

@@ -20,6 +20,12 @@ final class InternshipRepo extends EntityRepository
             ->leftJoin("i.rates", "r")
             ->groupBy("i.id");
 
+            if ($_SESSION["user"] > 1) {
+                $builder->andWhere("i.deleted = 0");
+            }
+
+            $builder->orderBy("i.id", "ASC");
+
         if ($date) $builder->orderBy("i.startDate", $date);
 
         if ($rating) $builder->orderBy("rate", $rating);
