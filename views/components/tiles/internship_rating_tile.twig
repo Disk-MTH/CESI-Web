@@ -1,18 +1,17 @@
-{% macro content(rating_number, id) %}
-    <div class="card shadow my-3 bg-gradient-card rounded-4"
+{% macro content(id, ratingNumber, averageRating) %}
+    {% import "components/forms/rating_field.twig" as rating_field %}
+
+    <div class="card shadow my-3 bg-gradient-card"
          onclick="navigateTo(event, '{{ url_for("internship_rating", {"id": id} ) }}')">
         <div class="card-body">
             <div class="row mb-3">
-                <div class="col">
-                    <img class="fluid" src="/assets/svg/tile/star_full.svg" alt="star">
-                    <img class="fluid" src="/assets/svg/tile/star_full.svg" alt="star">
-                    <img class="fluid" src="/assets/svg/tile/star_full.svg" alt="star">
-                    <img class="fluid" src="/assets/svg/tile/star_full.svg" alt="star">
-                    <img class="fluid" src="/assets/svg/tile/star_empty.svg" alt="star">
-                </div>
+                {{ rating_field.content("average_rate", averageRating) }}
             </div>
             <h2>Avis du stage</h2>
-            <h6>{{ rating_number }} avis <img src="/assets/svg/misc/arrow_right.svg" alt="arrow"></h6>
+            <h6>
+                {{ ratingNumber }} avis
+                <i class="fa fa-arrow-right text-deepSeaBlue"></i>
+            </h6>
         </div>
     </div>
 {% endmacro %}

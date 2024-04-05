@@ -67,7 +67,6 @@ class InternshipsController extends Controller
         $this->userRepo = $this->entityManager->getRepository(User::class);
         $this->rateRepo = $this->entityManager->getRepository(Rate::class);
         $this->applicationRepo = $this->entityManager->getRepository(Application::class);
-
     }
 
     function internships(Request $request, Response $response): Response
@@ -79,7 +78,15 @@ class InternshipsController extends Controller
 
     function internship(Request $request, Response $response, array $pathArgs): Response
     {
-        return $this->render($response, "pages/internship.twig", ["internship" => $this->internshipRepo->find($pathArgs["id"]), "company" => $this->companyRepo->byInternshipId($pathArgs["id"])]);
+        $internship = $this->internshipRepo->find($pathArgs["id"]);
+        $ratesCount = $internship->getRates()->count();
+        return $this->render($response, "pages/internship.twig", [
+            "internship" => $internship,
+            "company" => $this->companyRepo->byInternshipId($pathArgs["id"]),
+            "ratesCount" => $ratesCount,
+            "averageRate" => $ratesCount > 0 ? round(array_sum(array_map(fn(Rate $rate) => $rate->getGrade(), $internship->getRates()->toArray())) / $ratesCount) : 0,
+            "userWish" => $this->userRepo->isWish($internship->getId()),
+        ]);
     }
 
     function rating(Request $request, Response $response, array $pathParams): Response
@@ -98,7 +105,6 @@ class InternshipsController extends Controller
         }
 
         if ($request->getMethod() === "POST") {
-
             $data = $request->getParsedBody();
             $errors = ErrorsMiddleware::validate($data);
 
@@ -107,8 +113,6 @@ class InternshipsController extends Controller
 
             Validator::intVal()->validate($data["job_rating"]) || $errors["rate"] = "La note ne peut pas être vide";
             Validator::notEmpty()->validate($data["description"]) || $errors["description"] = "La description ne peut pas être vide";
-
-            $this->logger->info(json_encode($data));
 
             if (empty($errors)) {
                 $rate = $this->rateRepo->create($data);

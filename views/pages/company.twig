@@ -23,30 +23,34 @@
         <div class="container">
             <div class="row">
                 <div class="col col-md-4 text-nowrap">
-                        <h2 class="mt-3">{{ company.getName() }} - {{ location.getZipCode() }} {{ location.getCity() }}</h2>
-                        <h4 class="mb-3">{{ company.getActivitySector().getName() }}</h4>
-                        <h5 class="text-deepSeaBlue">
-                            <i class="fa fa-users"></i>
-                            &middot;
-                            {{ company.getEmployeeCount() }} employés
-                        </h5>
-                        <h5 class="text-deepSeaBlue">
-                            <i class="fa fa-book"></i>
-                            &middot;
-                            Un total de {{ company.getInternships()|length }} stages
-                        </h5>
-                        <a class="btn btn-deepSeaBlue mt-4" href="{{ company.getWebsite() }}">
-                            Consulter le site web
-                            <i class="fa fa-share"></i>
-                        </a>
-                        <div class="d-md-none">
-                            {{ company_rating_tile.content("Facebook","250") }}
-                        </div>
+                    <h2 class="mt-3">{{ company.getName() }} - {{ location.getZipCode() }} {{ location.getCity() }}</h2>
+                    <h4 class="mb-3">{{ company.getActivitySector().getName() }}</h4>
+                    <h5 class="text-deepSeaBlue">
+                        <i class="fa fa-users"></i>
+                        &middot;
+                        {{ company.getEmployeeCount() }} employés
+                    </h5>
+                    <h5 class="text-deepSeaBlue">
+                        <i class="fa fa-book"></i>
+                        &middot;
+                        Un total de {{ company.getInternships()|length }} stages
+                    </h5>
+                    <a class="btn btn-deepSeaBlue mt-4" href="{{ company.getWebsite() }}">
+                        Consulter le site web
+                        <i class="fa fa-share"></i>
+                    </a>
+                    <a class="btn btn-deepSeaBlue mt-4 ms-3 {% if user.getRole() > 2 %}disabled{% endif %}"
+                       href="{{ url_for("create_company", {}, {"edit": true, "id": company.getId()}) }}">
+                        Modifer
+                    </a>
+                    <div class="d-md-none">
+                        {{ company_rating_tile.content(company.getName(), ratesCount, averageRate) }}
+                    </div>
                 </div>
                 <div class="col-4 col-md-2 col-lg-3 col-xl-4 d-none d-md-block">
                 </div>
                 <div class="col-4 col-md-6 col-lg-5 col-xl-4 d-none d-md-block">
-                    {{ company_rating_tile.content("Facebook","250") }}
+                    {{ company_rating_tile.content(company.getName(), ratesCount, averageRate) }}
                 </div>
             </div>
         </div>

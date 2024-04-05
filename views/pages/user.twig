@@ -28,8 +28,13 @@
                 </h4>
                 <h6 class="text-lightGrey">{{ user.getLocation().getZipCode() }} {{ user.getLocation().getCity() }}</h6>
                 <div class="my-2"></div>
-                <a class="h6 text-deepSeaBlue text-decoration-none" href="{{ url_for("wishlist", {"id": user.getId()}) }}">
-                    Details du profil
+                <a class="col-7 btn btn-deepSeaBlue" href="{{ url_for("wishlist", {"id": user.getId()}) }}">
+                    Consulter le profil
+                    <i class="fa fa-share"></i>
+                </a>
+                <a class="col btn btn-deepSeaBlue ms-3 {% if user.getRole() > 2 %}disabled{% endif %}"
+                   {#href="{{ url_for("create_user", {}, {"edit": true, "id": internship.getId()}) }}"#}>
+                    Modifer
                 </a>
             </div>
         </div>

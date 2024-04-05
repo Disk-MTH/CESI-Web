@@ -37,6 +37,4 @@ class RateRepo extends EntityRepository
             return null;
         }
     }
-
-
 }

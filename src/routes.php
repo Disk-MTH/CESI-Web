@@ -58,7 +58,6 @@ return function (App $app) {
 
     $app->get("/internship", [InternshipsController::class, "internship"])->setName("internship");
 
-    //TODO: internship -> id
     $app->get("/internship/{id}/apply", [InternshipsController::class, "apply"])->setName("apply_internship");
 
     $app->post("/internship/{id}/apply", [InternshipsController::class, "apply"])->setName("apply_internship");

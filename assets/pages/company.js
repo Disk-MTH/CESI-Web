@@ -1,7 +1,6 @@
 pagination = $("#pagination").pagination({maxVisible: 5});
 
 pagination.on("changePage", async function (event, page) {
-    //TODO: Add name filter
     filters = "";
 
     const element = $("#internships");
