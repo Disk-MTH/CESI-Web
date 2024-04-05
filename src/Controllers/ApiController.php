@@ -82,6 +82,8 @@ class ApiController extends Controller
             "users" => $this->userRepo->pagination(
                 -1,
                 $request->getQueryParams()["role"] ?? null,
+                $request->getQueryParams()["keyword"] ?? null,
+                $request->getQueryParams()["location"] ?? null,
                 true,
             ),
             default => -1,
