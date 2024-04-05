@@ -122,7 +122,7 @@ class InternshipsController extends Controller
         return $this->render($response, "pages/internship_rating.twig", ["internship" => $internship, "rates" => $rates, "company" => $company]);
     }
 
-    function apply(Request $request, Response $response, array $pathArgs): Response
+    function apply(Request $request, Response $response, array $pathParams): Response
     {
 
         if ($request->getMethod() === "POST") {
@@ -131,17 +131,18 @@ class InternshipsController extends Controller
             $errors = ErrorsMiddleware::validate($data);
             $fail = false;
 
-            $data["internship"] = $this->internshipRepo->find($pathArgs["id"]);
+            $data["internship"] = $this->internshipRepo->find($pathParams["id"]);
             $data["user"] = $this->userRepo->find($_SESSION["user"]);
             $data["cv"] = $files["cv"];
             $data["coverLetter"] = $files["coverLetter"];
 
-            $this->logger->info(json_encode($data));
 
-            Validator::intVal()->positive()->validate($data["cv"]) || $errors["cv"] = "Le CV est invalide";
-            Validator::intVal()->positive()->validate($data["coverLetter"]) || $errors["coverLetter"] = "La lettre de motivation est invalide";
+            Validator::intVal()->positive()->validate($data["cv"]->getSize()) || $errors["cv"] = "Le CV est invalide";
+            Validator::intVal()->positive()->validate($data["coverLetter"]->getSize()) || $errors["coverLetter"] = "La lettre de motivation est invalide";
+
 
             if (empty($errors)) {
+
                 $data["cv"] = $this->moveFile($data["cv"], "internship/cv");
                 if (!$data["cv"]) $errors["cv"] = "Le cv n'a pas pu être enregistrée";
 
@@ -149,17 +150,23 @@ class InternshipsController extends Controller
                 if (!$data["coverLetter"]) $errors["coverLetter"] = "La lettre de motivation n'a pas pu être enregistrée";
 
                 if (empty($errors)) {
+
+                    $this->logger->info("aaaaa");
+
                     $application = $this->applicationRepo->create($data);
+
+                    $this->logger->info(json_encode($application));
+
                     if ($application) {
                         FlashMiddleware::flash("success", "Candidature enregistrée avec succès.");
-                        return $this->redirect($response, "/internship/" . $pathArgs["id"] . "/apply");
+                        return $this->redirect($response, "/internship/" . $pathParams["id"] . "/apply");
                     }
                 } else $fail = true;
             } else $fail = true;
             if ($fail) ErrorsMiddleware::error($errors);
         }
 
-        return $this->render($response, "pages/apply_internship.twig", ["internship" => $this->internshipRepo->find($pathArgs["id"]), "company" => $this->companyRepo->byInternshipId($pathArgs["id"])]);
+        return $this->render($response, "pages/apply_internship.twig", ["internship" => $this->internshipRepo->find($pathParams["id"]), "company" => $this->companyRepo->byInternshipId($pathParams["id"])]);
     }
 
     /** @throws Throwable */
