@@ -23,16 +23,6 @@ function toggleWish(event, id) {
     event.stopPropagation();
 }
 
-function toggleWishMark(event, id) {
-    const icon = document.getElementById(id);
-
-    if (icon.src.includes("wish_empty")) {
-        icon.src = "/assets/svg/misc/wish_full.svg";
-    } else {
-        icon.src = "/assets/svg/misc/wish_empty.svg";
-    }
-}
-
 function setLoading(content) {
     content.html($("#loading").html());
 }
