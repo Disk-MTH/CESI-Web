@@ -11,6 +11,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Respect\Validation\Validator;
 use stagify\Middlewares\ErrorsMiddleware;
 use stagify\Middlewares\FlashMiddleware;
+use stagify\Model\Entities\Application;
 use stagify\Model\Entities\Company;
 use stagify\Model\Entities\Internship;
 use stagify\Model\Entities\Location;
@@ -18,6 +19,7 @@ use stagify\Model\Entities\Promo;
 use stagify\Model\Entities\Rate;
 use stagify\Model\Entities\Skill;
 use stagify\Model\Entities\User;
+use stagify\Model\Repositories\ApplicationRepo;
 use stagify\Model\Repositories\CompanyRepo;
 use stagify\Model\Repositories\InternshipRepo;
 use stagify\Model\Repositories\LocationRepo;
@@ -48,8 +50,10 @@ class InternshipsController extends Controller
     private EntityRepository $userRepo;
 
     /** @var RateRepo $rateRepo */
-    private $rateRepo;
-    private EntityManager $em;
+    private EntityRepository $rateRepo;
+
+    /** @var ApplicationRepo $applicationRepo */
+    private EntityRepository $applicationRepo;
 
 
     public function __construct(ContainerInterface $container)
@@ -62,8 +66,7 @@ class InternshipsController extends Controller
         $this->locationRepo = $this->entityManager->getRepository(Location::class);
         $this->userRepo = $this->entityManager->getRepository(User::class);
         $this->rateRepo = $this->entityManager->getRepository(Rate::class);
-
-        $this->em = $container->get("entityManager");
+        $this->applicationRepo = $this->entityManager->getRepository(Application::class);
 
     }
 
@@ -119,9 +122,44 @@ class InternshipsController extends Controller
         return $this->render($response, "pages/internship_rating.twig", ["internship" => $internship, "rates" => $rates, "company" => $company]);
     }
 
-    function apply(Request $request, Response $response): Response
+    function apply(Request $request, Response $response, array $pathArgs): Response
     {
-        return $this->render($response, "pages/apply_internship.twig");
+
+        if ($request->getMethod() === "POST") {
+            $files = $request->getUploadedFiles();
+            $data = [];
+            $errors = ErrorsMiddleware::validate($data);
+            $fail = false;
+
+            $data["internship"] = $this->internshipRepo->find($pathArgs["id"]);
+            $data["user"] = $this->userRepo->find($_SESSION["user"]);
+            $data["cv"] = $files["cv"];
+            $data["coverLetter"] = $files["coverLetter"];
+
+            $this->logger->info(json_encode($data));
+
+            Validator::intVal()->positive()->validate($data["cv"]) || $errors["cv"] = "Le CV est invalide";
+            Validator::intVal()->positive()->validate($data["coverLetter"]) || $errors["coverLetter"] = "La lettre de motivation est invalide";
+
+            if (empty($errors)) {
+                $data["cv"] = $this->moveFile($data["cv"], "internship/cv");
+                if (!$data["cv"]) $errors["cv"] = "Le cv n'a pas pu être enregistrée";
+
+                $data["coverLetter"] = $this->moveFile($data["coverLetter"], "internship/coverLetter");
+                if (!$data["coverLetter"]) $errors["coverLetter"] = "La lettre de motivation n'a pas pu être enregistrée";
+
+                if (empty($errors)) {
+                    $application = $this->applicationRepo->create($data);
+                    if ($application) {
+                        FlashMiddleware::flash("success", "Candidature enregistrée avec succès.");
+                        return $this->redirect($response, "/internship/" . $pathArgs["id"] . "/apply");
+                    }
+                } else $fail = true;
+            } else $fail = true;
+            if ($fail) ErrorsMiddleware::error($errors);
+        }
+
+        return $this->render($response, "pages/apply_internship.twig", ["internship" => $this->internshipRepo->find($pathArgs["id"]), "company" => $this->companyRepo->byInternshipId($pathArgs["id"])]);
     }
 
     /** @throws Throwable */

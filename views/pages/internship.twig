@@ -22,7 +22,9 @@
                                 <img src="/assets/svg/misc/wish_empty.svg" alt="wish_mark" id="wish">
                             </div>
                             <div class="col ">
-                                <div class="btn btn-deepSeaBlue rounded-2">Faire une demande
+                                <div class="btn btn-deepSeaBlue rounded-2"
+                                     onclick="navigateTo(event, '{{ url_for("apply_internship", {"id": internship.getId()} ) }}')">
+                                    Faire une demande
                                 </div>
                             </div>
                         </div>
@@ -35,7 +37,7 @@
             </div>
             <div class="row d-md-none">
 
-                <div class="col12 text-start    ">
+                <div class="col12 text-start">
                     {{ job_rating_tile.content("18", internship.getId()) }}
                 </div>
             </div>
