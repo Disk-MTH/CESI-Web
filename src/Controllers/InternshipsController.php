@@ -128,25 +128,24 @@ class InternshipsController extends Controller
 
     function apply(Request $request, Response $response, array $pathParams): Response
     {
+        if ($request->getMethod() === "GET") {
+            return $this->render($response, "pages/apply_internship.twig", ["internship" => $this->internshipRepo->find($pathParams["id"]), "company" => $this->companyRepo->byInternshipId($pathParams["id"])]);
+        }
 
         if ($request->getMethod() === "POST") {
             $files = $request->getUploadedFiles();
             $data = [];
             $errors = ErrorsMiddleware::validate($data);
-            $fail = false;
 
             $data["internship"] = $this->internshipRepo->find($pathParams["id"]);
             $data["user"] = $this->userRepo->find($_SESSION["user"]);
             $data["cv"] = $files["cv"];
             $data["coverLetter"] = $files["coverLetter"];
 
-
             Validator::intVal()->positive()->validate($data["cv"]->getSize()) || $errors["cv"] = "Le CV est invalide";
             Validator::intVal()->positive()->validate($data["coverLetter"]->getSize()) || $errors["coverLetter"] = "La lettre de motivation est invalide";
 
-
             if (empty($errors)) {
-
                 $data["cv"] = $this->moveFile($data["cv"], "internship/cv");
                 if (!$data["cv"]) $errors["cv"] = "Le cv n'a pas pu être enregistrée";
 
@@ -164,13 +163,15 @@ class InternshipsController extends Controller
                     if ($application) {
                         FlashMiddleware::flash("success", "Candidature enregistrée avec succès.");
                         return $this->redirect($response, "/internship/" . $pathParams["id"] . "/apply");
+                    } else {
+                        FlashMiddleware::flash("error", "Une erreur est survenue lors de l'enregistrement de la candidature.");
                     }
-                } else $fail = true;
-            } else $fail = true;
-            if ($fail) ErrorsMiddleware::error($errors);
+                }
+            }
+            ErrorsMiddleware::error($errors);
         }
 
-        return $this->render($response, "pages/apply_internship.twig", ["internship" => $this->internshipRepo->find($pathParams["id"]), "company" => $this->companyRepo->byInternshipId($pathParams["id"])]);
+        return $this->redirect($response, "/internship/" . $pathParams["id"] . "/apply");
     }
 
     /** @throws Throwable */
