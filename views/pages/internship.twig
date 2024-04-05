@@ -18,10 +18,19 @@
                         <div class="row align-items-center">
                             <h2 class="mt-3">{{ internship.getTitle() }}</h2>
                             <h4 class="mb-3 text-darkGrey">{{ company.getName() }}</h4>
-                            <i class="col fa fa-2x text-deepSeaBlue" id="wish-{{ internship.getId() }}" data-wish="{{ userWish }}"
-                               onclick="toggleWish(event, '{{ internship.getId() }}')">
-                                <div class="btn btn-deepSeaBlue ms-3">Faire une demande</div>
-                            </i>
+                            <div class="row">
+                                <i class="col-1 fa fa-2x text-deepSeaBlue" id="wish-{{ internship.getId() }}"
+                                   data-wish="{{ userWish }}"
+                                   onclick="toggleWish(event, '{{ internship.getId() }}')">
+                                </i>
+                                <div class="col-4 btn btn-deepSeaBlue ms-3 {% if user.getRole() == 2 %}disabled{% endif %}">
+                                    Faire une demande
+                                </div>
+                                <a class="col-4 btn btn-deepSeaBlue ms-3 {% if user.getRole() > 2 %}disabled{% endif %}"
+                                   href="{{ url_for("create_internship", {}, {"edit": true, "id": internship.getId()}) }}">
+                                    Modifer
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
