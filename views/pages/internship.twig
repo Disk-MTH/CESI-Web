@@ -2,7 +2,7 @@
 {% set alternative_search_bar = true %}
 {% extends "components/layouts/layout.twig" %}
 {% import "components/tiles/internship_info_tiles.twig" as job_info_tiles %}
-{% import "components/tiles/internship_rating_tile.twig" as internship_rating_tile %}
+{% import "components/tiles/internship_rating_tile.twig" as job_rating_tile %}
 
 {% block header %}
     <section class="bg-deepWarmGrey rounded-bottom-5 pb-5">
@@ -26,10 +26,6 @@
                                 <div class="col-4 btn btn-deepSeaBlue ms-3 {% if user.getRole() == 2 %}disabled{% endif %}">
                                     Faire une demande
                                 </div>
-                                <a class="col-4 btn btn-deepSeaBlue ms-3 {% if user.getRole() > 2 %}disabled{% endif %}"
-                                   href="{{ url_for("create_internship", {}, {"edit": true, "id": internship.getId()}) }}">
-                                    Modifer
-                                </a>
                             </div>
                         </div>
                     </div>
