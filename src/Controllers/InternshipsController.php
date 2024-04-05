@@ -78,7 +78,8 @@ class InternshipsController extends Controller
             "internship" => $internship,
             "company" => $this->companyRepo->byInternshipId($pathArgs["id"]),
             "ratesCount" => $ratesCount,
-            "averageRate" => $ratesCount > 0 ? round(array_sum(array_map(fn(Rate $rate) => $rate->getGrade(), $internship->getRates()->toArray())) / $ratesCount) : 0
+            "averageRate" => $ratesCount > 0 ? round(array_sum(array_map(fn(Rate $rate) => $rate->getGrade(), $internship->getRates()->toArray())) / $ratesCount) : 0,
+            "userWish" => $this->userRepo->isWish($internship->getId()),
         ]);
     }
 
