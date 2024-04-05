@@ -22,18 +22,22 @@ class ApplicationRepo extends EntityRepository
 
     public function create(array $data): Application|null
     {
-        try {
-            $application = (new Application())
-                ->setCvFile($data["cv_file"])
-                ->setCoverLetterFile($data["cover_letter"])
-                ->setUser($data["user"])
-                ->setInternship($data["internship"]);
-            $this->_em->persist($application);
-            $this->_em->flush();
+        /*try {
 
-            return $application;
         } catch (Throwable) {
             return null;
-        }
+        }*/
+
+        $application = (new Application())
+            ->setAccepted(false)
+            ->setCvFile($data["cv"])
+            ->setCoverLetterFile($data["coverLetter"])
+            ->setUser($data["user"])
+            ->setInternship($data["internship"]);
+
+        $this->_em->persist($application);
+        $this->_em->flush();
+
+        return $application;
     }
 }
