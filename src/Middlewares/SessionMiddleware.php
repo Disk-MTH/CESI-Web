@@ -17,6 +17,8 @@ class SessionMiddleware extends Shared implements MiddlewareInterface
     /** @throws Throwable */
     public function process(Request $request, RequestHandler $handler): Response
     {
+        if ($request->getUri()->getPath() == "/offline") return $handler->handle($request);
+
         $sessionRepo = $this->entityManager->getRepository(Session::class);
         $session = null;
 

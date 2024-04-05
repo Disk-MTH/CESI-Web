@@ -57,5 +57,3 @@ self.addEventListener("fetch", function (event) {
         if (VERBOSE) console.log("Service Worker cached: ", event.request.url);
     }
 });
-
-
