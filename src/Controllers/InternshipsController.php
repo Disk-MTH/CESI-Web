@@ -15,14 +15,12 @@ use stagify\Model\Entities\Company;
 use stagify\Model\Entities\Internship;
 use stagify\Model\Entities\Location;
 use stagify\Model\Entities\Promo;
-use stagify\Model\Entities\Rate;
 use stagify\Model\Entities\Skill;
 use stagify\Model\Entities\User;
 use stagify\Model\Repositories\CompanyRepo;
 use stagify\Model\Repositories\InternshipRepo;
 use stagify\Model\Repositories\LocationRepo;
 use stagify\Model\Repositories\PromoRepo;
-use stagify\Model\Repositories\RateRepo;
 use stagify\Model\Repositories\SkillRepo;
 use stagify\Model\Repositories\UserRepo;
 use Throwable;
@@ -47,6 +45,10 @@ class InternshipsController extends Controller
     /** @var UserRepo $userRepo */
     private EntityRepository $userRepo;
 
+    /** @var RateRepo $rateRepo */
+    private EntityRepository $rateRepo;
+
+
     public function __construct(ContainerInterface $container)
     {
         parent::__construct($container);
@@ -56,6 +58,7 @@ class InternshipsController extends Controller
         $this->skillRepo = $this->entityManager->getRepository(Skill::class);
         $this->locationRepo = $this->entityManager->getRepository(Location::class);
         $this->userRepo = $this->entityManager->getRepository(User::class);
+        $this->rateRepo = $this->entityManager->getRepository(Rate::class);
     }
 
     function internships(Request $request, Response $response): Response
@@ -80,8 +83,6 @@ class InternshipsController extends Controller
     function rating(Request $request, Response $response, array $pathParams): Response
     {
         if ($request->getMethod() === "GET") {
-
-
             $internship = $this->internshipRepo->find($pathParams["id"]);
             $internshipRates = $internship->getRates();
             $rates = [];
@@ -98,19 +99,18 @@ class InternshipsController extends Controller
             $errors = ErrorsMiddleware::validate($data);
 
             $data["internship"] = $this->internshipRepo->find($pathParams["id"]);
-            $data["user"] = $this->userRepo->find($data["userId"]);
+            $data["user"] = $this->userRepo->find($_SESSION["user"]);
 
-            Validator::intVal()->positive()->validate($data["rate"]) || $errors["rate"] = "La note ne peut pas être vide";
+            Validator::intVal()->validate($data["job_rating"]) || $errors["rate"] = "La note ne peut pas être vide";
             Validator::notEmpty()->validate($data["description"]) || $errors["description"] = "La description ne peut pas être vide";
 
             if (empty($errors)) {
-                $rate = $_POST["_method"] === "POST" ? $this->userRepo->create($data) : $this->internshipRepo->update($data);
+                $rate = $this->rateRepo->create($data);
                 if ($rate) {
-                    FlashMiddleware::flash("success", "Offre de stage enregistrée avec succès.");
-                    return $this->redirect($response, "/pages/internship_rating.twig" . $internship->getId());
+                    FlashMiddleware::flash("success", "Note enregistrée avec succès.");
+                    return $this->redirect($response, "/internship/" . $pathParams["id"] . "/rating");
                 }
             }
-
         }
 
         return $this->render($response, "pages/internship_rating.twig", ["internship" => $internship, "rates" => $rates, "company" => $company]);

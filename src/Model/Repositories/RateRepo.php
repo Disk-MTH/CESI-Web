@@ -2,8 +2,9 @@
 
 namespace stagify\Model\Repositories;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use stagify\Model\Entities\ActivitySector;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use stagify\Model\Entities\Internship;
 use stagify\Model\Entities\Rate;
 use Throwable;
@@ -20,27 +21,14 @@ class RateRepo extends EntityRepository
             ->getResult();
     }
 
-    function byName(string $name): ActivitySector|null
-    {
-        try {
-            return $this->createQueryBuilder("r")
-                ->where("r.name = :name")
-                ->setParameter("name", $name)
-                ->getQuery()
-                ->getOneOrNullResult();
-        } catch (Throwable) {
-            return null;
-        }
-    }
-
     public function create(array $data): Rate|null
     {
         try {
             $rate = (new Rate())
                 ->setDescription($data["description"])
-                ->setGrade($data["grade"]);
+                ->setGrade($data["job_rating"]);
             $data["user"]->addRate($rate);
-            $data["company"]->addRate($rate);
+            $data["internship"]->addRate($rate);
             $this->_em->persist($rate);
             $this->_em->flush();
 
